@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/simon_says">
+
+    <TextView
+        android:gravity="center"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/count"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:textSize="20sp"
+        app:layout_constraintHeight_percent="0.1"/>
+
+    <ImageView
+        android:id="@+id/button1"
+        android:background="@drawable/ic_simon_says_default"
+        android:layout_width="0dp"
+        app:layout_constraintWidth_percent="0.33"
+        android:layout_height="0dp"
+        app:layout_constraintHeight_percent="0.3"
+        app:layout_constraintTop_toBottomOf="@id/count"
+        app:layout_constraintStart_toStartOf="parent"
+        android:contentDescription="@string/simonsays"/>
+
+    <ImageView
+        android:id="@+id/button2"
+        android:background="@drawable/ic_simon_says_default"
+        android:layout_width="0dp"
+        app:layout_constraintWidth_percent="0.33"
+        android:layout_height="0dp"
+        app:layout_constraintHeight_percent="0.3"
+        app:layout_constraintTop_toBottomOf="@id/count"
+        app:layout_constraintStart_toEndOf="@id/button1"
+        android:contentDescription="@string/simonsays" />
+
+    <ImageView
+        android:id="@+id/button3"
+        android:background="@drawable/ic_simon_says_default"
+        android:layout_width="0dp"
+        app:layout_constraintWidth_percent="0.34"
+        android:layout_height="0dp"
+        app:layout_constraintHeight_percent="0.3"
+        app:layout_constraintTop_toBottomOf="@id/count"
+        app:layout_constraintStart_toEndOf="@id/button2"
+        android:contentDescription="@string/simonsays"/>
+
+    <ImageView
+        android:id="@+id/button4"
+        android:background="@drawable/ic_simon_says_default"
+        android:layout_width="0dp"
+        app:layout_constraintWidth_percent="0.33"
+        android:layout_height="0dp"
+        app:layout_constraintHeight_percent="0.3"
+        app:layout_constraintTop_toBottomOf="@id/button1"
+        app:layout_constraintStart_toStartOf="parent"
+        android:contentDescription="@string/simonsays"/>
+
+    <ImageView
+        android:id="@+id/button5"
+        android:background="@drawable/ic_simon_says_default"
+        android:layout_width="0dp"
+        app:layout_constraintWidth_percent="0.33"
+        android:layout_height="0dp"
+        app:layout_constraintHeight_percent="0.3"
+        app:layout_constraintTop_toBottomOf="@id/button2"
+        app:layout_constraintStart_toEndOf="@id/button1"
+        android:contentDescription="@string/simonsays" />
+
+    <ImageView
+        android:id="@+id/button6"
+        android:background="@drawable/ic_simon_says_default"
+        android:layout_width="0dp"
+        app:layout_constraintWidth_percent="0.34"
+        android:layout_height="0dp"
+        app:layout_constraintHeight_percent="0.3"
+        app:layout_constraintTop_toBottomOf="@id/button3"
+        app:layout_constraintStart_toEndOf="@id/button2"
+        android:contentDescription="@string/simonsays"/>
+    <ImageView
+        android:id="@+id/button7"
+        android:background="@drawable/ic_simon_says_default"
+        android:layout_width="0dp"
+        app:layout_constraintWidth_percent="0.33"
+        android:layout_height="0dp"
+        app:layout_constraintHeight_percent="0.3"
+        app:layout_constraintTop_toBottomOf="@id/button4"
+        app:layout_constraintStart_toStartOf="parent"
+        android:contentDescription="@string/simonsays"/>
+
+    <ImageView
+        android:id="@+id/button8"
+        android:background="@drawable/ic_simon_says_default"
+        android:layout_width="0dp"
+        app:layout_constraintWidth_percent="0.33"
+        android:layout_height="0dp"
+        app:layout_constraintHeight_percent="0.3"
+        app:layout_constraintTop_toBottomOf="@id/button5"
+        app:layout_constraintStart_toEndOf="@id/button1"
+        android:contentDescription="@string/simonsays" />
+
+    <ImageView
+        android:id="@+id/button9"
+        android:background="@drawable/ic_simon_says_default"
+        android:layout_width="0dp"
+        app:layout_constraintWidth_percent="0.34"
+        android:layout_height="0dp"
+        app:layout_constraintHeight_percent="0.3"
+        app:layout_constraintTop_toBottomOf="@id/button6"
+        app:layout_constraintStart_toEndOf="@id/button2"
+        android:contentDescription="@string/simonsays"/>
+<!--    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintHeight_percent="0.9"
+        android:rowCount="3"
+        android:columnCount="3"
+        app:layout_constraintTop_toBottomOf="@id/count"
+        app:layout_constraintStart_toStartOf="parent" >
+        <ImageView
+            android:id="@+id/button1"
+            android:layout_row="0"
+            android:layout_column="0"
+            android:background="@drawable/ic_simon_says_default" />
+
+        <ImageView
+            android:id="@+id/button2"
+            android:layout_row="0"
+            android:layout_column="1"
+            android:background="@drawable/ic_simon_says_default" />
+
+        <ImageView
+            android:id="@+id/button3"
+            android:layout_row="0"
+            android:layout_column="2"
+            android:background="@drawable/ic_simon_says_default"/>
+
+        <ImageView
+            android:id="@+id/button4"
+            android:layout_row="1"
+            android:layout_column="0"
+            android:background="@drawable/ic_simon_says_default" />
+        <ImageView
+            android:id="@+id/button5"
+            android:layout_row="1"
+            android:layout_column="1"
+            android:background="@drawable/ic_simon_says_default" />
+        <ImageView
+            android:id="@+id/button6"
+            android:layout_row="1"
+            android:layout_column="2"
+            android:background="@drawable/ic_simon_says_default" />
+        <ImageView
+            android:id="@+id/button7"
+            android:layout_row="2"
+            android:layout_column="0"
+            android:background="@drawable/ic_simon_says_default" />
+        <ImageView
+            android:id="@+id/button8"
+            android:layout_row="2"
+            android:layout_column="1"
+            android:background="@drawable/ic_simon_says_default" />
+        <ImageView
+            android:id="@+id/button9"
+            android:layout_row="2"
+            android:layout_column="2"
+            android:background="@drawable/ic_simon_says_default" />
+    </GridLayout>-->
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Where each array can be found with R.array.<name>
+    index 0 will be the monster stage
+    index 1 will be the number monster evolutions
+    index 2 will be the description title
+    index 3 will be the description
+    index 4 will be the monster icon
+    index 5 - (5+number of evolutions-1) is the different possible evolutions
+    index (5+number of evolutions) is the standard health of the monster
+    index (5+number of evolutions+1) is the standard attack power of the monster
+    index (5+number of evolutions+2) is the standard attack chance of the monster-->
+
+    <integer-array name="library">
+        <item name="egg_list">@array/egg_list</item>
+        <item name="baby_list">@array/baby_list</item>
+        <item name="child_list">@array/child_list</item>
+    </integer-array>
+
+    <integer-array name="egg_list">
+        <item name="egg1">@array/basic_egg</item>
+        <item name="egg2">@array/dino_egg</item>
+    </integer-array>
+
+    <integer-array name="baby_list">
+        <item name="basic_baby1">@array/basic_baby1</item>
+        <item name="basic_baby2">@array/basic_baby2</item>
+        <item name="dino_baby1">@array/dino_baby1</item>
+        <item name="dino_baby2">@array/dino_baby2</item>
+    </integer-array>
+
+    <integer-array name="child_list">
+        <item name="dino_child2">@array/dino_child2</item>
+    </integer-array>
+
+    <integer-array name="missing_content">
+        <item name="title">@string/missing_title</item>
+        <item name="description">@string/missing_description</item>
+        <item name="icon">@drawable/missing_content</item>
+    </integer-array>
+
+    <integer-array name="basic_egg">
+        <item name="stage">0</item>
+        <item name="evolutions">2</item>
+        <item name="title">@string/basic_egg_title</item>
+        <item name="description">@string/basic_egg_description</item>
+        <item name="icon">@drawable/egg_idle</item>
+        <item name="evo1">@array/basic_baby1</item>
+        <item name="evo1">@array/basic_baby2</item>
+    </integer-array>
+
+    <integer-array name="dino_egg">
+        <item name="stage">0</item>
+        <item name="evolutions">2</item>
+        <item name="title">@string/dino_egg_title</item>
+        <item name="description">@string/dino_egg_description</item>
+        <item name="icon">@drawable/egg_dino_idle</item>
+        <item name="evo1">@array/dino_baby1</item>
+        <item name="evo1">@array/dino_baby2</item>
+    </integer-array>
+
+    <integer-array name="basic_baby1">
+        <item name="stage">1</item>
+        <item name="evolutions">3</item>
+        <item name="title">@string/basic_baby1_title</item>
+        <item name="description">@string/basic_baby1_description</item>
+        <item name="icon">@drawable/baby_basic_idle</item>
+        <item name="evo1">@array/dino_baby1</item>
+        <item name="evo2">@array/dino_baby1</item>
+        <item name="evo3">@array/dino_baby1</item>
+        <item name="health">3</item>
+        <item name="attack">1</item>
+        <item name="attackchance">50</item>
+    </integer-array>
+
+    <integer-array name="basic_baby2">
+        <item name="stage">1</item>
+        <item name="evolutions">3</item>
+        <item name="title">@string/basic_baby2_title</item>
+        <item name="description">@string/basic_baby2_description</item>
+        <item name="icon">@drawable/baby_basic2_idle</item>
+        <item name="evo1">@array/dino_baby1</item>
+        <item name="evo2">@array/dino_baby1</item>
+        <item name="evo3">@array/dino_baby1</item>
+        <item name="health">3</item>
+        <item name="attack">1</item>
+        <item name="attackchance">50</item>
+        <item name="type">@string/firetype</item>
+    </integer-array>
+
+    <integer-array name="dino_baby1">
+        <item name="stage">1</item>
+        <item name="evolutions">3</item>
+        <item name="title">@string/dino_baby1_title</item>
+        <item name="description">@string/dino_baby1_description</item>
+        <item name="icon">@drawable/baby_dino_idle</item>
+        <item name="evo1">@array/dino_child2</item>
+        <item name="evo2">@array/dino_baby1</item>
+        <item name="evo3">@array/dino_baby1</item>
+        <item name="health">3</item>
+        <item name="attack">1</item>
+        <item name="attackchance">50</item>
+    </integer-array>
+
+    <integer-array name="dino_baby2">
+        <item name="stage">1</item>
+        <item name="evolutions">3</item>
+        <item name="title">@string/dino_baby2_title</item>
+        <item name="description">@string/dino_baby2_description</item>
+        <item name="icon">@drawable/baby_dino2_idle</item>
+        <item name="icon">@array/dino_baby1</item>
+        <item name="icon">@array/dino_baby1</item>
+        <item name="icon">@array/dino_baby1</item>
+        <item name="health">3</item>
+        <item name="attack">1</item>
+        <item name="attackchance">50</item>
+    </integer-array>
+
+    <integer-array name="dino_child2">
+        <item name="stage">2</item>
+        <item name="evolutions">3</item>
+        <item name="title">@string/dino_child2_title</item>
+        <item name="description">@string/dino_child2_description</item>
+        <item name="icon">@drawable/child_dino2_idle</item>
+        <item name="icon">@array/dino_baby1</item>
+        <item name="icon">@array/dino_baby1</item>
+        <item name="icon">@array/dino_baby1</item>
+        <item name="health">7</item>
+        <item name="attack">2</item>
+        <item name="attackchance">50</item>
+    </integer-array>
+</resources>

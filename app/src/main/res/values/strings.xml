@@ -1,0 +1,48 @@
+<resources>
+    <string name="app_name">MonsterJourney</string>
+    <string name="channel_name">Game Notifications</string>
+    <string name="channel_description">Tells you when your monster has encounted an event.</string>
+    <string name="icon_description">Current monster animation</string>
+    <string name="arrow">View selection arrow</string>
+    <string name="eggconfirm">Select Egg</string>
+    <string name="back">Back</string>
+    <string name="confirm">Confirm</string>
+
+    <string name="playagain">Play Again</string>
+    <string name="cancel">Cancel</string>
+
+    <string name="simonsays">Memory game button</string>
+
+    <string name="simonsays_title">Memory Repetition</string>
+    <string name="simonsays_description">A memory game where you must select buttons in the same pattern presented. Earn steps for each round you pass.</string>
+
+    <string name="firetype">Fire</string>
+    <string name="dinotype">Dino</string>
+    <string name="aquatype">Aqua</string>
+    <string name="enigmatype">Enigma</string>
+
+    <string name="missing_title">Not Found</string>
+    <string name="missing_description">This entry hasn\'t been unlocked yet.</string>
+
+    <string name="basic_egg_title">Basic Egg</string>
+    <string name="basic_egg_description">A seemingly basic egg. Contains a balanced monster.</string>
+    <string name="dino_egg_title">Dino Egg</string>
+    <string name="dino_egg_description">A prehistoric egg. Contains an ancient type monster.</string>
+    <string name="aqua_egg_title">Aqua Egg</string>
+    <string name="aqua_egg_description">An aquatic egg. Contains an aquatic type monster.</string>
+
+    <string name="basic_baby1_title">Eye</string>
+    <string name="basic_baby1_description">An enigma type monster. It can\'t move its main body so it waits and gazes at the passing world.</string>
+
+    <string name="basic_baby2_title">Sparky</string>
+    <string name="basic_baby2_description">A fire type monster. Enjoys sitting around campfires and eating stray embers.</string>
+
+    <string name="dino_baby1_title">Chomper</string>
+    <string name="dino_baby1_description">A dino type monster. Once it bites onto something it never lets go so watch out!</string>
+
+    <string name="dino_baby2_title">Dozer</string>
+    <string name="dino_baby2_description">A dino type monster. It sleeps for 20 hours a day and only wakes up to eat or when bothered.</string>
+
+    <string name="dino_child2_title">Ripper</string>
+    <string name="dino_child2_description">A dino type monster. A dangerous savage who will attack anything that enters its territory.</string>
+</resources>

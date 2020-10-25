@@ -32,15 +32,30 @@ public class Monster {
     @ColumnInfo(name = "monster_array")
     private int arrayid;
 
+    //mistakes made, by over training or playing minigames while hungry
     @ColumnInfo(name = "mistakes")
     private int mistakes;
+
+    //where max hunger is 8, each increment is half a heart
     @ColumnInfo(name = "hunger")
     private int hunger;
 
-    public Monster(int generation, boolean hatched){
+    //where max diligence is 8, can increase with training, lowers over time by walking
+    @ColumnInfo(name = "diligence")
+    private int diligence;
+
+    @ColumnInfo(name = "monster_name")
+    private String name;
+
+    public Monster(int generation){
         this.generation = generation;
         maxhealth = 5;
+        hunger = 0;
+        diligence = 0;
+        mistakes = 0;
+        name = "";
         arrayid = R.array.basic_egg;
+        hatched = false;
     }
 
     /**
@@ -49,15 +64,18 @@ public class Monster {
      */
     public static Monster populateData() {
 
-        return new Monster(0,false);
+        return new Monster(0);
 
     }
 
     public void hatch(){
+        hunger = 4;
         hatched = true;
     }
 
     public boolean getHatched(){ return hatched;}
+
+    public void setHatched(boolean hatched){ this.hatched =  hatched;}
 
     public int getGeneration(){return generation;}
 
@@ -68,6 +86,10 @@ public class Monster {
     public int getMistakes(){return mistakes;}
 
     public void setMistakes(int mistakes){this.mistakes = mistakes;}
+
+    public int getDiligence(){return diligence;}
+
+    public void setDiligence(int diligence){this.diligence = diligence;}
 
     public int getHunger(){return hunger;}
 
@@ -88,6 +110,25 @@ public class Monster {
     public int getChance(){return chance;}
 
     public void setChance(int chance){this.chance = chance;}
+
+    public void setName(String name){this.name = name;}
+
+    public String getName(){return name;}
+
+    /**
+     * create the next egg in our monster after documenting the last one if needed
+     * @param arrayid the new arrayid of the monster/egg
+     */
+    public void newEgg(int arrayid){
+        generation = generation++;
+        maxhealth = 5;
+        hunger = 0;
+        diligence = 0;
+        mistakes = 0;
+        name = "";
+        this.arrayid = arrayid;
+        hatched = false;
+    }
 
     /**
      * called when monster evolves, gains new stats and form depending on mistakes and other factors

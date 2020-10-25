@@ -7,4 +7,9 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="PopupAnimation" >
+        <item name="android:windowEnterAnimation">@anim/popup</item>
+        <item name="android:windowExitAnimation">@anim/popuphide</item>
+    </style>
+
 </resources>

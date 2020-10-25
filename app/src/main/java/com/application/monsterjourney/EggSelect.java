@@ -178,7 +178,8 @@ public class EggSelect extends AppCompatActivity {
 
                 Monster tempmonster = db.journeyDao().getMonster().get(0);
 
-                tempmonster.setArrayid(selectedid);
+                //tempmonster.setArrayid(selectedid);
+                tempmonster.newEgg(selectedid);
 
                 db.journeyDao().updateMonster(tempmonster);
             }

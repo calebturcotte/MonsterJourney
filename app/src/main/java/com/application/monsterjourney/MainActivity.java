@@ -2,6 +2,7 @@ package com.application.monsterjourney;
 
 import androidx.annotation.StyleableRes;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
@@ -17,12 +18,15 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.res.TypedArray;
 import android.graphics.drawable.AnimationDrawable;
+import android.graphics.drawable.ClipDrawable;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.transition.Fade;
 import android.transition.TransitionManager;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,10 +35,14 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.NumberPicker;
+import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -44,7 +52,7 @@ public class MainActivity extends AppCompatActivity{
     public long stepscounted;
     private TextView totaltime;
     private static final String TEXT_NUM_STEPS = "Number of Steps: ";
-    private TextView TvSteps;
+    private TextView TvSteps, MonsterName;
     private Button BtnStart, BtnStop, BtnEvent;
     private boolean runbackground;
 
@@ -64,6 +72,8 @@ public class MainActivity extends AppCompatActivity{
 
     public ImageView eventimage;
 
+    public View aboutView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +81,7 @@ public class MainActivity extends AppCompatActivity{
         setContentView(R.layout.activity_main);
 
         TvSteps = (TextView) findViewById(R.id.tv_steps);
+        MonsterName = (TextView) findViewById(R.id.monster_name);
         BtnStart = (Button) findViewById(R.id.btn_start);
         BtnStop = (Button) findViewById(R.id.btn_stop);
         BtnEvent = (Button) findViewById(R.id.event);
@@ -78,9 +89,9 @@ public class MainActivity extends AppCompatActivity{
         picker = (NumberPicker) findViewById(R.id.picker);
         selectedpick = (Button) findViewById(R.id.selection);
 
-        String[] pickervals = new String[]{"Library", "Map", "Train", "Minigame","Connect"};
+        String[] pickervals = new String[]{"Library", "Map", "Care", "Minigame","Connect", "Shop"};
 
-        picker.setMaxValue(4);
+        picker.setMaxValue(5);
         picker.setMinValue(0);
 
         picker.setDisplayedValues(pickervals);
@@ -130,6 +141,45 @@ public class MainActivity extends AppCompatActivity{
                 temp.add(2);
                 temp.add(0);
                 performbattle(currentmonster.battle(1,5,40));
+            }
+        });
+
+        findViewById(R.id.monster_info_popup).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LayoutInflater aboutinflater = (LayoutInflater)
+                        getSystemService(LAYOUT_INFLATER_SERVICE);
+                assert aboutinflater != null;
+                aboutView = aboutinflater.inflate(R.layout.monster_popup, null);
+                int width2 = ConstraintLayout.LayoutParams.MATCH_PARENT;
+                int height2 = ConstraintLayout.LayoutParams.MATCH_PARENT;
+                boolean focusable2 = true; // lets taps outside the popup also dismiss it
+                final PopupWindow aboutWindow = new PopupWindow(aboutView, width2, height2, focusable2);
+
+
+                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    aboutWindow.setElevation(20);
+                }
+                // show the popup window
+                // which view you pass in doesn't matter, it is only used for the window token
+                aboutWindow.setAnimationStyle(R.style.PopupAnimation);
+                aboutWindow.showAtLocation(findViewById(R.id.monster_info_popup), Gravity.CENTER, 0, 0);
+                aboutView.findViewById(R.id.close).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        aboutWindow.dismiss();
+                    }
+                });
+                aboutView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                    @Override
+                    public void onGlobalLayout() {
+                        MainActivity.MonsterInfo runner = new MainActivity.MonsterInfo();
+                        runner.execute();
+                        aboutView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                    }
+                });
+
+
             }
         });
 
@@ -315,11 +365,8 @@ public class MainActivity extends AppCompatActivity{
      * open training activity
      */
     public void train(){
-        //if(!isplaying)music.pause();
-        Intent intent = new Intent(this, Training.class);
-        startActivity(intent);
-        //where right side is current view
-        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+        StartTraining runner = new StartTraining();
+        runner.execute();
     }
 
     /**
@@ -402,6 +449,7 @@ public class MainActivity extends AppCompatActivity{
                             }
                         });
                         eventanimation.cancel();
+                        monster_hatched();
                         BtnEvent.setVisibility(View.INVISIBLE);
                     }
                 });
@@ -442,26 +490,68 @@ public class MainActivity extends AppCompatActivity{
     }
 
     /**
+     * code for entering name data when monster was hatched
+     */
+    private void monster_hatched(){
+        final LayoutInflater aboutinflater = (LayoutInflater)
+                getSystemService(LAYOUT_INFLATER_SERVICE);
+        assert aboutinflater != null;
+        aboutView = aboutinflater.inflate(R.layout.hatched_popup, null);
+        int width2 = ConstraintLayout.LayoutParams.MATCH_PARENT;
+        int height2 = ConstraintLayout.LayoutParams.MATCH_PARENT;
+        boolean focusable2 = true; // lets taps outside the popup also dismiss it
+        final PopupWindow aboutWindow = new PopupWindow(aboutView, width2, height2, focusable2);
+
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            aboutWindow.setElevation(20);
+        }
+        // show the popup window
+        // which view you pass in doesn't matter, it is only used for the window token
+        aboutWindow.setAnimationStyle(R.style.PopupAnimation);
+        aboutWindow.showAtLocation(findViewById(R.id.monster_info_popup), Gravity.CENTER, 0, 0);
+        aboutView.findViewById(R.id.close).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                aboutWindow.dismiss();
+            }
+        });
+        aboutView.findViewById(R.id.name_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText textbox = aboutView.findViewById(R.id.name_enter);
+                final String monstername = textbox.getText().toString();
+                AsyncTask.execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        db = AppDatabase.buildDatabase(getApplicationContext());
+                        Monster temp = db.journeyDao().getMonster().get(0);
+                        temp.setName(monstername);
+                        db.journeyDao().updateMonster(temp);
+                    }
+                });
+                aboutWindow.dismiss();
+            }
+        });
+        aboutView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                MainActivity.HatchedInfo runner = new MainActivity.HatchedInfo();
+                runner.execute();
+                aboutView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+            }
+        });
+
+
+    }
+
+    /**
      * set the button info for which number picker scrolled to
      */
     private void selectedpick(){
         final int valuePicker = picker.getValue();
-        String temp = "";
-        switch(valuePicker){
-            case 0:
-                temp = "Library";
-                break;
+        String temp = picker.getDisplayedValues()[valuePicker];
 
-            case 1:
-                temp = "Map";
-                break;
-            case 2:
-                temp = "Training";
-                break;
-            case 3:
-                temp = "Minigame";
-                break;
-        }
         selectedpick.setText(temp);
         selectedpick.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -785,18 +875,21 @@ public class MainActivity extends AppCompatActivity{
 
     }
 
+    //resume our activity
     private class AsyncResume extends AsyncTask<String,TextView,String>{
 
         private int eventtype;
         private long stepsneeded;
         private boolean isEventreached = false;
         private String message;
+        private String monstername;
         @Override
         protected String doInBackground(String... strings) {
             AppDatabase db = AppDatabase.buildDatabase(getApplicationContext());
             String event = "Steps needed: ";
             Journey temp = db.journeyDao().getJourney().get(0);
             // currentevent = temp.getEventtype();
+            monstername = db.journeyDao().getMonster().get(0).getName();
             stepsneeded = temp.getEventsteps();
             isEventreached = temp.isEventreached();
             message = event + stepsneeded;
@@ -807,11 +900,109 @@ public class MainActivity extends AppCompatActivity{
         @Override
         protected void onPostExecute(String result) {
             TvSteps.setText(message);
+            MonsterName.setText(monstername);
             // execution of result of Long time consuming operation
             if(stepsneeded <= 0 && isEventreached) {
                 startEvent(eventtype);
             }
         }
     }
+
+    //fetch and display the monster info for current status
+    private class MonsterInfo extends AsyncTask<String,TextView,String>{
+
+        private int hunger;
+        private int training;
+        private String name;
+        private int arrayid;
+        @Override
+        protected String doInBackground(String... strings) {
+            AppDatabase db = AppDatabase.buildDatabase(getApplicationContext());
+            Monster temp = db.journeyDao().getMonster().get(0);
+            hunger = temp.getHunger();
+            training = temp.getDiligence();
+            name = temp.getName();
+            arrayid = temp.getArrayid();
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            //where max clip is 10000, hunger/diligence is in increments of 8
+            ImageView temp = aboutView.findViewById(R.id.hungerfill);
+            ClipDrawable hungerfill = (ClipDrawable) temp.getDrawable();
+            ImageView temp2 = aboutView.findViewById(R.id.trainingfill);
+
+            ClipDrawable trainingfill = (ClipDrawable) temp2.getDrawable();
+            hungerfill.setLevel(hunger*1250);
+            trainingfill.setLevel(training*1250);
+
+            TextView nameView = aboutView.findViewById(R.id.monster_popup_name);
+            nameView.setText(name);
+
+            @StyleableRes int index = 4;
+            TypedArray array = getApplicationContext().getResources().obtainTypedArray(arrayid);
+            int resource = array.getResourceId(index,R.drawable.egg_idle);
+            array.recycle();
+            ImageView infoView = aboutView.findViewById(R.id.monster_popup_icon);
+            infoView.setBackgroundResource(resource);
+
+            AnimationDrawable infoanimator = (AnimationDrawable) infoView.getBackground();
+            infoanimator.start();
+        }
+    }
+
+    private class HatchedInfo extends AsyncTask<String,TextView,String> {
+        private int arrayid;
+        @Override
+        protected String doInBackground(String... strings) {
+            AppDatabase db = AppDatabase.buildDatabase(getApplicationContext());
+            Monster temp = db.journeyDao().getMonster().get(0);
+            arrayid = temp.getArrayid();
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            @StyleableRes int index = 4;
+            TypedArray array = getApplicationContext().getResources().obtainTypedArray(arrayid);
+            int resource = array.getResourceId(index,R.drawable.egg_idle);
+            array.recycle();
+            ImageView infoView = aboutView.findViewById(R.id.monster_popup_icon);
+            infoView.setBackgroundResource(resource);
+
+            AnimationDrawable infoanimator = (AnimationDrawable) infoView.getBackground();
+            infoanimator.start();
+        }
+    }
+
+    /**
+     * AsyncTask to start the care
+     */
+    private class StartTraining extends AsyncTask<String,TextView,String> {
+        private boolean hatched;
+        @Override
+        protected String doInBackground(String... strings) {
+            AppDatabase db = AppDatabase.buildDatabase(getApplicationContext());
+            Monster temp = db.journeyDao().getMonster().get(0);
+            hatched = temp.getHatched();
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            if(hatched){
+                //if(!isplaying)music.pause();
+                Intent intent = new Intent(getApplicationContext(), Training.class);
+                startActivity(intent);
+                //where right side is current view
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+            }
+            else {
+                Toast.makeText(getApplicationContext(), "Hatch your monster first.", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
 
 }

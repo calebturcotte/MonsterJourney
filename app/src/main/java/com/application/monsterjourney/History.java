@@ -13,7 +13,7 @@ public class History {
      * name: the name of the monster
      */
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate=true)
     public int uid;
 
     @ColumnInfo(name = "generation")

@@ -17,6 +17,13 @@
     <androidx.constraintlayout.widget.Guideline
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:id="@+id/infoguideline"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.05"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:id="@+id/pickerguideline"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.75"/>
@@ -31,9 +38,27 @@
     <androidx.constraintlayout.widget.Guideline
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:id="@+id/verticaliconguideline"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.87"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:id="@+id/selectorguideline"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.25"/>
+
+    <ImageView
+        android:contentDescription="@string/monsterinfo"
+        android:id="@+id/monster_info_popup"
+        android:background="@color/colorPrimary"
+        android:layout_width="0dp"
+        app:layout_constraintHeight_percent="0.05"
+        android:layout_height="0dp"
+        app:layout_constraintWidth_percent="0.1"
+        app:layout_constraintTop_toBottomOf="@id/infoguideline"
+        app:layout_constraintStart_toStartOf="@id/verticaliconguideline"/>
 
     <FrameLayout
         android:id="@+id/placeholder"
@@ -44,6 +69,17 @@
         android:gravity="center"
         app:layout_constraintBottom_toBottomOf="@id/horizontalguideline"
         app:layout_constraintEnd_toEndOf="@id/verticalguideline" />
+
+    <TextView
+        android:id="@+id/monster_name"
+        android:gravity="center"
+        android:layout_width="0dp"
+        app:layout_constraintHeight_percent="0.05"
+        android:layout_height="0dp"
+        app:layout_constraintWidth_percent="0.3"
+        android:textSize="25sp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
 
     <LinearLayout
         app:layout_constraintTop_toBottomOf="@id/horizontalguideline"

@@ -6,6 +6,7 @@ import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.drawable.AnimationDrawable;
+import android.graphics.drawable.ClipDrawable;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -33,6 +34,8 @@ public class Minigame extends AppCompatActivity {
     private int selectedgame;
     private AppDatabase db;
     private int currentarrayid;
+
+    private ClipDrawable hungerfill;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -94,7 +97,9 @@ public class Minigame extends AppCompatActivity {
         findViewById(R.id.playagain).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startGame();
+                //startGame();
+                Minigame.StartMinigame runner = new Minigame.StartMinigame();
+                runner.execute();
             }
         });
 
@@ -109,15 +114,14 @@ public class Minigame extends AppCompatActivity {
                 frmlayout.removeAllViews();
                 frmlayout.addView(home,0);
                 prepareInfoView();
-/*                frmlayout.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-                    @Override
-                    public void onGlobalLayout() {
-
-                        frmlayout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                    }
-                });*/
             }
         });
+
+
+        ImageView temp = findViewById(R.id.hungerfill);
+        hungerfill = (ClipDrawable) temp.getDrawable();
+        Minigame.HungerFill runner = new Minigame.HungerFill();
+        runner.execute();
     }
 
     /**
@@ -135,6 +139,7 @@ public class Minigame extends AppCompatActivity {
 
         AnimationDrawable monsteranimator = (AnimationDrawable) imageView.getBackground();
         monsteranimator.start();
+
     }
 
     /**
@@ -156,7 +161,9 @@ public class Minigame extends AppCompatActivity {
         findViewById(R.id.confirm).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startGame();
+                //startGame();
+                Minigame.StartMinigame runner = new Minigame.StartMinigame();
+                runner.execute();
             }
         });
 
@@ -344,5 +351,52 @@ public class Minigame extends AppCompatActivity {
 
         findViewById(R.id.playagain).setVisibility(View.VISIBLE);
         findViewById(R.id.cancel).setVisibility(View.VISIBLE);
+    }
+
+    //async task to initialize hunger bar
+    private class HungerFill extends AsyncTask<String,TextView,String>{
+
+        private int hunger;
+        @Override
+        protected String doInBackground(String... strings) {
+            AppDatabase db = AppDatabase.buildDatabase(getApplicationContext());
+            Monster temp = db.journeyDao().getMonster().get(0);
+            hunger = temp.getHunger();
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            //where max clip is 10000, hunger is in increments of 8
+            hungerfill.setLevel(hunger*1250);
+        }
+    }
+
+    //async task for starting minigames, lowers
+    private class StartMinigame extends AsyncTask<String,TextView,String>{
+
+        private int hunger;
+        @Override
+        protected String doInBackground(String... strings) {
+            AppDatabase db = AppDatabase.buildDatabase(getApplicationContext());
+            Monster temp = db.journeyDao().getMonster().get(0);
+            hunger = temp.getHunger();
+            if(hunger > 0){
+                hunger = hunger -1;
+                temp.setHunger(hunger);
+            }
+            else if (temp.getHatched()){
+                temp.setMistakes(temp.getMistakes()+1);
+            }
+            db.journeyDao().updateMonster(temp);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            //where max clip is 10000, hunger is in increments of 8
+            startGame();
+            hungerfill.setLevel(hunger*1250);
+        }
     }
 }

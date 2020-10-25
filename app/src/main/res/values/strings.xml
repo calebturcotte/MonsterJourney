@@ -7,11 +7,38 @@
     <string name="eggconfirm">Select Egg</string>
     <string name="back">Back</string>
     <string name="confirm">Confirm</string>
+    <string name="close">Close</string>
 
     <string name="playagain">Play Again</string>
     <string name="cancel">Cancel</string>
 
+    <string name="monsterinfo">Monster Info</string>
+    <string name="congratulations">Congratulations!</string>
+    <string name="entername">Please enter a name for your new Monster: </string>
+
+    <string name="Training">Training</string>
+    <string name="Traininginfo">Train your monster!</string>
+    <string name="TrainingReady">Ready?</string>
+    <string name="TrainingStart">Tap to gather energy!</string>
+    <string name="TrainingSuccess">Training Success!</string>
+    <string name="TrainingFailed">Training Failed…</string>
+
+    <string name="Feeding">Feeding</string>
+    <string name="Feedinginfo">Feed your monster!</string>
+
+    <string name="Retire">Retire</string>
+    <string name="Retireinfo">Send your monster off to retirement and start raising a new one.</string>
+    <string name="RetireConfirm">Are you sure you want to retire your current monster? You will start off with a new egg if you confirm.</string>
+
+    <string name="Matchmaking">Matchmaking</string>
+    <string name="Matchmakinginfo">Search for a match for your monster!</string>
+
     <string name="simonsays">Memory game button</string>
+    <string name="hungerbar">Hunger Bar</string>
+    <string name="trainingbar">Training Bar</string>
+
+    <string name="diligence">DILIGENCE: </string>
+    <string name="hunger">HUNGER: </string>
 
     <string name="simonsays_title">Memory Repetition</string>
     <string name="simonsays_description">A memory game where you must select buttons in the same pattern presented. Earn steps for each round you pass.</string>

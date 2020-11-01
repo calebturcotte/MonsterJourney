@@ -26,12 +26,22 @@
     <string name="Feeding">Feeding</string>
     <string name="Feedinginfo">Feed your monster!</string>
 
+    <string name="FoodTitle1">Small Apple</string>
+    <string name="FoodDescription1">A basic food item. Restores half a heart upon consumption</string>
+
+    <string name="Evolve">Evolve</string>
+    <string name="EvolveInfo">Evolve your monster if conditions have been met.</string>
+
     <string name="Retire">Retire</string>
     <string name="Retireinfo">Send your monster off to retirement and start raising a new one.</string>
     <string name="RetireConfirm">Are you sure you want to retire your current monster? You will start off with a new egg if you confirm.</string>
 
     <string name="Matchmaking">Matchmaking</string>
     <string name="Matchmakinginfo">Search for a match for your monster!</string>
+
+    <string name="MatchmakerEarly">Hello young soul. I am the matchmaker. Once your monster has grown seek me again so I may find it a suitor.</string>
+    <string name="MatchmakerText">Hello old soul. I am the matchmaker. Bear your heart to me and I shall find you a suitor. Shall I look for a match for your monster?</string>
+    <string name="MatchmakerFound">I come bearing a match. Do you accept this proposition?</string>
 
     <string name="simonsays">Memory game button</string>
     <string name="hungerbar">Hunger Bar</string>

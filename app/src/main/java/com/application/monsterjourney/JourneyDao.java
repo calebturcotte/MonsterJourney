@@ -45,7 +45,7 @@ public interface JourneyDao {
     void insertAllItems(Item... items);
 
     @Insert
-    void insert(Item item);
+    void insertItem(Item item);
 
     @Delete
     void delete(Item item);

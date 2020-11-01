@@ -45,6 +45,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class MainActivity extends AppCompatActivity{
     public static final String PREFS_NAME = "MyJourneyFile";
@@ -147,6 +148,9 @@ public class MainActivity extends AppCompatActivity{
         findViewById(R.id.monster_info_popup).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(aboutView != null){
+                    return;
+                }
                 LayoutInflater aboutinflater = (LayoutInflater)
                         getSystemService(LAYOUT_INFLATER_SERVICE);
                 assert aboutinflater != null;
@@ -168,6 +172,7 @@ public class MainActivity extends AppCompatActivity{
                     @Override
                     public void onClick(View v) {
                         aboutWindow.dismiss();
+                        aboutView = null;
                     }
                 });
                 aboutView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -441,8 +446,14 @@ public class MainActivity extends AppCompatActivity{
                                 selectedIcon(selectedmonster);
                                 Journey temp = db.journeyDao().getJourney().get(0);
                                 db.journeyDao().updateMonster(currentmonster);
-                                temp.setEventsteps(500);
-                                temp.setEventtype(2);
+                                Random ran = new Random();
+                                temp.setEventsteps(ran.nextInt(1500) + 500);
+                                if(ran.nextFloat() < 0.8){
+                                    temp.setEventtype(2);
+                                }
+                                else{
+                                    temp.setEventtype(1);
+                                }
                                 temp.setEventreached(false);
                                 db.journeyDao().update(temp);
                                 db.journeyDao().updateMonster(tempmonster);
@@ -458,6 +469,35 @@ public class MainActivity extends AppCompatActivity{
                 BtnEvent.setVisibility(View.VISIBLE);
                 break;
             case 1: //item found
+                BtnEvent.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        eventimage.setVisibility(View.INVISIBLE);
+                        eventanimation.cancel();
+                        AsyncTask.execute(new Runnable() {
+                            @Override
+                            public void run() {
+                                Journey temp = db.journeyDao().getJourney().get(0);
+                                Random ran = new Random();
+                                temp.setEventsteps(ran.nextInt(1500) + 500);
+                                if(ran.nextFloat() < 0.8){
+                                    temp.setEventtype(2);
+                                }
+                                else{
+                                    temp.setEventtype(1);
+                                }
+                                temp.setEventreached(false);
+                                db.journeyDao().update(temp);
+                                Item tempitem= new Item(1);
+                                db.journeyDao().insertItem(tempitem);
+                            }
+                        });
+                        BtnEvent.setVisibility(View.INVISIBLE);
+                    }
+                });
+                String itemevent = "ITEM FOUND";
+                BtnEvent.setText(itemevent);
+                BtnEvent.setVisibility(View.VISIBLE);
                 break;
 
             case 2: //battle found
@@ -472,8 +512,14 @@ public class MainActivity extends AppCompatActivity{
                                               @Override
                                               public void run() {
                                                   Journey temp = db.journeyDao().getJourney().get(0);
-                                                  temp.setEventsteps(500);
-                                                  temp.setEventtype(2);
+                                                  Random ran = new Random();
+                                                  temp.setEventsteps(ran.nextInt(1500) + 500);
+                                                  if(ran.nextFloat() < 0.8){
+                                                      temp.setEventtype(2);
+                                                  }
+                                                  else{
+                                                      temp.setEventtype(1);
+                                                  }
                                                   temp.setEventreached(false);
                                                   db.journeyDao().update(temp);
                                               }
@@ -484,6 +530,12 @@ public class MainActivity extends AppCompatActivity{
                 String event = "ENEMY FOUND";
                 BtnEvent.setText(event);
                 BtnEvent.setVisibility(View.VISIBLE);
+                break;
+            case 3://match found
+                String match = "MATCH FOUND";
+                break;
+            case 4: //boss found
+                String boss = "BOSS FOUND";
                 break;
         }
 
@@ -881,6 +933,7 @@ public class MainActivity extends AppCompatActivity{
         private int eventtype;
         private long stepsneeded;
         private boolean isEventreached = false;
+        private long matchsteps = 1000;
         private String message;
         private String monstername;
         @Override
@@ -894,6 +947,9 @@ public class MainActivity extends AppCompatActivity{
             isEventreached = temp.isEventreached();
             message = event + stepsneeded;
             eventtype = temp.getEventtype();
+            if(temp.isMatching()){
+                matchsteps = temp.getMatchmakersteps();
+            }
             return null;
         }
 
@@ -904,6 +960,9 @@ public class MainActivity extends AppCompatActivity{
             // execution of result of Long time consuming operation
             if(stepsneeded <= 0 && isEventreached) {
                 startEvent(eventtype);
+            }
+            else if(matchsteps <= 0){
+                startEvent(3);
             }
         }
     }

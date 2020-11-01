@@ -36,6 +36,10 @@ public class Monster {
     @ColumnInfo(name = "mistakes")
     private int mistakes;
 
+    //times fed while hearts are already full
+    @ColumnInfo(name = "gluttony")
+    private int gluttony;
+
     //where max hunger is 8, each increment is half a heart
     @ColumnInfo(name = "hunger")
     private int hunger;
@@ -43,6 +47,10 @@ public class Monster {
     //where max diligence is 8, can increase with training, lowers over time by walking
     @ColumnInfo(name = "diligence")
     private int diligence;
+
+    //steps needed to evolve the monster
+    @ColumnInfo(name = "evolve_steps")
+    private long evolvesteps;
 
     @ColumnInfo(name = "monster_name")
     private String name;
@@ -52,6 +60,7 @@ public class Monster {
         maxhealth = 5;
         hunger = 0;
         diligence = 0;
+        gluttony = 0;
         mistakes = 0;
         name = "";
         arrayid = R.array.basic_egg;
@@ -95,6 +104,14 @@ public class Monster {
 
     public void setHunger(int hunger){this.hunger = hunger;}
 
+    public int getGluttony(){return gluttony;}
+
+    public void setGluttony(int gluttony){this.gluttony = gluttony;}
+
+    public long getEvolveSteps(){return evolvesteps;}
+
+    public void setEvolvesteps(long newsteps){this.evolvesteps = newsteps;}
+
     public int getMaxhealth(){return maxhealth;}
 
     public void setMaxhealth(int maxhealth){this.maxhealth = maxhealth;}
@@ -123,17 +140,35 @@ public class Monster {
         generation = generation++;
         maxhealth = 5;
         hunger = 0;
+        gluttony = 0;
         diligence = 0;
         mistakes = 0;
         name = "";
         this.arrayid = arrayid;
         hatched = false;
+        evolvesteps = 100;
+    }
+
+    /**
+     *
+     * @param amount the amount added to the monster
+     */
+    public void feedMonster(int amount){
+        if(hunger < 8){
+            hunger = hunger + amount;
+            if(hunger > 8){
+                hunger = 8;
+            }
+        }
+        else {
+            gluttony++;
+        }
     }
 
     /**
      * called when monster evolves, gains new stats and form depending on mistakes and other factors
      */
-    public void evolve(Context applicationcontext){
+    public boolean evolve(Context applicationcontext){
         TypedArray array = applicationcontext.getResources().obtainTypedArray(arrayid);
         int[] monsterresources = applicationcontext.getResources().getIntArray(arrayid);
         int evolutions = monsterresources[1];
@@ -151,6 +186,7 @@ public class Monster {
             criteria[0] = ran.nextFloat() < 0.5f;
             criteria[1] = true;
         }
+        boolean success = false;
 
         int temp;
         for(int i = 0; i < evolutions; i++){
@@ -159,13 +195,14 @@ public class Monster {
                 temp = array.getResourceId(tempid,R.array.basic_egg);
                 //editor.putInt("selectedmonster",temp);
                 arrayid = temp;
+                success = true;
 /*                editor.putBoolean(String.valueOf(temp),true);
                 editor.apply();*/
                 break;
             }
         }
         array.recycle();
-
+        return success;
 
     }
 

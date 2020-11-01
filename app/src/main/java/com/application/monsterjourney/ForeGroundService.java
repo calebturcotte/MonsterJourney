@@ -38,6 +38,7 @@ public class ForeGroundService extends Service implements SensorEventListener, S
     private Sensor accel;
     private long steps;
     private long eventsteps;
+    private long matchmakersteps;
     private long goal;
     private boolean eventreached;
     private PendingIntent pendingIntent;
@@ -181,6 +182,15 @@ public class ForeGroundService extends Service implements SensorEventListener, S
                                     break;
                             }
 
+                        }
+                    }
+                    else if(temp.isMatching()){
+                        matchmakersteps = temp.getMatchmakersteps();
+                        matchmakersteps--;
+                        temp.setMatchmakersteps(matchmakersteps);
+                        if(matchmakersteps <= 0){
+                            eventreached = true;
+                            createNotification("Match found", "The Matchmaker has found a match for your monster!");
                         }
                     }
                     temp.setTotalsteps(steps);

@@ -9,7 +9,11 @@
     index 5 - (5+number of evolutions-1) is the different possible evolutions
     index (5+number of evolutions) is the standard health of the monster
     index (5+number of evolutions+1) is the standard attack power of the monster
-    index (5+number of evolutions+2) is the standard attack chance of the monster-->
+    index (5+number of evolutions+2) is the standard attack chance of the monster
+    index (5+number of evolutions+3) is the evolution diligence requirement of the monster
+    index (5+number of evolutions+4) is the hunger requirement
+    index (5+number of evolutions+5) is the max overfeed/gluttony
+    index (5+number of evolutions+6) is the max training mistakes-->
 
     <integer-array name="library">
         <item name="egg_list">@array/egg_list</item>
@@ -31,6 +35,10 @@
 
     <integer-array name="child_list">
         <item name="dino_child2">@array/dino_child2</item>
+    </integer-array>
+
+    <integer-array name="adult_list">
+        <item name="dino_adult2">@array/dino_child2</item>
     </integer-array>
 
     <integer-array name="missing_content">
@@ -94,9 +102,9 @@
         <item name="title">@string/dino_baby1_title</item>
         <item name="description">@string/dino_baby1_description</item>
         <item name="icon">@drawable/baby_dino_idle</item>
-        <item name="evo1">@array/dino_child2</item>
-        <item name="evo2">@array/dino_baby1</item>
-        <item name="evo3">@array/dino_baby1</item>
+        <item name="evo1">@array/dino_child1</item>
+        <item name="evo2">@array/dino_child2</item>
+        <item name="evo3">@array/dino_child3</item>
         <item name="health">3</item>
         <item name="attack">1</item>
         <item name="attackchance">50</item>
@@ -108,12 +116,30 @@
         <item name="title">@string/dino_baby2_title</item>
         <item name="description">@string/dino_baby2_description</item>
         <item name="icon">@drawable/baby_dino2_idle</item>
-        <item name="icon">@array/dino_baby1</item>
-        <item name="icon">@array/dino_baby1</item>
-        <item name="icon">@array/dino_baby1</item>
+        <item name="icon">@array/dino_child4</item>
+        <item name="icon">@array/dino_child5</item>
+        <item name="icon">@array/dino_child3</item>
         <item name="health">3</item>
         <item name="attack">1</item>
         <item name="attackchance">50</item>
+    </integer-array>
+
+    <integer-array name="dino_child1">
+        <item name="stage">2</item>
+        <item name="evolutions">3</item>
+        <item name="title">@string/dino_child2_title</item>
+        <item name="description">@string/dino_child2_description</item>
+        <item name="icon">@drawable/child_dino2_idle</item>
+        <item name="icon">@array/dino_adult1</item>
+        <item name="icon">@array/dino_adult3</item>
+        <item name="icon">@array/dino_adult5</item>
+        <item name="health">7</item>
+        <item name="attack">2</item>
+        <item name="attackchance">50</item>
+        <item name="diligence">6</item>
+        <item name="hunger">4</item>
+        <item name="gluttony">0</item>
+        <item name="mistakes">0</item>
     </integer-array>
 
     <integer-array name="dino_child2">
@@ -122,9 +148,147 @@
         <item name="title">@string/dino_child2_title</item>
         <item name="description">@string/dino_child2_description</item>
         <item name="icon">@drawable/child_dino2_idle</item>
+        <item name="icon">@array/dino_adult2</item>
+        <item name="icon">@array/dino_adult3</item>
+        <item name="icon">@array/dino_adult4</item>
+        <item name="health">7</item>
+        <item name="attack">2</item>
+        <item name="attackchance">50</item>
+        <item name="diligence">6</item>
+        <item name="hunger">4</item>
+        <item name="gluttony">3</item>
+        <item name="mistakes">2</item>
+    </integer-array>
+
+    <integer-array name="dino_child3">
+        <item name="stage">2</item>
+        <item name="evolutions">3</item>
+        <item name="title">@string/dino_child2_title</item>
+        <item name="description">@string/dino_child2_description</item>
+        <item name="icon">@drawable/child_dino2_idle</item>
+        <item name="icon">@array/dino_adult3</item>
+        <item name="icon">@array/dino_adult5</item>
+        <item name="icon">@array/dino_adult4</item>
+        <item name="health">7</item>
+        <item name="attack">2</item>
+        <item name="attackchance">50</item>
+        <item name="diligence">0</item>
+        <item name="hunger">0</item>
+        <item name="gluttony">100</item>
+        <item name="mistakes">5</item>
+    </integer-array>
+
+    <integer-array name="dino_child4">
+        <item name="stage">2</item>
+        <item name="evolutions">3</item>
+        <item name="title">@string/dino_child2_title</item>
+        <item name="description">@string/dino_child2_description</item>
+        <item name="icon">@drawable/child_dino2_idle</item>
         <item name="icon">@array/dino_baby1</item>
         <item name="icon">@array/dino_baby1</item>
         <item name="icon">@array/dino_baby1</item>
+        <item name="health">7</item>
+        <item name="attack">2</item>
+        <item name="attackchance">50</item>
+    </integer-array>
+
+    <integer-array name="dino_child5">
+        <item name="stage">2</item>
+        <item name="evolutions">3</item>
+        <item name="title">@string/dino_child2_title</item>
+        <item name="description">@string/dino_child2_description</item>
+        <item name="icon">@drawable/child_dino2_idle</item>
+        <item name="icon">@array/dino_adult7</item>
+        <item name="icon">@array/dino_adult6</item>
+        <item name="icon">@array/dino_adult4</item>
+        <item name="health">7</item>
+        <item name="attack">2</item>
+        <item name="attackchance">50</item>
+    </integer-array>
+
+    <integer-array name="dino_adult1">
+        <item name="stage">2</item>
+        <item name="evolutions">0</item>
+        <item name="title">@string/dino_child2_title</item>
+        <item name="description">@string/dino_child2_description</item>
+        <item name="icon">@drawable/child_dino2_idle</item>
+        <item name="health">7</item>
+        <item name="attack">2</item>
+        <item name="attackchance">50</item>
+    </integer-array>
+
+    <integer-array name="dino_adult2">
+        <item name="stage">2</item>
+        <item name="evolutions">0</item>
+        <item name="title">@string/dino_child2_title</item>
+        <item name="description">@string/dino_child2_description</item>
+        <item name="icon">@drawable/child_dino2_idle</item>
+        <item name="health">7</item>
+        <item name="attack">2</item>
+        <item name="attackchance">50</item>
+    </integer-array>
+
+    <integer-array name="dino_adult3">
+        <item name="stage">2</item>
+        <item name="evolutions">0</item>
+        <item name="title">@string/dino_child2_title</item>
+        <item name="description">@string/dino_child2_description</item>
+        <item name="icon">@drawable/child_dino2_idle</item>
+        <item name="health">7</item>
+        <item name="attack">2</item>
+        <item name="attackchance">50</item>
+    </integer-array>
+
+    <integer-array name="dino_adult4">
+        <item name="stage">2</item>
+        <item name="evolutions">0</item>
+        <item name="title">@string/dino_child2_title</item>
+        <item name="description">@string/dino_child2_description</item>
+        <item name="icon">@drawable/child_dino2_idle</item>
+        <item name="health">7</item>
+        <item name="attack">2</item>
+        <item name="attackchance">50</item>
+    </integer-array>
+
+    <integer-array name="dino_adult5">
+        <item name="stage">2</item>
+        <item name="evolutions">0</item>
+        <item name="title">@string/dino_child2_title</item>
+        <item name="description">@string/dino_child2_description</item>
+        <item name="icon">@drawable/child_dino2_idle</item>
+        <item name="health">7</item>
+        <item name="attack">2</item>
+        <item name="attackchance">50</item>
+    </integer-array>
+
+    <integer-array name="dino_adult6">
+        <item name="stage">2</item>
+        <item name="evolutions">0</item>
+        <item name="title">@string/dino_child2_title</item>
+        <item name="description">@string/dino_child2_description</item>
+        <item name="icon">@drawable/child_dino2_idle</item>
+        <item name="health">7</item>
+        <item name="attack">2</item>
+        <item name="attackchance">50</item>
+    </integer-array>
+
+    <integer-array name="dino_adult7">
+        <item name="stage">2</item>
+        <item name="evolutions">0</item>
+        <item name="title">@string/dino_child2_title</item>
+        <item name="description">@string/dino_child2_description</item>
+        <item name="icon">@drawable/child_dino2_idle</item>
+        <item name="health">7</item>
+        <item name="attack">2</item>
+        <item name="attackchance">50</item>
+    </integer-array>
+
+    <integer-array name="dino_adult8">
+        <item name="stage">2</item>
+        <item name="evolutions">0</item>
+        <item name="title">@string/dino_child2_title</item>
+        <item name="description">@string/dino_child2_description</item>
+        <item name="icon">@drawable/child_dino2_idle</item>
         <item name="health">7</item>
         <item name="attack">2</item>
         <item name="attackchance">50</item>

@@ -81,7 +81,7 @@
             <ImageView
                 android:visibility="invisible"
                 android:id="@+id/training_layout"
-                android:src="@drawable/ic_full"
+                android:src="@drawable/training_touch"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:layout_width="0dp"

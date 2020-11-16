@@ -56,6 +56,31 @@ tools:context=".MainActivity">
     android:orientation="vertical"
     app:layout_constraintGuide_percent="0.5"/>
 
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/verticaliconguideline"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.87"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/infoguideline"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.05"/>
+
+    <ImageView
+        android:contentDescription="@string/monsterinfo"
+        android:id="@+id/library_info_popup"
+        android:background="@color/colorPrimary"
+        android:layout_width="0dp"
+        app:layout_constraintHeight_percent="0.05"
+        android:layout_height="0dp"
+        app:layout_constraintWidth_percent="0.1"
+        app:layout_constraintTop_toBottomOf="@id/infoguideline"
+        app:layout_constraintStart_toStartOf="@id/verticaliconguideline"/>
+
 <FrameLayout
     android:id="@+id/placeholder"
     android:background="@drawable/ic_launcher_background"
@@ -134,6 +159,7 @@ tools:context=".MainActivity">
 <NumberPicker
     android:id="@+id/picker"
     android:layout_width="0dp"
+    android:descendantFocusability="blocksDescendants"
     app:layout_constraintWidth_percent="0.3"
     android:layout_height="0dp"
     app:layout_constraintHeight_percent="0.1"

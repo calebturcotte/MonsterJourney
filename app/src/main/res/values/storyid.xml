@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer-array name="dino_map">
+        <item name="stage1">@array/basic_dino_enemies</item>
+        <item name="stage2">@array/child_dino_enemies</item>
+        <item name="stage3">@array/adult_dino_enemies</item>
+        <item name="boss">@array/dino_adult1</item>
+    </integer-array>
+
+    <integer-array name="basic_dino_enemies">
+        <item name="size">2</item>
+        <item name="stage1">@array/dino_baby1</item>
+        <item name="stage2">@array/dino_baby2</item>
+    </integer-array>
+
+    <integer-array name="child_dino_enemies">
+        <item name="size">4</item>
+        <item name="stage1">@array/dino_baby1</item>
+        <item name="stage2">@array/dino_child1</item>
+        <item name="stage3">@array/dino_child2</item>
+        <item name="stage4">@array/dino_child5</item>
+    </integer-array>
+
+    <integer-array name="adult_dino_enemies">
+        <item name="size">5</item>
+        <item name="stage1">@array/dino_child3</item>
+        <item name="stage2">@array/dino_adult5</item>
+        <item name="stage3">@array/dino_adult6</item>
+        <item name="stage4">@array/dino_adult4</item>
+        <item name="stage4">@array/dino_adult2</item>
+    </integer-array>
+</resources>

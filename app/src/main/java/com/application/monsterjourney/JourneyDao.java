@@ -68,4 +68,16 @@ public interface JourneyDao {
 
     @Update
     void updateMonster(Monster monster);
+
+    @Query("SELECT * FROM UNLOCKEDMONSTER")
+    List<UnlockedMonster> getUnlockedMonster();
+
+    //for checking if monsters are unlocked we *should only have to update the value if a monster was unlocked before unlocking it
+    @Insert
+    void insertUnlockedMonster(UnlockedMonster... unlockedMonsters);
+
+    @Update
+    void updateUnlockedMonster(List<UnlockedMonster> unlockedMonsters);
+
+
 }

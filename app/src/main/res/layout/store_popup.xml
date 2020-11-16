@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/popup"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintHeight_percent="0.5"
+        app:layout_constraintWidth_percent="0.8"
+        android:background="@color/colorPrimary"
+        app:layout_constraintStart_toStartOf="@id/verticalguideline"
+        app:layout_constraintTop_toTopOf="@id/horizontalguideline">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageguideline"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.1"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textguideline"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.1"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/himageguideline"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.15"/>
+
+        <ImageView
+            android:contentDescription="@string/close"
+            android:id="@+id/close"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/colorAccent"
+            app:layout_constraintHeight_percent="0.08"
+            app:layout_constraintWidth_percent="0.1"
+            app:layout_constraintEnd_toEndOf="@id/popup"
+            app:layout_constraintTop_toTopOf="@id/popup"/>
+
+        <ScrollView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintHeight_percent="0.8"
+            app:layout_constraintWidth_percent="0.7"
+            app:layout_constraintStart_toEndOf="@id/himageguideline"
+            app:layout_constraintTop_toTopOf="@id/imageguideline">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="0.6"
+                        android:gravity="center"
+                        android:layout_height="match_parent"
+                        android:textSize="15sp"
+                        android:text="@string/removeads"/>
+
+                    <Button
+                        android:id="@+id/volumeBar"
+                        android:layout_width="0dp"
+                        android:layout_weight="0.4"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="0.6"
+                        android:gravity="center"
+                        android:layout_height="50dp"
+                        android:textSize="15sp"
+                        android:text="@string/buylightegg"/>
+
+                    <Button
+                        android:id="@+id/buylightegg"
+                        android:layout_width="0dp"
+                        android:gravity="center"
+                        android:layout_weight="0.4"
+                        android:layout_height="50dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="0.6"
+                        android:gravity="center"
+                        android:layout_height="50dp"
+                        android:textSize="15sp"
+                        android:text="@string/buydarkegg"/>
+
+                    <Button
+                        android:id="@+id/buydarkegg"
+                        android:layout_width="0dp"
+                        android:gravity="center"
+                        android:layout_weight="0.4"
+                        android:layout_height="50dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="0.6"
+                        android:gravity="center"
+                        android:layout_height="50dp"
+                        android:textSize="15sp"
+                        android:text="@string/buycosmicegg"/>
+
+                    <Button
+                        android:id="@+id/buycosmicegg"
+                        android:layout_width="0dp"
+                        android:gravity="center"
+                        android:layout_weight="0.4"
+                        android:layout_height="50dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="0.6"
+                        android:gravity="center"
+                        android:layout_height="50dp"
+                        android:textSize="15sp"
+                        android:text="@string/buyitempack"/>
+
+                    <Button
+                        android:id="@+id/buyitempack"
+                        android:layout_width="0dp"
+                        android:gravity="center"
+                        android:layout_weight="0.4"
+                        android:layout_height="50dp" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/horizontalguideline"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.25"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/verticalguideline"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.1"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

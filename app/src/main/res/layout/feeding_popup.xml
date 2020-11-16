@@ -84,11 +84,21 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:gravity="center"
-            android:textSize="15sp"
-            app:layout_constraintHeight_percent="0.3"
+            android:textSize="18sp"
+            app:layout_constraintHeight_percent="0.2"
             app:layout_constraintWidth_percent="0.5"
             app:layout_constraintStart_toEndOf="@id/food_icon"
             app:layout_constraintTop_toTopOf="@id/food_icon"/>
+        <TextView
+            android:id="@+id/food_amount"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:gravity="center"
+            android:textSize="15sp"
+            app:layout_constraintHeight_percent="0.1"
+            app:layout_constraintWidth_percent="0.5"
+            app:layout_constraintStart_toEndOf="@id/food_icon"
+            app:layout_constraintTop_toBottomOf="@id/food_title"/>
 
         <TextView
             android:id="@+id/confimation_text"
@@ -113,6 +123,7 @@
         <ImageView
             android:id="@+id/left_popup_arrow"
             android:src="@drawable/ic_sidescrollv2"
+            android:visibility="invisible"
             android:scaleX="-1"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -123,6 +134,7 @@
         <ImageView
             android:id="@+id/right_popup_arrow"
             android:src="@drawable/ic_sidescrollv2"
+            android:visibility="invisible"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintWidth_percent="0.15"

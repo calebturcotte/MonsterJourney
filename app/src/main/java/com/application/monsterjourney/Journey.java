@@ -24,6 +24,9 @@ public class Journey {
     @ColumnInfo(name = "story_steps", defaultValue = "0")
     public long storysteps;
 
+    @ColumnInfo(name = "story_type")
+    public int storytype;
+
     @ColumnInfo(name = "first_time", defaultValue = "0")
     public boolean firsttime;
 
@@ -42,6 +45,15 @@ public class Journey {
     @ColumnInfo(name = "matchmaker_reached")
     public boolean matchmakerreached;
 
+    @ColumnInfo(name ="battling")
+    public boolean isbattling;
+
+    @ColumnInfo(name = "enemyarrayid")
+    public int enemyarrayid;
+
+    @ColumnInfo(name = "enemyhealth")
+    public int enemyhealth;
+
 
     public Journey(){
         totalsteps = 0;
@@ -54,6 +66,9 @@ public class Journey {
         matching = false;
         matchmakersteps = 1000;
         matchmakerreached = false;
+        storytype = R.array.dino_map;
+        storysteps = 30000;
+        isbattling = false;
     }
     public static Journey[] populateData() {
         return new Journey[] {
@@ -96,9 +111,7 @@ public class Journey {
         eventsteps = newsteps;
     }
 
-    public boolean isEventreached(){
-        return eventreached;
-    }
+    public boolean isEventreached(){return eventreached;}
 
     public void setEventreached(boolean reached){
         eventreached = reached;
@@ -127,6 +140,26 @@ public class Journey {
     public long getMatchmakersteps(){return matchmakersteps;}
 
     public void setMatchmakersteps(long steps){matchmakersteps = steps;}
+
+    public long getStorysteps(){return storysteps;}
+
+    public void setStorysteps(long storysteps){this.storysteps = storysteps;}
+
+    public int getStorytype(){return storytype;}
+
+    public void setStorytype(int storytype){this.storytype = storytype;}
+
+    public void setIsbattling(boolean isbattling){this.isbattling = isbattling;}
+
+    public boolean getIsbattling(){return isbattling;}
+
+    public void setEnemyarrayid(int enemyarrayid){this.enemyarrayid = enemyarrayid;}
+
+    public int getEnemyarrayid(){return enemyarrayid;}
+
+    public void setEnemyhealth(int enemyhealth){this.enemyhealth = enemyhealth;}
+
+    public int getEnemyhealth(){return enemyhealth;}
 
 }
 

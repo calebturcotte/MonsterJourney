@@ -1,7 +1,6 @@
 package com.application.monsterjourney;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.content.res.TypedArray;
 import androidx.annotation.StyleableRes;
 import androidx.room.ColumnInfo;
@@ -57,7 +56,7 @@ public class Monster {
 
     public Monster(int generation){
         this.generation = generation;
-        maxhealth = 5;
+        maxhealth = 0;
         hunger = 0;
         diligence = 0;
         gluttony = 0;
@@ -108,7 +107,7 @@ public class Monster {
 
     public void setGluttony(int gluttony){this.gluttony = gluttony;}
 
-    public long getEvolveSteps(){return evolvesteps;}
+    public long getEvolvesteps(){return evolvesteps;}
 
     public void setEvolvesteps(long newsteps){this.evolvesteps = newsteps;}
 
@@ -151,24 +150,37 @@ public class Monster {
 
     /**
      *
-     * @param amount the amount added to the monster
+     * @param type the type of food given to the monster
      */
-    public void feedMonster(int amount){
-        if(hunger < 8){
-            hunger = hunger + amount;
-            if(hunger > 8){
-                hunger = 8;
+    public void feedMonster(int type){
+        if(type == 0 || type == 1 || type == 2){
+            int amount = type+1;
+            if(hunger < 8){
+                hunger = hunger + amount;
+                if(hunger > 8){
+                    hunger = 8;
+                }
+            }
+            else {
+                gluttony++;
             }
         }
-        else {
-            gluttony++;
+        else if(type == 3){
+            diligence = diligence+2;
         }
+        else if(type == 4){
+            evolvesteps = evolvesteps - 1000;
+        }
+
     }
 
     /**
      * called when monster evolves, gains new stats and form depending on mistakes and other factors
      */
     public boolean evolve(Context applicationcontext){
+        if(evolvesteps > 0){
+            return false;
+        }
         TypedArray array = applicationcontext.getResources().obtainTypedArray(arrayid);
         int[] monsterresources = applicationcontext.getResources().getIntArray(arrayid);
         int evolutions = monsterresources[1];
@@ -185,7 +197,26 @@ public class Monster {
         if(stage == 0){
             criteria[0] = ran.nextFloat() < 0.5f;
             criteria[1] = true;
+        } else if(stage >= 3){
+            return false;
         }
+        else {
+            for(int i = 0; i < evolutions; i++){
+                @StyleableRes int tempid = 5 + i;
+                int tempevolvecheck = array.getResourceId(tempid,R.array.basic_egg);
+                int[] evolutionrequirements = applicationcontext.getResources().getIntArray(tempevolvecheck);
+                int evolvenumber = evolutionrequirements[1];
+                if(diligence >= evolutionrequirements[evolvenumber+8] && hunger >= evolutionrequirements[evolvenumber+9]
+                        && gluttony <= evolutionrequirements[evolvenumber+10] && mistakes <= evolutionrequirements[evolvenumber+11]){
+                    criteria[i] = true;
+                    break;
+                }
+                else{
+                    criteria[i] = false;
+                }
+            }
+        }
+
         boolean success = false;
 
         int temp;
@@ -196,6 +227,12 @@ public class Monster {
                 //editor.putInt("selectedmonster",temp);
                 arrayid = temp;
                 success = true;
+                if(stage + 1 == 1){
+                    setEvolvesteps(15000);
+                }
+                else if (stage + 1 ==2){
+                    setEvolvesteps(20000);
+                }
 /*                editor.putBoolean(String.valueOf(temp),true);
                 editor.apply();*/
                 break;
@@ -206,19 +243,41 @@ public class Monster {
 
     }
 
+    public void initializebattlestats(Context applicationcontext){
+        int[] monsterresources = applicationcontext.getResources().getIntArray(arrayid);
+        int evolutions = monsterresources[1];
+        chance = monsterresources[evolutions + 7];
+        power = monsterresources[evolutions + 6];
+        currenthealth = monsterresources[evolutions + 5];
+        maxhealth = currenthealth;
+    }
+
     /**
      * Generates the battle event arraylist of how the battle is going
      * result 0 for draw, 1 for player1, 2 for player2
      * @return the result of each step in a battle to be played
      */
-    public ArrayList<Integer> battle(int enemyattack, int enemyhealth, int enemychance){
+    public ArrayList<Integer> battle(int enemyattack, int enemyhealth, int enemychance, int battleboost, boolean online){
         ArrayList<Integer> temp = new ArrayList<>();
         Random ran = new Random();
         int myattack;
         int theirattack;
-        currenthealth = maxhealth;
-        for(int i = 0; i < 4; i++){
-            boolean chance1 =  ran.nextInt(100) < chance;
+        int tempplayerhealth = currenthealth;
+        if(battleboost > 5){
+            battleboost = 5;
+        }
+
+//        int[] monsterresources = applicationcontext.getResources().getIntArray(arrayid);
+//        int evolutions = monsterresources[1];
+//        int chance = monsterresources[evolutions + 7];
+//        int power = monsterresources[evolutions + 6];
+        int looplength = 4;
+        if(online){
+            looplength = 1000;
+        }
+
+        for(int i = 0; i < looplength; i++){
+            boolean chance1 =  ran.nextInt(100) < (chance + 5*battleboost);
             boolean chance2 = ran.nextInt(100) < enemychance;
             if(chance1){
                 myattack = power;
@@ -238,17 +297,17 @@ public class Monster {
             }
             else if(theirattack > myattack){
                 temp.add(2);
-                currenthealth = currenthealth - theirattack;
+                tempplayerhealth = tempplayerhealth - theirattack;
             }
             else {
                 temp.add(0);
             }
 
-            if(currenthealth < 0){
+            if(tempplayerhealth <= 0){
                 break;
             }
 
-            if(enemyhealth < 0){
+            if(enemyhealth <= 0){
                 break;
             }
 

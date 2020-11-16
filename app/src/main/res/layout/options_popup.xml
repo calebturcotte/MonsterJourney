@@ -8,7 +8,7 @@
         android:id="@+id/popup"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintHeight_percent="0.8"
+        app:layout_constraintHeight_percent="0.5"
         app:layout_constraintWidth_percent="0.8"
         android:background="@color/colorPrimary"
         app:layout_constraintStart_toStartOf="@id/verticalguideline"
@@ -47,84 +47,90 @@
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.15"/>
 
-
-        <ImageView
-            android:contentDescription="@string/icon_description"
-            android:background="@drawable/ic_launcher_background"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintHeight_percent="0.4"
-            app:layout_constraintWidth_percent="0.7"
-            app:layout_constraintStart_toEndOf="@id/himageguideline"
-            app:layout_constraintTop_toTopOf="@id/imageguideline"/>
-        <ImageView
-            android:id="@+id/monster_popup_icon"
-            android:scaleX="-1"
-            android:contentDescription="@string/icon_description"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintHeight_percent="0.4"
-            app:layout_constraintWidth_percent="0.7"
-            app:layout_constraintStart_toEndOf="@id/himageguideline"
-            app:layout_constraintTop_toTopOf="@id/imageguideline"/>
-
         <ImageView
             android:contentDescription="@string/close"
             android:id="@+id/close"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:background="@color/colorAccent"
-            app:layout_constraintHeight_percent="0.05"
+            app:layout_constraintHeight_percent="0.08"
             app:layout_constraintWidth_percent="0.1"
             app:layout_constraintEnd_toEndOf="@id/popup"
             app:layout_constraintTop_toTopOf="@id/popup"/>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:gravity="center"
-            android:text="@string/congratulations"
-            android:textSize="25sp"
-            app:layout_constraintHeight_percent="0.1"
-            app:layout_constraintStart_toEndOf="@id/textguideline"
-            app:layout_constraintTop_toBottomOf="@id/monster_popup_icon"/>
-
-        <EditText
-            android:id="@+id/name_enter"
-            android:maxLines="1"
-            android:maxLength="15"
+        <ScrollView
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:background="@color/colorAccent"
-            app:layout_constraintHeight_percent="0.1"
+            app:layout_constraintHeight_percent="0.8"
             app:layout_constraintWidth_percent="0.7"
-            app:layout_constraintStart_toEndOf="@id/textguideline"
-            app:layout_constraintTop_toBottomOf="@id/message_text"/>
+            app:layout_constraintStart_toEndOf="@id/himageguideline"
+            app:layout_constraintTop_toTopOf="@id/imageguideline">
 
-        <Button
-            android:id="@+id/name_button"
-            android:layout_width="0dp"
-            android:text="ok"
-            android:layout_height="0dp"
-            app:layout_constraintHeight_percent="0.1"
-            app:layout_constraintWidth_percent="0.2"
-            app:layout_constraintStart_toEndOf="@id/name_enter"
-            app:layout_constraintTop_toBottomOf="@id/message_text"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="0.4"
+                        android:gravity="center"
+                        android:layout_height="30dp"
+                        android:textSize="25sp"
+                        android:text="@string/volume"/>
+
+                    <SeekBar
+                        android:id="@+id/volumeBar"
+                        android:layout_width="0dp"
+                        android:layout_weight="0.6"
+                        android:layout_height="30dp" />
+                </LinearLayout>
 
 
 
-        <TextView
-            android:id="@+id/message_text"
-            app:layout_constraintHeight_percent="0.2"
-            android:text="@string/entername"
-            android:gravity="center"
-            android:textSize="20sp"
-            android:layout_height="0dp"
-            android:layout_width="0dp"
-            app:layout_constraintWidth_percent="0.8"
-            app:layout_constraintStart_toEndOf="@id/textguideline"
-            app:layout_constraintTop_toTopOf="@id/trainingguideline"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="0.6"
+                        android:gravity="center"
+                        android:layout_height="50dp"
+                        android:textSize="15sp"
+                        android:text="@string/pedometer"/>
 
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/pedometerswitch"
+                        android:layout_width="0dp"
+                        android:gravity="center"
+                        android:layout_weight="0.4"
+                        android:layout_height="50dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="0.6"
+                        android:gravity="center"
+                        android:layout_height="50dp"
+                        android:textSize="15sp"
+                        android:text="@string/rate"/>
+
+                    <Button
+                        android:id="@+id/ratebutton"
+                        android:layout_width="0dp"
+                        android:gravity="center"
+                        android:layout_weight="0.4"
+                        android:layout_height="50dp" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </ScrollView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -133,7 +139,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/horizontalguideline"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.1"/>
+        app:layout_constraintGuide_percent="0.25"/>
 
     <androidx.constraintlayout.widget.Guideline
         android:layout_width="wrap_content"
@@ -141,7 +147,6 @@
         android:id="@+id/verticalguideline"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.1"/>
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

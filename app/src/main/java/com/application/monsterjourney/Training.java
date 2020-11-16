@@ -28,6 +28,8 @@ import androidx.annotation.StyleableRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.Random;
 
@@ -40,13 +42,26 @@ public class Training extends AppCompatActivity {
     private TextView title,description;
     private int trainingtapcount;
     private View trainView, matchView, feedView;
-    private int feedamount;
+    private int feedtype;
+    private ArrayList<ItemAmount> feedamounts;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_training);
         selectedtask = 0;
         maxtasks = 5;
+
+//        AsyncTask.execute(new Runnable() {
+//            @Override
+//            public void run() {
+//                AppDatabase db = AppDatabase.buildDatabase(getApplicationContext());
+//                //Temp test
+//                Item tempitem = new Item(1);
+//                Item tempitem2 = new Item(2);
+//                db.journeyDao().insertItem(tempitem);
+//                db.journeyDao().insertItem(tempitem2);
+//            }
+//        });
 
         title = findViewById(R.id.Title);
         description = findViewById(R.id.content);
@@ -355,20 +370,23 @@ public class Training extends AppCompatActivity {
             public void onClick(View v) {
                 feedWindow.dismiss();
                 feedView = null;
+                feedamounts = null;
             }
         });
 
-        feedamount = 1;
+        feedtype = 0;
+
+        feedamounts = new ArrayList<>();
+        feedamounts.add(new ItemAmount(0,1000));
+
+
 
         feeddisplay();
 
-        ImageView rightscroll = feedView.findViewById(R.id.right_popup_arrow);
-        ImageView leftscroll = feedView.findViewById(R.id.left_popup_arrow);
-        Animation leftscrollanimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.leftarrow);
+        FetchItems runner = new FetchItems();
+        runner.execute();
 
-        Animation rightscrollanimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rightarrow);
-        leftscroll.startAnimation(rightscrollanimation);
-        rightscroll.startAnimation(leftscrollanimation);
+
 
         feedView.findViewById(R.id.confirm).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -378,9 +396,17 @@ public class Training extends AppCompatActivity {
                     public void run() {
                         AppDatabase db = AppDatabase.buildDatabase(getApplicationContext());
                         Monster temp = db.journeyDao().getMonster().get(0);
-                        temp.feedMonster(feedamount);
+                        temp.feedMonster(feedtype);
                         db.journeyDao().updateMonster(temp);
 
+                        List<Item> items = db.journeyDao().getItems();
+
+                        for(Item item : items){
+                            if(item.getitem() == feedtype){
+                                db.journeyDao().delete(item);
+                                break;
+                            }
+                        }
                     }
                 });
                 final FrameLayout frmlayout = (FrameLayout) findViewById(R.id.placeholder);
@@ -401,6 +427,7 @@ public class Training extends AppCompatActivity {
                 });
                 feedWindow.dismiss();
                 feedView = null;
+                feedamounts = null;
                 MonsterStats runner = new MonsterStats();
                 runner.execute();
             }
@@ -412,15 +439,43 @@ public class Training extends AppCompatActivity {
      * configures display for the food popup
      */
     private void feeddisplay(){
+        //TODO add icons and animation for each different type of food
         TextView title = feedView.findViewById(R.id.food_title);
         TextView description = feedView.findViewById(R.id.confimation_text);
         ImageView foodimage = feedView.findViewById(R.id.food_icon);
-        switch(feedamount){
-            case 1:
+        TextView amount = feedView.findViewById(R.id.food_amount);
+        switch(feedtype){
+            case 0:
                 title.setText(getText(R.string.FoodTitle1));
                 description.setText(getText(R.string.FoodDescription1));
                 foodimage.setBackgroundResource(R.drawable.ic_food_display_1);
                 break;
+            case 1:
+                title.setText(getText(R.string.FoodTitle2));
+                description.setText(getText(R.string.FoodDescription2));
+                break;
+            case 2:
+                title.setText(getText(R.string.FoodTitle3));
+                description.setText(getText(R.string.FoodDescription3));
+                foodimage.setBackgroundResource(R.drawable.ic_food_display_1);
+                break;
+            case 3:
+                title.setText(getText(R.string.FoodTitle4));
+                description.setText(getText(R.string.FoodDescription4));
+                foodimage.setBackgroundResource(R.drawable.ic_food_display_1);
+                break;
+            case 4:
+                title.setText(getText(R.string.FoodTitle5));
+                description.setText(getText(R.string.FoodDescription5));
+                foodimage.setBackgroundResource(R.drawable.ic_food_display_1);
+                break;
+        }
+        if(feedtype != 0){
+            String tempamount = "x " + String.valueOf(feedamounts.get(feedtype).getAmount());
+            amount.setText(tempamount);
+        }
+        else{
+            amount.setText("");
         }
     }
 
@@ -719,8 +774,8 @@ public class Training extends AppCompatActivity {
         protected void onPostExecute(String result) {
             selectedIcon(currentarrayid);
             final ImageView foodimageView = findViewById(R.id.eating_icon);
-            switch (feedamount){
-                case 1:
+            switch (feedtype){
+                case 0:
                     foodimageView.setBackgroundResource(R.drawable.food_eat);
                     AnimationDrawable foodanimator = (AnimationDrawable) foodimageView.getBackground();
                     foodanimator.start();
@@ -739,33 +794,134 @@ public class Training extends AppCompatActivity {
         }
     }
 
+    //perform check for evolving our monster and change view if appropriate
     private class EvolveRunner extends AsyncTask<String,String, String>{
         private int currentarrayid;
         private boolean evolved;
+        private int stage;
+        private long stepsneeded;
         @Override
         protected String doInBackground(String... strings) {
             AppDatabase db = AppDatabase.buildDatabase(getApplicationContext());
             Monster temp = db.journeyDao().getMonster().get(0);
-            currentarrayid = db.journeyDao().getMonster().get(0).getArrayid();
             evolved = temp.evolve(getApplicationContext());
-            //TODO either make it impossible to go to care/training screen as an egg, or check for steps as well to evolve, (probably that)
+            currentarrayid = db.journeyDao().getMonster().get(0).getArrayid();
+            int[] monsterresources = getApplication().getResources().getIntArray(currentarrayid);
+            stage = monsterresources[0];
+            stepsneeded = temp.getEvolvesteps();
+
+            db.journeyDao().updateMonster(temp);
+
+            List<UnlockedMonster> unlockedMonsters = db.journeyDao().getUnlockedMonster();
+            if(evolved){
+                for(UnlockedMonster unlockedMonster : unlockedMonsters){
+                    if(unlockedMonster.getMonsterarrayid() == currentarrayid){
+                        unlockedMonster.setUnlocked(true);
+                        unlockedMonster.setDiscovered(true);
+                    }
+                }
+                db.journeyDao().updateUnlockedMonster(unlockedMonsters);
+            }
             return null;
         }
 
         @Override
         protected void onPostExecute(String result) {
-            int[] monsterresources = getApplication().getResources().getIntArray(currentarrayid);
-            int stage = monsterresources[0];
             if(stage >= 3){
                 Toast.makeText(getApplicationContext(), "Monster already at final stage.", Toast.LENGTH_SHORT).show();
             }
-            //temp.evolve(getApplicationContext())
             else if(evolved){
                 selectedIcon(currentarrayid);
+            }
+            else if(stepsneeded > 0){
+                Toast.makeText(getApplicationContext(), String.valueOf(stepsneeded) + " steps needed to evolve.", Toast.LENGTH_SHORT).show();
             }
             else{
                 Toast.makeText(getApplicationContext(), "Evolution requirements not met.", Toast.LENGTH_SHORT).show();
             }
+
+            selectedIcon(currentarrayid);
+
+        }
+    }
+
+    //fetch and display the matchmaking info for current status
+    private class FetchItems extends AsyncTask<String,TextView,String>{
+
+        private int item1;
+        private int item2;
+        private int item3;
+        private int item4;
+        @Override
+        protected String doInBackground(String... strings) {
+            AppDatabase db = AppDatabase.buildDatabase(getApplicationContext());
+            List<Item> tempList = db.journeyDao().getItems();
+            item1 = 0;
+            item2 = 0;
+            item3 = 0;
+            item4 = 0;
+
+            for(Item item : tempList){
+                switch(item.getitem()){
+                    case 1:
+                        item1++;
+                        break;
+                    case 2:
+                        item2++;
+                        break;
+                    case 3:
+                        item3++;
+                        break;
+                    case 4:
+                        item4++;
+                        break;
+                }
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            //check if item is owned, if so then it can be an option to view
+            ImageView rightscroll = feedView.findViewById(R.id.right_popup_arrow);
+            ImageView leftscroll = feedView.findViewById(R.id.left_popup_arrow);
+            if(item1 > 0 || item2 > 0 || item3 > 0 || item4 > 0){
+                rightscroll.setVisibility(View.VISIBLE);
+                leftscroll.setVisibility(View.VISIBLE);
+
+                Animation leftscrollanimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.leftarrow);
+
+                Animation rightscrollanimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rightarrow);
+                leftscroll.startAnimation(rightscrollanimation);
+                rightscroll.startAnimation(leftscrollanimation);
+            }
+
+            feedamounts.add(new ItemAmount(1,item1));
+            feedamounts.add(new ItemAmount(2,item2));
+            feedamounts.add(new ItemAmount(3,item3));
+            feedamounts.add(new ItemAmount(4,item4));
+            rightscroll.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    feedtype = (feedtype +1)%5;
+                    while(!feedamounts.get(feedtype).isUnlocked()){
+                        feedtype = (feedtype +1)%5;
+                    }
+                    feeddisplay();
+                }
+            });
+
+            leftscroll.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    feedtype = (feedtype +4)%5;
+                    while(!feedamounts.get(feedtype).isUnlocked()){
+                        feedtype = (feedtype +4)%5;
+                    }
+                    feeddisplay();
+                }
+            });
+
 
         }
     }

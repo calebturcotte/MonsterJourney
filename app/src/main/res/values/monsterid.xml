@@ -184,12 +184,16 @@
         <item name="title">@string/dino_child2_title</item>
         <item name="description">@string/dino_child2_description</item>
         <item name="icon">@drawable/child_dino2_idle</item>
-        <item name="icon">@array/dino_baby1</item>
-        <item name="icon">@array/dino_baby1</item>
-        <item name="icon">@array/dino_baby1</item>
+        <item name="evo1">@array/dino_baby1</item>
+        <item name="evo2">@array/dino_baby1</item>
+        <item name="evo3">@array/dino_baby1</item>
         <item name="health">7</item>
         <item name="attack">2</item>
         <item name="attackchance">50</item>
+        <item name="diligence">6</item>
+        <item name="hunger">4</item>
+        <item name="gluttony">0</item>
+        <item name="mistakes">0</item>
     </integer-array>
 
     <integer-array name="dino_child5">
@@ -204,6 +208,10 @@
         <item name="health">7</item>
         <item name="attack">2</item>
         <item name="attackchance">50</item>
+        <item name="diligence">6</item>
+        <item name="hunger">4</item>
+        <item name="gluttony">0</item>
+        <item name="mistakes">0</item>
     </integer-array>
 
     <integer-array name="dino_adult1">

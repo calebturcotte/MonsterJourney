@@ -3,6 +3,7 @@ package com.application.monsterjourney;
 import android.content.SharedPreferences;
 import android.content.res.TypedArray;
 import android.graphics.drawable.AnimationDrawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +19,9 @@ import android.widget.TextView;
 
 import androidx.annotation.StyleableRes;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+
+import java.util.List;
 
 public class Library extends AppCompatActivity {
     public static final String PREFS_NAME = "MyJourneyFile";
@@ -31,16 +35,26 @@ public class Library extends AppCompatActivity {
     private TextView description;
     private TextView title;
 
-    private int stage;
     private @StyleableRes int selected;
     private int selectedarray;
     private SharedPreferences settings;
+
+    private List<UnlockedMonster> unlockedMonsterList;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_library);
         settings = getSharedPreferences(PREFS_NAME, 0);
+        selected = 0;
+
+        AsyncTask.execute(new Runnable() {
+            @Override
+            public void run() {
+                AppDatabase db = AppDatabase.buildDatabase(getApplicationContext());
+                unlockedMonsterList = db.journeyDao().getUnlockedMonster();
+            }
+        });
 
         final FrameLayout frmlayout = (FrameLayout) findViewById(R.id.placeholder);
         LayoutInflater aboutinflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
@@ -112,6 +126,13 @@ public class Library extends AppCompatActivity {
                     }
                 });
 
+                findViewById(R.id.library_info_popup).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        showLibraryPopup();
+                    }
+                });
+
                 setView(0);
 
                 frmlayout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
@@ -146,6 +167,10 @@ public class Library extends AppCompatActivity {
      * shows the current monster and description
      */
     public void showView(){
+        if(unlockedMonsterList == null){
+            selected = 0;
+            return;
+        }
         TypedArray viewarray = getResources().obtainTypedArray(selectedarray);
         TypedArray array = getResources().obtainTypedArray(viewarray.getResourceId(selected, R.array.missing_content));
 
@@ -154,24 +179,49 @@ public class Library extends AppCompatActivity {
         int monstertitle = R.string.missing_title;
         int monstertext = R.string.missing_description;
         //normally defvalue is false but we loaded it as true for demo
-        if(settings.getBoolean(String.valueOf(viewarray.getResourceId(selected, R.array.missing_content)),true)){
-            @StyleableRes int tempid = 4;
-            backgroundAnimation = array.getResourceId(tempid,R.drawable.egg_idle);
-            monstertitle = array.getResourceId(tempid-2,R.drawable.egg_idle);
-            monstertext = array.getResourceId(tempid-1,R.drawable.egg_idle);
-            animate = true;
+        //settings.getBoolean(String.valueOf(viewarray.getResourceId(selected, R.array.missing_content)),true)
+        for(UnlockedMonster unlockedMonster : unlockedMonsterList){
+            if(unlockedMonster.getMonsterarrayid() == viewarray.getResourceId(selected, R.array.missing_content)){
+                if(unlockedMonster.isUnlocked()){
+                    @StyleableRes int tempid = 4;
+                    backgroundAnimation = array.getResourceId(tempid,R.drawable.egg_idle);
+                    monstertitle = array.getResourceId(tempid-2,R.drawable.egg_idle);
+                    animate = true;
+                }
+                if(unlockedMonster.isDiscovered()){
+                    @StyleableRes int tempid = 4;
+                    monstertext = array.getResourceId(tempid-1,R.drawable.egg_idle);
+                }
+            }
         }
+//        if(settings.getBoolean(String.valueOf(viewarray.getResourceId(selected, R.array.missing_content)),true)){
+//            @StyleableRes int tempid = 4;
+//            backgroundAnimation = array.getResourceId(tempid,R.drawable.egg_idle);
+//            monstertitle = array.getResourceId(tempid-2,R.drawable.egg_idle);
+//            monstertext = array.getResourceId(tempid-1,R.drawable.egg_idle);
+//            animate = true;
+//        }
 
 
-        imageView.setBackgroundResource(backgroundAnimation);
+        imageView.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(),backgroundAnimation));
+        imageView.setBackgroundResource(R.drawable.ic_background_library);
         if(animate){
-            spriteanimator = (AnimationDrawable) imageView.getBackground();
+            spriteanimator = (AnimationDrawable) imageView.getDrawable();
             spriteanimator.start();
         }
         this.title.setText(getText(monstertitle));
         description.setText(getText(monstertext));
         array.recycle();
         viewarray.recycle();
+    }
+
+    //TODO add popup selector for found monsters
+
+    /**
+     * shows the library popup, which can show specific monster info when tapped
+     */
+    private void showLibraryPopup(){
+
     }
 
 }

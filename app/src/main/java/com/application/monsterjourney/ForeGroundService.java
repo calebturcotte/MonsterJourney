@@ -36,7 +36,7 @@ public class ForeGroundService extends Service implements SensorEventListener, S
     private StepDetector simpleStepDetector;
     private SensorManager sensorManager;
     private Sensor accel;
-    private long steps;
+    private long steps, evolvesteps;
     private long eventsteps;
     private long matchmakersteps;
     private long goal;
@@ -161,10 +161,13 @@ public class ForeGroundService extends Service implements SensorEventListener, S
                 steps = temp.getTotalsteps();
                 eventsteps = temp.getEventsteps();
                 eventreached = temp.isEventreached();
+                Monster tempmonster  = db.journeyDao().getMonster().get(0);
+
                 //if we reach an event then wait until it is addressed before counting steps again
                 if (!eventreached) {
                     steps++;
                     eventsteps--;
+                    evolvesteps = tempmonster.getEvolvesteps() - 1;
                     if (eventsteps <= 0) {
                         //steps = steps % goal;
                         eventreached = true;
@@ -196,7 +199,9 @@ public class ForeGroundService extends Service implements SensorEventListener, S
                     temp.setTotalsteps(steps);
                     temp.setEventreached(eventreached);
                     temp.setEventsteps(eventsteps);
+                    tempmonster.setEvolvesteps(evolvesteps);
                     db.journeyDao().update(temp);
+                    db.journeyDao().updateMonster(tempmonster);
 
                     sendBroadcastMessage(steps);
                     //sendBroadcastMessage(eventreached);

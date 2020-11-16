@@ -18,12 +18,14 @@ import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.StyleableRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.PreferenceManager;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class EggSelect extends AppCompatActivity {
     /**
@@ -40,38 +42,42 @@ public class EggSelect extends AppCompatActivity {
     private int selectedid;
     private AppDatabase db;
 
+    private List<UnlockedMonster> unlockedMonsters;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_egg_select);
         selectedegg = 0;
-        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
-        //SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-        SharedPreferences.Editor editor = getSharedPreferences(PREFS_NAME, 0).edit();
-        editor.putBoolean(String.valueOf(R.array.basic_egg), true);
-        editor.putBoolean(String.valueOf(R.array.dino_egg),true);
-        editor.apply();
+//        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+//        //SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+//        SharedPreferences.Editor editor = getSharedPreferences(PREFS_NAME, 0).edit();
+//        editor.putBoolean(String.valueOf(R.array.basic_egg), true);
+//        editor.putBoolean(String.valueOf(R.array.dino_egg),true);
+//        editor.apply();
 
+
+        CheckUnlocked runner = new CheckUnlocked();
+        runner.execute();
 
 
         //totaleggs = settings.getInt("total eggs",2);
-        TypedArray egglist = getResources().obtainTypedArray(R.array.egg_list);
-        totaleggs = egglist.length();
-
-        eggs = new ArrayList<>();
-        for(int i = 0; i < totaleggs; i++){
-            eggs.add(new Egg(egglist.getResourceId(i,R.array.basic_egg),settings.getBoolean(String.valueOf(egglist.getResourceId(i,R.array.basic_egg)),false)));
-        }
-        egglist.recycle();
+//        TypedArray egglist = getResources().obtainTypedArray(R.array.egg_list);
+//        totaleggs = egglist.length();
+//
+//        eggs = new ArrayList<>();
+//        for(int i = 0; i < totaleggs; i++){
+//            eggs.add(new Egg(egglist.getResourceId(i,R.array.basic_egg),settings.getBoolean(String.valueOf(egglist.getResourceId(i,R.array.basic_egg)),false)));
+//        }
+//        egglist.recycle();
 
         //add our home screen with the current monster
         final FrameLayout frmlayout = (FrameLayout) findViewById(R.id.placeholder);
         LayoutInflater aboutinflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
         final View home = aboutinflater.inflate(R.layout.home_screen, (ViewGroup)null);
-        if(Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT_WATCH){
-            Fade mFade = new Fade(Fade.IN);
-            TransitionManager.beginDelayedTransition(frmlayout, mFade);
-        }
+        Fade mFade = new Fade(Fade.IN);
+        TransitionManager.beginDelayedTransition(frmlayout, mFade);
+
         frmlayout.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
@@ -121,14 +127,31 @@ public class EggSelect extends AppCompatActivity {
                     }
                 });
 
-                switchviews(selectedegg, imageView, title, description);
+                //switchviews(selectedegg, imageView, title, description);
                 frmlayout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
             }
         });
 
     }
 
+
+    /**
+     * initialize the egg select view after we
+     */
+    private void initializeSelect(){
+        eggs = new ArrayList<>();
+        for(UnlockedMonster unlockedMonster : unlockedMonsters){
+            if(unlockedMonster.getStage() == 0 && unlockedMonster.isUnlocked()){
+                eggs.add(new Egg(unlockedMonster.getMonsterarrayid(), unlockedMonster.isUnlocked()));
+            }
+        }
+        totaleggs = eggs.size();
+    }
+
     private void switchviews(int viewselected, ImageView imageView, TextView eggtitle, TextView description){
+        if(eggs == null){
+            return;
+        }
 /*        int backgroundAnimation = R.drawable.egg_idle;
         int title = R.string.basic_egg_title;
         int eggtext = R.string.basic_egg_description;*/
@@ -161,6 +184,9 @@ public class EggSelect extends AppCompatActivity {
     }
 
     public void confirmSelection(){
+        if(eggs == null){
+
+        }
 
         AsyncTask.execute(new Runnable()
         {
@@ -204,5 +230,20 @@ public class EggSelect extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         //super.onBackPressed();
+    }
+
+    //perform check for evolving our monster and change view if appropriate
+    private class CheckUnlocked extends AsyncTask<String,String, String>{
+        @Override
+        protected String doInBackground(String... strings) {
+            AppDatabase db = AppDatabase.buildDatabase(getApplicationContext());
+            unlockedMonsters = db.journeyDao().getUnlockedMonster();
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            initializeSelect();
+        }
     }
 }

@@ -345,7 +345,10 @@ public class Minigame extends AppCompatActivity {
                 db = AppDatabase.buildDatabase(getApplicationContext());
                 Journey tempjourney = db.journeyDao().getJourney().get(0);
                 tempjourney.addStepstoJourney(stepsearned);
+                Monster tempmonster = db.journeyDao().getMonster().get(0);
+                tempmonster.setEvolvesteps(tempmonster.getEvolvesteps() - stepsearned);
                 db.journeyDao().update(tempjourney);
+                db.journeyDao().updateMonster(tempmonster);
             }
         });
 

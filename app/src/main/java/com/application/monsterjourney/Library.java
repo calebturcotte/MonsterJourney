@@ -85,7 +85,7 @@ public class Library extends AppCompatActivity {
                 leftscroll.startAnimation(rightscrollanimation);
                 rightscroll.startAnimation(leftscrollanimation);
 
-                pickervals = new String[] {"Egg", "Baby", "Child",""};
+                pickervals = new String[] {"Egg", "Baby", "Child","Adult"};
 
                 picker1.setDisplayedValues(pickervals);
 

@@ -325,17 +325,14 @@ public class Training extends AppCompatActivity {
         temptouch.setVisibility(View.VISIBLE);
         Animation popupanimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.training_popup);
         temptouch.startAnimation(popupanimation);
-        temptouch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                temptouch.setVisibility(View.INVISIBLE);
-                ImageView temp2 = trainView.findViewById(R.id.training_bar);
-                ClipDrawable trainingfill = (ClipDrawable) temp2.getDrawable();
-                //max fill is 10000, or tapcount of 5
-                trainingtapcount = trainingtapcount + 1;
-                trainingfill.setLevel(trainingtapcount*2000);
-                startTrain(trainView);
-            }
+        temptouch.setOnClickListener(v -> {
+            temptouch.setVisibility(View.INVISIBLE);
+            ImageView temp2 = trainView.findViewById(R.id.training_bar);
+            ClipDrawable trainingfill = (ClipDrawable) temp2.getDrawable();
+            //max fill is 10000, or tapcount of 5
+            trainingtapcount = trainingtapcount + 1;
+            trainingfill.setLevel(trainingtapcount*2000);
+            startTrain(trainView);
         });
 
     }

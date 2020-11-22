@@ -84,6 +84,9 @@
     <string name="simonsays_title">Memory Repetition</string>
     <string name="simonsays_description">A memory game where you must select buttons in the same pattern presented. Earn steps for each round you pass.</string>
 
+    <string name="snake_title">Chain connect</string>
+    <string name="snake_description">Move a chain along to collect blocks and become longer. Earn steps for each block you collect.</string>
+
     <string name="firetype">Fire</string>
     <string name="dinotype">Dino</string>
     <string name="aquatype">Aqua</string>

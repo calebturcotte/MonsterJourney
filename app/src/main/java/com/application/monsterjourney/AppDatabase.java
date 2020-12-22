@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Journey.class,Item.class, History.class, Monster.class, UnlockedMonster.class}, version = 1, exportSchema = false)
+@Database(entities = {Journey.class,Item.class, History.class, Monster.class, UnlockedMonster.class, CompletedMaps.class}, version = 1, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
     private static AppDatabase db;
     public abstract JourneyDao journeyDao();
@@ -40,6 +40,7 @@ public abstract class AppDatabase extends RoomDatabase {
                                 getInstance(context).journeyDao().insertAll(Journey.populateData());
                                 getInstance(context).journeyDao().insertMonster(Monster.populateData());
                                 getInstance(context).journeyDao().insertUnlockedMonster(UnlockedMonster.populateData());
+                                getInstance(context).journeyDao().insertCompletedMaps(CompletedMaps.populateData());
                             }
                         });
                     }

@@ -1,5 +1,6 @@
 package com.application.monsterjourney;
 
+import static java.nio.charset.StandardCharsets.UTF_8;
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
@@ -11,21 +12,23 @@ import android.os.Build;
 import android.os.Bundle;
 import android.transition.Fade;
 import android.transition.TransitionManager;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.StyleableRes;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
-
 import com.google.android.gms.nearby.Nearby;
 import com.google.android.gms.nearby.connection.AdvertisingOptions;
 import com.google.android.gms.nearby.connection.ConnectionInfo;
@@ -40,9 +43,9 @@ import com.google.android.gms.nearby.connection.Payload;
 import com.google.android.gms.nearby.connection.PayloadCallback;
 import com.google.android.gms.nearby.connection.PayloadTransferUpdate;
 import com.google.android.gms.nearby.connection.Strategy;
-
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Communication extends AppCompatActivity {
     /**
@@ -64,7 +67,7 @@ public class Communication extends AppCompatActivity {
     private TextView description;
 
     private int selectedtask;
-    private int maxtasks = 2;
+    private int maxtasks = 3;
 
     private String currentsearchid;
 
@@ -88,30 +91,30 @@ public class Communication extends AppCompatActivity {
         }
     }
 
+    //stuff for Rock Paper Scissors
+    private int opponentScore;
+    private GameChoice opponentChoice;
+
+    private int myScore;
+    private GameChoice myChoice;
+    private Button rockButton;
+    private Button paperButton;
+    private Button scissorsButton;
+    private View rockView;
+    private PopupWindow rockWindow;
+    private TextView p1score, p2score, statusText;
+
+    private String opponentEndpointId;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_connection);
 
-        AsyncTask.execute(new Runnable() {
-            @Override
-            public void run() {
-                AppDatabase db = AppDatabase.buildDatabase(getApplicationContext());
-                currentmonster = db.journeyDao().getMonster().get(0);
-            }
+        AsyncTask.execute(() -> {
+            AppDatabase db = AppDatabase.buildDatabase(getApplicationContext());
+            currentmonster = db.journeyDao().getMonster().get(0);
         });
-
-//        AsyncTask.execute(new Runnable() {
-//            @Override
-//            public void run() {
-//                AppDatabase db = AppDatabase.buildDatabase(getApplicationContext());
-//                //Temp test
-//                Item tempitem = new Item(1);
-//                Item tempitem2 = new Item(2);
-//                db.journeyDao().insertItem(tempitem);
-//                db.journeyDao().insertItem(tempitem2);
-//            }
-//        });
 
         title = findViewById(R.id.Title);
         description = findViewById(R.id.content);
@@ -127,28 +130,23 @@ public class Communication extends AppCompatActivity {
         selectedtask = 0;
         shownDescription();
 
-        findViewById(R.id.right_arrow).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //if(!isplaying)soundPool.load(context, R.raw.pressdown, 1);
-                selectedtask = (selectedtask+1)%maxtasks;
-                shownDescription();
+        findViewById(R.id.right_arrow).setOnClickListener(v -> {
+            //if(!isplaying)soundPool.load(context, R.raw.pressdown, 1);
+            selectedtask = (selectedtask+1)%maxtasks;
+            shownDescription();
 
-            }
         });
-        findViewById(R.id.left_arrow).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //if(!isplaying)soundPool.load(context, R.raw.pressdown, 1);
-                selectedtask = (selectedtask + maxtasks -1)%maxtasks;
-                shownDescription();
+        findViewById(R.id.left_arrow).setOnClickListener(v -> {
+            //if(!isplaying)soundPool.load(context, R.raw.pressdown, 1);
+            selectedtask = (selectedtask + maxtasks -1)%maxtasks;
+            shownDescription();
 
-            }
         });
 
         //add our home screen with the current monster
         final FrameLayout homelayout = (FrameLayout) findViewById(R.id.placeholder);
         LayoutInflater homeinflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+        assert homeinflater != null;
         final View monsterview = homeinflater.inflate(R.layout.home_screen, (ViewGroup)null);
         Fade mFade = new Fade(Fade.IN);
         TransitionManager.beginDelayedTransition(homelayout, mFade);
@@ -162,31 +160,18 @@ public class Communication extends AppCompatActivity {
                 imageView.setBackgroundResource(R.drawable.egg_idle);
                 AnimationDrawable monsteranimator = (AnimationDrawable) imageView.getBackground();
                 monsteranimator.start();
-                AsyncTask.execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        AppDatabase db = AppDatabase.buildDatabase(getApplicationContext());
-                        int currentarrayid = db.journeyDao().getMonster().get(0).getArrayid();
-                        selectedIcon(currentarrayid);
-                    }
+                AsyncTask.execute(() -> {
+                    AppDatabase db = AppDatabase.buildDatabase(getApplicationContext());
+                    int currentarrayid = db.journeyDao().getMonster().get(0).getArrayid();
+                    selectedIcon(currentarrayid);
                 });
                 homelayout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
             }
         });
 
-        findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        findViewById(R.id.back).setOnClickListener(v -> finish());
 
-        findViewById(R.id.picker).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startTask();
-            }
-        });
+        findViewById(R.id.picker).setOnClickListener(v -> startTask());
 
         connectionsClient = Nearby.getConnectionsClient(this);
 
@@ -215,6 +200,10 @@ public class Communication extends AppCompatActivity {
                 tasktitle = R.string.BreedFriend;
                 tasktext = R.string.BreedingFriendInfo;
                 break;
+            case 2:
+                tasktitle = R.string.RockFriend;
+                tasktext = R.string.RockDescription;
+
         }
 
         title.setText(getText(tasktitle));
@@ -253,6 +242,10 @@ public class Communication extends AppCompatActivity {
                     Toast.makeText(this,"Evolve your monster to the adult stage first!", Toast.LENGTH_SHORT).show();
                 }
                 break;
+            case 2: // Rock Paper Scissors
+                Toast.makeText(this,"Connecting", Toast.LENGTH_SHORT).show();
+                rockPaper();
+                break;
         }
     }
 
@@ -262,29 +255,24 @@ public class Communication extends AppCompatActivity {
      */
     private void obtainedNewEgg(int eggid){
         //TODO breed/egg animation
-        AsyncTask.execute(new Runnable()
-        {
-            @Override
-            public void run()
-            {
-                AppDatabase db = AppDatabase.buildDatabase(getApplicationContext());
-                // run your queries here!
-                Journey temp = db.journeyDao().getJourney().get(0);
-                temp.setEventsteps(100);
-                temp.setEventtype(0);
-                temp.setFirsttime(false);
-                temp.setEventreached(false);
-                db.journeyDao().update(temp);
+        AsyncTask.execute(() -> {
+            AppDatabase db = AppDatabase.buildDatabase(getApplicationContext());
+            // run your queries here!
+            Journey temp = db.journeyDao().getJourney().get(0);
+            temp.setEventsteps(100);
+            temp.setEventtype(0);
+            temp.setFirsttime(false);
+            temp.setEventreached(false);
+            db.journeyDao().update(temp);
 
-                //retire the current monster and
-                Monster tempmonster = db.journeyDao().getMonster().get(0);
-                History temphistory = new History(tempmonster.getGeneration(), tempmonster.getArrayid(), tempmonster.getName());
-                db.journeyDao().insertHistory(temphistory);
-                //tempmonster.setArrayid(selectedid);
-                tempmonster.newEgg(eggid);
+            //retire the current monster and
+            Monster tempmonster = db.journeyDao().getMonster().get(0);
+            History temphistory = new History(tempmonster.getGeneration(), tempmonster.getArrayid(), tempmonster.getName());
+            db.journeyDao().insertHistory(temphistory);
+            //tempmonster.setArrayid(selectedid);
+            tempmonster.newEgg(eggid);
 
-                db.journeyDao().updateMonster(tempmonster);
-            }
+            db.journeyDao().updateMonster(tempmonster);
         });
 
         Intent intent = new Intent(this, MainActivity.class);
@@ -328,6 +316,13 @@ public class Communication extends AppCompatActivity {
         startDiscovery();
     }
 
+    //TODO confirm connection works
+    private void rockPaper(){
+        currentsearchid = "RockID";
+        startAdvertising();
+        startDiscovery();
+    }
+
     /**
      * google nearby connections example code, used for advertising a connection
      */
@@ -345,6 +340,10 @@ public class Communication extends AppCompatActivity {
                             b.putInt(currentmonster.getArrayid());
                             connectionsClient.sendPayload(currentsearchid, Payload.fromBytes(b.array()) );
                             isPlayer1 = true;
+
+                            if(selectedtask == 2){
+                                initializeRockPaperScissors();
+                            }
                         })
                 .addOnFailureListener(
                         (Exception e) -> {
@@ -363,11 +362,15 @@ public class Communication extends AppCompatActivity {
                 .startDiscovery(getPackageName(), endpointDiscoveryCallback, discoveryOptions)
                 .addOnSuccessListener(
                         (Void unused) -> {
+                            isPlayer1 = false;
                             ByteBuffer b = ByteBuffer.allocate(4);
                             //b.order(ByteOrder.BIG_ENDIAN); // optional, the initial order of a byte buffer is always BIG_ENDIAN.
                             b.putInt(currentmonster.getArrayid());
                             // We're discovering!
                             connectionsClient.sendPayload(currentsearchid, Payload.fromBytes(b.array()) );
+                            if(selectedtask == 2){
+                                initializeRockPaperScissors();
+                            }
                         })
                 .addOnFailureListener(
                         (Exception e) -> {
@@ -425,6 +428,7 @@ public class Communication extends AppCompatActivity {
                             // We're connected! Can now start sending and receiving data.
                             connectionsClient.stopDiscovery();
                             connectionsClient.stopAdvertising();
+                            opponentEndpointId = endpointId; // the id of the device we are connected to
                             break;
                         case ConnectionsStatusCodes.STATUS_CONNECTION_REJECTED:
                             // The connection was rejected by one or both sides.
@@ -452,15 +456,16 @@ public class Communication extends AppCompatActivity {
                     //our payload that we receive
                     //payload.asBytes();
                     if(payload.asBytes() != null && enemyarrayid == 0){
-                        ByteBuffer wrapped = ByteBuffer.wrap(payload.asBytes()); // big-endian by default
+                        ByteBuffer wrapped = ByteBuffer.wrap(Objects.requireNonNull(payload.asBytes())); // big-endian by default
                         enemyarrayid = wrapped.getInt();
                         Toast.makeText(getApplicationContext(),String.valueOf(enemyarrayid), Toast.LENGTH_SHORT).show();
                     }
                     else if(enemyarrayid != 0 && currentsearchid.equals("BreedID")){
                         //TODO egg stuff here?
                     }
-
-                    //opponentChoice = GameChoice.valueOf(new String(payload.asBytes(), UTF_8));
+                    else if(currentsearchid.equals("RockID")){
+                        opponentChoice = GameChoice.valueOf(new String(Objects.requireNonNull(payload.asBytes()), UTF_8));
+                    }
                 }
 
                 @Override
@@ -468,25 +473,181 @@ public class Communication extends AppCompatActivity {
                     if (update.getStatus() == PayloadTransferUpdate.Status.SUCCESS && enemyarrayid != 0) {
                         Toast.makeText(getApplicationContext(), "Starting selected game", Toast.LENGTH_SHORT).show();
 
-                        if(currentsearchid.equals("BattleID")){
-                            //can potentially add trainingtapcount value from enemy
-                            int[] enemyfound = getResources().getIntArray(enemyarrayid);
-                            int enemyattack = enemyfound[6+enemyfound[1]];
-                            int enemychance = enemyfound[7+enemyfound[1]];
-                            int enemyhealth = enemyfound[5+enemyfound[1]] - 1;
-                            int enemymaxhealth = enemyfound[5+enemyfound[1]] - 1;
-                            ArrayList<Integer> tempbattleresults = currentmonster.battle(enemyattack,enemyhealth,enemychance, trainingtapcount, true);
-                        }else if(currentsearchid.equals("BreedID")){
-                            int newegg = currentmonster.breed(enemyarrayid);
-                            ByteBuffer b = ByteBuffer.allocate(4);
-                            //b.order(ByteOrder.BIG_ENDIAN); // optional, the initial order of a byte buffer is always BIG_ENDIAN.
-                            b.putInt(newegg);
-                            connectionsClient.sendPayload(currentsearchid, Payload.fromBytes(b.array()) );
+                        switch (currentsearchid) {
+                            case "BattleID":
+                                //can potentially add trainingtapcount value from enemy
+                                int[] enemyfound = getResources().getIntArray(enemyarrayid);
+                                int enemyattack = enemyfound[6 + enemyfound[1]];
+                                int enemychance = enemyfound[7 + enemyfound[1]];
+                                int enemyhealth = enemyfound[5 + enemyfound[1]] - 1;
+                                int enemymaxhealth = enemyfound[5 + enemyfound[1]] - 1;
+                                ArrayList<Integer> tempbattleresults = currentmonster.battle(enemyattack, enemyhealth, enemychance, trainingtapcount, true);
+                                break;
+                            case "BreedID":
+                                int newegg = currentmonster.breed(enemyarrayid, getApplicationContext());
+                                ByteBuffer b = ByteBuffer.allocate(4);
+                                //b.order(ByteOrder.BIG_ENDIAN); // optional, the initial order of a byte buffer is always BIG_ENDIAN.
+                                b.putInt(newegg);
+                                connectionsClient.sendPayload(currentsearchid, Payload.fromBytes(b.array()));
+                                break;
+                            case "RockID":
+                                if (update.getStatus() == PayloadTransferUpdate.Status.SUCCESS && myChoice != null && opponentChoice != null) {
+                                    finishRound();
+                                }
+                                break;
                         }
-
-                        //finishRound();
                     }
                 }
             };
 
+    /**
+     * initialize our rock paper scissors game
+     */
+    private void initializeRockPaperScissors(){
+        if(rockView != null){
+            return;
+        }
+        //TODO connection doesn't initialize every time
+
+        LayoutInflater rockinflater = (LayoutInflater)
+                getSystemService(LAYOUT_INFLATER_SERVICE);
+        assert rockinflater != null;
+        rockView = rockinflater.inflate(R.layout.rock_paper_scissors, null);
+        int width2 = ConstraintLayout.LayoutParams.MATCH_PARENT;
+        int height2 = ConstraintLayout.LayoutParams.MATCH_PARENT;
+        final PopupWindow rockWindow = new PopupWindow(rockView, width2, height2, true);
+        rockWindow.setOutsideTouchable(false);
+
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            rockWindow.setElevation(20);
+        }
+        // show the popup window
+        // which view you pass in doesn't matter, it is only used for the window token
+        rockWindow.setAnimationStyle(R.style.PopupAnimation);
+        rockWindow.showAtLocation(findViewById(R.id.placeholder), Gravity.CENTER, 0, 0);
+
+        rockWindow.setOnDismissListener(() -> {
+            rockView = null;
+        });
+
+        rockButton = rockView.findViewById(R.id.rock);
+        scissorsButton = rockView.findViewById(R.id.scissors);
+        paperButton = rockView.findViewById(R.id.paper);
+        p1score = rockView.findViewById(R.id.score1);
+        p2score = rockView.findViewById(R.id.score2);
+        statusText = rockView.findViewById(R.id.result);
+
+        resetGame(rockView);
+        setGameChoicesEnabled(true);
+
+    }
+
+    /** Wipes all game state and updates the UI accordingly. */
+    private void resetGame(View rockView) {
+//        opponentEndpointId = null;
+//        opponentName = null;
+        opponentChoice = null;
+        opponentScore = 0;
+        myChoice = null;
+        myScore = 0;
+
+        if(rockView != null){
+            updateScore(myScore, opponentScore, rockView);
+        }
+        //setButtonState(false);
+    }
+
+
+    /** Sends a {@link GameChoice} to the other player. */
+    public void makeMove(View view) {
+        if (view.getId() == R.id.rock) {
+            sendGameChoice(GameChoice.ROCK);
+        } else if (view.getId() == R.id.paper) {
+            sendGameChoice(GameChoice.PAPER);
+        } else if (view.getId() == R.id.scissors) {
+            sendGameChoice(GameChoice.SCISSORS);
+        }
+    }
+
+    /** Sends the user's selection of rock, paper, or scissors to the opponent. */
+    private void sendGameChoice(GameChoice choice) {
+        //myChoice = choice;
+        connectionsClient.sendPayload(
+                opponentEndpointId, Payload.fromBytes(choice.name().getBytes(UTF_8)));
+
+        //setStatusText(getString(R.string.game_choice, choice.name()));
+        // No changing your mind!
+        setGameChoicesEnabled(false);
+    }
+
+    /** Enables/disables the rock, paper, and scissors buttons. */
+    private void setGameChoicesEnabled(boolean enabled) {
+        rockButton.setEnabled(enabled);
+        paperButton.setEnabled(enabled);
+        scissorsButton.setEnabled(enabled);
+    }
+
+    /** Set the current score */
+    private void updateScore(int myScore, int opponentScore, View thisview){
+        TextView p1score = thisview.findViewById(R.id.score1);
+        p1score.setText(String.valueOf(myScore));
+        TextView p2score = thisview.findViewById(R.id.score2);
+        p2score.setText(String.valueOf(opponentScore));
+    }
+
+    private void setStatusText(int text){
+        statusText.setText(getText(text));
+    }
+
+    /** Determines the winner and update game state/UI after both players have chosen. */
+    private void finishRound() {
+        if (myChoice.beats(opponentChoice)) {
+            // Win!
+            setStatusText(R.string.win_message);
+            myScore++;
+        } else if (myChoice == opponentChoice) {
+            // Tie, same choice by both players
+            setStatusText(R.string.tie_message);
+        } else {
+            // Loss
+            setStatusText(R.string.loss_message);
+            opponentScore++;
+        }
+
+        myChoice = null;
+        opponentChoice = null;
+
+        updateScore(myScore, opponentScore, rockView);
+
+        //TODO test to confirm this all works smoothly
+        if(myScore >= 3){
+            setStatusText(R.string.game_win);
+            rockWindow.dismiss();
+            disconnect();
+            return;
+        }
+        else if(opponentScore >= 3){
+            setStatusText(R.string.game_lost);
+            rockWindow.dismiss();
+            disconnect();
+            return;
+        }
+        // Ready for another round
+        setGameChoicesEnabled(true);
+    }
+
+    /** Disconnects from the opponent and reset the UI. */
+    public void disconnect() {
+        connectionsClient.disconnectFromEndpoint(opponentEndpointId);
+        resetGame(null);
+    }
+
+    /**
+     * override our back pressed button so we don't accidentally close any popup windows
+     */
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+    }
 }

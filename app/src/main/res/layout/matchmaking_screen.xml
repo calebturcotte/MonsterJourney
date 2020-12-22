@@ -4,11 +4,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_height="match_parent"
     android:background="@color/colorAccent">
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/screenbackground"/>
 
     <ImageView
         android:id="@+id/monster_icon"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:scaleX="1"
         app:layout_constraintHeight_percent="1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -19,6 +24,7 @@
         android:id="@+id/suitor_icon"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:scaleX="-1"
         app:layout_constraintHeight_percent="1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"

@@ -58,7 +58,6 @@
 
     <FrameLayout
         android:id="@+id/placeholder"
-        android:background="@drawable/ic_launcher_background"
         android:layout_width="0dp"
         app:layout_constraintHeight_percent="0.4"
         android:layout_height="0dp"

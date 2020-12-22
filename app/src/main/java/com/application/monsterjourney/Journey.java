@@ -66,6 +66,7 @@ public class Journey {
         matching = false;
         matchmakersteps = 1000;
         matchmakerreached = false;
+        //TODO decide starting map for player
         storytype = R.array.dino_map;
         storysteps = 30000;
         isbattling = false;

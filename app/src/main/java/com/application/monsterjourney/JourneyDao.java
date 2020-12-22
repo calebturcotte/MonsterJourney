@@ -3,9 +3,7 @@ package com.application.monsterjourney;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
-import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
-import androidx.room.Transaction;
 import androidx.room.Update;
 
 import java.util.List;
@@ -78,6 +76,17 @@ public interface JourneyDao {
 
     @Update
     void updateUnlockedMonster(List<UnlockedMonster> unlockedMonsters);
+
+
+    @Query("SELECT * FROM COMPLETEDMAPS")
+    List<CompletedMaps> getCompletedMaps();
+
+    //for checking if monsters are unlocked we *should only have to update the value if a monster was unlocked before unlocking it
+    @Insert
+    void insertCompletedMaps(CompletedMaps... completedMaps);
+
+    @Update
+    void updateCompletedMaps(List<CompletedMaps> completedMaps);
 
 
 }

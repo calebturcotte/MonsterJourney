@@ -6,11 +6,8 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.database.sqlite.SQLiteDatabase;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -18,13 +15,10 @@ import android.hardware.SensorManager;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.IBinder;
-
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-import androidx.preference.PreferenceManager;
-
 import java.util.List;
 
 public class ForeGroundService extends Service implements SensorEventListener, StepListener {
@@ -60,18 +54,13 @@ public class ForeGroundService extends Service implements SensorEventListener, S
         simpleStepDetector.registerListener(this);
 
 
-        AsyncTask.execute(new Runnable()
-        {
-            @Override
-            public void run()
-            {
-                db = AppDatabase.buildDatabase(getApplicationContext());
-                Journey temp = db.journeyDao().getJourney().get(0);
-                // run your queries here!
-                steps = temp.getTotalsteps();
-                eventsteps = temp.getEventsteps();
-                eventreached = temp.isEventreached();
-            }
+        AsyncTask.execute(() -> {
+            db = AppDatabase.buildDatabase(getApplicationContext());
+            Journey temp = db.journeyDao().getJourney().get(0);
+            // run your queries here!
+            steps = temp.getTotalsteps();
+            eventsteps = temp.getEventsteps();
+            eventreached = temp.isEventreached();
         });
 
 
@@ -97,7 +86,7 @@ public class ForeGroundService extends Service implements SensorEventListener, S
                     .setSmallIcon(R.drawable.ic_launcher_background)
                     .setTicker(getText(R.string.channel_description))
                     .setOngoing(false)
-                    .build();;
+                    .build();
         }
 
 
@@ -152,60 +141,56 @@ public class ForeGroundService extends Service implements SensorEventListener, S
      */
     @Override
     public void step(long timeNs) {
-        AsyncTask.execute(new Runnable()
-        {
-            @Override
-            public void run() {
-                db = AppDatabase.buildDatabase(getApplicationContext());
-                Journey temp = db.journeyDao().getJourney().get(0);
-                steps = temp.getTotalsteps();
-                eventsteps = temp.getEventsteps();
-                eventreached = temp.isEventreached();
-                Monster tempmonster  = db.journeyDao().getMonster().get(0);
+        AsyncTask.execute(() -> {
+            db = AppDatabase.buildDatabase(getApplicationContext());
+            Journey temp = db.journeyDao().getJourney().get(0);
+            steps = temp.getTotalsteps();
+            eventsteps = temp.getEventsteps();
+            eventreached = temp.isEventreached();
+            Monster tempmonster  = db.journeyDao().getMonster().get(0);
 
-                //if we reach an event then wait until it is addressed before counting steps again
-                if (!eventreached) {
-                    steps++;
-                    eventsteps--;
-                    evolvesteps = tempmonster.getEvolvesteps() - 1;
-                    if (eventsteps <= 0) {
-                        //steps = steps % goal;
-                        eventreached = true;
-                        //editor.putBoolean("eventreached", eventreached).apply();
-                        if (isAppInBackground(getApplicationContext())) {
-                            switch (temp.getEventtype()) {
-                                case 0: // egg hatching
-                                    createNotification("Egg Ready to Hatch", "You've taken enough steps to hatch your egg!");
-                                    break;
-                                case 1: // item found
-                                    createNotification("Item Found", "Your monster has found an item!");
-                                    break;
-                                case 2: //battle found
-                                    createNotification("Enemy Found", "Your monster encountered an enemy!");
-                                    break;
-                            }
-
+            //if we reach an event then wait until it is addressed before counting steps again
+            if (!eventreached) {
+                steps++;
+                eventsteps--;
+                evolvesteps = tempmonster.getEvolvesteps() - 1;
+                if (eventsteps <= 0) {
+                    //steps = steps % goal;
+                    eventreached = true;
+                    //editor.putBoolean("eventreached", eventreached).apply();
+                    if (isAppInBackground(getApplicationContext())) {
+                        switch (temp.getEventtype()) {
+                            case 0: // egg hatching
+                                createNotification("Egg Ready to Hatch", "You've taken enough steps to hatch your egg!");
+                                break;
+                            case 1: // item found
+                                createNotification("Item Found", "Your monster has found an item!");
+                                break;
+                            case 2: //battle found
+                                createNotification("Enemy Found", "Your monster encountered an enemy!");
+                                break;
                         }
-                    }
-                    else if(temp.isMatching()){
-                        matchmakersteps = temp.getMatchmakersteps();
-                        matchmakersteps--;
-                        temp.setMatchmakersteps(matchmakersteps);
-                        if(matchmakersteps <= 0){
-                            eventreached = true;
-                            createNotification("Match found", "The Matchmaker has found a match for your monster!");
-                        }
-                    }
-                    temp.setTotalsteps(steps);
-                    temp.setEventreached(eventreached);
-                    temp.setEventsteps(eventsteps);
-                    tempmonster.setEvolvesteps(evolvesteps);
-                    db.journeyDao().update(temp);
-                    db.journeyDao().updateMonster(tempmonster);
 
-                    sendBroadcastMessage(steps);
-                    //sendBroadcastMessage(eventreached);
+                    }
                 }
+                else if(temp.isMatching()){
+                    matchmakersteps = temp.getMatchmakersteps();
+                    matchmakersteps--;
+                    temp.setMatchmakersteps(matchmakersteps);
+                    if(matchmakersteps <= 0){
+                        eventreached = true;
+                        createNotification("Match found", "The Matchmaker has found a match for your monster!");
+                    }
+                }
+                temp.setTotalsteps(steps);
+                temp.setEventreached(eventreached);
+                temp.setEventsteps(eventsteps);
+                tempmonster.setEvolvesteps(evolvesteps);
+                db.journeyDao().update(temp);
+                db.journeyDao().updateMonster(tempmonster);
+
+                sendBroadcastMessage(steps);
+                //sendBroadcastMessage(eventreached);
             }
         });
 
@@ -237,29 +222,21 @@ public class ForeGroundService extends Service implements SensorEventListener, S
         boolean isInBackground = true;
 
         ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT_WATCH) {
-            List<ActivityManager.RunningAppProcessInfo> runningProcesses = am.getRunningAppProcesses();
-            for (ActivityManager.RunningAppProcessInfo processInfo : runningProcesses) {
-                if (processInfo.importance == ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND) {
-                    for (String activeProcess : processInfo.pkgList) {
-                        if (activeProcess.equals(context.getPackageName())) {
-                            isInBackground = false;
-                        }
+        assert am != null;
+        List<ActivityManager.RunningAppProcessInfo> runningProcesses = am.getRunningAppProcesses();
+        for (ActivityManager.RunningAppProcessInfo processInfo : runningProcesses) {
+            if (processInfo.importance == ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND) {
+                for (String activeProcess : processInfo.pkgList) {
+                    if (activeProcess.equals(context.getPackageName())) {
+                        isInBackground = false;
                     }
                 }
-            }
-        }
-        else
-        {
-            List<ActivityManager.RunningTaskInfo> taskInfo = am.getRunningTasks(1);
-            ComponentName componentInfo = taskInfo.get(0).topActivity;
-            if (componentInfo.getPackageName().equals(context.getPackageName())) {
-                isInBackground = false;
             }
         }
         return isInBackground;
     }
 
+    //TODO add proper icons and such to notification
     /**
      * create a notification for different events reached
      */
@@ -275,6 +252,7 @@ public class ForeGroundService extends Service implements SensorEventListener, S
                             .setTicker(getText(R.string.channel_description))
                             .build();
             NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            assert notificationManager != null;
             notificationManager.notify(2, notification);
         } else {
             //a notification requires a channelid type for newer operating systems and its own notification id

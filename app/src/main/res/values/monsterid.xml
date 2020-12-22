@@ -13,7 +13,8 @@
     index (5+number of evolutions+3) is the evolution diligence requirement of the monster
     index (5+number of evolutions+4) is the hunger requirement
     index (5+number of evolutions+5) is the max overfeed/gluttony
-    index (5+number of evolutions+6) is the max training mistakes-->
+    index (5+number of evolutions+6) is the max training mistakes
+    index (5+number of evolutions+7) is the type of the monster, ie the egg-->
 
     <integer-array name="library">
         <item name="egg_list">@array/egg_list</item>
@@ -34,7 +35,11 @@
     </integer-array>
 
     <integer-array name="child_list">
+        <item name="dino_child1">@array/dino_child1</item>
         <item name="dino_child2">@array/dino_child2</item>
+        <item name="dino_child3">@array/dino_child3</item>
+        <item name="dino_child4">@array/dino_child4</item>
+        <item name="dino_child5">@array/dino_child5</item>
     </integer-array>
 
     <integer-array name="adult_list">
@@ -108,6 +113,7 @@
         <item name="health">3</item>
         <item name="attack">1</item>
         <item name="attackchance">50</item>
+        <item name="type">@string/dinotype</item>
     </integer-array>
 
     <integer-array name="dino_baby2">
@@ -245,6 +251,11 @@
         <item name="health">7</item>
         <item name="attack">2</item>
         <item name="attackchance">50</item>
+        <item name="diligence">6</item>
+        <item name="hunger">4</item>
+        <item name="gluttony">3</item>
+        <item name="mistakes">2</item>
+        <item name="type">@array/dino_egg</item>
     </integer-array>
 
     <integer-array name="dino_adult4">

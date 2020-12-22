@@ -1,5 +1,6 @@
 package com.application.monsterjourney;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.drawable.AnimationDrawable;
@@ -28,6 +29,9 @@ import androidx.annotation.StyleableRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
+import androidx.core.content.ContextCompat;
+
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -51,18 +55,6 @@ public class Training extends AppCompatActivity {
         selectedtask = 0;
         maxtasks = 5;
 
-//        AsyncTask.execute(new Runnable() {
-//            @Override
-//            public void run() {
-//                AppDatabase db = AppDatabase.buildDatabase(getApplicationContext());
-//                //Temp test
-//                Item tempitem = new Item(1);
-//                Item tempitem2 = new Item(2);
-//                db.journeyDao().insertItem(tempitem);
-//                db.journeyDao().insertItem(tempitem2);
-//            }
-//        });
-
         title = findViewById(R.id.Title);
         description = findViewById(R.id.content);
 
@@ -74,21 +66,15 @@ public class Training extends AppCompatActivity {
         leftscroll.startAnimation(rightscrollanimation);
         rightscroll.startAnimation(leftscrollanimation);
 
-        findViewById(R.id.right_arrow).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //if(!isplaying)soundPool.load(context, R.raw.pressdown, 1);
-                selectedtask = (selectedtask+1)%(maxtasks);
-                taskInfo();
-            }
+        findViewById(R.id.right_arrow).setOnClickListener(v -> {
+            //if(!isplaying)soundPool.load(context, R.raw.pressdown, 1);
+            selectedtask = (selectedtask+1)%(maxtasks);
+            taskInfo();
         });
-        findViewById(R.id.left_arrow).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //if(!isplaying)soundPool.load(context, R.raw.pressdown, 1);
-                selectedtask = (selectedtask+maxtasks-1)%maxtasks;
-                taskInfo();
-            }
+        findViewById(R.id.left_arrow).setOnClickListener(v -> {
+            //if(!isplaying)soundPool.load(context, R.raw.pressdown, 1);
+            selectedtask = (selectedtask+maxtasks-1)%maxtasks;
+            taskInfo();
         });
 
         taskInfo();
@@ -96,28 +82,18 @@ public class Training extends AppCompatActivity {
         //add our home screen with the current monster
         final FrameLayout homelayout = (FrameLayout) findViewById(R.id.placeholder);
         LayoutInflater homeinflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+        assert homeinflater != null;
         final View monsterview = homeinflater.inflate(R.layout.home_screen, (ViewGroup)null);
-        if(Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT_WATCH){
-            Fade mFade = new Fade(Fade.IN);
-            TransitionManager.beginDelayedTransition(homelayout, mFade);
-        }
+        Fade mFade = new Fade(Fade.IN);
+        TransitionManager.beginDelayedTransition(homelayout, mFade);
+        Activity myactivity = this;
         homelayout.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
                 homelayout.addView(monsterview,0);
+                InitializeScreen runner = new InitializeScreen(myactivity);
+                runner.execute();
 
-                ImageView imageView = monsterview.findViewById(R.id.monster_icon);
-                imageView.setBackgroundResource(R.drawable.egg_idle);
-                AnimationDrawable monsteranimator = (AnimationDrawable) imageView.getBackground();
-                monsteranimator.start();
-                AsyncTask.execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        AppDatabase db = AppDatabase.buildDatabase(getApplicationContext());
-                        int currentarrayid = db.journeyDao().getMonster().get(0).getArrayid();
-                        selectedIcon(currentarrayid);
-                    }
-                });
                 homelayout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
             }
         });
@@ -125,23 +101,15 @@ public class Training extends AppCompatActivity {
         MonsterStats runner = new MonsterStats();
         runner.execute();
 
-        findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        findViewById(R.id.back).setOnClickListener(v -> {
 //                Intent intent = new Intent(Training.this, MainActivity.class);
 //                startActivity(intent);
 //                //where right side is current view
 //                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-                finish();
-            }
+            finish();
         });
 
-        findViewById(R.id.picker).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startTask();
-            }
-        });
+        findViewById(R.id.picker).setOnClickListener(v -> startTask());
     }
 
     /**
@@ -214,8 +182,7 @@ public class Training extends AppCompatActivity {
         trainView = traininflater.inflate(R.layout.training_game, null);
         int width2 = ConstraintLayout.LayoutParams.MATCH_PARENT;
         int height2 = ConstraintLayout.LayoutParams.MATCH_PARENT;
-        boolean focusable2 = true; // lets taps outside the popup also dismiss it
-        final PopupWindow trainWindow = new PopupWindow(trainView, width2, height2, focusable2);
+        final PopupWindow trainWindow = new PopupWindow(trainView, width2, height2, false);
         trainWindow.setOutsideTouchable(false);
 
 
@@ -232,45 +199,39 @@ public class Training extends AppCompatActivity {
         trainingtapcount = 0;
         Handler h = new Handler();
         //Run a runnable after 100ms (after that time it is safe to remove the view)
-        h.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                trainingtitle.setText(getText(R.string.TrainingStart));
-                startTrain(trainView);
-                new CountDownTimer(4000, 100) {
-                    // 500 means, onTick function will be called at every 500 milliseconds
+        h.postDelayed(() -> {
+            trainingtitle.setText(getText(R.string.TrainingStart));
+            startTrain(trainView);
+            new CountDownTimer(4000, 100) {
+                // 500 means, onTick function will be called at every 500 milliseconds
 
-                    @Override
-                    public void onTick(long leftTimeInMilliseconds) {
+                @Override
+                public void onTick(long leftTimeInMilliseconds) {
 
-                        float seconds = leftTimeInMilliseconds / 1000f;
-                        //String timetext = String.format(Locale.getDefault(),"%02d.%2f", seconds % 60)+ " s";
-                        String timetext = String.format(Locale.getDefault(), "%.2f", seconds)+ " s";
-                        trainingtime.setText(timetext);
-                    }
+                    float seconds = leftTimeInMilliseconds / 1000f;
+                    //String timetext = String.format(Locale.getDefault(),"%02d.%2f", seconds % 60)+ " s";
+                    String timetext = String.format(Locale.getDefault(), "%.2f", seconds)+ " s";
+                    trainingtime.setText(timetext);
+                }
 
-                    @Override
-                    public void onFinish() {
-                        String timetext =  "0 s";
-                        trainingtime.setText(timetext);
+                @Override
+                public void onFinish() {
+                    String timetext =  "0 s";
+                    trainingtime.setText(timetext);
 
-                        TrainingResult runner = new TrainingResult();
-                        runner.execute();
+                    TrainingResult runner = new TrainingResult();
+                    runner.execute();
 
-                        Handler h = new Handler();
-                        //Run a runnable after 100ms (after that time it is safe to remove the view)
-                        h.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                trainWindow.dismiss();
-                                trainView = null;
-                                MonsterStats runner = new MonsterStats();
-                                runner.execute();
-                            }
-                        }, 2000);
-                    }
-                }.start();
-            }
+                    Handler h1 = new Handler();
+                    //Run a runnable after 100ms (after that time it is safe to remove the view)
+                    h1.postDelayed(() -> {
+                        trainWindow.dismiss();
+                        trainView = null;
+                        MonsterStats runner1 = new MonsterStats();
+                        runner1.execute();
+                    }, 2000);
+                }
+            }.start();
         }, 1500);
     }
 
@@ -350,8 +311,7 @@ public class Training extends AppCompatActivity {
         feedView = confirminflater.inflate(R.layout.feeding_popup, null);
         int width2 = ConstraintLayout.LayoutParams.MATCH_PARENT;
         int height2 = ConstraintLayout.LayoutParams.MATCH_PARENT;
-        boolean focusable2 = true; // lets taps outside the popup also dismiss it
-        final PopupWindow feedWindow = new PopupWindow(feedView, width2, height2, focusable2);
+        final PopupWindow feedWindow = new PopupWindow(feedView, width2, height2, true);
         feedWindow.setOutsideTouchable(false);
 
 
@@ -362,13 +322,11 @@ public class Training extends AppCompatActivity {
         // which view you pass in doesn't matter, it is only used for the window token
         feedWindow.setAnimationStyle(R.style.PopupAnimation);
         feedWindow.showAtLocation(findViewById(R.id.back), Gravity.CENTER, 0, 0);
-        feedView.findViewById(R.id.close).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                feedWindow.dismiss();
-                feedView = null;
-                feedamounts = null;
-            }
+        feedView.findViewById(R.id.close).setOnClickListener(v -> feedWindow.dismiss());
+
+        feedWindow.setOnDismissListener(()->{
+            feedView = null;
+            feedamounts = null;
         });
 
         feedtype = 0;
@@ -385,49 +343,38 @@ public class Training extends AppCompatActivity {
 
 
 
-        feedView.findViewById(R.id.confirm).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AsyncTask.execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        AppDatabase db = AppDatabase.buildDatabase(getApplicationContext());
-                        Monster temp = db.journeyDao().getMonster().get(0);
-                        temp.feedMonster(feedtype);
-                        db.journeyDao().updateMonster(temp);
+        feedView.findViewById(R.id.confirm).setOnClickListener((View.OnClickListener) v -> {
+            AsyncTask.execute(() -> {
+                AppDatabase db = AppDatabase.buildDatabase(getApplicationContext());
+                Monster temp = db.journeyDao().getMonster().get(0);
+                temp.feedMonster(feedtype);
+                db.journeyDao().updateMonster(temp);
 
-                        List<Item> items = db.journeyDao().getItems();
+                List<Item> items = db.journeyDao().getItems();
 
-                        for(Item item : items){
-                            if(item.getitem() == feedtype){
-                                db.journeyDao().delete(item);
-                                break;
-                            }
-                        }
+                for(Item item : items){
+                    if(item.getitem() == feedtype){
+                        db.journeyDao().delete(item);
+                        break;
                     }
-                });
-                final FrameLayout frmlayout = (FrameLayout) findViewById(R.id.placeholder);
-                LayoutInflater aboutinflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
-                final View feeding = aboutinflater.inflate(R.layout.feeding_screen, (ViewGroup)null);
-                if(Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT_WATCH){
-                    Fade mFade = new Fade(Fade.IN);
-                    TransitionManager.beginDelayedTransition(frmlayout, mFade);
                 }
-                frmlayout.removeAllViews();
-                frmlayout.addView(feeding,0);
-                feeding.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-                    @Override
-                    public void onGlobalLayout() {
-                        FoodAnimation runner = new FoodAnimation();
-                        runner.execute();
-                    }
-                });
-                feedWindow.dismiss();
-                feedView = null;
-                feedamounts = null;
-                MonsterStats runner = new MonsterStats();
-                runner.execute();
-            }
+            });
+            final FrameLayout frmlayout = (FrameLayout) findViewById(R.id.placeholder);
+            LayoutInflater aboutinflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+            final View feeding = aboutinflater.inflate(R.layout.feeding_screen, (ViewGroup)null);
+            Fade mFade = new Fade(Fade.IN);
+            TransitionManager.beginDelayedTransition(frmlayout, mFade);
+            frmlayout.removeAllViews();
+            frmlayout.addView(feeding,0);
+            feeding.getViewTreeObserver().addOnGlobalLayoutListener(() -> {
+                FoodAnimation runner1 = new FoodAnimation();
+                runner1.execute();
+            });
+            feedWindow.dismiss();
+            feedView = null;
+            feedamounts = null;
+            MonsterStats runner12 = new MonsterStats();
+            runner12.execute();
         });
 
     }
@@ -450,25 +397,26 @@ public class Training extends AppCompatActivity {
             case 1:
                 title.setText(getText(R.string.FoodTitle2));
                 description.setText(getText(R.string.FoodDescription2));
+                foodimage.setBackgroundResource(R.drawable.food_display_0);
                 break;
             case 2:
                 title.setText(getText(R.string.FoodTitle3));
                 description.setText(getText(R.string.FoodDescription3));
-                foodimage.setBackgroundResource(R.drawable.ic_food_display_1);
+                foodimage.setBackgroundResource(R.drawable.ic_food_display_2);
                 break;
             case 3:
                 title.setText(getText(R.string.FoodTitle4));
                 description.setText(getText(R.string.FoodDescription4));
-                foodimage.setBackgroundResource(R.drawable.ic_food_display_1);
+                foodimage.setBackgroundResource(R.drawable.ic_food_display_3);
                 break;
             case 4:
                 title.setText(getText(R.string.FoodTitle5));
                 description.setText(getText(R.string.FoodDescription5));
-                foodimage.setBackgroundResource(R.drawable.ic_food_display_1);
+                foodimage.setBackgroundResource(R.drawable.ic_food_display_4);
                 break;
         }
         if(feedtype != 0){
-            String tempamount = "x " + String.valueOf(feedamounts.get(feedtype).getAmount());
+            String tempamount = "x " + feedamounts.get(feedtype).getAmount();
             amount.setText(tempamount);
         }
         else{
@@ -494,8 +442,7 @@ public class Training extends AppCompatActivity {
         View confirmView = confirminflater.inflate(R.layout.confirm_popup, null);
         int width2 = ConstraintLayout.LayoutParams.MATCH_PARENT;
         int height2 = ConstraintLayout.LayoutParams.MATCH_PARENT;
-        boolean focusable2 = true; // lets taps outside the popup also dismiss it
-        final PopupWindow confirmWindow = new PopupWindow(confirmView, width2, height2, focusable2);
+        final PopupWindow confirmWindow = new PopupWindow(confirmView, width2, height2, true);
         confirmWindow.setOutsideTouchable(false);
 
 
@@ -506,26 +453,14 @@ public class Training extends AppCompatActivity {
         // which view you pass in doesn't matter, it is only used for the window token
         confirmWindow.setAnimationStyle(R.style.PopupAnimation);
         confirmWindow.showAtLocation(findViewById(R.id.back), Gravity.CENTER, 0, 0);
-        confirmView.findViewById(R.id.close).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                confirmWindow.dismiss();
-            }
-        });
+        confirmView.findViewById(R.id.close).setOnClickListener(v -> confirmWindow.dismiss());
 
-        confirmView.findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                confirmWindow.dismiss();
-            }
-        });
+        confirmView.findViewById(R.id.back).setOnClickListener(v -> confirmWindow.dismiss());
 
-        confirmView.findViewById(R.id.confirm).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                retire();
-            }
-        });
+        confirmView.findViewById(R.id.confirm).setOnClickListener(v ->{
+            confirmWindow.dismiss();
+            retire();
+        } );
 
         TextView message = confirmView.findViewById(R.id.confimation_text);
         message.setText(getText(R.string.RetireConfirm));
@@ -536,14 +471,11 @@ public class Training extends AppCompatActivity {
      * retire the monster
      */
     public void retire(){
-        AsyncTask.execute(new Runnable() {
-            @Override
-            public void run() {
-                AppDatabase db = AppDatabase.buildDatabase(getApplicationContext());
-                Monster temp = db.journeyDao().getMonster().get(0);
-                History temphistory = new History(temp.getGeneration(), temp.getArrayid(), temp.getName());
-                db.journeyDao().insertHistory(temphistory);
-            }
+        AsyncTask.execute(() -> {
+            AppDatabase db = AppDatabase.buildDatabase(getApplicationContext());
+            Monster temp = db.journeyDao().getMonster().get(0);
+            History temphistory = new History(temp.getGeneration(), temp.getArrayid(), temp.getName());
+            db.journeyDao().insertHistory(temphistory);
         });
         //if(!isplaying)music.pause();
         Intent intent = new Intent(Training.this, EggSelect.class);
@@ -566,8 +498,7 @@ public class Training extends AppCompatActivity {
         matchView = confirminflater.inflate(R.layout.matchmaker_popup, null);
         int width2 = ConstraintLayout.LayoutParams.MATCH_PARENT;
         int height2 = ConstraintLayout.LayoutParams.MATCH_PARENT;
-        boolean focusable2 = true; // lets taps outside the popup also dismiss it
-        final PopupWindow matchWindow = new PopupWindow(matchView, width2, height2, focusable2);
+        final PopupWindow matchWindow = new PopupWindow(matchView, width2, height2, true);
         matchWindow.setOutsideTouchable(false);
 
 
@@ -578,12 +509,9 @@ public class Training extends AppCompatActivity {
         // which view you pass in doesn't matter, it is only used for the window token
         matchWindow.setAnimationStyle(R.style.PopupAnimation);
         matchWindow.showAtLocation(findViewById(R.id.back), Gravity.CENTER, 0, 0);
-        matchView.findViewById(R.id.close).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                matchWindow.dismiss();
-                matchView = null;
-            }
+        matchView.findViewById(R.id.close).setOnClickListener(v -> {
+            matchWindow.dismiss();
+            matchView = null;
         });
 
         ImageView tempmatchmaker = matchView.findViewById(R.id.matchmaker_popup_icon);
@@ -595,40 +523,24 @@ public class Training extends AppCompatActivity {
         TextView matchtext = matchView.findViewById(R.id.confimation_text);
         matchtext.setText(getText(R.string.MatchmakerText));
 
-        matchView.findViewById(R.id.confirm).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AsyncTask.execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        AppDatabase db = AppDatabase.buildDatabase(getApplicationContext());
-                        Journey tempjourney = db.journeyDao().getJourney().get(0);
-                        tempjourney.setMatching(true);
-                        tempjourney.setMatchmakersteps(1000);
-                        db.journeyDao().update(tempjourney);
-                        matchWindow.dismiss();
-                        matchView = null;
-                    }
-                });
-            }
-        });
-        matchView.findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AsyncTask.execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        AppDatabase db = AppDatabase.buildDatabase(getApplicationContext());
-                        Journey tempjourney = db.journeyDao().getJourney().get(0);
-                        tempjourney.setMatching(false);
-                        tempjourney.setMatchmakersteps(1000);
-                        db.journeyDao().update(tempjourney);
-                        matchWindow.dismiss();
-                        matchView = null;
-                    }
-                });
-            }
-        });
+        matchView.findViewById(R.id.confirm).setOnClickListener(v -> AsyncTask.execute(() -> {
+            AppDatabase db = AppDatabase.buildDatabase(getApplicationContext());
+            Journey tempjourney = db.journeyDao().getJourney().get(0);
+            tempjourney.setMatching(true);
+            tempjourney.setMatchmakersteps(2000);
+            db.journeyDao().update(tempjourney);
+            matchWindow.dismiss();
+            matchView = null;
+        }));
+        matchView.findViewById(R.id.back).setOnClickListener(v -> AsyncTask.execute(() -> {
+            AppDatabase db = AppDatabase.buildDatabase(getApplicationContext());
+            Journey tempjourney = db.journeyDao().getJourney().get(0);
+            tempjourney.setMatching(false);
+            tempjourney.setMatchmakersteps(1000);
+            db.journeyDao().update(tempjourney);
+            matchWindow.dismiss();
+            matchView = null;
+        }));
         matchView.findViewById(R.id.confirm).setVisibility(View.INVISIBLE);
         matchView.findViewById(R.id.back).setVisibility(View.INVISIBLE);
 
@@ -648,9 +560,10 @@ public class Training extends AppCompatActivity {
         int resource = array.getResourceId(index,R.drawable.egg_idle);
         array.recycle();
         ImageView imageView = findViewById(R.id.monster_icon);
-        imageView.setBackgroundResource(resource);
+        imageView.setImageDrawable(ContextCompat.getDrawable(this, resource));
+        imageView.setBackgroundResource(R.drawable.background_training);
 
-        AnimationDrawable monsteranimator = (AnimationDrawable) imageView.getBackground();
+        AnimationDrawable monsteranimator = (AnimationDrawable) imageView.getDrawable();
         monsteranimator.start();
 
     }
@@ -741,7 +654,7 @@ public class Training extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String result) {
-            //where max clip is 10000, hunger/diligence is in increments of 8
+
             TextView matchtext = matchView.findViewById(R.id.confimation_text);
 
             if(stage == 3){
@@ -771,22 +684,39 @@ public class Training extends AppCompatActivity {
         protected void onPostExecute(String result) {
             selectedIcon(currentarrayid);
             final ImageView foodimageView = findViewById(R.id.eating_icon);
+            AnimationDrawable foodanimator;
             switch (feedtype){
-                case 0:
+                case 0: // basic apple
                     foodimageView.setBackgroundResource(R.drawable.food_eat);
-                    AnimationDrawable foodanimator = (AnimationDrawable) foodimageView.getBackground();
+                    foodanimator = (AnimationDrawable) foodimageView.getBackground();
                     foodanimator.start();
                     break;
+                case 1: //large apple
+                    foodimageView.setBackgroundResource(R.drawable.food1_eat);
+                    foodanimator = (AnimationDrawable) foodimageView.getBackground();
+                    foodanimator.start();
+                    break;
+                case 2: //meat
+                    foodimageView.setBackgroundResource(R.drawable.food2_eat);
+                    foodanimator = (AnimationDrawable) foodimageView.getBackground();
+                    foodanimator.start();
+                    break;
+                case 3: //training pill
+                    foodimageView.setBackgroundResource(R.drawable.food3_eat);
+                    foodanimator = (AnimationDrawable) foodimageView.getBackground();
+                    foodanimator.start();
+                    break;
+                case 4: //evolution medicine
+                    foodimageView.setBackgroundResource(R.drawable.food4_eat);
+                    foodanimator = (AnimationDrawable) foodimageView.getBackground();
+                    foodanimator.start();
+                    break;
+
             }
 
             Handler h = new Handler();
             //Run a runnable to hide food after it has been eaten
-            h.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    foodimageView.setVisibility(View.INVISIBLE);
-                }
-            }, 1199);
+            h.postDelayed(() -> foodimageView.setVisibility(View.INVISIBLE), 1199);
 
         }
     }
@@ -897,29 +827,48 @@ public class Training extends AppCompatActivity {
             feedamounts.add(new ItemAmount(2,item2));
             feedamounts.add(new ItemAmount(3,item3));
             feedamounts.add(new ItemAmount(4,item4));
-            rightscroll.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+            rightscroll.setOnClickListener(v -> {
+                feedtype = (feedtype +1)%5;
+                while(!feedamounts.get(feedtype).isUnlocked()){
                     feedtype = (feedtype +1)%5;
-                    while(!feedamounts.get(feedtype).isUnlocked()){
-                        feedtype = (feedtype +1)%5;
-                    }
-                    feeddisplay();
                 }
+                feeddisplay();
             });
 
-            leftscroll.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+            leftscroll.setOnClickListener(v -> {
+                feedtype = (feedtype +4)%5;
+                while(!feedamounts.get(feedtype).isUnlocked()){
                     feedtype = (feedtype +4)%5;
-                    while(!feedamounts.get(feedtype).isUnlocked()){
-                        feedtype = (feedtype +4)%5;
-                    }
-                    feeddisplay();
                 }
+                feeddisplay();
             });
+        }
+    }
 
+    //fetch and display the matchmaking info for current status
+    private static class InitializeScreen extends AsyncTask<String,TextView,String>{
+
+        private int currentarrayid;
+        private final WeakReference<Activity> weakActivity;
+
+        public InitializeScreen(Activity myActivity){
+            this.weakActivity = new WeakReference<>(myActivity);
+        }
+        @Override
+        protected String doInBackground(String... strings) {
+            AppDatabase db = AppDatabase.buildDatabase(weakActivity.get());
+            currentarrayid = db.journeyDao().getMonster().get(0).getArrayid();
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            //check if item is owned, if so then it can be an option to view
+            Training training = (Training) weakActivity.get();
+
+            training.selectedIcon(currentarrayid);
 
         }
     }
+
 }

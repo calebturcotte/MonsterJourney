@@ -316,12 +316,18 @@ public class Monster {
     }
 
     /**
-     *
+     * find the egg type of the new monster
      * @param othermonstertype the type of the other monster bred with
      * @return egg received from breeding
      */
-    public int breed(int othermonstertype){
+    public int breed(int othermonstertype, Context applicationcontext){
+        TypedArray array = applicationcontext.getResources().obtainTypedArray(othermonstertype);
+        int[] monsterresources = applicationcontext.getResources().getIntArray(othermonstertype);
+        int evolutions = monsterresources[1];
+        @StyleableRes int index = 12+evolutions;
+        int newbreedid = array.getResourceId(index, R.array.basic_egg);
+        array.recycle();
 
-        return R.array.basic_egg;
+        return newbreedid;
     }
 }

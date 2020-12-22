@@ -12,7 +12,8 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="10"
-        tools:context=".MainActivity">
+        tools:context=".MainActivity"
+        android:background="@drawable/ic_mainbackground">
 
 
         <androidx.constraintlayout.widget.Guideline
@@ -75,10 +76,10 @@
             app:layout_constraintTop_toBottomOf="@id/infoguideline"
             app:layout_constraintStart_toStartOf="@id/verticaliconguideline"/>
 
-        <ImageView
+        <Button
             android:contentDescription="@string/monsterinfo"
             android:id="@+id/game_options"
-            android:background="@color/colorPrimary"
+            android:background="@drawable/options_button"
             android:layout_width="0dp"
             app:layout_constraintHeight_percent="0.05"
             android:layout_height="0dp"
@@ -142,6 +143,7 @@
 
             <Button
                 android:id="@+id/test"
+                android:visibility="invisible"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 

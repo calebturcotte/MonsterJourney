@@ -112,12 +112,26 @@
             app:layout_constraintWidth_percent="0.7"
             app:layout_constraintTop_toBottomOf="@id/textboxguideline"
             app:layout_constraintEnd_toEndOf="@id/verticalguideline" />
-        <ScrollView
+
+        <TextView
+            android:background="@drawable/ic_launcher_background"
+            android:id="@+id/Steps"
+            android:text="@string/app_name"
+            android:gravity="center"
+            android:textSize="25sp"
             android:layout_width="0dp"
-            app:layout_constraintHeight_percent="0.25"
+            app:layout_constraintHeight_percent="0.07"
             android:layout_height="0dp"
             app:layout_constraintWidth_percent="0.7"
-            app:layout_constraintTop_toBottomOf="@id/textcontentguideline"
+            app:layout_constraintTop_toBottomOf="@id/Title"
+            app:layout_constraintEnd_toEndOf="@id/verticalguideline" />
+
+        <ScrollView
+            android:layout_width="0dp"
+            app:layout_constraintHeight_percent="0.2"
+            android:layout_height="0dp"
+            app:layout_constraintWidth_percent="0.7"
+            app:layout_constraintTop_toBottomOf="@id/Steps"
             app:layout_constraintEnd_toEndOf="@id/verticalguideline"
             android:background="@drawable/ic_launcher_background">
 
@@ -128,11 +142,8 @@
                 android:textSize="20sp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintWidth_percent="0.7"
-            />
-
+                />
         </ScrollView>
-
 
         <ImageView
             android:contentDescription="@string/arrow"
@@ -172,10 +183,9 @@
             app:layout_constraintTop_toBottomOf="@id/buttoncontentguideline"
             app:layout_constraintStart_toStartOf="@id/buttonguideline"/>
 
-        <NumberPicker
-            android:id="@+id/picker"
+        <Button
+            android:id="@+id/Confirm"
             android:layout_width="0dp"
-            android:descendantFocusability="blocksDescendants"
             app:layout_constraintWidth_percent="0.3"
             android:layout_height="0dp"
             app:layout_constraintHeight_percent="0.1"

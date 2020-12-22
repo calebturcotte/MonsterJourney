@@ -18,6 +18,12 @@
     <string name="buycosmicegg">Buy Cosmic Egg</string>
     <string name="buyitempack">Buy Item Pack</string>
 
+    <string name="enemyfound">ENEMY FOUND</string>
+    <string name="bossfound">BOSS FOUND</string>
+    <string name="itemfound">ITEM FOUND</string>
+    <string name="matchfound">MATCH FOUND</string>
+    <string name="evolvefound">EVOLVE</string>
+
     <string name="playagain">Play Again</string>
     <string name="cancel">Cancel</string>
 
@@ -38,11 +44,11 @@
     <string name="FoodTitle1">Small Apple</string>
     <string name="FoodDescription1">A basic food item. Restores half a heart upon consumption</string>
 
-    <string name="FoodTitle2">Bigger Apple</string>
-    <string name="FoodDescription2">A food item. Restores half a heart upon consumption</string>
+    <string name="FoodTitle2">Large Apple</string>
+    <string name="FoodDescription2">A food item. Restores a heart upon consumption</string>
 
-    <string name="FoodTitle3">Large Apple</string>
-    <string name="FoodDescription3">A large food item. Restores half a heart upon consumption</string>
+    <string name="FoodTitle3">Meat</string>
+    <string name="FoodDescription3">A large food item. Restores one and a half a heart upon consumption</string>
 
     <string name="FoodTitle4">Training Pill</string>
     <string name="FoodDescription4">Restores one diligence heart upon consumption.</string>
@@ -66,9 +72,21 @@
     <string name="BreedFriend">Match</string>
     <string name="BreedingFriendInfo">Connect with another person\'s monster and create a new egg. (Caution: will retire your current monster, both players must have an adult stage monster.)</string>
 
+    <string name="RockFriend">Rock Paper Scissors</string>
+    <string name="RockDescription">Challenge a nearby player to rock paper scissors. The first one to get 3 points wins!</string>
+
+    <string name="Player1">Player 1: </string>
+    <string name="Player2">Player 2: </string>
+    <string name="win_message">Round won!</string>
+    <string name="tie_message">Tie!</string>
+    <string name="loss_message">Round lost!</string>
+
+    <string name="game_win">Game Won!</string>
+    <string name="game_lost">Game Lost!</string>
+
     <string name="MatchmakerEarly">Hello young soul. I am the matchmaker. Once your monster has grown seek me again so I may find it a suitor.</string>
     <string name="MatchmakerText">Hello old soul. I am the matchmaker. Bear your heart to me and I shall find you a suitor. Shall I look for a match for your monster?</string>
-    <string name="MatchmakerFound">I come bearing a match. Do you accept this proposition?</string>
+    <string name="MatchmakerFound">I come bearing a match. Do you accept this proposition? (This will retire your current monster)</string>
 
     <string name="BattleTitle">Battle!</string>
     <string name="BattleEnemyHealth">Enemy Health: </string>
@@ -87,14 +105,37 @@
     <string name="snake_title">Chain connect</string>
     <string name="snake_description">Move a chain along to collect blocks and become longer. Earn steps for each block you collect.</string>
 
+    <string name="rock">Rock</string>
+    <string name="paper">Paper</string>
+    <string name="scissors">Scissors</string>
+
+    <string name="mapcompleted">Completed</string>
+    <string name="mapnotcompleted">Not Completed</string>
+
     <string name="firetype">Fire</string>
     <string name="dinotype">Dino</string>
     <string name="aquatype">Aqua</string>
     <string name="enigmatype">Enigma</string>
+    <string name="earthtype">Earth</string>
+    <string name="machinetype">Machine</string>
+    <string name="darktype">Dark</string>
+    <string name="lighttype">Light</string>
+    <string name="cosmictype">Cosmic</string>
+
+    <string name="firedescription">A scorching island in a sea of flames. Monsters that live here have learned to adapt to the extreme heat.</string>
+    <string name="dinodescription">An ancient island full of savage terrain. Dino type monsters can be found here.</string>
+    <string name="aquadescription">Aqua</string>
+    <string name="enigmadescription">A strange land inhabited by Enigma type monsters. Spirits and strange beings can be found here.</string>
+    <string name="earthdescription">An island that has been overrun with foliage. Monsters here have become one with nature.</string>
+    <string name="machinedescription">Machine</string>
+    <string name="darkdescription">An island covered in dark miasma. Monsters on this island have become one with darkness</string>
+    <string name="lightdescription">Light</string>
+    <string name="cosmicdescription">Cosmic</string>
 
     <string name="missing_title">Not Found</string>
     <string name="missing_description">This entry hasn\'t been unlocked yet.</string>
 
+    <string name="egg_list">Eggs Collected: </string>
     <string name="basic_egg_title">Basic Egg</string>
     <string name="basic_egg_description">A seemingly basic egg. Contains a balanced monster.</string>
     <string name="dino_egg_title">Dino Egg</string>
@@ -102,6 +143,7 @@
     <string name="aqua_egg_title">Aqua Egg</string>
     <string name="aqua_egg_description">An aquatic egg. Contains an aquatic type monster.</string>
 
+    <string name="baby_list">Babies Collected: </string>
     <string name="basic_baby1_title">Eye</string>
     <string name="basic_baby1_description">An enigma type monster. It can\'t move its main body so it waits and gazes at the passing world.</string>
 
@@ -114,6 +156,9 @@
     <string name="dino_baby2_title">Dozer</string>
     <string name="dino_baby2_description">A dino type monster. It sleeps for 20 hours a day and only wakes up to eat or when bothered.</string>
 
+    <string name="child_list">Children Collected: </string>
     <string name="dino_child2_title">Ripper</string>
     <string name="dino_child2_description">A dino type monster. A dangerous savage who will attack anything that enters its territory.</string>
+
+    <string name="adult_list">Adults Collected: </string>
 </resources>

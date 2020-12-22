@@ -1,11 +1,9 @@
 package com.application.monsterjourney;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.res.TypedArray;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.transition.Fade;
 import android.transition.TransitionManager;
@@ -18,22 +16,12 @@ import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import androidx.annotation.StyleableRes;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.preference.PreferenceManager;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class EggSelect extends AppCompatActivity {
-    /**
-     * our selector for which egg to start the journey with, can be selected again at any time with an adult stage Monster.
-     *
-     * egganimator: the animation selector for each egg
-     */
-    public static final String PREFS_NAME = "MyJourneyFile";
     private AnimationDrawable egganimator;
     private ImageView imageView;
     private int selectedegg;
@@ -49,12 +37,6 @@ public class EggSelect extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_egg_select);
         selectedegg = 0;
-//        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
-//        //SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-//        SharedPreferences.Editor editor = getSharedPreferences(PREFS_NAME, 0).edit();
-//        editor.putBoolean(String.valueOf(R.array.basic_egg), true);
-//        editor.putBoolean(String.valueOf(R.array.dino_egg),true);
-//        editor.apply();
 
 
         CheckUnlocked runner = new CheckUnlocked();
@@ -72,7 +54,7 @@ public class EggSelect extends AppCompatActivity {
 //        egglist.recycle();
 
         //add our home screen with the current monster
-        final FrameLayout frmlayout = (FrameLayout) findViewById(R.id.placeholder);
+        final FrameLayout frmlayout = findViewById(R.id.placeholder);
         LayoutInflater aboutinflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
         final View home = aboutinflater.inflate(R.layout.home_screen, (ViewGroup)null);
         Fade mFade = new Fade(Fade.IN);
@@ -97,35 +79,24 @@ public class EggSelect extends AppCompatActivity {
                 leftscroll.startAnimation(rightscrollanimation);
                 rightscroll.startAnimation(leftscrollanimation);
 
-                findViewById(R.id.right_arrow).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        //if(!isplaying)soundPool.load(context, R.raw.pressdown, 1);
+                findViewById(R.id.right_arrow).setOnClickListener(v -> {
+                    //if(!isplaying)soundPool.load(context, R.raw.pressdown, 1);
+                    selectedegg = (selectedegg+1)%totaleggs;
+/*                        while(!eggs.get(selectedegg).getEggUnlocked()){
                         selectedegg = (selectedegg+1)%totaleggs;
-/*                        while(!eggs.get(selectedegg).getEggUnlocked()){
-                            selectedegg = (selectedegg+1)%totaleggs;
-                        }*/
-                        switchviews(selectedegg, imageView, title, description);
-                    }
+                    }*/
+                    switchviews(selectedegg, imageView, title, description);
                 });
-                findViewById(R.id.left_arrow).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        //if(!isplaying)soundPool.load(context, R.raw.pressdown, 1);
-                        selectedegg = (selectedegg+totaleggs-1)%totaleggs;
+                findViewById(R.id.left_arrow).setOnClickListener(v -> {
+                    //if(!isplaying)soundPool.load(context, R.raw.pressdown, 1);
+                    selectedegg = (selectedegg+totaleggs-1)%totaleggs;
 /*                        while(!eggs.get(selectedegg).getEggUnlocked()){
-                            selectedegg = (selectedegg + totaleggs -1)%totaleggs;
-                        }*/
-                        switchviews(selectedegg, imageView, title, description);
-                    }
+                        selectedegg = (selectedegg + totaleggs -1)%totaleggs;
+                    }*/
+                    switchviews(selectedegg, imageView, title, description);
                 });
 
-                findViewById(R.id.confirm).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        confirmSelection();
-                    }
-                });
+                findViewById(R.id.confirm).setOnClickListener(v -> confirmSelection());
 
                 //switchviews(selectedegg, imageView, title, description);
                 frmlayout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
@@ -161,20 +132,7 @@ public class EggSelect extends AppCompatActivity {
         int title = array.getResourceId(id-2,R.drawable.egg_idle);
         int eggtext = array.getResourceId(id-1,R.drawable.egg_idle);
         selectedid = eggs.get(viewselected).getEggnumber();
-/*        switch(viewselected){
-            case 0:
-                selectedid = R.array.basic_egg;
-                backgroundAnimation = R.drawable.egg_idle;
-                title = R.string.basic_egg_title;
-                eggtext = R.string.basic_egg_description;
-                break;
-            case 1:
-                selectedid = R.array.dino_egg;
-                backgroundAnimation = R.drawable.egg_dino_idle;
-                title = R.string.dino_egg_title;
-                eggtext = R.string.dino_egg_description;
-                break;
-        }*/
+
         array.recycle();
         imageView.setBackgroundResource(backgroundAnimation);
         egganimator = (AnimationDrawable) imageView.getBackground();
@@ -185,30 +143,25 @@ public class EggSelect extends AppCompatActivity {
 
     public void confirmSelection(){
         if(eggs == null){
-
+            return;
         }
 
-        AsyncTask.execute(new Runnable()
-        {
-            @Override
-            public void run()
-            {
-                db = AppDatabase.buildDatabase(getApplicationContext());
-                // run your queries here!
-                Journey temp = db.journeyDao().getJourney().get(0);
-                temp.setEventsteps(100);
-                temp.setEventtype(0);
-                temp.setFirsttime(false);
-                temp.setEventreached(false);
-                db.journeyDao().update(temp);
+        AsyncTask.execute(() -> {
+            db = AppDatabase.buildDatabase(getApplicationContext());
+            // run your queries here!
+            Journey temp = db.journeyDao().getJourney().get(0);
+            temp.setEventsteps(100);
+            temp.setEventtype(0);
+            temp.setFirsttime(false);
+            temp.setEventreached(false);
+            db.journeyDao().update(temp);
 
-                Monster tempmonster = db.journeyDao().getMonster().get(0);
+            Monster tempmonster = db.journeyDao().getMonster().get(0);
 
-                //tempmonster.setArrayid(selectedid);
-                tempmonster.newEgg(selectedid);
+            //tempmonster.setArrayid(selectedid);
+            tempmonster.newEgg(selectedid);
 
-                db.journeyDao().updateMonster(tempmonster);
-            }
+            db.journeyDao().updateMonster(tempmonster);
         });
 
         Intent intent = new Intent(this, MainActivity.class);

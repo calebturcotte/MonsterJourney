@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer-array name="fire_egg">
+        <item name="stage">0</item>
+        <item name="evolutions">2</item>
+        <item name="title">@string/fire_egg_title</item>
+        <item name="description">@string/fire_egg_description</item>
+        <item name="icon">@drawable/egg_fire_idle</item>
+        <item name="evo1">@array/fire_baby1</item>
+        <item name="evo1">@array/fire_baby2</item>
+    </integer-array>
+
+
+    <integer-array name="fire_baby1">
+        <item name="stage">1</item>
+        <item name="evolutions">3</item>
+        <item name="title">@string/basic_baby1_title</item>
+        <item name="description">@string/basic_baby1_description</item>
+        <item name="icon">@drawable/baby_fire_fat_idle</item>
+        <item name="evo1">@array/dino_baby1</item>
+        <item name="evo2">@array/dino_baby1</item>
+        <item name="evo3">@array/dino_baby1</item>
+        <item name="health">3</item>
+        <item name="attack">1</item>
+        <item name="attackchance">50</item>
+        <item name="diligence">6</item>
+        <item name="hunger">4</item>
+        <item name="gluttony">3</item>
+        <item name="mistakes">2</item>
+        <item name="type">@array/fire_egg</item>
+        <item name="attackicon">@drawable/baby_fire_fat_attack</item>
+        <item name="happyicon">@drawable/baby_fire_fat_happy</item>
+    </integer-array>
+
+    <integer-array name="fire_baby2">
+        <item name="stage">1</item>
+        <item name="evolutions">3</item>
+        <item name="title">@string/baby_fire_sparky_title</item>
+        <item name="description">@string/baby_fire_sparky_description</item>
+        <item name="icon">@drawable/baby_basic2_idle</item>
+        <item name="evo1">@array/fire_child_fireball</item>
+        <item name="evo2">@array/fire_child_wyvern</item>
+        <item name="evo3">@array/fire_child_chameleon</item>
+        <item name="health">3</item>
+        <item name="attack">1</item>
+        <item name="attackchance">50</item>
+        <item name="diligence">6</item>
+        <item name="hunger">4</item>
+        <item name="gluttony">3</item>
+        <item name="mistakes">2</item>
+        <item name="type">@array/fire_egg</item>
+        <item name="attackicon">@drawable/baby_basic2_attack</item>
+        <item name="happyicon">@drawable/baby_basic2_happy</item>
+    </integer-array>
+
+    <integer-array name="fire_child_chameleon">
+        <item name="stage">2</item>
+        <item name="evolutions">4</item>
+        <item name="title">@string/baby_fire_sparky_title</item>
+        <item name="description">@string/baby_fire_sparky_description</item>
+        <item name="icon">@drawable/child_fire_chameleon_idle</item>
+        <item name="evo1">@array/fire_adult_tikimask</item>
+        <item name="evo2">@array/fire_adult_elemental</item>
+        <item name="evo3">@array/fire_adult_baby</item>
+        <item name="evo4">@array/fire_adult_factorygorilla</item>
+        <item name="health">5</item>
+        <item name="attack">2</item>
+        <item name="attackchance">50</item>
+        <item name="diligence">0</item>
+        <item name="hunger">0</item>
+        <item name="gluttony">10000</item>
+        <item name="mistakes">10000</item>
+        <item name="type">@array/fire_egg</item>
+        <item name="attackicon">@drawable/child_fire_chameleon_attack</item>
+        <item name="happyicon">@drawable/child_fire_chameleon_happy</item>
+    </integer-array>
+
+    <integer-array name="fire_child_toad">
+        <item name="stage">2</item>
+        <item name="evolutions">4</item>
+        <item name="title">@string/baby_fire_sparky_title</item>
+        <item name="description">@string/baby_fire_sparky_description</item>
+        <item name="icon">@drawable/child_fire_toad_idle</item>
+        <item name="evo1">@array/fire_adult_tikimask</item>
+        <item name="evo2">@array/fire_adult_spirit</item>
+        <item name="evo3">@array/fire_adult_fox</item>
+        <item name="evo4">@array/fire_adult_snake</item>
+        <item name="health">5</item>
+        <item name="attack">2</item>
+        <item name="attackchance">50</item>
+        <item name="diligence">1</item>
+        <item name="hunger">6</item>
+        <item name="gluttony">6</item>
+        <item name="mistakes">2</item>
+        <item name="type">@array/fire_egg</item>
+        <item name="attackicon">@drawable/child_fire_toad_attack</item>
+        <item name="happyicon">@drawable/child_fire_toad_happy</item>
+    </integer-array>
+
+    <integer-array name="fire_child_seaturtle">
+        <item name="stage">2</item>
+        <item name="evolutions">4</item>
+        <item name="title">@string/baby_fire_sparky_title</item>
+        <item name="description">@string/baby_fire_sparky_description</item>
+        <item name="icon">@drawable/child_fire_seaturtle_idle</item>
+        <item name="evo1">@array/fire_adult_tikimask</item>
+        <item name="evo2">@array/fire_adult_spirit</item>
+        <item name="evo3">@array/fire_adult_fox</item>
+        <item name="evo4">@array/fire_adult_snake</item>
+        <item name="health">5</item>
+        <item name="attack">2</item>
+        <item name="attackchance">50</item>
+        <item name="diligence">5</item>
+        <item name="hunger">3</item>
+        <item name="gluttony">1</item>
+        <item name="mistakes">6</item>
+        <item name="type">@array/fire_egg</item>
+        <item name="attackicon">@drawable/child_fire_seaturtle_attack</item>
+        <item name="happyicon">@drawable/child_fire_seaturtle_happy</item>
+    </integer-array>
+
+    <integer-array name="fire_child_fireball">
+        <item name="stage">2</item>
+        <item name="evolutions">4</item>
+        <item name="title">@string/baby_fire_sparky_title</item>
+        <item name="description">@string/baby_fire_sparky_description</item>
+        <item name="icon">@drawable/child_fire_fireball_idle</item>
+        <item name="evo1">@array/fire_adult_serpent</item>
+        <item name="evo2">@array/fire_adult_firelordgoat</item>
+        <item name="evo3">@array/fire_adult_elemental</item>
+        <item name="evo4">@array/fire_adult_fireball</item>
+        <item name="health">5</item>
+        <item name="attack">2</item>
+        <item name="attackchance">50</item>
+        <item name="diligence">4</item>
+        <item name="hunger">3</item>
+        <item name="gluttony">1</item>
+        <item name="mistakes">5</item>
+        <item name="type">@array/fire_egg</item>
+        <item name="attackicon">@drawable/child_fire_fireball_attack</item>
+        <item name="happyicon">@drawable/child_fire_fireball_happy</item>
+    </integer-array>
+
+    <integer-array name="fire_child_wyvern">
+        <item name="stage">2</item>
+        <item name="evolutions">4</item>
+        <item name="title">@string/baby_fire_sparky_title</item>
+        <item name="description">@string/baby_fire_sparky_description</item>
+        <item name="icon">@drawable/child_fire_wyvern_idle</item>
+        <item name="evo1">@array/fire_adult_serpent</item>
+        <item name="evo2">@array/fire_adult_firelordgoat</item>
+        <item name="evo3">@array/fire_adult_baby</item>
+        <item name="evo4">@array/fire_adult_fireball</item>
+        <item name="health">5</item>
+        <item name="attack">2</item>
+        <item name="attackchance">50</item>
+        <item name="diligence">2</item>
+        <item name="hunger">5</item>
+        <item name="gluttony">5</item>
+        <item name="mistakes">2</item>
+        <item name="type">@array/fire_egg</item>
+        <item name="attackicon">@drawable/child_fire_wyvern_attack</item>
+        <item name="happyicon">@drawable/child_fire_wyvern_happy</item>
+    </integer-array>
+
+<!--    Fire Adults-->
+
+    <integer-array name="fire_adult_fireball">
+        <item name="stage">3</item>
+        <item name="evolutions">0</item>
+        <item name="title">@string/baby_fire_sparky_title</item>
+        <item name="description">@string/baby_fire_sparky_description</item>
+        <item name="icon">@drawable/adult_fire_fireball_idle</item>
+        <item name="health">11</item>
+        <item name="attack">3</item>
+        <item name="attackchance">50</item>
+        <item name="diligence">0</item>
+        <item name="hunger">0</item>
+        <item name="gluttony">10000</item>
+        <item name="mistakes">10000</item>
+        <item name="type">@array/fire_egg</item>
+        <item name="attackicon">@drawable/adult_fire_fireball_attack</item>
+        <item name="happyicon">@drawable/adult_fire_fireball_happy</item>
+    </integer-array>
+
+    <integer-array name="fire_adult_factorygorilla">
+        <item name="stage">3</item>
+        <item name="evolutions">0</item>
+        <item name="title">@string/baby_fire_sparky_title</item>
+        <item name="description">@string/baby_fire_sparky_description</item>
+        <item name="icon">@drawable/adult_fire_factorygorilla_idle</item>
+        <item name="health">11</item>
+        <item name="attack">3</item>
+        <item name="attackchance">50</item>
+        <item name="diligence">0</item>
+        <item name="hunger">0</item>
+        <item name="gluttony">10000</item>
+        <item name="mistakes">10000</item>
+        <item name="type">@array/fire_egg</item>
+        <item name="attackicon">@drawable/adult_fire_factorygorilla_attack</item>
+        <item name="happyicon">@drawable/adult_fire_factorygorilla_happy</item>
+    </integer-array>
+
+    <integer-array name="fire_adult_snake">
+        <item name="stage">3</item>
+        <item name="evolutions">0</item>
+        <item name="title">@string/baby_fire_sparky_title</item>
+        <item name="description">@string/baby_fire_sparky_description</item>
+        <item name="icon">@drawable/adult_fire_snake_idle</item>
+        <item name="health">11</item>
+        <item name="attack">3</item>
+        <item name="attackchance">50</item>
+        <item name="diligence">0</item>
+        <item name="hunger">0</item>
+        <item name="gluttony">10000</item>
+        <item name="mistakes">10000</item>
+        <item name="type">@array/fire_egg</item>
+        <item name="attackicon">@drawable/adult_fire_snake_attack</item>
+        <item name="happyicon">@drawable/adult_fire_snake_happy</item>
+    </integer-array>
+
+    <integer-array name="fire_adult_tikimask">
+        <item name="stage">3</item>
+        <item name="evolutions">0</item>
+        <item name="title">@string/baby_fire_sparky_title</item>
+        <item name="description">@string/baby_fire_sparky_description</item>
+        <item name="icon">@drawable/adult_fire_tikimask_idle</item>
+        <item name="health">11</item>
+        <item name="attack">3</item>
+        <item name="attackchance">50</item>
+        <item name="diligence">8</item>
+        <item name="hunger">6</item>
+        <item name="gluttony">1</item>
+        <item name="mistakes">0</item>
+        <item name="type">@array/fire_egg</item>
+        <item name="attackicon">@drawable/adult_fire_tikimask_attack</item>
+        <item name="happyicon">@drawable/adult_fire_tikimask_happy</item>
+    </integer-array>
+
+    <integer-array name="fire_adult_serpent">
+        <item name="stage">3</item>
+        <item name="evolutions">0</item>
+        <item name="title">@string/baby_fire_sparky_title</item>
+        <item name="description">@string/baby_fire_sparky_description</item>
+        <item name="icon">@drawable/adult_fire_serpent_idle</item>
+        <item name="health">11</item>
+        <item name="attack">3</item>
+        <item name="attackchance">50</item>
+        <item name="diligence">7</item>
+        <item name="hunger">7</item>
+        <item name="gluttony">0</item>
+        <item name="mistakes">0</item>
+        <item name="type">@array/fire_egg</item>
+        <item name="attackicon">@drawable/adult_fire_serpent_attack</item>
+        <item name="happyicon">@drawable/adult_fire_serpent_happy</item>
+    </integer-array>
+
+    <integer-array name="fire_adult_firelordgoat">
+        <item name="stage">3</item>
+        <item name="evolutions">0</item>
+        <item name="title">@string/baby_fire_sparky_title</item>
+        <item name="description">@string/baby_fire_sparky_description</item>
+        <item name="icon">@drawable/adult_fire_firelordgoat_idle</item>
+        <item name="health">11</item>
+        <item name="attack">3</item>
+        <item name="attackchance">50</item>
+        <item name="diligence">8</item>
+        <item name="hunger">4</item>
+        <item name="gluttony">0</item>
+        <item name="mistakes">4</item>
+        <item name="type">@array/fire_egg</item>
+        <item name="attackicon">@drawable/adult_fire_firelordgoat_attack</item>
+        <item name="happyicon">@drawable/adult_fire_firelordgoat_happy</item>
+    </integer-array>
+
+    <integer-array name="fire_adult_fox">
+        <item name="stage">3</item>
+        <item name="evolutions">0</item>
+        <item name="title">@string/baby_fire_sparky_title</item>
+        <item name="description">@string/baby_fire_sparky_description</item>
+        <item name="icon">@drawable/adult_fire_fox_idle</item>
+        <item name="health">11</item>
+        <item name="attack">3</item>
+        <item name="attackchance">50</item>
+        <item name="diligence">6</item>
+        <item name="hunger">6</item>
+        <item name="gluttony">3</item>
+        <item name="mistakes">2</item>
+        <item name="type">@array/fire_egg</item>
+        <item name="attackicon">@drawable/adult_fire_fox_attack</item>
+        <item name="happyicon">@drawable/adult_fire_fox_happy</item>
+    </integer-array>
+
+    <integer-array name="fire_adult_elemental">
+        <item name="stage">3</item>
+        <item name="evolutions">0</item>
+        <item name="title">@string/baby_fire_sparky_title</item>
+        <item name="description">@string/baby_fire_sparky_description</item>
+        <item name="icon">@drawable/adult_fire_elemental_idle</item>
+        <item name="health">11</item>
+        <item name="attack">3</item>
+        <item name="attackchance">50</item>
+        <item name="diligence">5</item>
+        <item name="hunger">7</item>
+        <item name="gluttony">4</item>
+        <item name="mistakes">3</item>
+        <item name="type">@array/fire_egg</item>
+        <item name="attackicon">@drawable/adult_fire_elemental_attack</item>
+        <item name="happyicon">@drawable/adult_fire_elemental_happy</item>
+    </integer-array>
+
+    <integer-array name="fire_adult_spirit">
+        <item name="stage">3</item>
+        <item name="evolutions">0</item>
+        <item name="title">@string/baby_fire_sparky_title</item>
+        <item name="description">@string/baby_fire_sparky_description</item>
+        <item name="icon">@drawable/adult_fire_spirit_idle</item>
+        <item name="health">11</item>
+        <item name="attack">3</item>
+        <item name="attackchance">50</item>
+        <item name="diligence">7</item>
+        <item name="hunger">7</item>
+        <item name="gluttony">1</item>
+        <item name="mistakes">1</item>
+        <item name="type">@array/fire_egg</item>
+        <item name="attackicon">@drawable/adult_fire_spirit_attack</item>
+        <item name="happyicon">@drawable/adult_fire_spirit_happy</item>
+    </integer-array>
+
+<!--    TODO add drawable for big baby, or replace chameleon with it if it's small enough-->
+    <integer-array name="fire_adult_baby">
+        <item name="stage">3</item>
+        <item name="evolutions">0</item>
+        <item name="title">@string/baby_fire_sparky_title</item>
+        <item name="description">@string/baby_fire_sparky_description</item>
+        <item name="icon">@drawable/adult_fire_spirit_idle</item>
+        <item name="health">11</item>
+        <item name="attack">3</item>
+        <item name="attackchance">50</item>
+        <item name="diligence">3</item>
+        <item name="hunger">7</item>
+        <item name="gluttony">5</item>
+        <item name="mistakes">1</item>
+        <item name="type">@array/fire_egg</item>
+        <item name="attackicon">@drawable/adult_fire_spirit_attack</item>
+        <item name="happyicon">@drawable/adult_fire_spirit_happy</item>
+    </integer-array>
+
+</resources>

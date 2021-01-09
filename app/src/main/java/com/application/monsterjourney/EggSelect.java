@@ -1,5 +1,6 @@
 package com.application.monsterjourney;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.drawable.AnimationDrawable;
@@ -16,8 +17,12 @@ import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.StyleableRes;
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,13 +42,16 @@ public class EggSelect extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_egg_select);
         selectedegg = 0;
+        //set the id for selected id first so it is not null
+        selectedid = R.array.enigma_egg;
+
+        //TODO left and right arrows giving divide by 0 error
 
 
-        CheckUnlocked runner = new CheckUnlocked();
+        CheckUnlocked runner = new CheckUnlocked(this);
         runner.execute();
 
 
-        //totaleggs = settings.getInt("total eggs",2);
 //        TypedArray egglist = getResources().obtainTypedArray(R.array.egg_list);
 //        totaleggs = egglist.length();
 //
@@ -56,6 +64,7 @@ public class EggSelect extends AppCompatActivity {
         //add our home screen with the current monster
         final FrameLayout frmlayout = findViewById(R.id.placeholder);
         LayoutInflater aboutinflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+        assert aboutinflater != null;
         final View home = aboutinflater.inflate(R.layout.home_screen, (ViewGroup)null);
         Fade mFade = new Fade(Fade.IN);
         TransitionManager.beginDelayedTransition(frmlayout, mFade);
@@ -186,17 +195,26 @@ public class EggSelect extends AppCompatActivity {
     }
 
     //perform check for evolving our monster and change view if appropriate
-    private class CheckUnlocked extends AsyncTask<String,String, String>{
+    private static class CheckUnlocked extends AsyncTask<String,String, String>{
+        // Weak references will still allow the Activity to be garbage-collected
+        private final WeakReference<Activity> weakActivity;
+        List<UnlockedMonster> unlockedMonsters;
+
+        public CheckUnlocked(Activity activity){
+            weakActivity = new WeakReference<>(activity);
+        }
         @Override
         protected String doInBackground(String... strings) {
-            AppDatabase db = AppDatabase.buildDatabase(getApplicationContext());
+            AppDatabase db = AppDatabase.buildDatabase(weakActivity.get());
             unlockedMonsters = db.journeyDao().getUnlockedMonster();
             return null;
         }
 
         @Override
         protected void onPostExecute(String result) {
-            initializeSelect();
+            EggSelect thisActivity = (EggSelect) weakActivity.get();
+            thisActivity.unlockedMonsters = unlockedMonsters;
+            thisActivity.initializeSelect();
         }
     }
 }

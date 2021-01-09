@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer-array name="dark_egg">
+        <item name="stage">0</item>
+        <item name="evolutions">2</item>
+        <item name="title">@string/dark_egg_title</item>
+        <item name="description">@string/dark_egg_description</item>
+        <item name="icon">@drawable/egg_dark_idle</item>
+        <item name="evo1">@array/dark_baby1</item>
+        <item name="evo1">@array/dark_baby2</item>
+    </integer-array>
+
+    <integer-array name="dark_baby1">
+        <item name="stage">1</item>
+        <item name="evolutions">3</item>
+        <item name="title">@string/basic_baby1_title</item>
+        <item name="description">@string/basic_baby1_description</item>
+        <item name="icon">@drawable/baby_dark_head_idle</item>
+        <item name="evo1">@array/dark_child_bigmouth</item>
+        <item name="evo2">@array/dark_child_egghide</item>
+        <item name="evo3">@array/dark_child_salamander</item>
+        <item name="health">3</item>
+        <item name="attack">1</item>
+        <item name="attackchance">50</item>
+        <item name="diligence">6</item>
+        <item name="hunger">4</item>
+        <item name="gluttony">3</item>
+        <item name="mistakes">2</item>
+        <item name="type">@array/dark_egg</item>
+        <item name="attackicon">@drawable/baby_dark_head_attack</item>
+        <item name="happyicon">@drawable/baby_dark_head_happy</item>
+    </integer-array>
+
+    <integer-array name="dark_baby2">
+        <item name="stage">1</item>
+        <item name="evolutions">3</item>
+        <item name="title">@string/baby_fire_sparky_title</item>
+        <item name="description">@string/baby_fire_sparky_description</item>
+        <item name="icon">@drawable/baby_dark_bunny_idle</item>
+        <item name="evo1">@array/dark_child_flyingeye</item>
+        <item name="evo2">@array/dark_child_crystal</item>
+        <item name="evo3">@array/dark_child_salamander</item>
+        <item name="health">3</item>
+        <item name="attack">1</item>
+        <item name="attackchance">50</item>
+        <item name="diligence">6</item>
+        <item name="hunger">4</item>
+        <item name="gluttony">3</item>
+        <item name="mistakes">2</item>
+        <item name="type">@array/dark_egg</item>
+        <item name="attackicon">@drawable/baby_dark_bunny_attack</item>
+        <item name="happyicon">@drawable/baby_dark_bunny_happy</item>
+    </integer-array>
+
+    <integer-array name="dark_child_bigmouth">
+        <item name="stage">2</item>
+        <item name="evolutions">4</item>
+        <item name="title">@string/baby_fire_sparky_title</item>
+        <item name="description">@string/baby_fire_sparky_description</item>
+        <item name="icon">@drawable/child_dark_bigmouth_idle</item>
+        <item name="evo1">@array/dark_adult_wolf</item>
+        <item name="evo2">@array/dark_adult_scorpion</item>
+        <item name="evo3">@array/dark_adult_gorilla</item>
+        <item name="evo4">@array/dark_adult_sloth</item>
+        <item name="health">7</item>
+        <item name="attack">2</item>
+        <item name="attackchance">50</item>
+        <item name="diligence">2</item>
+        <item name="hunger">6</item>
+        <item name="gluttony">6</item>
+        <item name="mistakes">2</item>
+        <item name="type">@array/dark_egg</item>
+        <item name="attackicon">@drawable/child_dark_bigmouth_attack</item>
+        <item name="happyicon">@drawable/child_dark_bigmouth_happy</item>
+    </integer-array>
+
+    <integer-array name="dark_child_egghide">
+        <item name="stage">2</item>
+        <item name="evolutions">4</item>
+        <item name="title">@string/baby_fire_sparky_title</item>
+        <item name="description">@string/baby_fire_sparky_description</item>
+        <item name="icon">@drawable/child_dark_egghide_idle</item>
+        <item name="evo1">@array/dark_adult_wolf</item>
+        <item name="evo2">@array/dark_adult_scorpion</item>
+        <item name="evo3">@array/dark_adult_gorilla</item>
+        <item name="evo4">@array/dark_adult_sloth</item>
+        <item name="health">6</item>
+        <item name="attack">2</item>
+        <item name="attackchance">55</item>
+        <item name="diligence">5</item>
+        <item name="hunger">4</item>
+        <item name="gluttony">2</item>
+        <item name="mistakes">7</item>
+        <item name="type">@array/dark_egg</item>
+        <item name="attackicon">@drawable/child_dark_egghide_attack</item>
+        <item name="happyicon">@drawable/child_dark_egghide_happy</item>
+    </integer-array>
+
+    <integer-array name="dark_child_salamander">
+        <item name="stage">2</item>
+        <item name="evolutions">5</item>
+        <item name="title">@string/baby_fire_sparky_title</item>
+        <item name="description">@string/baby_fire_sparky_description</item>
+        <item name="icon">@drawable/child_dark_salamander_idle</item>
+        <item name="evo1">@array/dark_adult_anglerfish</item>
+        <item name="evo2">@array/dark_adult_greedfox</item>
+        <item name="evo3">@array/dark_adult_gorilla</item>
+        <item name="evo4">@array/dark_adult_cthulu</item>
+        <item name="evo5">@array/dark_adult_bear</item>
+        <item name="health">3</item>
+        <item name="attack">1</item>
+        <item name="attackchance">50</item>
+        <item name="diligence">0</item>
+        <item name="hunger">0</item>
+        <item name="gluttony">10000</item>
+        <item name="mistakes">10000</item>
+        <item name="type">@array/dark_egg</item>
+        <item name="attackicon">@drawable/child_dark_salamander_attack</item>
+        <item name="happyicon">@drawable/child_dark_salamander_happy</item>
+    </integer-array>
+
+    <integer-array name="dark_child_crystal">
+        <item name="stage">2</item>
+        <item name="evolutions">4</item>
+        <item name="title">@string/baby_fire_sparky_title</item>
+        <item name="description">@string/baby_fire_sparky_description</item>
+        <item name="icon">@drawable/child_dark_crystal_idle</item>
+        <item name="evo1">@array/dark_adult_anglerfish</item>
+        <item name="evo2">@array/dark_adult_greedfox</item>
+        <item name="evo3">@array/dark_adult_cthulu</item>
+        <item name="evo4">@array/dark_adult_eyeball</item>
+        <item name="health">3</item>
+        <item name="attack">1</item>
+        <item name="attackchance">50</item>
+        <item name="diligence">2</item>
+        <item name="hunger">6</item>
+        <item name="gluttony">6</item>
+        <item name="mistakes">2</item>
+        <item name="type">@array/dark_egg</item>
+        <item name="attackicon">@drawable/child_dark_crystal_attack</item>
+        <item name="happyicon">@drawable/child_dark_crystal_happy</item>
+    </integer-array>
+
+    <integer-array name="dark_child_flyingeye">
+        <item name="stage">2</item>
+        <item name="evolutions">4</item>
+        <item name="title">@string/baby_fire_sparky_title</item>
+        <item name="description">@string/baby_fire_sparky_description</item>
+        <item name="icon">@drawable/child_dark_flyingeye_idle</item>
+        <item name="evo1">@array/dark_adult_anglerfish</item>
+        <item name="evo2">@array/dark_adult_greedfox</item>
+        <item name="evo3">@array/dark_adult_cthulu</item>
+        <item name="evo4">@array/dark_adult_eyeball</item>
+        <item name="health">3</item>
+        <item name="attack">1</item>
+        <item name="attackchance">50</item>
+        <item name="diligence">5</item>
+        <item name="hunger">4</item>
+        <item name="gluttony">2</item>
+        <item name="mistakes">7</item>
+        <item name="type">@array/dark_egg</item>
+        <item name="attackicon">@drawable/child_dark_flyingeye_attack</item>
+        <item name="happyicon">@drawable/child_dark_flyingeye_happy</item>
+    </integer-array>
+
+<!--    Dark Adults-->
+
+    <integer-array name="dark_adult_bear">
+        <item name="stage">3</item>
+        <item name="evolutions">0</item>
+        <item name="title">@string/baby_fire_sparky_title</item>
+        <item name="description">@string/baby_fire_sparky_description</item>
+        <item name="icon">@drawable/adult_dark_bear_idle</item>
+        <item name="health">11</item>
+        <item name="attack">3</item>
+        <item name="attackchance">50</item>
+        <item name="diligence">0</item>
+        <item name="hunger">0</item>
+        <item name="gluttony">10000</item>
+        <item name="mistakes">10000</item>
+        <item name="type">@array/dark_egg</item>
+        <item name="attackicon">@drawable/adult_dark_bear_attack</item>
+        <item name="happyicon">@drawable/adult_dark_bear_happy</item>
+    </integer-array>
+
+    <integer-array name="dark_adult_sloth">
+        <item name="stage">3</item>
+        <item name="evolutions">0</item>
+        <item name="title">@string/baby_fire_sparky_title</item>
+        <item name="description">@string/baby_fire_sparky_description</item>
+        <item name="icon">@drawable/adult_dark_sloth_idle</item>
+        <item name="health">11</item>
+        <item name="attack">3</item>
+        <item name="attackchance">50</item>
+        <item name="diligence">0</item>
+        <item name="hunger">0</item>
+        <item name="gluttony">10000</item>
+        <item name="mistakes">10000</item>
+        <item name="type">@array/dark_egg</item>
+        <item name="attackicon">@drawable/adult_dark_sloth_attack</item>
+        <item name="happyicon">@drawable/adult_dark_sloth_happy</item>
+    </integer-array>
+
+    <integer-array name="dark_adult_eyeball">
+        <item name="stage">3</item>
+        <item name="evolutions">0</item>
+        <item name="title">@string/baby_fire_sparky_title</item>
+        <item name="description">@string/baby_fire_sparky_description</item>
+        <item name="icon">@drawable/adult_dark_eyeball_idle</item>
+        <item name="health">11</item>
+        <item name="attack">3</item>
+        <item name="attackchance">50</item>
+        <item name="diligence">0</item>
+        <item name="hunger">0</item>
+        <item name="gluttony">10000</item>
+        <item name="mistakes">10000</item>
+        <item name="type">@array/dark_egg</item>
+        <item name="attackicon">@drawable/adult_dark_eyeball_attack</item>
+        <item name="happyicon">@drawable/adult_dark_eyeball_happy</item>
+    </integer-array>
+
+    <integer-array name="dark_adult_anglerfish">
+        <item name="stage">3</item>
+        <item name="evolutions">0</item>
+        <item name="title">@string/baby_fire_sparky_title</item>
+        <item name="description">@string/baby_fire_sparky_description</item>
+        <item name="icon">@drawable/adult_dark_eyeball_idle</item>
+        <item name="health">14</item>
+        <item name="attack">3</item>
+        <item name="attackchance">50</item>
+        <item name="diligence">7</item>
+        <item name="hunger">6</item>
+        <item name="gluttony">1</item>
+        <item name="mistakes">0</item>
+        <item name="type">@array/dark_egg</item>
+        <item name="attackicon">@drawable/adult_dark_eyeball_attack</item>
+        <item name="happyicon">@drawable/adult_dark_eyeball_happy</item>
+    </integer-array>
+
+    <integer-array name="dark_adult_cthulu">
+        <item name="stage">3</item>
+        <item name="evolutions">0</item>
+        <item name="title">@string/baby_fire_sparky_title</item>
+        <item name="description">@string/baby_fire_sparky_description</item>
+        <item name="icon">@drawable/adult_dark_cthulu_idle</item>
+        <item name="health">14</item>
+        <item name="attack">3</item>
+        <item name="attackchance">50</item>
+        <item name="diligence">6</item>
+        <item name="hunger">6</item>
+        <item name="gluttony">5</item>
+        <item name="mistakes">5</item>
+        <item name="type">@array/dark_egg</item>
+        <item name="attackicon">@drawable/adult_dark_cthulu_attack</item>
+        <item name="happyicon">@drawable/adult_dark_cthulu_happy</item>
+    </integer-array>
+
+    <integer-array name="dark_adult_gorilla">
+        <item name="stage">3</item>
+        <item name="evolutions">0</item>
+        <item name="title">@string/baby_fire_sparky_title</item>
+        <item name="description">@string/baby_fire_sparky_description</item>
+        <item name="icon">@drawable/adult_dark_gorilla_idle</item>
+        <item name="health">14</item>
+        <item name="attack">3</item>
+        <item name="attackchance">50</item>
+        <item name="diligence">4</item>
+        <item name="hunger">7</item>
+        <item name="gluttony">2</item>
+        <item name="mistakes">4</item>
+        <item name="type">@array/dark_egg</item>
+        <item name="attackicon">@drawable/adult_dark_gorilla_attack</item>
+        <item name="happyicon">@drawable/adult_dark_gorilla_happy</item>
+    </integer-array>
+
+    <integer-array name="dark_adult_greedfox">
+        <item name="stage">3</item>
+        <item name="evolutions">0</item>
+        <item name="title">@string/baby_fire_sparky_title</item>
+        <item name="description">@string/baby_fire_sparky_description</item>
+        <item name="icon">@drawable/adult_dark_greedfox_idle</item>
+        <item name="health">14</item>
+        <item name="attack">3</item>
+        <item name="attackchance">50</item>
+        <item name="diligence">6</item>
+        <item name="hunger">5</item>
+        <item name="gluttony">2</item>
+        <item name="mistakes">4</item>
+        <item name="type">@array/dark_egg</item>
+        <item name="attackicon">@drawable/adult_dark_greedfox_attack</item>
+        <item name="happyicon">@drawable/adult_dark_greedfox_happy</item>
+    </integer-array>
+
+    <integer-array name="dark_adult_scorpion">
+        <item name="stage">3</item>
+        <item name="evolutions">0</item>
+        <item name="title">@string/baby_fire_sparky_title</item>
+        <item name="description">@string/baby_fire_sparky_description</item>
+        <item name="icon">@drawable/adult_dark_scorpion_idle</item>
+        <item name="health">14</item>
+        <item name="attack">3</item>
+        <item name="attackchance">50</item>
+        <item name="diligence">6</item>
+        <item name="hunger">3</item>
+        <item name="gluttony">0</item>
+        <item name="mistakes">3</item>
+        <item name="type">@array/dark_egg</item>
+        <item name="attackicon">@drawable/adult_dark_scorpion_attack</item>
+        <item name="happyicon">@drawable/adult_dark_scorpion_happy</item>
+    </integer-array>
+
+    <integer-array name="dark_adult_wolf">
+        <item name="stage">3</item>
+        <item name="evolutions">0</item>
+        <item name="title">@string/baby_fire_sparky_title</item>
+        <item name="description">@string/baby_fire_sparky_description</item>
+        <item name="icon">@drawable/adult_dark_wolf_idle</item>
+        <item name="health">14</item>
+        <item name="attack">3</item>
+        <item name="attackchance">50</item>
+        <item name="diligence">8</item>
+        <item name="hunger">6</item>
+        <item name="gluttony">0</item>
+        <item name="mistakes">0</item>
+        <item name="type">@array/dark_egg</item>
+        <item name="attackicon">@drawable/adult_dark_wolf_attack</item>
+        <item name="happyicon">@drawable/adult_dark_wolf_happy</item>
+    </integer-array>
+
+</resources>

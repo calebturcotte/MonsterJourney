@@ -6,7 +6,6 @@ import android.graphics.drawable.AnimationDrawable;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,18 +20,14 @@ import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 import android.widget.PopupWindow;
 import android.widget.TableLayout;
-import android.widget.TableRow;
 import android.widget.TextView;
-
 import androidx.annotation.StyleableRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
-
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
-
 import java.util.List;
 
 public class Library extends AppCompatActivity {
@@ -215,8 +210,6 @@ public class Library extends AppCompatActivity {
         viewarray.recycle();
     }
 
-    //TODO confirm all views are available once all monster designs have been added
-
     /**
      * shows the library popup, which can show specific monster info when tapped
      */
@@ -269,6 +262,7 @@ public class Library extends AppCompatActivity {
                         backgroundAnimation = array.getResourceId(tempid,R.drawable.egg_idle);
                         int finalI = i;
                         newView.setOnClickListener(v -> {
+                            picker1.setValue(0);
                             selectedarray = R.array.egg_list;
                             selected = finalI;
                             libraryWindow.dismiss();
@@ -319,6 +313,7 @@ public class Library extends AppCompatActivity {
                         backgroundAnimation = array.getResourceId(tempid,R.drawable.egg_idle);
                         int finalI = i;
                         newView.setOnClickListener(v -> {
+                            picker1.setValue(1);
                             selectedarray = R.array.baby_list;
                             selected = finalI;
                             libraryWindow.dismiss();
@@ -366,6 +361,7 @@ public class Library extends AppCompatActivity {
                         backgroundAnimation = array.getResourceId(tempid,R.drawable.egg_idle);
                         int finalI = i;
                         newView.setOnClickListener(v -> {
+                            picker1.setValue(2);
                             selectedarray = R.array.child_list;
                             selected = finalI;
                             libraryWindow.dismiss();
@@ -384,7 +380,7 @@ public class Library extends AppCompatActivity {
             newView.setPadding(2,2,2,2);
 
             linearLayout.addView(newView);
-
+            //TODO displaying children makes the display smaller for some reason
             if((i+1) % 5 == 0) {
                 child_layout.addView(linearLayout);
                 linearLayout = new LinearLayout(this);
@@ -414,6 +410,7 @@ public class Library extends AppCompatActivity {
                         backgroundAnimation = array.getResourceId(tempid,R.drawable.egg_idle);
                         int finalI = i;
                         newView.setOnClickListener(v -> {
+                            picker1.setValue(3);
                             selectedarray = R.array.adult_list;
                             selected = finalI;
                             libraryWindow.dismiss();

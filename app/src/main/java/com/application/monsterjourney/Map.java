@@ -50,7 +50,7 @@ public class Map extends AppCompatActivity {
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
 
 
-        final FrameLayout frmlayout = (FrameLayout) findViewById(R.id.placeholder);
+        final FrameLayout frmlayout = findViewById(R.id.placeholder);
         LayoutInflater aboutinflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
         assert aboutinflater != null;
         final View home = aboutinflater.inflate(R.layout.home_screen, (ViewGroup)null);
@@ -108,6 +108,14 @@ public class Map extends AppCompatActivity {
                         AppDatabase db = AppDatabase.buildDatabase(getApplicationContext());
                         Journey tempjourney = db.journeyDao().getJourney().get(0);
                         tempjourney.setStorytype(storytype);
+                        //set the story steps to the new steps for the map
+                        for(CompletedMaps completedMaps : completedMapsList){
+                            if(completedMaps.getMaparray() == tempjourney.getStorytype()){
+                                tempjourney.setStorysteps(completedMaps.getStorysteps());
+                                break;
+                            }
+                        }
+
                         db.journeyDao().update(tempjourney);
                     });
 
@@ -188,7 +196,7 @@ public class Map extends AppCompatActivity {
 
 
         imageView.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(),backgroundAnimation));
-        imageView.setBackgroundResource(R.drawable.ic_background_library);
+        imageView.setBackgroundResource(R.drawable.mapbackground2);
 
         this.title.setText(getText(monstertitle));
         description.setText(getText(monstertext));

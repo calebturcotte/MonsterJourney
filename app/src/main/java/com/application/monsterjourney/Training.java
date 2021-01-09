@@ -17,8 +17,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.animation.LinearInterpolator;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
@@ -80,7 +82,7 @@ public class Training extends AppCompatActivity {
         taskInfo();
 
         //add our home screen with the current monster
-        final FrameLayout homelayout = (FrameLayout) findViewById(R.id.placeholder);
+        final FrameLayout homelayout = findViewById(R.id.placeholder);
         LayoutInflater homeinflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
         assert homeinflater != null;
         final View monsterview = homeinflater.inflate(R.layout.home_screen, (ViewGroup)null);
@@ -343,7 +345,7 @@ public class Training extends AppCompatActivity {
 
 
 
-        feedView.findViewById(R.id.confirm).setOnClickListener((View.OnClickListener) v -> {
+        feedView.findViewById(R.id.confirm).setOnClickListener(v -> {
             AsyncTask.execute(() -> {
                 AppDatabase db = AppDatabase.buildDatabase(getApplicationContext());
                 Monster temp = db.journeyDao().getMonster().get(0);
@@ -361,14 +363,20 @@ public class Training extends AppCompatActivity {
             });
             final FrameLayout frmlayout = (FrameLayout) findViewById(R.id.placeholder);
             LayoutInflater aboutinflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+            assert aboutinflater != null;
             final View feeding = aboutinflater.inflate(R.layout.feeding_screen, (ViewGroup)null);
             Fade mFade = new Fade(Fade.IN);
             TransitionManager.beginDelayedTransition(frmlayout, mFade);
             frmlayout.removeAllViews();
             frmlayout.addView(feeding,0);
-            feeding.getViewTreeObserver().addOnGlobalLayoutListener(() -> {
-                FoodAnimation runner1 = new FoodAnimation();
-                runner1.execute();
+            Activity myActivity = this;
+            feeding.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                @Override
+                public void onGlobalLayout() {
+                    FoodAnimation runner1 = new FoodAnimation(myActivity);
+                    runner1.execute();
+                    feeding.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                }
             });
             feedWindow.dismiss();
             feedView = null;
@@ -671,44 +679,51 @@ public class Training extends AppCompatActivity {
     /**
      * animation upon food eaten
      */
-    private class FoodAnimation extends AsyncTask<String,String, String>{
+    private static class FoodAnimation extends AsyncTask<String,String, String>{
         private int currentarrayid;
+        private final WeakReference<Activity> weakActivity;
+
+        public FoodAnimation(Activity myActivity){
+            this.weakActivity = new WeakReference<>(myActivity);
+        }
         @Override
         protected String doInBackground(String... strings) {
-            AppDatabase db = AppDatabase.buildDatabase(getApplicationContext());
+            AppDatabase db = AppDatabase.buildDatabase(weakActivity.get());
             currentarrayid = db.journeyDao().getMonster().get(0).getArrayid();
             return null;
         }
 
         @Override
         protected void onPostExecute(String result) {
-            selectedIcon(currentarrayid);
-            final ImageView foodimageView = findViewById(R.id.eating_icon);
+            Training thisActivity = (Training) weakActivity.get();
+            thisActivity.selectedIcon(currentarrayid);
+            FrameLayout homelayout = weakActivity.get().findViewById(R.id.placeholder);
+            ImageView foodimageView = homelayout.findViewById(R.id.eating_icon);
             AnimationDrawable foodanimator;
-            switch (feedtype){
-                case 0: // basic apple
-                    foodimageView.setBackgroundResource(R.drawable.food_eat);
-                    foodanimator = (AnimationDrawable) foodimageView.getBackground();
-                    foodanimator.start();
-                    break;
+            switch (thisActivity.feedtype){
                 case 1: //large apple
-                    foodimageView.setBackgroundResource(R.drawable.food1_eat);
-                    foodanimator = (AnimationDrawable) foodimageView.getBackground();
+                    foodimageView.setImageDrawable(ContextCompat.getDrawable(weakActivity.get(),R.drawable.food1_eat));
+                    foodanimator = (AnimationDrawable) foodimageView.getDrawable();
                     foodanimator.start();
                     break;
                 case 2: //meat
-                    foodimageView.setBackgroundResource(R.drawable.food2_eat);
-                    foodanimator = (AnimationDrawable) foodimageView.getBackground();
+                    foodimageView.setImageDrawable(ContextCompat.getDrawable(weakActivity.get(),R.drawable.food2_eat));
+                    foodanimator = (AnimationDrawable) foodimageView.getDrawable();
                     foodanimator.start();
                     break;
                 case 3: //training pill
-                    foodimageView.setBackgroundResource(R.drawable.food3_eat);
-                    foodanimator = (AnimationDrawable) foodimageView.getBackground();
+                    foodimageView.setImageDrawable(ContextCompat.getDrawable(weakActivity.get(),R.drawable.food3_eat));
+                    foodanimator = (AnimationDrawable) foodimageView.getDrawable();
                     foodanimator.start();
                     break;
                 case 4: //evolution medicine
-                    foodimageView.setBackgroundResource(R.drawable.food4_eat);
-                    foodanimator = (AnimationDrawable) foodimageView.getBackground();
+                    foodimageView.setImageDrawable(ContextCompat.getDrawable(weakActivity.get(),R.drawable.food4_eat));
+                    foodanimator = (AnimationDrawable) foodimageView.getDrawable();
+                    foodanimator.start();
+                    break;
+                default: // basic apple
+                    foodimageView.setImageDrawable(ContextCompat.getDrawable(weakActivity.get(),R.drawable.food_eat));
+                    foodanimator = (AnimationDrawable) foodimageView.getDrawable();
                     foodanimator.start();
                     break;
 
@@ -716,7 +731,26 @@ public class Training extends AppCompatActivity {
 
             Handler h = new Handler();
             //Run a runnable to hide food after it has been eaten
-            h.postDelayed(() -> foodimageView.setVisibility(View.INVISIBLE), 1199);
+            h.postDelayed(() -> {
+                foodanimator.stop();
+                LayoutInflater homeinflater = (LayoutInflater) weakActivity.get().getSystemService(LAYOUT_INFLATER_SERVICE);
+                assert homeinflater != null;
+                final View monsterview = homeinflater.inflate(R.layout.home_screen, (ViewGroup)null);
+                Fade mFade = new Fade(Fade.IN);
+                TransitionManager.beginDelayedTransition(homelayout, mFade);
+                homelayout.removeAllViews();
+                homelayout.addView(monsterview,0);
+                homelayout.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                    @Override
+                    public void onGlobalLayout() {
+//                        InitializeScreen runner = new InitializeScreen(weakActivity.get());
+//                        runner.execute();
+                        thisActivity.selectedIcon(currentarrayid);
+
+                        homelayout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                    }
+                });
+            }, 1199);
 
         }
     }
@@ -731,8 +765,10 @@ public class Training extends AppCompatActivity {
         protected String doInBackground(String... strings) {
             AppDatabase db = AppDatabase.buildDatabase(getApplicationContext());
             Monster temp = db.journeyDao().getMonster().get(0);
-            evolved = temp.evolve(getApplicationContext());
-            currentarrayid = db.journeyDao().getMonster().get(0).getArrayid();
+            Journey tempjourney = db.journeyDao().getJourney().get(0);
+            evolved = temp.evolve(getApplicationContext(), tempjourney.getEvolveddiscount());
+            //currentarrayid = db.journeyDao().getMonster().get(0).getArrayid();
+            currentarrayid = temp.getArrayid();
             int[] monsterresources = getApplication().getResources().getIntArray(currentarrayid);
             stage = monsterresources[0];
             stepsneeded = temp.getEvolvesteps();
@@ -754,11 +790,26 @@ public class Training extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String result) {
-            if(stage >= 3){
-                Toast.makeText(getApplicationContext(), "Monster already at final stage.", Toast.LENGTH_SHORT).show();
+            if(evolved){
+                ImageView eventimage = findViewById(R.id.monster_event);
+                eventimage.setVisibility(View.VISIBLE);
+                final Animation eventanimation = new AlphaAnimation(1, 0); //to change visibility from visible to invisible
+                eventanimation.setDuration(400); //half a second duration for each animation cycle
+                eventanimation.setInterpolator(new LinearInterpolator());
+                eventanimation.setRepeatCount(Animation.INFINITE); //repeating indefinitely
+                eventanimation.setRepeatMode(Animation.REVERSE); //animation will start from end point once ended.
+                eventimage.startAnimation(eventanimation); //to start animation
+                Handler h1 = new Handler();
+                //Run a runnable after 100ms (after that time it is safe to remove the view)
+                h1.postDelayed(() -> {
+                    eventimage.setVisibility(View.INVISIBLE);
+                    eventanimation.cancel();
+                    selectedIcon(currentarrayid);
+                }, 2000);
+
             }
-            else if(evolved){
-                selectedIcon(currentarrayid);
+            else if(stage >= 3){
+                Toast.makeText(getApplicationContext(), "Monster already at final stage.", Toast.LENGTH_SHORT).show();
             }
             else if(stepsneeded > 0){
                 Toast.makeText(getApplicationContext(), String.valueOf(stepsneeded) + " steps needed to evolve.", Toast.LENGTH_SHORT).show();
@@ -766,8 +817,16 @@ public class Training extends AppCompatActivity {
             else{
                 Toast.makeText(getApplicationContext(), "Evolution requirements not met.", Toast.LENGTH_SHORT).show();
             }
-
-            selectedIcon(currentarrayid);
+//            ImageView eventimage = findViewById(R.id.monster_event);
+//            eventimage.setVisibility(View.VISIBLE);
+//            final Animation eventanimation = new AlphaAnimation(1, 0); //to change visibility from visible to invisible
+//            eventanimation.setDuration(400); //half a second duration for each animation cycle
+//            eventanimation.setInterpolator(new LinearInterpolator());
+//            eventanimation.setRepeatCount(Animation.INFINITE); //repeating indefinitely
+//            eventanimation.setRepeatMode(Animation.REVERSE); //animation will start from end point once ended.
+//            eventimage.startAnimation(eventanimation); //to start animation
+//
+//            selectedIcon(currentarrayid);
 
         }
     }

@@ -62,7 +62,7 @@ public class Monster {
         gluttony = 0;
         mistakes = 0;
         name = "";
-        arrayid = R.array.basic_egg;
+        arrayid = R.array.enigma_egg;
         hatched = false;
     }
 
@@ -177,7 +177,7 @@ public class Monster {
     /**
      * called when monster evolves, gains new stats and form depending on mistakes and other factors
      */
-    public boolean evolve(Context applicationcontext){
+    public boolean evolve(Context applicationcontext, long evolvediscount){
         if(evolvesteps > 0){
             return false;
         }
@@ -203,7 +203,7 @@ public class Monster {
         else {
             for(int i = 0; i < evolutions; i++){
                 @StyleableRes int tempid = 5 + i;
-                int tempevolvecheck = array.getResourceId(tempid,R.array.basic_egg);
+                int tempevolvecheck = array.getResourceId(tempid,R.array.enigma_egg);
                 int[] evolutionrequirements = applicationcontext.getResources().getIntArray(tempevolvecheck);
                 int evolvenumber = evolutionrequirements[1];
                 if(diligence >= evolutionrequirements[evolvenumber+8] && hunger >= evolutionrequirements[evolvenumber+9]
@@ -223,15 +223,15 @@ public class Monster {
         for(int i = 0; i < evolutions; i++){
             if(criteria[i]){
                 @StyleableRes int tempid = 5 + i;
-                temp = array.getResourceId(tempid,R.array.basic_egg);
+                temp = array.getResourceId(tempid,R.array.enigma_egg);
                 //editor.putInt("selectedmonster",temp);
                 arrayid = temp;
                 success = true;
-                if(stage + 1 == 1){
-                    setEvolvesteps(15000);
+                if((stage + 1 )== 1){
+                    setEvolvesteps(10000 - evolvediscount);
                 }
-                else if (stage + 1 ==2){
-                    setEvolvesteps(20000);
+                else if ((stage + 1) ==2){
+                    setEvolvesteps(15000-evolvediscount);
                 }
 /*                editor.putBoolean(String.valueOf(temp),true);
                 editor.apply();*/
@@ -325,7 +325,7 @@ public class Monster {
         int[] monsterresources = applicationcontext.getResources().getIntArray(othermonstertype);
         int evolutions = monsterresources[1];
         @StyleableRes int index = 12+evolutions;
-        int newbreedid = array.getResourceId(index, R.array.basic_egg);
+        int newbreedid = array.getResourceId(index, R.array.enigma_egg);
         array.recycle();
 
         return newbreedid;

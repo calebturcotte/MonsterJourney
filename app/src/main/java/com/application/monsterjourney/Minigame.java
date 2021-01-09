@@ -59,11 +59,6 @@ public class Minigame extends AppCompatActivity {
             @Override
             public void onGlobalLayout() {
                 homelayout.addView(monsterview,0);
-//                AsyncTask.execute(() -> {
-//                    AppDatabase db = AppDatabase.buildDatabase(getApplicationContext());
-//                    int currentarrayid = db.journeyDao().getMonster().get(0).getArrayid();
-//                    selectedIcon(currentarrayid);
-//                });
                 homelayout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
             }
         });
@@ -358,8 +353,8 @@ public class Minigame extends AppCompatActivity {
         AsyncTask.execute(() -> {
             AppDatabase db = AppDatabase.buildDatabase(getApplicationContext());
             Journey tempjourney = db.journeyDao().getJourney().get(0);
-            tempjourney.addStepstoJourney(stepsearned);
             Monster tempmonster = db.journeyDao().getMonster().get(0);
+            tempjourney.addStepstoJourney(stepsearned, tempmonster.getHatched());
             tempmonster.setEvolvesteps(tempmonster.getEvolvesteps() - stepsearned);
             db.journeyDao().update(tempjourney);
             db.journeyDao().updateMonster(tempmonster);
@@ -513,14 +508,15 @@ public class Minigame extends AppCompatActivity {
                 addSnakeSection(snakePositions);
             }
             else {
-                int stepsearned = (snakePositions.size() - 2)*8;
+                int stepsearned = (snakePositions.size() - 2)*7;
                 countstring = "Steps Earned: " + stepsearned;
                 counttext.setText(countstring);
                 AsyncTask.execute(() -> {
                     AppDatabase db = AppDatabase.buildDatabase(getApplicationContext());
                     Journey tempjourney = db.journeyDao().getJourney().get(0);
-                    tempjourney.addStepstoJourney(stepsearned);
                     Monster tempmonster = db.journeyDao().getMonster().get(0);
+                    tempjourney.addStepstoJourney(stepsearned, tempmonster.getHatched());
+
                     tempmonster.setEvolvesteps(tempmonster.getEvolvesteps() - stepsearned);
                     db.journeyDao().update(tempjourney);
                     db.journeyDao().updateMonster(tempmonster);
@@ -536,14 +532,14 @@ public class Minigame extends AppCompatActivity {
             for(int i = snakePositions.size()-2; i > 0 ; i--){
                 //check if snake head hit itself
                 if(snakePositions.get(0).getYposition() == snakePositions.get(i).getYposition() && snakePositions.get(0).getXposition() == snakePositions.get(i).getXposition()){
-                    int stepsearned = (snakePositions.size() - 2)*8;
+                    int stepsearned = (snakePositions.size() - 2)*7;
                     countstring = "Steps Earned: " + stepsearned;
                     counttext.setText(countstring);
                     AsyncTask.execute(() -> {
                         AppDatabase db = AppDatabase.buildDatabase(getApplicationContext());
                         Journey tempjourney = db.journeyDao().getJourney().get(0);
-                        tempjourney.addStepstoJourney(stepsearned);
                         Monster tempmonster = db.journeyDao().getMonster().get(0);
+                        tempjourney.addStepstoJourney(stepsearned,tempmonster.getHatched());
                         tempmonster.setEvolvesteps(tempmonster.getEvolvesteps() - stepsearned);
                         db.journeyDao().update(tempjourney);
                         db.journeyDao().updateMonster(tempmonster);

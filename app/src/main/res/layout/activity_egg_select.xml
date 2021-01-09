@@ -63,7 +63,7 @@
     <TextView
         android:background="@drawable/ic_launcher_background"
         android:id="@+id/Title"
-        android:text="@string/app_name"
+        android:text="@string/basic_egg_title"
         android:gravity="center"
         android:textSize="25sp"
         android:layout_width="0dp"
@@ -76,7 +76,7 @@
     <TextView
         android:background="@drawable/ic_launcher_background"
         android:id="@+id/content"
-        android:text="@string/app_name"
+        android:text="@string/basic_egg_description"
         android:gravity="center"
         android:textSize="20sp"
         android:layout_width="0dp"

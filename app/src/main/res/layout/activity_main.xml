@@ -65,6 +65,13 @@
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.25"/>
 
+        <androidx.constraintlayout.widget.Guideline
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/selectorguideline2"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.15"/>
+
         <ImageView
             android:contentDescription="@string/monsterinfo"
             android:id="@+id/monster_info_popup"
@@ -153,12 +160,12 @@
             android:id="@+id/picker"
             android:descendantFocusability="blocksDescendants"
             android:layout_width="0dp"
-            app:layout_constraintWidth_percent="0.5"
+            app:layout_constraintWidth_percent="0.7"
             android:layout_height="0dp"
             app:layout_constraintHeight_percent="0.1"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintTop_toBottomOf="@id/pickerguideline"
-            app:layout_constraintStart_toStartOf="@id/selectorguideline"/>
+            app:layout_constraintStart_toStartOf="@id/selectorguideline2"/>
 
         <Button
             android:id="@+id/selection"

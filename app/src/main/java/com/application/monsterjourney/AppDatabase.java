@@ -9,9 +9,6 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
-
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.Executors;
 
 @Database(entities = {Journey.class,Item.class, History.class, Monster.class, UnlockedMonster.class, CompletedMaps.class}, version = 1, exportSchema = false)

@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Where each array can be found with R.array.<name>
+    index 0 will be the monster stage
+    index 1 will be the number monster evolutions
+    index 2 will be the description title
+    index 3 will be the description
+    index 4 will be the monster icon
+    index 5 - (4+number of evolutions) is the different possible evolutions
+    index (5+number of evolutions) is the standard health of the monster
+    index (5+number of evolutions+1) is the standard attack power of the monster
+    index (5+number of evolutions+2) is the standard attack chance of the monster
+    index (5+number of evolutions+3) is the evolution diligence requirement of the monster
+    index (5+number of evolutions+4) is the hunger requirement
+    index (5+number of evolutions+5) is the max overfeed/gluttony
+    index (5+number of evolutions+6) is the max training mistakes
+    index (5+number of evolutions+7) is the type of the monster, ie the egg
+    index (13+number of evolutions) is the attack icon/animation
+    index (14+number of evolutions) is the happy icon/animation-->
+
+    <integer-array name="enigma_egg">
+        <item name="stage">0</item>
+        <item name="evolutions">2</item>
+        <item name="title">@string/basic_egg_title</item>
+        <item name="description">@string/basic_egg_description</item>
+        <item name="icon">@drawable/egg_idle</item>
+        <item name="evo1">@array/enigma_baby1</item>
+        <item name="evo1">@array/enigma_baby2</item>
+    </integer-array>
+
+
+    <integer-array name="enigma_baby1">
+        <item name="stage">1</item>
+        <item name="evolutions">3</item>
+        <item name="title">@string/enigma_baby_skull_title</item>
+        <item name="description">@string/enigma_baby_skull_description</item>
+        <item name="icon">@drawable/baby_enigma_skull_idle</item>
+        <item name="evo1">@array/enigma_child_ghost</item>
+        <item name="evo2">@array/enigma_child_floatingskull</item>
+        <item name="evo3">@array/enigma_child_snake</item>
+        <item name="health">3</item>
+        <item name="attack">1</item>
+        <item name="attackchance">50</item>
+        <item name="diligence">6</item>
+        <item name="hunger">4</item>
+        <item name="gluttony">3</item>
+        <item name="mistakes">2</item>
+        <item name="type">@array/enigma_egg</item>
+        <item name="attackicon">@drawable/baby_enigma_skull_attack</item>
+        <item name="happyicon">@drawable/baby_enigma_skull_happy</item>
+    </integer-array>
+
+    <integer-array name="enigma_baby2">
+        <item name="stage">1</item>
+        <item name="evolutions">3</item>
+        <item name="title">@string/enigma_baby_tanuki_title</item>
+        <item name="description">@string/enigma_baby_tanuki_description</item>
+        <item name="icon">@drawable/baby_enigma_tanuki_idle</item>
+        <item name="evo1">@array/enigma_child_tanuki</item>
+        <item name="evo2">@array/enigma_child_mushroom</item>
+        <item name="evo3">@array/enigma_child_snake</item>
+        <item name="health">3</item>
+        <item name="attack">1</item>
+        <item name="attackchance">50</item>
+        <item name="diligence">6</item>
+        <item name="hunger">4</item>
+        <item name="gluttony">3</item>
+        <item name="mistakes">2</item>
+        <item name="type">@array/enigma_egg</item>
+        <item name="attackicon">@drawable/baby_enigma_tanuki_attack</item>
+        <item name="happyicon">@drawable/baby_enigma_tanuki_happy</item>
+    </integer-array>
+
+    <integer-array name="enigma_child_tanuki">
+        <item name="stage">2</item>
+        <item name="evolutions">4</item>
+        <item name="title">@string/enigma_child_tanuki_title</item>
+        <item name="description">@string/enigma_child_tanuki_description</item>
+        <item name="icon">@drawable/child_enigma_tanuki_idle</item>
+        <item name="evo1">@array/enigma_adult_snowman</item>
+        <item name="evo2">@array/enigma_adult_teddybear</item>
+        <item name="evo3">@array/enigma_adult_vampireking</item>
+        <item name="evo4">@array/enigma_adult_rainspirit</item>
+        <item name="health">7</item>
+        <item name="attack">2</item>
+        <item name="attackchance">50</item>
+        <item name="diligence">2</item>
+        <item name="hunger">6</item>
+        <item name="gluttony">5</item>
+        <item name="mistakes">0</item>
+        <item name="type">@array/enigma_egg</item>
+        <item name="attackicon">@drawable/child_enigma_tanuki_attack</item>
+        <item name="happyicon">@drawable/child_enigma_tanuki_happy</item>
+    </integer-array>
+
+    <integer-array name="enigma_child_mushroom">
+        <item name="stage">2</item>
+        <item name="evolutions">3</item>
+        <item name="title">@string/enigma_child_mushroom_title</item>
+        <item name="description">@string/enigma_child_mushroom_description</item>
+        <item name="icon">@drawable/child_enigma_mushroom_idle</item>
+        <item name="evo1">@array/enigma_adult_scarecrow</item>
+        <item name="evo2">@array/enigma_adult_teddybear</item>
+        <item name="evo3">@array/enigma_adult_rainspirit</item>
+        <item name="health">3</item>
+        <item name="attack">2</item>
+        <item name="attackchance">50</item>
+        <item name="diligence">4</item>
+        <item name="hunger">2</item>
+        <item name="gluttony">2</item>
+        <item name="mistakes">5</item>
+        <item name="type">@array/enigma_egg</item>
+        <item name="attackicon">@drawable/child_enigma_mushroom_attack</item>
+        <item name="happyicon">@drawable/child_enigma_mushroom_happy</item>
+    </integer-array>
+
+    <integer-array name="enigma_child_snake">
+        <item name="stage">2</item>
+        <item name="evolutions">4</item>
+        <item name="title">@string/enigma_child_snake_title</item>
+        <item name="description">@string/enigma_child_snake_description</item>
+        <item name="icon">@drawable/child_enigma_snake_idle</item>
+        <item name="evo1">@array/enigma_adult_vampireking</item>
+        <item name="evo2">@array/enigma_adult_electricball</item>
+        <item name="evo3">@array/enigma_adult_snowman</item>
+        <item name="evo4">@array/enigma_adult_sphinx</item>
+        <item name="health">3</item>
+        <item name="attack">2</item>
+        <item name="attackchance">50</item>
+        <item name="diligence">0</item>
+        <item name="hunger">0</item>
+        <item name="gluttony">10000</item>
+        <item name="mistakes">10000</item>
+        <item name="type">@array/enigma_egg</item>
+        <item name="attackicon">@drawable/child_enigma_snake_attack</item>
+        <item name="happyicon">@drawable/child_enigma_snake_happy</item>
+    </integer-array>
+
+    <integer-array name="enigma_child_ghost">
+        <item name="stage">2</item>
+        <item name="evolutions">4</item>
+        <item name="title">@string/enigma_baby_tanuki_title</item>
+        <item name="description">@string/enigma_baby_tanuki_description</item>
+        <item name="icon">@drawable/child_enigma_ghost_idle</item>
+        <item name="evo1">@array/enigma_adult_frankenstein</item>
+        <item name="evo2">@array/enigma_adult_electricball</item>
+        <item name="evo3">@array/enigma_adult_vampireking</item>
+        <item name="evo3">@array/enigma_adult_specter</item>
+        <item name="health">3</item>
+        <item name="attack">2</item>
+        <item name="attackchance">50</item>
+        <item name="diligence">6</item>
+        <item name="hunger">2</item>
+        <item name="gluttony">6</item>
+        <item name="mistakes">1</item>
+        <item name="type">@array/enigma_egg</item>
+        <item name="attackicon">@drawable/child_enigma_ghost_attack</item>
+        <item name="happyicon">@drawable/child_enigma_ghost_happy</item>
+    </integer-array>
+
+    <integer-array name="enigma_child_floatingskull">
+        <item name="stage">2</item>
+        <item name="evolutions">4</item>
+        <item name="title">@string/enigma_baby_tanuki_title</item>
+        <item name="description">@string/enigma_baby_tanuki_description</item>
+        <item name="icon">@drawable/child_enigma_floatingskull_idle</item>
+        <item name="evo1">@array/enigma_adult_frankenstein</item>
+        <item name="evo2">@array/enigma_adult_electricball</item>
+        <item name="evo3">@array/enigma_adult_vampireking</item>
+        <item name="evo3">@array/enigma_adult_sphinx</item>
+        <item name="health">3</item>
+        <item name="attack">2</item>
+        <item name="attackchance">50</item>
+        <item name="diligence">2</item>
+        <item name="hunger">6</item>
+        <item name="gluttony">3</item>
+        <item name="mistakes">6</item>
+        <item name="type">@array/enigma_egg</item>
+        <item name="attackicon">@drawable/child_enigma_floatingskull_attack</item>
+        <item name="happyicon">@drawable/child_enigma_floatingskull_happy</item>
+    </integer-array>
+
+<!--    Adult monsters-->
+
+    <integer-array name="enigma_adult_rainspirit">
+        <item name="stage">3</item>
+        <item name="evolutions">0</item>
+        <item name="title">@string/enigma_baby_tanuki_title</item>
+        <item name="description">@string/enigma_baby_tanuki_description</item>
+        <item name="icon">@drawable/adult_enigma_rainspirit_idle</item>
+        <item name="health">11</item>
+        <item name="attack">3</item>
+        <item name="attackchance">50</item>
+        <item name="diligence">0</item>
+        <item name="hunger">0</item>
+        <item name="gluttony">10000</item>
+        <item name="mistakes">10000</item>
+        <item name="type">@array/enigma_egg</item>
+        <item name="attackicon">@drawable/adult_enigma_rainspirit_attack</item>
+        <item name="happyicon">@drawable/adult_enigma_rainspirit_happy</item>
+    </integer-array>
+
+    <integer-array name="enigma_adult_teddybear">
+        <item name="stage">3</item>
+        <item name="evolutions">0</item>
+        <item name="title">@string/enigma_baby_tanuki_title</item>
+        <item name="description">@string/enigma_baby_tanuki_description</item>
+        <item name="icon">@drawable/adult_enigma_teddybear_idle</item>
+        <item name="health">14</item>
+        <item name="attack">2</item>
+        <item name="attackchance">50</item>
+        <item name="diligence">2</item>
+        <item name="hunger">8</item>
+        <item name="gluttony">4</item>
+        <item name="mistakes">1</item>
+        <item name="type">@array/enigma_egg</item>
+        <item name="attackicon">@drawable/adult_enigma_teddybear_attack</item>
+        <item name="happyicon">@drawable/adult_enigma_teddybear_happy</item>
+    </integer-array>
+
+    <integer-array name="enigma_adult_snowman">
+        <item name="stage">3</item>
+        <item name="evolutions">0</item>
+        <item name="title">@string/enigma_baby_tanuki_title</item>
+        <item name="description">@string/enigma_baby_tanuki_description</item>
+        <item name="icon">@drawable/adult_enigma_snowman_idle</item>
+        <item name="health">11</item>
+        <item name="attack">3</item>
+        <item name="attackchance">50</item>
+        <item name="diligence">2</item>
+        <item name="hunger">8</item>
+        <item name="gluttony">4</item>
+        <item name="mistakes">1</item>
+        <item name="type">@array/enigma_egg</item>
+        <item name="attackicon">@drawable/adult_enigma_snowman_attack</item>
+        <item name="happyicon">@drawable/adult_enigma_snowman_happy</item>
+    </integer-array>
+
+    <integer-array name="enigma_adult_scarecrow">
+        <item name="stage">3</item>
+        <item name="evolutions">0</item>
+        <item name="title">@string/enigma_baby_tanuki_title</item>
+        <item name="description">@string/enigma_baby_tanuki_description</item>
+        <item name="icon">@drawable/adult_enigma_scarecrow_idle</item>
+        <item name="health">11</item>
+        <item name="attack">3</item>
+        <item name="attackchance">50</item>
+        <item name="diligence">6</item>
+        <item name="hunger">6</item>
+        <item name="gluttony">1</item>
+        <item name="mistakes">3</item>
+        <item name="type">@array/enigma_egg</item>
+        <item name="attackicon">@drawable/adult_enigma_scarecrow_attack</item>
+        <item name="happyicon">@drawable/adult_enigma_scarecrow_happy</item>
+    </integer-array>
+
+    <integer-array name="enigma_adult_sphinx">
+        <item name="stage">3</item>
+        <item name="evolutions">0</item>
+        <item name="title">@string/enigma_adult_sphinx_title</item>
+        <item name="description">@string/enigma_adult_sphinx_description</item>
+        <item name="icon">@drawable/adult_enigma_sphinx_idle</item>
+        <item name="health">11</item>
+        <item name="attack">3</item>
+        <item name="attackchance">50</item>
+        <item name="diligence">0</item>
+        <item name="hunger">0</item>
+        <item name="gluttony">10000</item>
+        <item name="mistakes">10000</item>
+        <item name="type">@array/enigma_egg</item>
+        <item name="attackicon">@drawable/adult_enigma_sphinx_attack</item>
+        <item name="happyicon">@drawable/adult_enigma_sphinx_happy</item>
+    </integer-array>
+
+    <integer-array name="enigma_adult_specter">
+        <item name="stage">3</item>
+        <item name="evolutions">0</item>
+        <item name="title">@string/enigma_baby_tanuki_title</item>
+        <item name="description">@string/enigma_baby_tanuki_description</item>
+        <item name="icon">@drawable/adult_enigma_specter_idle</item>
+        <item name="health">11</item>
+        <item name="attack">3</item>
+        <item name="attackchance">50</item>
+        <item name="diligence">0</item>
+        <item name="hunger">0</item>
+        <item name="gluttony">10000</item>
+        <item name="mistakes">10000</item>
+        <item name="type">@array/enigma_egg</item>
+        <item name="attackicon">@drawable/adult_enigma_specter_attack</item>
+        <item name="happyicon">@drawable/adult_enigma_specter_happy</item>
+    </integer-array>
+
+    <integer-array name="enigma_adult_vampireking">
+        <item name="stage">3</item>
+        <item name="evolutions">0</item>
+        <item name="title">@string/enigma_baby_tanuki_title</item>
+        <item name="description">@string/enigma_baby_tanuki_description</item>
+        <item name="icon">@drawable/adult_enigma_vampireking_idle</item>
+        <item name="health">11</item>
+        <item name="attack">3</item>
+        <item name="attackchance">50</item>
+        <item name="diligence">4</item>
+        <item name="hunger">6</item>
+        <item name="gluttony">3</item>
+        <item name="mistakes">1</item>
+        <item name="type">@array/enigma_egg</item>
+        <item name="attackicon">@drawable/adult_enigma_vampireking_attack</item>
+        <item name="happyicon">@drawable/adult_enigma_vampireking_happy</item>
+    </integer-array>
+
+    <integer-array name="enigma_adult_electricball">
+        <item name="stage">3</item>
+        <item name="evolutions">0</item>
+        <item name="title">@string/enigma_baby_tanuki_title</item>
+        <item name="description">@string/enigma_baby_tanuki_description</item>
+        <item name="icon">@drawable/adult_enigma_electricball_idle</item>
+        <item name="health">11</item>
+        <item name="attack">3</item>
+        <item name="attackchance">50</item>
+        <item name="diligence">6</item>
+        <item name="hunger">4</item>
+        <item name="gluttony">0</item>
+        <item name="mistakes">3</item>
+        <item name="type">@array/enigma_egg</item>
+        <item name="attackicon">@drawable/adult_enigma_electricball_attack</item>
+        <item name="happyicon">@drawable/adult_enigma_electricball_happy</item>
+    </integer-array>
+
+    <integer-array name="enigma_adult_frankenstein">
+        <item name="stage">3</item>
+        <item name="evolutions">0</item>
+        <item name="title">@string/enigma_baby_tanuki_title</item>
+        <item name="description">@string/enigma_baby_tanuki_description</item>
+        <item name="icon">@drawable/adult_enigma_frankenstein_idle</item>
+        <item name="health">11</item>
+        <item name="attack">3</item>
+        <item name="attackchance">50</item>
+        <item name="diligence">7</item>
+        <item name="hunger">6</item>
+        <item name="gluttony">0</item>
+        <item name="mistakes">0</item>
+        <item name="type">@array/enigma_egg</item>
+        <item name="attackicon">@drawable/adult_enigma_frankenstein_attack</item>
+        <item name="happyicon">@drawable/adult_enigma_frankenstein_happy</item>
+    </integer-array>
+
+</resources>

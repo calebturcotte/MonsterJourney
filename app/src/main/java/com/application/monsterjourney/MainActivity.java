@@ -163,20 +163,33 @@ public class MainActivity extends AppCompatActivity {
 
         //TODO remove/replace ui for something else since background process is toggled in options now
         btnStart.setOnClickListener(arg0 -> {
-            //monster_hatched(this);
+//            monster_hatched(this);
             AsyncTask.execute(() -> {
                 AppDatabase db = AppDatabase.buildDatabase(getApplicationContext());
-                Journey tempjourney = db.journeyDao().getJourney().get(0);
-                //tempjourney.addStepstoJourney(100);
-                tempjourney.setEventtype(3);
-                tempjourney.setEventsteps(10);
-                tempjourney.setMatching(true);
-                tempjourney.setMatchmakersteps(0);
-                //tempjourney.setEventreached(true);
-                Monster tempmonster = db.journeyDao().getMonster().get(0);
-                //tempmonster.setEvolvesteps(tempmonster.getEvolvesteps() - 100);
-                db.journeyDao().update(tempjourney);
-                db.journeyDao().updateMonster(tempmonster);
+                List<UnlockedMonster> unlockedMonsters = db.journeyDao().getUnlockedMonster();
+                for(UnlockedMonster unlockedMonster : unlockedMonsters){
+                    unlockedMonster.setUnlocked(true);
+                    unlockedMonster.setDiscovered(true);
+
+                }
+
+                db.journeyDao().updateUnlockedMonster(unlockedMonsters);
+//                Journey tempjourney = db.journeyDao().getJourney().get(0);
+//                //tempjourney.addStepstoJourney(100);
+//                Monster tempmonster = db.journeyDao().getMonster().get(0);
+//                tempmonster.setEvolvesteps(0);
+//                db.journeyDao().updateMonster(tempmonster);
+//                //matchmaking event
+//                tempjourney.setEventtype(1);
+//                tempjourney.setEventsteps(0);
+////                tempjourney.setEventsteps(10);
+////                tempjourney.setMatching(true);
+////                tempjourney.setMatchmakersteps(0);
+//                tempjourney.setEventreached(true);
+////                Monster tempmonster = db.journeyDao().getMonster().get(0);
+////                //tempmonster.setEvolvesteps(tempmonster.getEvolvesteps() - 100);
+//                db.journeyDao().update(tempjourney);
+////                db.journeyDao().updateMonster(tempmonster);
             });
 
         });
@@ -208,6 +221,7 @@ public class MainActivity extends AppCompatActivity {
         //add our home screen with the current monster
         final FrameLayout frmlayout = (FrameLayout) findViewById(R.id.placeholder);
         LayoutInflater aboutinflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+        assert aboutinflater != null;
         final View home = aboutinflater.inflate(R.layout.home_screen, (ViewGroup)null);
         Fade mFade = new Fade(Fade.IN);
         TransitionManager.beginDelayedTransition(frmlayout, mFade);
@@ -264,13 +278,14 @@ public class MainActivity extends AppCompatActivity {
             AppDatabase db = AppDatabase.buildDatabase(getApplicationContext());
             Journey tempjourney = db.journeyDao().getJourney().get(0);
             totaltime.setText(String.valueOf(tempjourney.getTotalsteps()));
-            currentmonster = db.journeyDao().getMonster().get(0);
-            currentarrayid = currentmonster.getArrayid();
 
             boolean firsttime = tempjourney.isFirsttime();
             if (firsttime) {
                 eggSelect();
             }
+
+            currentmonster = db.journeyDao().getMonster().get(0);
+            currentarrayid = currentmonster.getArrayid();
         });
 
 
@@ -383,22 +398,22 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         Activity mainActivity = this;
-        findViewById(R.id.placeholder).getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                //TODO add better implementation of current story array
-                AsyncTask.execute(() -> {
-                    AppDatabase db = AppDatabase.buildDatabase(getApplicationContext());
-                    currentarrayid = db.journeyDao().getMonster().get(0).getArrayid();
-                    currentstoryarray = db.journeyDao().getJourney().get(0).getStorytype();
-                    //selectedIcon(currentarrayid, mainActivity);
-                });
-                DisplayMonster runner = new DisplayMonster(mainActivity);
-                runner.execute();
-                handleEvent();
-                findViewById(R.id.placeholder).getViewTreeObserver().removeOnGlobalLayoutListener(this);
-            }
-        });
+//        findViewById(R.id.placeholder).getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+//            @Override
+//            public void onGlobalLayout() {
+//                //TODO add better implementation of current story array
+////                AsyncTask.execute(() -> {
+////                    AppDatabase db = AppDatabase.buildDatabase(getApplicationContext());
+////                    currentarrayid = db.journeyDao().getMonster().get(0).getArrayid();
+////                    currentstoryarray = db.journeyDao().getJourney().get(0).getStorytype();
+////                    //selectedIcon(currentarrayid, mainActivity);
+////                });
+////                DisplayMonster runner = new DisplayMonster(mainActivity);
+////                runner.execute();
+//                //handleEvent();
+//                findViewById(R.id.placeholder).getViewTreeObserver().removeOnGlobalLayoutListener(this);
+//            }
+//        });
         Purchase.PurchasesResult result = billingClient.queryPurchases(BillingClient.SkuType.INAPP);
         if (result.getPurchasesList() != null) {
             for (Purchase purchase : result.getPurchasesList()) {
@@ -420,6 +435,17 @@ public class MainActivity extends AppCompatActivity {
 
         if(!isplaying)music.start();
 
+        AsyncTask.execute(() -> {
+            AppDatabase db = AppDatabase.buildDatabase(getApplicationContext());
+            currentarrayid = db.journeyDao().getMonster().get(0).getArrayid();
+            currentstoryarray = db.journeyDao().getJourney().get(0).getStorytype();
+            //selectedIcon(currentarrayid, mainActivity);
+        });
+
+        DisplayMonster runner = new DisplayMonster(mainActivity);
+        runner.execute();
+
+        handleEvent();
 
         super.onResume();
     }
@@ -433,7 +459,8 @@ public class MainActivity extends AppCompatActivity {
         Intent serviceIntent = new Intent(this, ForeGroundService.class);
         serviceIntent.putExtra("inputExtra", "Foreground Service Example in Android");
 
-        ContextCompat.startForegroundService(this, serviceIntent);
+        //ContextCompat.startForegroundService(this, serviceIntent);
+        startService(serviceIntent);
     }
 
     /**
@@ -510,7 +537,7 @@ public class MainActivity extends AppCompatActivity {
      * open connect activity for communicating with friends
      */
     public void connect(){
-        //if(!isplaying)music.pause();
+        if(!isplaying)music.pause();
         Intent intent = new Intent(MainActivity.this, Communication.class);
         startActivity(intent);
         //where right side is current view
@@ -563,6 +590,17 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case "purchase_dark_egg":
                 //TODO add the new eggs and logic to unlock them
+                AsyncTask.execute(()->{
+                    AppDatabase db = AppDatabase.buildDatabase(this);
+                    List<UnlockedMonster> unlockedMonsters = db.journeyDao().getUnlockedMonster();
+                    for(UnlockedMonster unlockedMonster : unlockedMonsters){
+                        if(unlockedMonster.getMonsterarrayid() == R.array.dark_egg){
+                            unlockedMonster.setUnlocked(true);
+                            unlockedMonster.setDiscovered(true);
+                            break;
+                        }
+                    }
+                });
                 SharedPreferences.Editor editor2 = settings.edit();
                 editor2.putBoolean("darkisbought", true);
                 editor2.apply();
@@ -606,9 +644,9 @@ public class MainActivity extends AppCompatActivity {
                                 .build();
 
                 ConsumeResponseListener listener = (billingResult, purchaseToken) -> {
-                    if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
-                        // Handle the success of the consume operation.
-                    }
+//                    if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
+//                        // Handle the success of the consume operation.
+//                    }
                 };
 
                 billingClient.consumeAsync(consumeParams, listener);
@@ -808,13 +846,45 @@ public class MainActivity extends AppCompatActivity {
         //use our r.array id to find array for current monster
         TypedArray array = activity.getBaseContext().getResources().obtainTypedArray(selected);
         int resource = array.getResourceId(index,R.drawable.egg_idle);
-        array.recycle();
         ImageView imageView = activity.findViewById(R.id.monster_icon);
         imageView.setImageDrawable(ContextCompat.getDrawable(activity.getApplicationContext(), resource));
         imageView.setBackgroundResource(R.drawable.basic_background);
 
         AnimationDrawable monsteranimator = (AnimationDrawable) imageView.getDrawable();
         monsteranimator.start();
+        array.recycle();
+    }
+
+    /**
+     * animate the monster happy animation
+     */
+    private void happyanimation(Activity activity){
+        TypedArray array = activity.getBaseContext().getResources().obtainTypedArray(currentarrayid);
+        @StyleableRes int index = 4;
+        int[] monsterresources = getResources().getIntArray(currentarrayid);
+        int evolutions = monsterresources[1];
+        int happyresource = array.getResourceId(index+evolutions+10, R.drawable.egg_idle);
+        ImageView imageView = activity.findViewById(R.id.monster_icon);
+        imageView.setImageDrawable(ContextCompat.getDrawable(activity.getApplicationContext(), happyresource));
+        AnimationDrawable monsteranimator = (AnimationDrawable) imageView.getDrawable();
+        monsteranimator.start();
+        array.recycle();
+    }
+
+    /**
+     * animate the monster attack animation
+     */
+    private void attackanimation(Activity activity){
+        TypedArray array = activity.getBaseContext().getResources().obtainTypedArray(currentarrayid);
+        @StyleableRes int index = 4;
+        int[] monsterresources = getResources().getIntArray(currentarrayid);
+        int evolutions = monsterresources[1];
+        int resource = array.getResourceId(index+evolutions+9, R.drawable.egg_idle);
+        ImageView imageView = activity.findViewById(R.id.monster_icon);
+        imageView.setImageDrawable(ContextCompat.getDrawable(activity.getApplicationContext(), resource));
+        AnimationDrawable monsteranimator = (AnimationDrawable) imageView.getDrawable();
+        monsteranimator.start();
+        array.recycle();
     }
 
     /**
@@ -849,13 +919,15 @@ public class MainActivity extends AppCompatActivity {
 //                    selectedIcon(selectedmonster, activity);
                     AsyncTask.execute(() -> {
                         AppDatabase db = AppDatabase.buildDatabase(activity);
-                                Monster tempmonster = db.journeyDao().getMonster().get(0);
-                                tempmonster.hatch();
-                                tempmonster.evolve(activity);
-                                int selectedmonster = tempmonster.getArrayid();
-                                selectedIcon(selectedmonster, activity);
+                        Monster tempmonster = db.journeyDao().getMonster().get(0);
+                        tempmonster.hatch();
+                        //no discount since we are just hatching
+                        tempmonster.evolve(activity, 0);
+                        //int selectedmonster = tempmonster.getArrayid();
+                        //selectedIcon(selectedmonster, activity);
                         Journey temp = db.journeyDao().getJourney().get(0);
                         db.journeyDao().updateMonster(tempmonster);
+                        currentmonster = tempmonster;
                         Random ran = new Random();
                         temp.setEventsteps(ran.nextInt(1500) + 500);
                         if(ran.nextFloat() < 0.8){
@@ -878,6 +950,7 @@ public class MainActivity extends AppCompatActivity {
                     });
                     eventanimation.cancel();
                     monster_hatched(activity);
+                    selectedIcon(currentmonster.getArrayid(), activity);
                     BtnEvent.setVisibility(View.INVISIBLE);
                 });
 
@@ -932,14 +1005,17 @@ public class MainActivity extends AppCompatActivity {
                             }
                             ValueAnimator monsterwalk = ValueAnimator.ofFloat(0.0f,1.0f);
                             monsterwalk.setInterpolator(new LinearInterpolator());
-                            monsterwalk.setDuration(3000L);
+                            monsterwalk.setDuration(2500L);
 
                             ImageView monster = food.findViewById(R.id.monster_icon);
                             @StyleableRes int index = 4;
                             //use our r.array id to find array for current monster
                             TypedArray array = activity.getBaseContext().getResources().obtainTypedArray(currentarrayid);
                             int resource = array.getResourceId(index,R.drawable.egg_idle);
-                            array.recycle();
+                            int[] monsterresources = getResources().getIntArray(currentarrayid);
+                            int evolutions = monsterresources[1];
+                            int happyresource = array.getResourceId(index+evolutions+10, R.drawable.egg_idle);
+
                             monster.setBackgroundResource(resource);
                             AnimationDrawable temp = (AnimationDrawable)monster.getBackground();
                             temp.start();
@@ -958,6 +1034,10 @@ public class MainActivity extends AppCompatActivity {
                                 @Override
                                 public void onAnimationEnd(Animator animation)
                                 {
+                                    temp.stop();
+                                    monster.setBackgroundResource(happyresource);
+                                    AnimationDrawable temp = (AnimationDrawable)monster.getBackground();
+                                    temp.start();
                                     Handler h = new Handler();
                                     //Run a runnable to switch view back to homeview
                                     h.postDelayed(() ->{
@@ -967,10 +1047,11 @@ public class MainActivity extends AppCompatActivity {
                                                 frmlayout.removeAllViews();
                                                 frmlayout.addView(home,0);
                                                 selectedIcon(currentarrayid, activity);
-                                    }, 1000);
+                                    }, 3000);
                                 }
                             });
                             monsterwalk.start();
+                            array.recycle();
 
                             food.getViewTreeObserver().removeOnGlobalLayoutListener(this);
                         }
@@ -979,6 +1060,8 @@ public class MainActivity extends AppCompatActivity {
                 });
                 BtnEvent.setText(getText(R.string.itemfound));
                 BtnEvent.setVisibility(View.VISIBLE);
+
+                happyanimation(activity);
                 break;
 
             case 2: //battle found
@@ -1006,10 +1089,13 @@ public class MainActivity extends AppCompatActivity {
                 });
                 BtnEvent.setText(getText(R.string.enemyfound));
                 BtnEvent.setVisibility(View.VISIBLE);
+
+                attackanimation(activity);
                 break;
             case 3://match found
                 BtnEvent.setText(getText(R.string.matchfound));
                 BtnEvent.setVisibility(View.VISIBLE);
+                happyanimation(activity);
                 BtnEvent.setOnClickListener(v -> {
                     eventimage.setVisibility(View.INVISIBLE);
                     eventanimation.cancel();
@@ -1020,15 +1106,15 @@ public class MainActivity extends AppCompatActivity {
                     //add monster to discovered list even if we choose not to breed with them
                     Random ran = new Random();
                     int selectedarray = ran.nextInt(6);
-                    TypedArray array = activity.getResources().obtainTypedArray(R.array.matchmaker_list);
-                    int matchedarray = array.getResourceId(selectedarray, R.array.dino_baby1);
+                    TypedArray matcharray = activity.getResources().obtainTypedArray(R.array.matchmaker_list);
+                    int matchedarray = matcharray.getResourceId(selectedarray, R.array.dino_baby1);
 
-                    @StyleableRes int index = 4;
+                    @StyleableRes int matchindex = 4;
                     //use our suitorarray id to find drawable for current monster
                     TypedArray suitorarray = getApplicationContext().getResources().obtainTypedArray(matchedarray);
-                    int suitorresource = suitorarray.getResourceId(index,R.drawable.egg_idle);
+                    int suitorresource = suitorarray.getResourceId(matchindex,R.drawable.egg_idle);
                     suitorarray.recycle();
-                    array.recycle();
+                    matcharray.recycle();
                     AsyncTask.execute(()->{
                         AppDatabase db = AppDatabase.buildDatabase(this);
                         List<UnlockedMonster> unlockedMonsters = db.journeyDao().getUnlockedMonster();
@@ -1097,6 +1183,7 @@ public class MainActivity extends AppCompatActivity {
                 });
                 break;
             case 4: //boss found
+                attackanimation(activity);
                 BtnEvent.setText(getText(R.string.bossfound));
                 BtnEvent.setVisibility(View.VISIBLE);
                 BtnEvent.setOnClickListener(v -> {
@@ -1229,7 +1316,7 @@ public class MainActivity extends AppCompatActivity {
      * code for entering name data when monster was hatched
      */
     static private void monster_hatched(Activity activity){
-        //TODO selecting basic egg causes game to crash on boot
+        //TODO back button will close window, but if window is not focusable then edittext cannot be selected
         final LayoutInflater aboutinflater = (LayoutInflater)
                 activity.getSystemService(LAYOUT_INFLATER_SERVICE);
         assert aboutinflater != null;
@@ -1268,6 +1355,41 @@ public class MainActivity extends AppCompatActivity {
                 hatchedView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
             }
         });
+    }
+
+    /**
+     * called when we have successfully defeated the boss,
+     * resets steps to max, completes the chapter, and gives a reward based on if chapter has been completed or not
+     */
+    private void bossDefeated(){
+        AsyncTask.execute(() -> {
+            AppDatabase db = AppDatabase.buildDatabase(this);
+            List<CompletedMaps> completedMapsList = db.journeyDao().getCompletedMaps();
+            Journey temp = db.journeyDao().getJourney().get(0);
+            //TODO add logic for unlocking new stuff, as well as congratulations popup that opens map
+            for (CompletedMaps completedMaps : completedMapsList){
+                if(completedMaps.getMaparray() == temp.getStorytype()){
+                    if(completedMaps.isStorycompleted()){
+                        //TODO give item for completing, maybe medicine used for evolution
+                        db.journeyDao().insertItem(new Item(4));
+                    }
+                    else{
+                        completedMaps.setStorycompleted(true);
+                        //TODO unlock new egg/reduce steps needed to evolve a monster
+                    }
+
+                    temp.setStorysteps(completedMaps.getStorysteps());
+
+
+                    break;
+                }
+            }
+            db.journeyDao().update(temp);
+            db.journeyDao().updateCompletedMaps(completedMapsList);
+        });
+
+        //open the map so player can choose a new spot to explore
+        map();
     }
 
     /**
@@ -1822,10 +1944,14 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(String... strings) {
             AppDatabase db = AppDatabase.buildDatabase(weakActivity.get());
-            String event = "Steps needed: ";
+            String event = (String)weakActivity.get().getText(R.string.stepsneeded);
             Journey temp = db.journeyDao().getJourney().get(0);
             monstername = db.journeyDao().getMonster().get(0).getName();
-            stepsneeded = temp.getEventsteps();
+            if(db.journeyDao().getMonster().get(0).getHatched()){
+                stepsneeded = temp.getStorysteps();
+            }else{
+                stepsneeded = temp.getEventsteps();
+            }
             isEventreached = temp.isEventreached();
             message = event + stepsneeded;
             eventtype = temp.getEventtype();
@@ -2003,4 +2129,39 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * override the back pressed to bring up the option to go back
+     */
+    @Override
+    public void onBackPressed() {
+        LayoutInflater confirminflater = (LayoutInflater)
+                getSystemService(LAYOUT_INFLATER_SERVICE);
+        assert confirminflater != null;
+        View confirmView = confirminflater.inflate(R.layout.confirm_popup, null);
+        int width2 = ConstraintLayout.LayoutParams.MATCH_PARENT;
+        int height2 = ConstraintLayout.LayoutParams.MATCH_PARENT;
+        final PopupWindow confirmWindow = new PopupWindow(confirmView, width2, height2, true);
+        confirmWindow.setOutsideTouchable(false);
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            confirmWindow.setElevation(20);
+        }
+        // show the popup window
+        // which view you pass in doesn't matter, it is only used for the window token
+        confirmWindow.setAnimationStyle(R.style.PopupAnimation);
+        confirmWindow.showAtLocation(findViewById(R.id.placeholder), Gravity.CENTER, 0, 0);
+        confirmView.findViewById(R.id.close).setOnClickListener(v -> confirmWindow.dismiss());
+
+        confirmView.findViewById(R.id.back).setOnClickListener(v -> confirmWindow.dismiss());
+
+        confirmView.findViewById(R.id.confirm).setOnClickListener(v ->{
+            confirmWindow.dismiss();
+            super.onBackPressed();
+        } );
+
+        TextView message = confirmView.findViewById(R.id.confimation_text);
+        message.setText(getText(R.string.quit));
+
+
+    }
 }

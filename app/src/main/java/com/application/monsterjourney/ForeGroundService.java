@@ -33,7 +33,6 @@ public class ForeGroundService extends Service implements SensorEventListener, S
     private long steps, evolvesteps;
     private long eventsteps;
     private long matchmakersteps;
-    private long goal;
     private boolean eventreached;
     private PendingIntent pendingIntent;
     private AppDatabase db;
@@ -49,6 +48,7 @@ public class ForeGroundService extends Service implements SensorEventListener, S
 
         // Get an instance of the SensorManager
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+        assert sensorManager != null;
         accel = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         simpleStepDetector = new StepDetector();
         simpleStepDetector.registerListener(this);
@@ -68,31 +68,31 @@ public class ForeGroundService extends Service implements SensorEventListener, S
         createNotificationChannel(CHANNEL_ID, getText(R.string.channel_name));
         Intent notificationIntent = new Intent(this, MainActivity.class);
         pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
-        Notification notification;
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-            notification =
-                    new Notification.Builder(this, CHANNEL_ID)
-                            .setContentTitle(getText(R.string.channel_name))
-                            .setContentText(getText(R.string.channel_description))
-                            .setSmallIcon(R.drawable.ic_launcher_background)
-                            .setTicker(getText(R.string.channel_description))
-                            .setOngoing(false)
-                            .build();
-        }
-        else{
-            notification = new NotificationCompat.Builder(this,CHANNEL_ID)
-                    .setContentTitle(getText(R.string.channel_name))
-                    .setContentText(getText(R.string.channel_description))
-                    .setSmallIcon(R.drawable.ic_launcher_background)
-                    .setTicker(getText(R.string.channel_description))
-                    .setOngoing(false)
-                    .build();
-        }
+//        Notification notification;
+//        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+//            notification =
+//                    new Notification.Builder(this, CHANNEL_ID)
+//                            .setContentTitle(getText(R.string.channel_name))
+//                            .setContentText(getText(R.string.channel_description))
+//                            .setSmallIcon(R.drawable.ic_launcher_background)
+//                            .setTicker(getText(R.string.channel_description))
+//                            .setOngoing(false)
+//                            .build();
+//        }
+//        else{
+//            notification = new NotificationCompat.Builder(this,CHANNEL_ID)
+//                    .setContentTitle(getText(R.string.channel_name))
+//                    .setContentText(getText(R.string.channel_description))
+//                    .setSmallIcon(R.drawable.ic_launcher_background)
+//                    .setTicker(getText(R.string.channel_description))
+//                    .setOngoing(false)
+//                    .build();
+//        }
 
 
         // Notification ID cannot be 0.
         sensorManager.registerListener(this, accel, SensorManager.SENSOR_DELAY_FASTEST);
-        startForeground(1, notification);
+        //startForeground(1, notification);
         //do heavy work on a background thread
         //stopSelf();
         return START_NOT_STICKY;
@@ -118,6 +118,7 @@ public class ForeGroundService extends Service implements SensorEventListener, S
             // Register the channel with the system; you can't change the importance
             // or other notification behaviors after this
             NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            assert notificationManager != null;
             notificationManager.createNotificationChannel(channel);
         }
     }
@@ -148,12 +149,17 @@ public class ForeGroundService extends Service implements SensorEventListener, S
             eventsteps = temp.getEventsteps();
             eventreached = temp.isEventreached();
             Monster tempmonster  = db.journeyDao().getMonster().get(0);
+            long storysteps = temp.getStorysteps();
 
             //if we reach an event then wait until it is addressed before counting steps again
             if (!eventreached) {
                 steps++;
                 eventsteps--;
                 evolvesteps = tempmonster.getEvolvesteps() - 1;
+                //if monster is hatched then add a story step
+                if(tempmonster.getHatched()){
+                    temp.setStorysteps(storysteps-1);
+                }
                 if (eventsteps <= 0) {
                     //steps = steps % goal;
                     eventreached = true;

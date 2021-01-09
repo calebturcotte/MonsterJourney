@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Where each array can be found with R.array.<name>
+index 0 will be the monster stage
+index 1 will be the number monster evolutions
+index 2 will be the description title
+index 3 will be the description
+index 4 will be the monster icon
+index 5 - (4+number of evolutions) is the different possible evolutions
+index (5+number of evolutions) is the standard health of the monster
+index (5+number of evolutions+1) is the standard attack power of the monster
+index (5+number of evolutions+2) is the standard attack chance of the monster
+index (5+number of evolutions+3) is the evolution diligence requirement of the monster
+index (5+number of evolutions+4) is the hunger requirement
+index (5+number of evolutions+5) is the max overfeed/gluttony
+index (5+number of evolutions+6) is the max training mistakes
+index (5+number of evolutions+7) is the type of the monster, ie the egg
+index (13+number of evolutions) is the attack icon/animation
+index (14+number of evolutions) is the happy icon/animation-->
+
+    <integer-array name="dino_egg">
+        <item name="stage">0</item>
+        <item name="evolutions">2</item>
+        <item name="title">@string/dino_egg_title</item>
+        <item name="description">@string/dino_egg_description</item>
+        <item name="icon">@drawable/egg_dino_idle</item>
+        <item name="evo1">@array/dino_baby1</item>
+        <item name="evo1">@array/dino_baby2</item>
+    </integer-array>
+
+
+    <integer-array name="dino_baby1">
+        <item name="stage">1</item>
+        <item name="evolutions">3</item>
+        <item name="title">@string/dino_baby_dinoegg_title</item>
+        <item name="description">@string/dino_baby_dinoegg_description</item>
+        <item name="icon">@drawable/baby_dino_egg_idle</item>
+        <item name="evo1">@array/dino_child_crocodile</item>
+        <item name="evo2">@array/dino_child_longneck</item>
+        <item name="evo3">@array/dino_child_armadillo</item>
+        <item name="health">3</item>
+        <item name="attack">1</item>
+        <item name="attackchance">50</item>
+        <item name="diligence">6</item>
+        <item name="hunger">4</item>
+        <item name="gluttony">3</item>
+        <item name="mistakes">2</item>
+        <item name="type">@array/dino_egg</item>
+        <item name="attackicon">@drawable/baby_dino_egg_attack</item>
+        <item name="happyicon">@drawable/baby_dino_egg_happy</item>
+    </integer-array>
+
+    <integer-array name="dino_baby2">
+        <item name="stage">1</item>
+        <item name="evolutions">3</item>
+        <item name="title">@string/dino_baby2_title</item>
+        <item name="description">@string/dino_baby2_description</item>
+        <item name="icon">@drawable/baby_dino2_idle</item>
+        <item name="evo1">@array/dino_child_stegosaur</item>
+        <item name="evo2">@array/dino_child_triceratops</item>
+        <item name="evo3">@array/dino_child_armadillo</item>
+        <item name="health">3</item>
+        <item name="attack">1</item>
+        <item name="attackchance">50</item>
+        <item name="diligence">6</item>
+        <item name="hunger">4</item>
+        <item name="gluttony">3</item>
+        <item name="mistakes">2</item>
+        <item name="type">@array/dino_egg</item>
+        <item name="attackicon">@drawable/baby_dino2_attack</item>
+        <item name="happyicon">@drawable/baby_dino2_happy</item>
+    </integer-array>
+
+    <integer-array name="dino_child_armadillo">
+        <item name="stage">2</item>
+        <item name="evolutions">2</item>
+        <item name="title">@string/enigma_baby_skull_title</item>
+        <item name="description">@string/enigma_baby_skull_description</item>
+        <item name="icon">@drawable/child_dino_armadillo_idle</item>
+        <item name="evo1">@array/dino_adult_sabretooth</item>
+        <item name="evo2">@array/dino_adult_sloth</item>
+        <item name="health">3</item>
+        <item name="attack">1</item>
+        <item name="attackchance">50</item>
+        <item name="diligence">0</item>
+        <item name="hunger">0</item>
+        <item name="gluttony">10000</item>
+        <item name="mistakes">10000</item>
+        <item name="type">@array/dino_egg</item>
+        <item name="attackicon">@drawable/child_dino_armadillo_attack</item>
+        <item name="happyicon">@drawable/child_dino_armadillo_happy</item>
+    </integer-array>
+
+    <integer-array name="dino_child_crocodile">
+    <item name="stage">2</item>
+    <item name="evolutions">4</item>
+    <item name="title">@string/enigma_baby_skull_title</item>
+    <item name="description">@string/enigma_baby_skull_description</item>
+    <item name="icon">@drawable/child_dino_crocodile_idle</item>
+    <item name="evo1">@array/dino_adult_bigheaddino</item>
+    <item name="evo2">@array/dino_adult_horneddino</item>
+    <item name="evo3">@array/dino_adult_brachiosaur</item>
+    <item name="evo4">@array/dino_adult_plesiosaur</item>
+    <item name="health">3</item>
+    <item name="attack">2</item>
+    <item name="attackchance">50</item>
+    <item name="diligence">6</item>
+    <item name="hunger">4</item>
+    <item name="gluttony">1</item>
+    <item name="mistakes">6</item>
+    <item name="type">@array/dino_egg</item>
+    <item name="attackicon">@drawable/child_dino_crocodile_attack</item>
+    <item name="happyicon">@drawable/child_dino_crocodile_happy</item>
+    </integer-array>
+
+    <integer-array name="dino_child_longneck">
+        <item name="stage">2</item>
+        <item name="evolutions">3</item>
+        <item name="title">@string/enigma_baby_skull_title</item>
+        <item name="description">@string/enigma_baby_skull_description</item>
+        <item name="icon">@drawable/child_dino_longneck_idle</item>
+        <item name="evo1">@array/dino_adult_bigheaddino</item>
+        <item name="evo2">@array/dino_adult_brachiosaur</item>
+        <item name="evo3">@array/dino_adult_plesiosaur</item>
+        <item name="health">3</item>
+        <item name="attack">2</item>
+        <item name="attackchance">50</item>
+        <item name="diligence">2</item>
+        <item name="hunger">6</item>
+        <item name="gluttony">5</item>
+        <item name="mistakes">2</item>
+        <item name="type">@array/dino_egg</item>
+        <item name="attackicon">@drawable/child_dino_longneck_attack</item>
+        <item name="happyicon">@drawable/child_dino_longneck_happy</item>
+    </integer-array>
+
+    <integer-array name="dino_child_stegosaur">
+        <item name="stage">2</item>
+        <item name="evolutions">4</item>
+        <item name="title">@string/enigma_baby_skull_title</item>
+        <item name="description">@string/enigma_baby_skull_description</item>
+        <item name="icon">@drawable/child_dino_stegosaur_idle</item>
+        <item name="evo1">@array/dino_adult_bigheaddino</item>
+        <item name="evo2">@array/dino_adult_horneddino</item>
+        <item name="evo3">@array/dino_adult_spinosaur</item>
+        <item name="evo4">@array/dino_adult_ankylosaur</item>
+        <item name="health">3</item>
+        <item name="attack">2</item>
+        <item name="attackchance">50</item>
+        <item name="diligence">4</item>
+        <item name="hunger">2</item>
+        <item name="gluttony">0</item>
+        <item name="mistakes">5</item>
+        <item name="type">@array/dino_egg</item>
+        <item name="attackicon">@drawable/child_dino_stegosaur_attack</item>
+        <item name="happyicon">@drawable/child_dino_stegosaur_happy</item>
+    </integer-array>
+
+    <integer-array name="dino_child_triceratops">
+        <item name="stage">2</item>
+        <item name="evolutions">4</item>
+        <item name="title">@string/enigma_baby_skull_title</item>
+        <item name="description">@string/enigma_baby_skull_description</item>
+        <item name="icon">@drawable/child_dino_triceratops_idle</item>
+        <item name="evo1">@array/dino_adult_horneddino</item>
+        <item name="evo2">@array/dino_adult_brachiosaur</item>
+        <item name="evo3">@array/dino_adult_spinosaur</item>
+        <item name="evo4">@array/dino_adult_ankylosaur</item>
+        <item name="health">3</item>
+        <item name="attack">2</item>
+        <item name="attackchance">50</item>
+        <item name="diligence">2</item>
+        <item name="hunger">4</item>
+        <item name="gluttony">7</item>
+        <item name="mistakes">2</item>
+        <item name="type">@array/dino_egg</item>
+        <item name="attackicon">@drawable/child_dino_triceratops_attack</item>
+        <item name="happyicon">@drawable/child_dino_triceratops_happy</item>
+    </integer-array>
+
+<!--    Adult monsters-->
+
+    <integer-array name="dino_adult_sloth">
+        <item name="stage">3</item>
+        <item name="evolutions">0</item>
+        <item name="title">@string/enigma_baby_skull_title</item>
+        <item name="description">@string/enigma_baby_skull_description</item>
+        <item name="icon">@drawable/adult_dino_sloth_idle</item>
+        <item name="health">11</item>
+        <item name="attack">3</item>
+        <item name="attackchance">50</item>
+        <item name="diligence">0</item>
+        <item name="hunger">0</item>
+        <item name="gluttony">10000</item>
+        <item name="mistakes">10000</item>
+        <item name="type">@array/dino_egg</item>
+        <item name="attackicon">@drawable/adult_dino_sloth_attack</item>
+        <item name="happyicon">@drawable/adult_dino_sloth_happy</item>
+    </integer-array>
+
+    <integer-array name="dino_adult_ankylosaur">
+        <item name="stage">3</item>
+        <item name="evolutions">0</item>
+        <item name="title">@string/dino_adult_ankylosaur_title</item>
+        <item name="description">@string/dino_adult_ankylosaur_description</item>
+        <item name="icon">@drawable/adult_dino_ankylosaur_idle</item>
+        <item name="health">11</item>
+        <item name="attack">3</item>
+        <item name="attackchance">50</item>
+        <item name="diligence">0</item>
+        <item name="hunger">0</item>
+        <item name="gluttony">10000</item>
+        <item name="mistakes">10000</item>
+        <item name="type">@array/dino_egg</item>
+        <item name="attackicon">@drawable/adult_dino_ankylosaur_attack</item>
+        <item name="happyicon">@drawable/adult_dino_ankylosaur_happy</item>
+    </integer-array>
+
+    <integer-array name="dino_adult_plesiosaur">
+        <item name="stage">3</item>
+        <item name="evolutions">0</item>
+        <item name="title">@string/enigma_baby_skull_title</item>
+        <item name="description">@string/enigma_baby_skull_description</item>
+        <item name="icon">@drawable/adult_dino_plesiosaur_idle</item>
+        <item name="health">11</item>
+        <item name="attack">3</item>
+        <item name="attackchance">50</item>
+        <item name="diligence">0</item>
+        <item name="hunger">0</item>
+        <item name="gluttony">10000</item>
+        <item name="mistakes">10000</item>
+        <item name="type">@array/dino_egg</item>
+        <item name="attackicon">@drawable/adult_dino_plesiosaur_attack</item>
+        <item name="happyicon">@drawable/adult_dino_plesiosaur_happy</item>
+    </integer-array>
+
+    <integer-array name="dino_adult_sabretooth">
+        <item name="stage">3</item>
+        <item name="evolutions">0</item>
+        <item name="title">@string/enigma_baby_skull_title</item>
+        <item name="description">@string/enigma_baby_skull_description</item>
+        <item name="icon">@drawable/adult_dino_sabretooth_idle</item>
+        <item name="health">11</item>
+        <item name="attack">3</item>
+        <item name="attackchance">50</item>
+        <item name="diligence">6</item>
+        <item name="hunger">2</item>
+        <item name="gluttony">0</item>
+        <item name="mistakes">7</item>
+        <item name="type">@array/dino_egg</item>
+        <item name="attackicon">@drawable/adult_dino_sabretooth_attack</item>
+        <item name="happyicon">@drawable/adult_dino_sabretooth_happy</item>
+    </integer-array>
+
+    <integer-array name="dino_adult_horneddino">
+        <item name="stage">3</item>
+        <item name="evolutions">0</item>
+        <item name="title">@string/enigma_baby_skull_title</item>
+        <item name="description">@string/enigma_baby_skull_description</item>
+        <item name="icon">@drawable/adult_dino_horneddino_idle</item>
+        <item name="health">11</item>
+        <item name="attack">3</item>
+        <item name="attackchance">50</item>
+        <item name="diligence">6</item>
+        <item name="hunger">6</item>
+        <item name="gluttony">0</item>
+        <item name="mistakes">1</item>
+        <item name="type">@array/dino_egg</item>
+        <item name="attackicon">@drawable/adult_dino_horneddino_attack</item>
+        <item name="happyicon">@drawable/adult_dino_horneddino_happy</item>
+    </integer-array>
+
+    <integer-array name="dino_adult_spinosaur">
+        <item name="stage">3</item>
+        <item name="evolutions">0</item>
+        <item name="title">@string/enigma_baby_skull_title</item>
+        <item name="description">@string/enigma_baby_skull_description</item>
+        <item name="icon">@drawable/adult_dino_spinosaur_idle</item>
+        <item name="health">11</item>
+        <item name="attack">3</item>
+        <item name="attackchance">50</item>
+        <item name="diligence">7</item>
+        <item name="hunger">4</item>
+        <item name="gluttony">1</item>
+        <item name="mistakes">5</item>
+        <item name="type">@array/dino_egg</item>
+        <item name="attackicon">@drawable/adult_dino_spinosaur_attack</item>
+        <item name="happyicon">@drawable/adult_dino_spinosaur_happy</item>
+    </integer-array>
+
+    <integer-array name="dino_adult_bigheaddino">
+        <item name="stage">3</item>
+        <item name="evolutions">0</item>
+        <item name="title">@string/enigma_baby_skull_title</item>
+        <item name="description">@string/enigma_baby_skull_description</item>
+        <item name="icon">@drawable/adult_dino_bigheaddino_idle</item>
+        <item name="health">11</item>
+        <item name="attack">3</item>
+        <item name="attackchance">50</item>
+        <item name="diligence">8</item>
+        <item name="hunger">4</item>
+        <item name="gluttony">1</item>
+        <item name="mistakes">0</item>
+        <item name="type">@array/dino_egg</item>
+        <item name="attackicon">@drawable/adult_dino_bigheaddino_attack</item>
+        <item name="happyicon">@drawable/adult_dino_bigheaddino_happy</item>
+    </integer-array>
+
+    <integer-array name="dino_adult_brachiosaur">
+        <item name="stage">3</item>
+        <item name="evolutions">0</item>
+        <item name="title">@string/enigma_baby_skull_title</item>
+        <item name="description">@string/enigma_baby_skull_description</item>
+        <item name="icon">@drawable/adult_dino_brachiosaur_idle</item>
+        <item name="health">11</item>
+        <item name="attack">3</item>
+        <item name="attackchance">50</item>
+        <item name="diligence">2</item>
+        <item name="hunger">7</item>
+        <item name="gluttony">3</item>
+        <item name="mistakes">1</item>
+        <item name="type">@array/dino_egg</item>
+        <item name="attackicon">@drawable/adult_dino_brachiosaur_attack</item>
+        <item name="happyicon">@drawable/adult_dino_brachiosaur_happy</item>
+    </integer-array>
+
+
+
+</resources>

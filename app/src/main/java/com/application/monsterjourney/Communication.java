@@ -10,13 +10,16 @@ import android.graphics.drawable.AnimationDrawable;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.transition.Fade;
 import android.transition.TransitionManager;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -25,6 +28,8 @@ import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
+import androidx.annotation.CallSuper;
+import androidx.annotation.NonNull;
 import androidx.annotation.StyleableRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -46,6 +51,7 @@ import com.google.android.gms.nearby.connection.Strategy;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Random;
 
 public class Communication extends AppCompatActivity {
     /**
@@ -59,9 +65,12 @@ public class Communication extends AppCompatActivity {
                     Manifest.permission.ACCESS_WIFI_STATE,
                     Manifest.permission.CHANGE_WIFI_STATE,
                     Manifest.permission.ACCESS_COARSE_LOCATION,
+                    Manifest.permission.ACCESS_FINE_LOCATION
             };
 
     private static final int REQUEST_CODE_REQUIRED_PERMISSIONS = 1;
+
+    private Strategy STRATEGY = Strategy.P2P_STAR;
 
     private TextView title;
     private TextView description;
@@ -73,6 +82,8 @@ public class Communication extends AppCompatActivity {
 
     private int enemyarrayid = 0;
     private boolean isPlayer1;
+
+    private String codeName = CodeNameGenerator.generate();
 
     private Monster currentmonster;
     private int trainingtapcount = 0;
@@ -174,7 +185,24 @@ public class Communication extends AppCompatActivity {
         findViewById(R.id.picker).setOnClickListener(v -> startTask());
 
         connectionsClient = Nearby.getConnectionsClient(this);
+        resetGame(null);
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        //check if we have permission to use connections on the phone, these must be enabled before we start searching for connections
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+            if (!hasPermissions(this, REQUIRED_PERMISSIONS)) {
+                requestPermissions(REQUIRED_PERMISSIONS, REQUEST_CODE_REQUIRED_PERMISSIONS);
+            }
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        connectionsClient.stopAllEndpoints();
+        super.onStop();
     }
 
     /** Returns true if the app was granted all the permissions. Otherwise, returns false. */
@@ -186,6 +214,27 @@ public class Communication extends AppCompatActivity {
             }
         }
         return true;
+    }
+
+    /** Handles user acceptance (or denial) of our permission request. */
+    @CallSuper
+    @Override
+    public void onRequestPermissionsResult(
+            int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode != REQUEST_CODE_REQUIRED_PERMISSIONS) {
+            return;
+        }
+
+        for (int grantResult : grantResults) {
+            if (grantResult == PackageManager.PERMISSION_DENIED) {
+                //Toast.makeText(this, R.string.error_missing_permissions, Toast.LENGTH_LONG).show();
+                finish();
+                return;
+            }
+        }
+        recreate();
     }
 
     private void shownDescription(){
@@ -214,16 +263,14 @@ public class Communication extends AppCompatActivity {
      * send out communication for specified task
      */
     private void startTask(){
-        //check if we have permission to use connections on the phone
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-            if (!hasPermissions(this, REQUIRED_PERMISSIONS)) {
-                requestPermissions(REQUIRED_PERMISSIONS, REQUEST_CODE_REQUIRED_PERMISSIONS);
-            }
-        }
         if(currentmonster == null){
             return;
         }
         isPlayer1 = false;
+        findViewById(R.id.right_arrow).setEnabled(false);
+        findViewById(R.id.left_arrow).setEnabled(false);
+        findViewById(R.id.picker).setEnabled(false);
+        title.setText(R.string.searching);
         switch(selectedtask){
             case 0: //Battle
                 Toast.makeText(this,"Connecting", Toast.LENGTH_SHORT).show();
@@ -243,7 +290,7 @@ public class Communication extends AppCompatActivity {
                 }
                 break;
             case 2: // Rock Paper Scissors
-                Toast.makeText(this,"Connecting", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this,"Connecting", Toast.LENGTH_SHORT).show();
                 rockPaper();
                 break;
         }
@@ -316,7 +363,9 @@ public class Communication extends AppCompatActivity {
         startDiscovery();
     }
 
-    //TODO confirm connection works
+    /**
+     * our task that starts the rockpaperscissors game connection
+     */
     private void rockPaper(){
         currentsearchid = "RockID";
         startAdvertising();
@@ -328,26 +377,24 @@ public class Communication extends AppCompatActivity {
      */
     private void startAdvertising() {
         AdvertisingOptions advertisingOptions =
-                new AdvertisingOptions.Builder().setStrategy(Strategy.P2P_POINT_TO_POINT).build();
+                new AdvertisingOptions.Builder().setStrategy(STRATEGY).build();
         connectionsClient
                 .startAdvertising(
-                        currentsearchid, getPackageName(), connectionLifecycleCallback, advertisingOptions)
+                        codeName, getPackageName(), connectionLifecycleCallback, advertisingOptions)
                 .addOnSuccessListener(
                         (Void unused) -> {
+                            //This listens to if advertising is a success, not if we succesfully connect to someone
                             // We're advertising!Payload.fromBytes(choice.name().getBytes(UTF_8))
-                            ByteBuffer b = ByteBuffer.allocate(4);
-                            //b.order(ByteOrder.BIG_ENDIAN); // optional, the initial order of a byte buffer is always BIG_ENDIAN.
-                            b.putInt(currentmonster.getArrayid());
-                            connectionsClient.sendPayload(currentsearchid, Payload.fromBytes(b.array()) );
-                            isPlayer1 = true;
-
-                            if(selectedtask == 2){
-                                initializeRockPaperScissors();
-                            }
+//                            ByteBuffer b = ByteBuffer.allocate(4);
+//                            //b.order(ByteOrder.BIG_ENDIAN); // optional, the initial order of a byte buffer is always BIG_ENDIAN.
+//                            b.putInt(currentmonster.getArrayid());
+//                            connectionsClient.sendPayload(currentsearchid, Payload.fromBytes(b.array()) );
+//                            isPlayer1 = true;
+//
                         })
                 .addOnFailureListener(
                         (Exception e) -> {
-                            Toast.makeText(this,"Unable to connect", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(this,"Unable to advertise", Toast.LENGTH_SHORT).show();
                             // We were unable to start advertising.
                         });
     }
@@ -357,24 +404,21 @@ public class Communication extends AppCompatActivity {
      */
     private void startDiscovery() {
         DiscoveryOptions discoveryOptions =
-                new DiscoveryOptions.Builder().setStrategy(Strategy.P2P_POINT_TO_POINT).build();
+                new DiscoveryOptions.Builder().setStrategy(STRATEGY).build();
         connectionsClient
                 .startDiscovery(getPackageName(), endpointDiscoveryCallback, discoveryOptions)
                 .addOnSuccessListener(
                         (Void unused) -> {
-                            isPlayer1 = false;
-                            ByteBuffer b = ByteBuffer.allocate(4);
-                            //b.order(ByteOrder.BIG_ENDIAN); // optional, the initial order of a byte buffer is always BIG_ENDIAN.
-                            b.putInt(currentmonster.getArrayid());
+                            //isPlayer1 = false;
+//                            ByteBuffer b = ByteBuffer.allocate(4);
+//                            //b.order(ByteOrder.BIG_ENDIAN); // optional, the initial order of a byte buffer is always BIG_ENDIAN.
+//                            b.putInt(currentmonster.getArrayid());
                             // We're discovering!
-                            connectionsClient.sendPayload(currentsearchid, Payload.fromBytes(b.array()) );
-                            if(selectedtask == 2){
-                                initializeRockPaperScissors();
-                            }
+                            //connectionsClient.sendPayload(currentsearchid, Payload.fromBytes(b.array()) );
                         })
                 .addOnFailureListener(
                         (Exception e) -> {
-                            Toast.makeText(this,"Unable to connect", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(this,"Unable to discover", Toast.LENGTH_SHORT).show();
                             // We're unable to start discovering.
                         });
     }
@@ -386,20 +430,32 @@ public class Communication extends AppCompatActivity {
             new EndpointDiscoveryCallback() {
                 @Override
                 public void onEndpointFound(String endpointId, DiscoveredEndpointInfo info) {
-                    if(endpointId.equals(currentsearchid)){
-                        // An endpoint of the same type was found. We request a connection to it.
-                        connectionsClient
-                                .requestConnection(currentsearchid, endpointId, connectionLifecycleCallback)
-                                .addOnSuccessListener(
-                                        (Void unused) -> {
-                                            // We successfully requested a connection. Now both sides
-                                            // must accept before the connection is established.
-                                        })
-                                .addOnFailureListener(
-                                        (Exception e) -> {
-                                            // Nearby Connections failed to request the connection.
-                                        });
-                    }
+                    connectionsClient
+                            .requestConnection(codeName, endpointId, connectionLifecycleCallback)
+                            .addOnSuccessListener(
+                                    (Void unused) -> {
+                                        // We successfully requested a connection. Now both sides
+                                        // must accept before the connection is established.
+                                    })
+                            .addOnFailureListener(
+                                    (Exception e) -> {
+                                        // Nearby Connections failed to request the connection.
+                                    });
+
+//                    if(endpointId.equals(currentsearchid)){
+//                        // An endpoint of the same type was found. We request a connection to it.
+//                        connectionsClient
+//                                .requestConnection(currentsearchid, endpointId, connectionLifecycleCallback)
+//                                .addOnSuccessListener(
+//                                        (Void unused) -> {
+//                                            // We successfully requested a connection. Now both sides
+//                                            // must accept before the connection is established.
+//                                        })
+//                                .addOnFailureListener(
+//                                        (Exception e) -> {
+//                                            // Nearby Connections failed to request the connection.
+//                                        });
+//                    }
                 }
 
                 @Override
@@ -408,94 +464,134 @@ public class Communication extends AppCompatActivity {
                 }
             };
 
+    //TODO connection only seems to happen when our background service is disabled...
     /**
-     * lifecycle for our connection
+     * lifecycle for our connection, used in rockpaper scissors
      */
     private final ConnectionLifecycleCallback connectionLifecycleCallback =
             new ConnectionLifecycleCallback() {
                 @Override
                 public void onConnectionInitiated(String endpointId, ConnectionInfo connectionInfo) {
                     // Automatically accept the connection on both sides.
-                    if(endpointId.equals(currentsearchid)){
-                        connectionsClient.acceptConnection(endpointId, payloadCallback);
-                    }
+//                    if(endpointId.equals(currentsearchid)){
+//                        connectionsClient.acceptConnection(endpointId, payloadCallback);
+//                    }
+
+                    connectionsClient.acceptConnection(endpointId, payloadCallback);
+                    Toast.makeText(getApplicationContext(),connectionInfo.getEndpointName(), Toast.LENGTH_SHORT).show();
                 }
 
                 @Override
                 public void onConnectionResult(String endpointId, ConnectionResolution result) {
-                    switch (result.getStatus().getStatusCode()) {
-                        case ConnectionsStatusCodes.STATUS_OK:
-                            // We're connected! Can now start sending and receiving data.
-                            connectionsClient.stopDiscovery();
-                            connectionsClient.stopAdvertising();
-                            opponentEndpointId = endpointId; // the id of the device we are connected to
-                            break;
-                        case ConnectionsStatusCodes.STATUS_CONNECTION_REJECTED:
-                            // The connection was rejected by one or both sides.
-                            break;
-                        case ConnectionsStatusCodes.STATUS_ERROR:
-                            // The connection broke before it was able to be accepted.
-                            break;
-                        default:
-                            // Unknown status code
+                    if(result.getStatus().isSuccess()){
+                        Toast.makeText(getApplicationContext(),String.valueOf(endpointId), Toast.LENGTH_SHORT).show();
+                        // We're connected! Can now start sending and receiving data.
+                        connectionsClient.stopDiscovery();
+                        connectionsClient.stopAdvertising();
+                        initializeRockPaperScissors();
+                        opponentEndpointId = endpointId; // the id of the device we are connected to
+                        //done after so endpointid is not overwritten
                     }
+                    else{
+                        Toast.makeText(getApplicationContext(),"Connection Failed", Toast.LENGTH_SHORT).show();
+                    }
+
+//                    switch (result.getStatus().getStatusCode()) {
+//                        case ConnectionsStatusCodes.STATUS_OK:
+//                            Toast.makeText(getApplicationContext(),String.valueOf(endpointId), Toast.LENGTH_SHORT).show();
+//                            // We're connected! Can now start sending and receiving data.
+//                            connectionsClient.stopDiscovery();
+//                            connectionsClient.stopAdvertising();
+//                            opponentEndpointId = endpointId; // the id of the device we are connected to
+//                            if(selectedtask == 2){
+//                                initializeRockPaperScissors();
+//                            }
+//                            break;
+//                        case ConnectionsStatusCodes.STATUS_CONNECTION_REJECTED:
+//                            // The connection was rejected by one or both sides.
+//                            break;
+//                        case ConnectionsStatusCodes.STATUS_ERROR:
+//                            // The connection broke before it was able to be accepted.
+//                            break;
+//                        default:
+//                            // Unknown status code
+//                    }
                 }
 
                 @Override
                 public void onDisconnected(String endpointId) {
                     // We've been disconnected from this endpoint. No more data can be
                     // sent or received.
+                    resetGame(null);
                 }
             };
 
     // Callbacks for receiving payloads
+    // used for our rock paper scissors game
     private final PayloadCallback payloadCallback =
             new PayloadCallback() {
                 @Override
                 public void onPayloadReceived(String endpointId, Payload payload) {
                     //our payload that we receive
-                    //payload.asBytes();
-                    if(payload.asBytes() != null && enemyarrayid == 0){
-                        ByteBuffer wrapped = ByteBuffer.wrap(Objects.requireNonNull(payload.asBytes())); // big-endian by default
-                        enemyarrayid = wrapped.getInt();
-                        Toast.makeText(getApplicationContext(),String.valueOf(enemyarrayid), Toast.LENGTH_SHORT).show();
-                    }
-                    else if(enemyarrayid != 0 && currentsearchid.equals("BreedID")){
-                        //TODO egg stuff here?
-                    }
-                    else if(currentsearchid.equals("RockID")){
-                        opponentChoice = GameChoice.valueOf(new String(Objects.requireNonNull(payload.asBytes()), UTF_8));
-                    }
+//                    if(payload.asBytes() != null && enemyarrayid == 0){
+//                        ByteBuffer wrapped = ByteBuffer.wrap(Objects.requireNonNull(payload.asBytes())); // big-endian by default
+//                        enemyarrayid = wrapped.getInt();
+//                        Toast.makeText(getApplicationContext(),String.valueOf(enemyarrayid), Toast.LENGTH_SHORT).show();
+//                    }
+//                    else if(enemyarrayid != 0 && currentsearchid.equals("BreedID")){
+//                        //TODO egg stuff here?
+//                    }
+//                    else if(currentsearchid.equals("RockID")){
+//                        opponentChoice = GameChoice.valueOf(new String(Objects.requireNonNull(payload.asBytes()), UTF_8));
+//                    }
+
+                    opponentChoice = GameChoice.valueOf(new String(Objects.requireNonNull(payload.asBytes()), UTF_8));
+
+//                    if(selectedtask == 2){
+//                        opponentChoice = GameChoice.valueOf(new String(Objects.requireNonNull(payload.asBytes()), UTF_8));
+//                    }
+
+//                    if(currentsearchid.equals("RockID")){
+//                        opponentChoice = GameChoice.valueOf(new String(Objects.requireNonNull(payload.asBytes()), UTF_8));
+//                    }
                 }
 
                 @Override
                 public void onPayloadTransferUpdate(String endpointId, PayloadTransferUpdate update) {
-                    if (update.getStatus() == PayloadTransferUpdate.Status.SUCCESS && enemyarrayid != 0) {
-                        Toast.makeText(getApplicationContext(), "Starting selected game", Toast.LENGTH_SHORT).show();
-
-                        switch (currentsearchid) {
-                            case "BattleID":
-                                //can potentially add trainingtapcount value from enemy
-                                int[] enemyfound = getResources().getIntArray(enemyarrayid);
-                                int enemyattack = enemyfound[6 + enemyfound[1]];
-                                int enemychance = enemyfound[7 + enemyfound[1]];
-                                int enemyhealth = enemyfound[5 + enemyfound[1]] - 1;
-                                int enemymaxhealth = enemyfound[5 + enemyfound[1]] - 1;
-                                ArrayList<Integer> tempbattleresults = currentmonster.battle(enemyattack, enemyhealth, enemychance, trainingtapcount, true);
-                                break;
-                            case "BreedID":
-                                int newegg = currentmonster.breed(enemyarrayid, getApplicationContext());
-                                ByteBuffer b = ByteBuffer.allocate(4);
-                                //b.order(ByteOrder.BIG_ENDIAN); // optional, the initial order of a byte buffer is always BIG_ENDIAN.
-                                b.putInt(newegg);
-                                connectionsClient.sendPayload(currentsearchid, Payload.fromBytes(b.array()));
-                                break;
-                            case "RockID":
-                                if (update.getStatus() == PayloadTransferUpdate.Status.SUCCESS && myChoice != null && opponentChoice != null) {
-                                    finishRound();
-                                }
-                                break;
+                    if (update.getStatus() == PayloadTransferUpdate.Status.SUCCESS) {
+                        if (myChoice != null && opponentChoice != null) {
+                            finishRound();
                         }
+                        //TODO figure out how to get enemyarrayid
+//                        if(currentsearchid.equals("RockID")){
+//                            if (myChoice != null && opponentChoice != null) {
+//                                finishRound();
+//                            }
+//                        }
+
+//                        switch (currentsearchid) {
+//                            case "BattleID":
+//                                //can potentially add trainingtapcount value from enemy
+//                                int[] enemyfound = getResources().getIntArray(enemyarrayid);
+//                                int enemyattack = enemyfound[6 + enemyfound[1]];
+//                                int enemychance = enemyfound[7 + enemyfound[1]];
+//                                int enemyhealth = enemyfound[5 + enemyfound[1]] - 1;
+//                                int enemymaxhealth = enemyfound[5 + enemyfound[1]] - 1;
+//                                ArrayList<Integer> tempbattleresults = currentmonster.battle(enemyattack, enemyhealth, enemychance, trainingtapcount, true);
+//                                break;
+//                            case "BreedID":
+//                                int newegg = currentmonster.breed(enemyarrayid, getApplicationContext());
+//                                ByteBuffer b = ByteBuffer.allocate(4);
+//                                //b.order(ByteOrder.BIG_ENDIAN); // optional, the initial order of a byte buffer is always BIG_ENDIAN.
+//                                b.putInt(newegg);
+//                                connectionsClient.sendPayload(currentsearchid, Payload.fromBytes(b.array()));
+//                                break;
+//                            case "RockID":
+//                                if (update.getStatus() == PayloadTransferUpdate.Status.SUCCESS && myChoice != null && opponentChoice != null) {
+//                                    finishRound();
+//                                }
+//                                break;
+//                        }
                     }
                 }
             };
@@ -515,7 +611,8 @@ public class Communication extends AppCompatActivity {
         rockView = rockinflater.inflate(R.layout.rock_paper_scissors, null);
         int width2 = ConstraintLayout.LayoutParams.MATCH_PARENT;
         int height2 = ConstraintLayout.LayoutParams.MATCH_PARENT;
-        final PopupWindow rockWindow = new PopupWindow(rockView, width2, height2, true);
+        rockWindow = new PopupWindow(rockView, width2, height2);
+        rockWindow.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         rockWindow.setOutsideTouchable(false);
 
 
@@ -545,7 +642,7 @@ public class Communication extends AppCompatActivity {
 
     /** Wipes all game state and updates the UI accordingly. */
     private void resetGame(View rockView) {
-//        opponentEndpointId = null;
+        opponentEndpointId = null;
 //        opponentName = null;
         opponentChoice = null;
         opponentScore = 0;
@@ -572,9 +669,11 @@ public class Communication extends AppCompatActivity {
 
     /** Sends the user's selection of rock, paper, or scissors to the opponent. */
     private void sendGameChoice(GameChoice choice) {
-        //myChoice = choice;
+        myChoice = choice;
         connectionsClient.sendPayload(
                 opponentEndpointId, Payload.fromBytes(choice.name().getBytes(UTF_8)));
+
+        statusText.setText(choice.name());
 
         //setStatusText(getString(R.string.game_choice, choice.name()));
         // No changing your mind!
@@ -623,13 +722,17 @@ public class Communication extends AppCompatActivity {
         //TODO test to confirm this all works smoothly
         if(myScore >= 3){
             setStatusText(R.string.game_win);
-            rockWindow.dismiss();
+            Handler h = new Handler();
+            //Run a runnable to hide food after it has been eaten
+            h.postDelayed(() -> rockWindow.dismiss(), 1199);
             disconnect();
             return;
         }
         else if(opponentScore >= 3){
             setStatusText(R.string.game_lost);
-            rockWindow.dismiss();
+            Handler h = new Handler();
+            //Run a runnable to hide food after it has been eaten
+            h.postDelayed(() -> rockWindow.dismiss(), 1199);
             disconnect();
             return;
         }
@@ -641,6 +744,9 @@ public class Communication extends AppCompatActivity {
     public void disconnect() {
         connectionsClient.disconnectFromEndpoint(opponentEndpointId);
         resetGame(null);
+        findViewById(R.id.right_arrow).setEnabled(true);
+        findViewById(R.id.left_arrow).setEnabled(true);
+        findViewById(R.id.picker).setEnabled(true);
     }
 
     /**

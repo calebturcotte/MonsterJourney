@@ -6,7 +6,7 @@
     index 2 will be the description title
     index 3 will be the description
     index 4 will be the monster icon
-    index 5 - (5+number of evolutions-1) is the different possible evolutions
+    index 5 - (4+number of evolutions) is the different possible evolutions
     index (5+number of evolutions) is the standard health of the monster
     index (5+number of evolutions+1) is the standard attack power of the monster
     index (5+number of evolutions+2) is the standard attack chance of the monster
@@ -14,7 +14,9 @@
     index (5+number of evolutions+4) is the hunger requirement
     index (5+number of evolutions+5) is the max overfeed/gluttony
     index (5+number of evolutions+6) is the max training mistakes
-    index (5+number of evolutions+7) is the type of the monster, ie the egg-->
+    index (5+number of evolutions+7) is the type of the monster, ie the egg id
+    index (13+number of evolutions) is the attack icon/animation
+    index (14+number of evolutions) is the happy icon/animation-->
 
     <integer-array name="library">
         <item name="egg_list">@array/egg_list</item>
@@ -23,27 +25,133 @@
     </integer-array>
 
     <integer-array name="egg_list">
-        <item name="egg1">@array/basic_egg</item>
-        <item name="egg2">@array/dino_egg</item>
+        <item name="enigmaegg">@array/enigma_egg</item>
+        <item name="dinoegg">@array/dino_egg</item>
+        <item name="earthegg">@array/earth_egg</item>
+        <item name="aquaegg">@array/aqua_egg</item>
+        <item name="fireegg">@array/fire_egg</item>
+        <item name="machineegg">@array/machine_egg</item>
+        <item name="darkegg">@array/dark_egg</item>
     </integer-array>
 
     <integer-array name="baby_list">
-        <item name="basic_baby1">@array/basic_baby1</item>
-        <item name="basic_baby2">@array/basic_baby2</item>
+        <item name="enigma_baby1">@array/enigma_baby1</item>
+        <item name="enigma_baby1">@array/enigma_baby2</item>
         <item name="dino_baby1">@array/dino_baby1</item>
         <item name="dino_baby2">@array/dino_baby2</item>
+        <item name="earth_baby1">@array/earth_baby1</item>
+        <item name="earth_baby2">@array/earth_baby2</item>
+        <item name="aqua_baby1">@array/aqua_baby1</item>
+        <item name="aqua_baby2">@array/aqua_baby2</item>
+        <item name="machine_baby1">@array/machine_baby1</item>
+        <item name="machine_baby2">@array/machine_baby2</item>
+        <item name="fire_baby1">@array/fire_baby1</item>
+        <item name="fire_baby2">@array/fire_baby2</item>
+        <item name="dark_baby1">@array/dark_baby1</item>
+        <item name="dark_baby2">@array/dark_baby2</item>
     </integer-array>
 
     <integer-array name="child_list">
-        <item name="dino_child1">@array/dino_child1</item>
-        <item name="dino_child2">@array/dino_child2</item>
-        <item name="dino_child3">@array/dino_child3</item>
-        <item name="dino_child4">@array/dino_child4</item>
-        <item name="dino_child5">@array/dino_child5</item>
+        <item name="enigma_child_tanuki">@array/enigma_child_tanuki</item>
+        <item name="enigma_child_mushroom">@array/enigma_child_mushroom</item>
+        <item name="enigma_child_snake">@array/enigma_child_snake</item>
+        <item name="enigma_child_floatingskull">@array/enigma_child_floatingskull</item>
+        <item name="enigma_child_ghost">@array/enigma_child_ghost</item>
+        <item name="dino_child1">@array/dino_child_crocodile</item>
+        <item name="dino_child2">@array/dino_child_longneck</item>
+        <item name="dino_child3">@array/dino_child_armadillo</item>
+        <item name="dino_child4">@array/dino_child_stegosaur</item>
+        <item name="dino_child5">@array/dino_child_triceratops</item>
+        <item name="earth_child_beetle">@array/earth_child_beetle</item>
+        <item name="earth_child_cabbage">@array/earth_child_cabbage</item>
+        <item name="earth_child_plant">@array/earth_child_plant</item>
+        <item name="earth_child_bush">@array/earth_child_bush</item>
+        <item name="earth_child_squirrel">@array/earth_child_squirrel</item>
+        <item name="aqua_child_bubblething">@array/aqua_child_bubblething</item>
+        <item name="aqua_child_clam">@array/aqua_child_clam</item>
+        <item name="aqua_child_pufferfish">@array/aqua_child_pufferfish</item>
+        <item name="aqua_child_eelthing">@array/aqua_child_eelthing</item>
+        <item name="aqua_child_watertoad">@array/aqua_child_watertoad</item>
+        <item name="machine_child_oven">@array/machine_child_oven</item>
+        <item name="machine_child_plug">@array/machine_child_plug</item>
+        <item name="machine_child_tank">@array/machine_child_tank</item>
+        <item name="machine_child_toy">@array/machine_child_toy</item>
+        <item name="machine_child_ufo">@array/machine_child_ufo</item>
+        <item name="fire_child_chameleon">@array/fire_child_chameleon</item>
+        <item name="fire_child_toad">@array/fire_child_toad</item>
+        <item name="fire_child_seaturtle">@array/fire_child_seaturtle</item>
+        <item name="fire_child_wyvern">@array/fire_child_wyvern</item>
+        <item name="fire_child_fireball">@array/fire_child_fireball</item>
+        <item name="dark_child_chameleon">@array/dark_child_salamander</item>
+        <item name="dark_child_crystal">@array/dark_child_crystal</item>
+        <item name="dark_child_flyingeye">@array/dark_child_flyingeye</item>
+        <item name="dark_child_egghide">@array/dark_child_egghide</item>
+        <item name="dark_child_bigmouth">@array/dark_child_bigmouth</item>
     </integer-array>
 
     <integer-array name="adult_list">
-        <item name="dino_adult2">@array/dino_child2</item>
+        <item name="enigma_adult_rainspirit">@array/enigma_adult_rainspirit</item>
+        <item name="enigma_adult_sphinx">@array/enigma_adult_sphinx</item>
+        <item name="enigma_adult_specter">@array/enigma_adult_specter</item>
+        <item name="enigma_adult_snowman">@array/enigma_adult_snowman</item>
+        <item name="enigma_adult_scarecrow">@array/enigma_adult_scarecrow</item>
+        <item name="enigma_adult_teddybear">@array/enigma_adult_teddybear</item>
+        <item name="enigma_adult_frankenstein">@array/enigma_adult_frankenstein</item>
+        <item name="enigma_adult_electricball">@array/enigma_adult_electricball</item>
+        <item name="enigma_adult_vampireking">@array/enigma_adult_vampireking</item>
+        <item name="dino_adult_plesiosaur">@array/dino_adult_plesiosaur</item>
+        <item name="dino_adult_ankylosaur">@array/dino_adult_ankylosaur</item>
+        <item name="dino_adult_sloth">@array/dino_adult_sloth</item>
+        <item name="dino_adult_bigheaddino">@array/dino_adult_bigheaddino</item>
+        <item name="dino_adult_brachiosaur">@array/dino_adult_brachiosaur</item>
+        <item name="dino_adult_sabretooth">@array/dino_adult_sabretooth</item>
+        <item name="dino_adult_spinosaur">@array/dino_adult_spinosaur</item>
+        <item name="dino_adult_horneddino">@array/dino_adult_horneddino</item>
+        <item name="earth_adult_monkey">@array/earth_adult_monkey</item>
+        <item name="earth_adult_moose">@array/earth_adult_moose</item>
+        <item name="earth_adult_blob">@array/earth_adult_blob</item>
+        <item name="earth_adult_watermelon">@array/earth_adult_watermelon</item>
+        <item name="earth_adult_stump">@array/earth_adult_stump</item>
+        <item name="earth_adult_leafcat">@array/earth_adult_leafcat</item>
+        <item name="earth_adult_beetle">@array/earth_adult_beetle</item>
+        <item name="earth_adult_butterfly">@array/earth_adult_butterfly</item>
+        <item name="earth_adult_eggimitate">@array/earth_adult_eggimitate</item>
+        <item name="aqua_adult_stingray">@array/aqua_adult_stingray</item>
+        <item name="aqua_adult_scalyfootsnail">@array/aqua_adult_scalyfootsnail</item>
+        <item name="aqua_adult_waterdragon">@array/aqua_adult_waterdragon</item>
+        <item name="aqua_adult_whaleseal">@array/aqua_adult_whaleseal</item>
+        <item name="aqua_adult_octopus">@array/aqua_adult_octopus</item>
+        <item name="aqua_adult_footballfish">@array/aqua_adult_footballfish</item>
+        <item name="aqua_adult_jellyfish">@array/aqua_adult_jellyfish</item>
+        <item name="aqua_adult_walrus">@array/aqua_adult_walrus</item>
+        <item name="machine_adult_spidermech">@array/machine_adult_spidermech</item>
+        <item name="machine_adult_longarm">@array/machine_adult_longarm</item>
+        <item name="machine_adult_robotowl">@array/machine_adult_robotowl</item>
+        <item name="machine_adult_robotcrab">@array/machine_adult_robocrab</item>
+        <item name="machine_adult_robotdog">@array/machine_adult_robotdog</item>
+        <item name="machine_adult_blimp">@array/machine_adult_blimp</item>
+        <item name="machine_adult_excavator">@array/machine_adult_excavator</item>
+        <item name="machine_adult_driller">@array/machine_adult_driller</item>
+        <item name="machine_adult_barrelchest">@array/machine_adult_barrelchest</item>
+        <item name="fire_adult_serpent">@array/fire_adult_serpent</item>
+        <item name="fire_adult_fox">@array/fire_adult_fox</item>
+        <item name="fire_adult_baby">@array/fire_adult_baby</item>
+        <item name="fire_adult_elemental">@array/fire_adult_elemental</item>
+        <item name="fire_adult_tikimask">@array/fire_adult_tikimask</item>
+        <item name="fire_adult_factorygorilla">@array/fire_adult_factorygorilla</item>
+        <item name="fire_adult_spirit">@array/fire_adult_spirit</item>
+        <item name="fire_adult_snake">@array/fire_adult_snake</item>
+        <item name="fire_adult_firelordgoat">@array/fire_adult_firelordgoat</item>
+        <item name="fire_adult_fireball">@array/fire_adult_fireball</item>
+        <item name="dark_adult_wolf">@array/dark_adult_wolf</item>
+        <item name="dark_adult_eyeball">@array/dark_adult_eyeball</item>
+        <item name="dark_adult_cthulu">@array/dark_adult_cthulu</item>
+        <item name="dark_adult_gorilla">@array/dark_adult_gorilla</item>
+        <item name="dark_adult_greedfox">@array/dark_adult_greedfox</item>
+        <item name="dark_adult_anglerfish">@array/dark_adult_anglerfish</item>
+        <item name="dark_adult_bear">@array/dark_adult_bear</item>
+        <item name="dark_adult_scorpion">@array/dark_adult_scorpion</item>
+        <item name="dark_adult_sloth">@array/dark_adult_sloth</item>
     </integer-array>
 
     <integer-array name="missing_content">
@@ -52,264 +160,4 @@
         <item name="icon">@drawable/missing_content</item>
     </integer-array>
 
-    <integer-array name="basic_egg">
-        <item name="stage">0</item>
-        <item name="evolutions">2</item>
-        <item name="title">@string/basic_egg_title</item>
-        <item name="description">@string/basic_egg_description</item>
-        <item name="icon">@drawable/egg_idle</item>
-        <item name="evo1">@array/basic_baby1</item>
-        <item name="evo1">@array/basic_baby2</item>
-    </integer-array>
-
-    <integer-array name="dino_egg">
-        <item name="stage">0</item>
-        <item name="evolutions">2</item>
-        <item name="title">@string/dino_egg_title</item>
-        <item name="description">@string/dino_egg_description</item>
-        <item name="icon">@drawable/egg_dino_idle</item>
-        <item name="evo1">@array/dino_baby1</item>
-        <item name="evo1">@array/dino_baby2</item>
-    </integer-array>
-
-    <integer-array name="basic_baby1">
-        <item name="stage">1</item>
-        <item name="evolutions">3</item>
-        <item name="title">@string/basic_baby1_title</item>
-        <item name="description">@string/basic_baby1_description</item>
-        <item name="icon">@drawable/baby_basic_idle</item>
-        <item name="evo1">@array/dino_baby1</item>
-        <item name="evo2">@array/dino_baby1</item>
-        <item name="evo3">@array/dino_baby1</item>
-        <item name="health">3</item>
-        <item name="attack">1</item>
-        <item name="attackchance">50</item>
-    </integer-array>
-
-    <integer-array name="basic_baby2">
-        <item name="stage">1</item>
-        <item name="evolutions">3</item>
-        <item name="title">@string/basic_baby2_title</item>
-        <item name="description">@string/basic_baby2_description</item>
-        <item name="icon">@drawable/baby_basic2_idle</item>
-        <item name="evo1">@array/dino_baby1</item>
-        <item name="evo2">@array/dino_baby1</item>
-        <item name="evo3">@array/dino_baby1</item>
-        <item name="health">3</item>
-        <item name="attack">1</item>
-        <item name="attackchance">50</item>
-        <item name="type">@string/firetype</item>
-    </integer-array>
-
-    <integer-array name="dino_baby1">
-        <item name="stage">1</item>
-        <item name="evolutions">3</item>
-        <item name="title">@string/dino_baby1_title</item>
-        <item name="description">@string/dino_baby1_description</item>
-        <item name="icon">@drawable/baby_dino_idle</item>
-        <item name="evo1">@array/dino_child1</item>
-        <item name="evo2">@array/dino_child2</item>
-        <item name="evo3">@array/dino_child3</item>
-        <item name="health">3</item>
-        <item name="attack">1</item>
-        <item name="attackchance">50</item>
-        <item name="type">@string/dinotype</item>
-    </integer-array>
-
-    <integer-array name="dino_baby2">
-        <item name="stage">1</item>
-        <item name="evolutions">3</item>
-        <item name="title">@string/dino_baby2_title</item>
-        <item name="description">@string/dino_baby2_description</item>
-        <item name="icon">@drawable/baby_dino2_idle</item>
-        <item name="icon">@array/dino_child4</item>
-        <item name="icon">@array/dino_child5</item>
-        <item name="icon">@array/dino_child3</item>
-        <item name="health">3</item>
-        <item name="attack">1</item>
-        <item name="attackchance">50</item>
-    </integer-array>
-
-    <integer-array name="dino_child1">
-        <item name="stage">2</item>
-        <item name="evolutions">3</item>
-        <item name="title">@string/dino_child2_title</item>
-        <item name="description">@string/dino_child2_description</item>
-        <item name="icon">@drawable/child_dino2_idle</item>
-        <item name="icon">@array/dino_adult1</item>
-        <item name="icon">@array/dino_adult3</item>
-        <item name="icon">@array/dino_adult5</item>
-        <item name="health">7</item>
-        <item name="attack">2</item>
-        <item name="attackchance">50</item>
-        <item name="diligence">6</item>
-        <item name="hunger">4</item>
-        <item name="gluttony">0</item>
-        <item name="mistakes">0</item>
-    </integer-array>
-
-    <integer-array name="dino_child2">
-        <item name="stage">2</item>
-        <item name="evolutions">3</item>
-        <item name="title">@string/dino_child2_title</item>
-        <item name="description">@string/dino_child2_description</item>
-        <item name="icon">@drawable/child_dino2_idle</item>
-        <item name="icon">@array/dino_adult2</item>
-        <item name="icon">@array/dino_adult3</item>
-        <item name="icon">@array/dino_adult4</item>
-        <item name="health">7</item>
-        <item name="attack">2</item>
-        <item name="attackchance">50</item>
-        <item name="diligence">6</item>
-        <item name="hunger">4</item>
-        <item name="gluttony">3</item>
-        <item name="mistakes">2</item>
-    </integer-array>
-
-    <integer-array name="dino_child3">
-        <item name="stage">2</item>
-        <item name="evolutions">3</item>
-        <item name="title">@string/dino_child2_title</item>
-        <item name="description">@string/dino_child2_description</item>
-        <item name="icon">@drawable/child_dino2_idle</item>
-        <item name="icon">@array/dino_adult3</item>
-        <item name="icon">@array/dino_adult5</item>
-        <item name="icon">@array/dino_adult4</item>
-        <item name="health">7</item>
-        <item name="attack">2</item>
-        <item name="attackchance">50</item>
-        <item name="diligence">0</item>
-        <item name="hunger">0</item>
-        <item name="gluttony">100</item>
-        <item name="mistakes">5</item>
-    </integer-array>
-
-    <integer-array name="dino_child4">
-        <item name="stage">2</item>
-        <item name="evolutions">3</item>
-        <item name="title">@string/dino_child2_title</item>
-        <item name="description">@string/dino_child2_description</item>
-        <item name="icon">@drawable/child_dino2_idle</item>
-        <item name="evo1">@array/dino_baby1</item>
-        <item name="evo2">@array/dino_baby1</item>
-        <item name="evo3">@array/dino_baby1</item>
-        <item name="health">7</item>
-        <item name="attack">2</item>
-        <item name="attackchance">50</item>
-        <item name="diligence">6</item>
-        <item name="hunger">4</item>
-        <item name="gluttony">0</item>
-        <item name="mistakes">0</item>
-    </integer-array>
-
-    <integer-array name="dino_child5">
-        <item name="stage">2</item>
-        <item name="evolutions">3</item>
-        <item name="title">@string/dino_child2_title</item>
-        <item name="description">@string/dino_child2_description</item>
-        <item name="icon">@drawable/child_dino2_idle</item>
-        <item name="icon">@array/dino_adult7</item>
-        <item name="icon">@array/dino_adult6</item>
-        <item name="icon">@array/dino_adult4</item>
-        <item name="health">7</item>
-        <item name="attack">2</item>
-        <item name="attackchance">50</item>
-        <item name="diligence">6</item>
-        <item name="hunger">4</item>
-        <item name="gluttony">0</item>
-        <item name="mistakes">0</item>
-    </integer-array>
-
-    <integer-array name="dino_adult1">
-        <item name="stage">2</item>
-        <item name="evolutions">0</item>
-        <item name="title">@string/dino_child2_title</item>
-        <item name="description">@string/dino_child2_description</item>
-        <item name="icon">@drawable/child_dino2_idle</item>
-        <item name="health">7</item>
-        <item name="attack">2</item>
-        <item name="attackchance">50</item>
-    </integer-array>
-
-    <integer-array name="dino_adult2">
-        <item name="stage">2</item>
-        <item name="evolutions">0</item>
-        <item name="title">@string/dino_child2_title</item>
-        <item name="description">@string/dino_child2_description</item>
-        <item name="icon">@drawable/child_dino2_idle</item>
-        <item name="health">7</item>
-        <item name="attack">2</item>
-        <item name="attackchance">50</item>
-    </integer-array>
-
-    <integer-array name="dino_adult3">
-        <item name="stage">2</item>
-        <item name="evolutions">0</item>
-        <item name="title">@string/dino_child2_title</item>
-        <item name="description">@string/dino_child2_description</item>
-        <item name="icon">@drawable/child_dino2_idle</item>
-        <item name="health">7</item>
-        <item name="attack">2</item>
-        <item name="attackchance">50</item>
-        <item name="diligence">6</item>
-        <item name="hunger">4</item>
-        <item name="gluttony">3</item>
-        <item name="mistakes">2</item>
-        <item name="type">@array/dino_egg</item>
-    </integer-array>
-
-    <integer-array name="dino_adult4">
-        <item name="stage">2</item>
-        <item name="evolutions">0</item>
-        <item name="title">@string/dino_child2_title</item>
-        <item name="description">@string/dino_child2_description</item>
-        <item name="icon">@drawable/child_dino2_idle</item>
-        <item name="health">7</item>
-        <item name="attack">2</item>
-        <item name="attackchance">50</item>
-    </integer-array>
-
-    <integer-array name="dino_adult5">
-        <item name="stage">2</item>
-        <item name="evolutions">0</item>
-        <item name="title">@string/dino_child2_title</item>
-        <item name="description">@string/dino_child2_description</item>
-        <item name="icon">@drawable/child_dino2_idle</item>
-        <item name="health">7</item>
-        <item name="attack">2</item>
-        <item name="attackchance">50</item>
-    </integer-array>
-
-    <integer-array name="dino_adult6">
-        <item name="stage">2</item>
-        <item name="evolutions">0</item>
-        <item name="title">@string/dino_child2_title</item>
-        <item name="description">@string/dino_child2_description</item>
-        <item name="icon">@drawable/child_dino2_idle</item>
-        <item name="health">7</item>
-        <item name="attack">2</item>
-        <item name="attackchance">50</item>
-    </integer-array>
-
-    <integer-array name="dino_adult7">
-        <item name="stage">2</item>
-        <item name="evolutions">0</item>
-        <item name="title">@string/dino_child2_title</item>
-        <item name="description">@string/dino_child2_description</item>
-        <item name="icon">@drawable/child_dino2_idle</item>
-        <item name="health">7</item>
-        <item name="attack">2</item>
-        <item name="attackchance">50</item>
-    </integer-array>
-
-    <integer-array name="dino_adult8">
-        <item name="stage">2</item>
-        <item name="evolutions">0</item>
-        <item name="title">@string/dino_child2_title</item>
-        <item name="description">@string/dino_child2_description</item>
-        <item name="icon">@drawable/child_dino2_idle</item>
-        <item name="health">7</item>
-        <item name="attack">2</item>
-        <item name="attackchance">50</item>
-    </integer-array>
 </resources>

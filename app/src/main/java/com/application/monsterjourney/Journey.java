@@ -54,6 +54,9 @@ public class Journey {
     @ColumnInfo(name = "enemyhealth")
     public int enemyhealth;
 
+    @ColumnInfo(name = "evolvediscount")
+    public long evolvediscount;
+
 
     public Journey(){
         totalsteps = 0;
@@ -70,6 +73,7 @@ public class Journey {
         storytype = R.array.dino_map;
         storysteps = 30000;
         isbattling = false;
+        evolvediscount = 0;
     }
     public static Journey[] populateData() {
         return new Journey[] {
@@ -81,7 +85,7 @@ public class Journey {
      *
      * @param stepsadded the steps added by a source such as minigame
      */
-    public void addStepstoJourney(long stepsadded){
+    public void addStepstoJourney(long stepsadded, boolean hatched){
         eventsteps -= stepsadded;
         if(eventsteps <= 0){
             eventsteps = 0;
@@ -92,7 +96,9 @@ public class Journey {
             matchmakersteps = 0;
             matchmakerreached = true;
         }
-        storysteps -= stepsadded;
+        if(hatched){
+            storysteps -= stepsadded;
+        }
         totalsteps += stepsadded;
     }
 
@@ -161,6 +167,10 @@ public class Journey {
     public void setEnemyhealth(int enemyhealth){this.enemyhealth = enemyhealth;}
 
     public int getEnemyhealth(){return enemyhealth;}
+
+    public void setEvolvediscount(long evolvediscount){this.evolvediscount = evolvediscount;}
+
+    public long getEvolveddiscount(){return evolvediscount;}
 
 }
 

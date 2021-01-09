@@ -2,95 +2,105 @@
 <resources>
 
     <integer-array name="map_list">
-        <item name="dino_map">@array/enigma_map</item>
+        <item name="enigma_map">@array/enigma_map</item>
         <item name="dino_map">@array/dino_map</item>
-<!--        <item name="dino_map">@array/aqua_map</item>-->
-<!--        <item name="dino_map">@array/earth_map</item>-->
-<!--        <item name="dino_map">@array/machine_map</item>-->
-<!--        <item name="dino_map">@array/fire_map</item>-->
-<!--        <item name="dino_map">@array/dark_map</item>-->
-<!--        <item name="dino_map">@array/light_map</item>-->
-<!--        <item name="dino_map">@array/cosmic_map</item>-->
+        <item name="dino_map">@array/aqua_map</item>
+        <item name="dino_map">@array/earth_map</item>
+        <item name="dino_map">@array/machine_map</item>
+        <item name="dino_map">@array/fire_map</item>
+        <item name="dino_map">@array/dark_map</item>
+        <item name="dino_map">@array/light_map</item>
+        <item name="dino_map">@array/cosmic_map</item>
     </integer-array>
 
+<!--    TODO add boss to each array-->
+
     <integer-array name="enigma_map">
-    <item name="stage1">@array/basic_dino_enemies</item>
-    <item name="stage2">@array/child_dino_enemies</item>
-    <item name="stage3">@array/adult_dino_enemies</item>
-    <item name="boss">@array/dino_adult1</item>
-    <item name="icon">@drawable/missing_content</item>
-    <item name="title">@string/enigmatype</item>
-    <item name="description">@string/enigmadescription</item>
+        <item name="stage1">@array/basic_dino_enemies</item>
+        <item name="stage2">@array/child_dino_enemies</item>
+        <item name="stage3">@array/adult_dino_enemies</item>
+        <item name="boss">@array/enigma_adult_frankenstein</item>
+        <item name="icon">@drawable/ic_map_enigma</item>
+        <item name="title">@string/enigmatype</item>
+        <item name="description">@string/enigmadescription</item>
+        <item name="egg">@array/enigma_egg</item>
     </integer-array>
 
     <integer-array name="aqua_map">
         <item name="stage1">@array/basic_dino_enemies</item>
         <item name="stage2">@array/child_dino_enemies</item>
         <item name="stage3">@array/adult_dino_enemies</item>
-        <item name="boss">@array/dino_adult1</item>
+        <item name="boss">@array/aqua_adult_waterdragon</item>
         <item name="icon">@drawable/missing_content</item>
         <item name="title">@string/aquatype</item>
         <item name="description">@string/aquadescription</item>
+        <item name="egg">@array/aqua_egg</item>
     </integer-array>
 
     <integer-array name="earth_map">
         <item name="stage1">@array/basic_dino_enemies</item>
         <item name="stage2">@array/child_dino_enemies</item>
         <item name="stage3">@array/adult_dino_enemies</item>
-        <item name="boss">@array/dino_adult1</item>
+        <item name="boss">@array/earth_adult_beetle</item>
         <item name="icon">@drawable/missing_content</item>
         <item name="title">@string/earthtype</item>
         <item name="description">@string/earthdescription</item>
+        <item name="egg">@array/earth_egg</item>
     </integer-array>
 
     <integer-array name="machine_map">
         <item name="stage1">@array/basic_dino_enemies</item>
         <item name="stage2">@array/child_dino_enemies</item>
         <item name="stage3">@array/adult_dino_enemies</item>
-        <item name="boss">@array/dino_adult1</item>
+        <item name="boss">@array/machine_adult_excavator</item>
         <item name="icon">@drawable/missing_content</item>
         <item name="title">@string/machinetype</item>
         <item name="description">@string/machinedescription</item>
+        <item name="egg">@array/machine_egg</item>
     </integer-array>
 
     <integer-array name="fire_map">
         <item name="stage1">@array/basic_dino_enemies</item>
         <item name="stage2">@array/child_dino_enemies</item>
         <item name="stage3">@array/adult_dino_enemies</item>
-        <item name="boss">@array/dino_adult1</item>
+        <item name="boss">@array/fire_adult_serpent</item>
         <item name="icon">@drawable/missing_content</item>
         <item name="title">@string/firetype</item>
         <item name="description">@string/firedescription</item>
+        <item name="egg">@array/fire_egg</item>
     </integer-array>
 
     <integer-array name="dark_map">
         <item name="stage1">@array/basic_dino_enemies</item>
         <item name="stage2">@array/child_dino_enemies</item>
         <item name="stage3">@array/adult_dino_enemies</item>
-        <item name="boss">@array/dino_adult1</item>
+        <item name="boss">@array/dark_adult_wolf</item>
         <item name="icon">@drawable/missing_content</item>
         <item name="title">@string/darktype</item>
         <item name="description">@string/darkdescription</item>
+        <item name="egg">@array/dark_egg</item>
     </integer-array>
 
     <integer-array name="light_map">
         <item name="stage1">@array/basic_dino_enemies</item>
         <item name="stage2">@array/child_dino_enemies</item>
         <item name="stage3">@array/adult_dino_enemies</item>
-        <item name="boss">@array/dino_adult1</item>
+        <item name="boss">@array/enigma_adult_frankenstein</item>
         <item name="icon">@drawable/missing_content</item>
         <item name="title">@string/lighttype</item>
         <item name="description">@string/lightdescription</item>
+        <item name="egg">@array/dark_egg</item>
     </integer-array>
 
     <integer-array name="cosmic_map">
         <item name="stage1">@array/basic_dino_enemies</item>
         <item name="stage2">@array/child_dino_enemies</item>
         <item name="stage3">@array/adult_dino_enemies</item>
-        <item name="boss">@array/dino_adult1</item>
+        <item name="boss">@array/enigma_adult_frankenstein</item>
         <item name="icon">@drawable/missing_content</item>
         <item name="title">@string/cosmictype</item>
         <item name="description">@string/cosmicdescription</item>
+        <item name="egg">@array/dark_egg</item>
     </integer-array>
 
 <!--    TODO add map icons and descriptions for each type-->
@@ -100,20 +110,20 @@
         <item name="stage1">@array/basic_dino_enemies</item>
         <item name="stage2">@array/child_dino_enemies</item>
         <item name="stage3">@array/adult_dino_enemies</item>
-        <item name="boss">@array/dino_adult1</item>
+        <item name="boss">@array/dino_adult_bigheaddino</item>
         <item name="icon">@drawable/missing_content</item>
         <item name="title">@string/dinotype</item>
         <item name="description">@string/dinodescription</item>
+        <item name="egg">@array/dino_egg</item>
     </integer-array>
 
-    <!-- TODO add 6 monsters (1 from each type) for the matchmaker to choose from-->
     <integer-array name="matchmaker_list">
-        <item name="dinomatch">@array/dino_adult3</item>
-        <item name="enigmamatch">@array/dino_adult3</item>
-        <item name="firematch">@array/dino_adult3</item>
-        <item name="earthmatch">@array/dino_adult3</item>
-        <item name="aquamatch">@array/dino_adult3</item>
-        <item name="machinematch">@array/dino_adult3</item>
+        <item name="dinomatch">@array/dino_adult_horneddino</item>
+        <item name="enigmamatch">@array/enigma_adult_sphinx</item>
+        <item name="firematch">@array/fire_adult_fox</item>
+        <item name="earthmatch">@array/earth_adult_monkey</item>
+        <item name="aquamatch">@array/aqua_adult_whaleseal</item>
+        <item name="machinematch">@array/machine_adult_robotdog</item>
     </integer-array>
 
     <integer-array name="basic_dino_enemies">
@@ -125,17 +135,17 @@
     <integer-array name="child_dino_enemies">
         <item name="size">4</item>
         <item name="stage1">@array/dino_baby1</item>
-        <item name="stage2">@array/dino_child1</item>
-        <item name="stage3">@array/dino_child2</item>
-        <item name="stage4">@array/dino_child5</item>
+        <item name="stage2">@array/dino_child_stegosaur</item>
+        <item name="stage3">@array/dino_child_armadillo</item>
+        <item name="stage4">@array/dino_child_longneck</item>
     </integer-array>
 
     <integer-array name="adult_dino_enemies">
         <item name="size">5</item>
-        <item name="stage1">@array/dino_child3</item>
-        <item name="stage2">@array/dino_adult5</item>
-        <item name="stage3">@array/dino_adult6</item>
-        <item name="stage4">@array/dino_adult4</item>
-        <item name="stage4">@array/dino_adult2</item>
+        <item name="stage1">@array/dino_adult_horneddino</item>
+        <item name="stage2">@array/dino_adult_plesiosaur</item>
+        <item name="stage3">@array/dino_adult_ankylosaur</item>
+        <item name="stage4">@array/dino_adult_spinosaur</item>
+        <item name="stage4">@array/dino_adult_sabretooth</item>
     </integer-array>
 </resources>

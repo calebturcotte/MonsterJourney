@@ -11,6 +11,8 @@
     <string name="volume">Volume: </string>
     <string name="pedometer">Run while app closed: </string>
     <string name="rate">Rate this game!</string>
+    <string name="quit">Quit the app?</string>
+    <string name="stepsneeded">Steps needed:\u0020</string>
 
     <string name="removeads">Remove ads</string>
     <string name="buylightegg">Buy Light Egg</string>
@@ -109,6 +111,8 @@
     <string name="paper">Paper</string>
     <string name="scissors">Scissors</string>
 
+    <string name="searching">Searching…</string>
+
     <string name="mapcompleted">Completed</string>
     <string name="mapnotcompleted">Not Completed</string>
 
@@ -136,29 +140,96 @@
     <string name="missing_description">This entry hasn\'t been unlocked yet.</string>
 
     <string name="egg_list">Eggs Collected: </string>
-    <string name="basic_egg_title">Basic Egg</string>
-    <string name="basic_egg_description">A seemingly basic egg. Contains a balanced monster.</string>
+    <string name="basic_egg_title">Enigma Egg</string>
+    <string name="basic_egg_description">A seemingly basic egg. Contains an enigma type monster.</string>
     <string name="dino_egg_title">Dino Egg</string>
     <string name="dino_egg_description">A prehistoric egg. Contains an ancient type monster.</string>
     <string name="aqua_egg_title">Aqua Egg</string>
     <string name="aqua_egg_description">An aquatic egg. Contains an aquatic type monster.</string>
+    <string name="fire_egg_title">Fire Egg</string>
+    <string name="fire_egg_description">A fiery egg. Contains a fire type monster.</string>
+    <string name="machine_egg_title">Machine Egg</string>
+    <string name="machine_egg_description">An egg made out of metal. Contains a machine type monster.</string>
+    <string name="earth_egg_title">Earth Egg</string>
+    <string name="earth_egg_description">An egg that sprouted from the earth. Contains an earth type monster.</string>
 
     <string name="baby_list">Babies Collected: </string>
+
+<!--    Enigma descriptions-->
+    <string name="enigma_baby_tanuki_title">Mangut</string>
+    <string name="enigma_baby_tanuki_description">An enigma type monster. Although it is actually a spirit, this monster strangely resembles a raccoon.
+        It will spend most of its time hiding and playing in forests.</string>
+
+    <string name="enigma_baby_skull_title">Rattle</string>
+    <string name="enigma_baby_skull_description">An enigma type monster. Some believe it eerily resembles a skull but Researchers have found
+    that they appear to be made of a more brittle material, which is why they often hide from strangers.</string>
+
+    <string name="enigma_child_tanuki_title">JudaiMangut</string>
+    <string name="enigma_child_tanuki_description">An enigma type monster. Folklore mentions this monster as a symbol of wealth and prosperity. Because of
+    this they have been hunted to the point where finding one in the wild is a rarity.</string>
+
+    <string name="enigma_child_mushroom_title">Sporesitter</string>
+    <string name="enigma_child_mushroom_description">An enigma type monster. Commonly found in forests this monster is very social with those it deems friends.</string>
+
+    <string name="enigma_child_snake_title">Scaley</string>
+    <string name="enigma_child_snake_description">An enigma type monster. A symbol of the desert. This monster spends a lot of time alone so it becomes
+    startled and unpredictable when something new approaches.</string>
+
+    <string name="enigma_adult_sphinx_title">Riddler</string>
+    <string name="enigma_adult_sphinx_description">This enigma type monster strangely resembles a sphinx. It spends most of its time lounging around in front of
+    caves and passageways. Only allowing passage to whoever can solve its riddles.</string>
     <string name="basic_baby1_title">Eye</string>
     <string name="basic_baby1_description">An enigma type monster. It can\'t move its main body so it waits and gazes at the passing world.</string>
 
-    <string name="basic_baby2_title">Sparky</string>
-    <string name="basic_baby2_description">A fire type monster. Enjoys sitting around campfires and eating stray embers.</string>
+<!--    <string name="basic_baby2_title">Sparky</string>-->
+<!--    <string name="basic_baby2_description">A fire type monster. Enjoys sitting around campfires and eating stray embers.</string>-->
 
+    <!--    Dino descriptions-->
     <string name="dino_baby1_title">Chomper</string>
     <string name="dino_baby1_description">A dino type monster. Once it bites onto something it never lets go so watch out!</string>
 
+    <string name="dino_baby_dinoegg_title">Hider</string>
+    <string name="dino_baby_dinoegg_description">A dino type monster. As a cold and shy baby it hides inside its egg shell so it can remain warm and comfortable.</string>
+
     <string name="dino_baby2_title">Dozer</string>
     <string name="dino_baby2_description">A dino type monster. It sleeps for 20 hours a day and only wakes up to eat or when bothered.</string>
+
+    <string name="dino_adult_ankylosaur_title">Ankylo</string>
+    <string name="dino_adult_ankylosaur_description">Covered in scales, this dino type monster protects itself while bludgeoning enemies with its tail</string>
 
     <string name="child_list">Children Collected: </string>
     <string name="dino_child2_title">Ripper</string>
     <string name="dino_child2_description">A dino type monster. A dangerous savage who will attack anything that enters its territory.</string>
 
     <string name="adult_list">Adults Collected: </string>
+
+    <!--    Earth descriptions-->
+    <string name="baby_earth_seed_title">Seedo</string>
+    <string name="baby_earth_seed_description">An earth type monster. This seemingly simple seed will one day grow up to be a large monster… or at
+    least that\'s what it tells its friends.</string>
+
+    <string name="baby_earth_peas_title">Peas</string>
+    <string name="baby_earth_peas_description">An earth type monster. For a long time researchers have wondered if this monster is actually three monsters
+    gathered together or a monster with three heads.</string>
+
+    <!--    Aqua descriptions-->
+    <string name="baby_aqua_tadpole_title">Taddy</string>
+    <string name="baby_aqua_tadpole_description">An aqua type monster. Born in a small lake it slowly crawls outside to meet new friends.</string>
+
+    <string name="baby_aqua_octopus_title">Octo</string>
+    <string name="baby_aqua_octopus_description">An aqua type monster. With its many arms it floats around hoping small prey will get stuck in its tentacles.</string>
+
+    <!--   Machine descriptions-->
+    <string name="adult_machine_driller_title">Mach Gurren</string>
+    <string name="adult_machine_driller_description">A machine type monster. Originally a simple drilling machine used for construction that has been taken over
+    by an unknown cybernetic organism. Its dream is to drill to the heavens.</string>
+
+    <!--   Fire descriptions-->
+    <string name="baby_fire_sparky_title">Sparky</string>
+    <string name="baby_fire_sparky_description">A fire type monster. Enjoys sitting around campfires and eating stray embers.</string>
+
+    <!--   Dark descriptions-->
+    <string name="dark_egg_title">Dark</string>
+    <string name="dark_egg_description">An egg shrouded in darkness. Contains a dark type monster.</string>
+
 </resources>

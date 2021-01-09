@@ -24,19 +24,32 @@ public class CompletedMaps {
     @ColumnInfo(name = "storycompleted")
     boolean storycompleted;
 
+    //tells if the map is of a basic type or a rare type
+    @ColumnInfo(name = "isbasic")
+    boolean isbasic;
 
-    public CompletedMaps(int maparray, long storysteps){
+
+    public CompletedMaps(int maparray, long storysteps, boolean isbasic){
         this.maparray = maparray;
         this.storysteps = storysteps;
         storycompleted = false;
+        this.isbasic = isbasic;
 
     }
 
     //TODO implement all missing maps, to future proof may need to add update method to db to allow more new monster types to be added in
     public static CompletedMaps[] populateData(){
         return new CompletedMaps[] {
-                new CompletedMaps(R.array.enigma_map,30000),
-                new CompletedMaps(R.array.dino_map,30000)
+                new CompletedMaps(R.array.enigma_map,30000, true),
+                new CompletedMaps(R.array.dino_map,30000, true),
+                new CompletedMaps(R.array.earth_map,30000, true),
+                new CompletedMaps(R.array.fire_map,30000, true),
+                new CompletedMaps(R.array.machine_map,30000, true),
+                new CompletedMaps(R.array.aqua_map,30000, true),
+                new CompletedMaps(R.array.dark_map,30000, false),
+                new CompletedMaps(R.array.light_map,30000, false),
+                new CompletedMaps(R.array.cosmic_map,30000, false)
+
         };
     }
 
@@ -47,6 +60,10 @@ public class CompletedMaps {
     public void setStorycompleted(boolean storycompleted){this.storycompleted = storycompleted;}
 
     public boolean isStorycompleted(){return storycompleted;}
+
+    public void setIsbasic(boolean isbasic){this.isbasic = isbasic;}
+
+    public boolean isIsbasic(){return isbasic;}
 
 
 }

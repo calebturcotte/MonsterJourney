@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <integer-array name="earth_egg">
+        <item name="stage">0</item>
+        <item name="evolutions">2</item>
+        <item name="title">@string/earth_egg_title</item>
+        <item name="description">@string/earth_egg_description</item>
+        <item name="icon">@drawable/egg_idle</item>
+        <item name="evo1">@array/earth_baby1</item>
+        <item name="evo1">@array/earth_baby2</item>
+    </integer-array>
+
+    <integer-array name="earth_baby1">
+        <item name="stage">1</item>
+        <item name="evolutions">3</item>
+        <item name="title">@string/dino_baby_dinoegg_title</item>
+        <item name="description">@string/dino_baby_dinoegg_description</item>
+        <item name="icon">@drawable/baby_earth_seed_idle</item>
+        <item name="evo1">@array/earth_child_squirrel</item>
+        <item name="evo2">@array/earth_child_bush</item>
+        <item name="evo3">@array/earth_child_cabbage</item>
+        <item name="health">3</item>
+        <item name="attack">1</item>
+        <item name="attackchance">50</item>
+        <item name="diligence">6</item>
+        <item name="hunger">4</item>
+        <item name="gluttony">3</item>
+        <item name="mistakes">2</item>
+        <item name="type">@array/earth_egg</item>
+        <item name="attackicon">@drawable/baby_earth_seed_attack</item>
+        <item name="happyicon">@drawable/baby_earth_seed_happy</item>
+    </integer-array>
+
+    <integer-array name="earth_baby2">
+        <item name="stage">1</item>
+        <item name="evolutions">3</item>
+        <item name="title">@string/baby_earth_peas_title</item>
+        <item name="description">@string/baby_earth_peas_description</item>
+        <item name="icon">@drawable/baby_earth_peas_idle</item>
+        <item name="evo1">@array/earth_child_beetle</item>
+        <item name="evo2">@array/earth_child_plant</item>
+        <item name="evo3">@array/earth_child_cabbage</item>
+        <item name="health">3</item>
+        <item name="attack">1</item>
+        <item name="attackchance">50</item>
+        <item name="diligence">6</item>
+        <item name="hunger">4</item>
+        <item name="gluttony">3</item>
+        <item name="mistakes">2</item>
+        <item name="type">@array/earth_egg</item>
+        <item name="attackicon">@drawable/baby_earth_peas_attack</item>
+        <item name="happyicon">@drawable/baby_earth_peas_happy</item>
+    </integer-array>
+
+    <integer-array name="earth_child_beetle">
+        <item name="stage">2</item>
+        <item name="evolutions">3</item>
+        <item name="title">@string/baby_earth_peas_title</item>
+        <item name="description">@string/baby_earth_peas_description</item>
+        <item name="icon">@drawable/child_earth_beetle_idle</item>
+        <item name="evo1">@array/earth_adult_beetle</item>
+        <item name="evo2">@array/earth_adult_butterfly</item>
+        <item name="evo3">@array/earth_adult_blob</item>
+        <item name="health">3</item>
+        <item name="attack">2</item>
+        <item name="attackchance">50</item>
+        <item name="diligence">4</item>
+        <item name="hunger">6</item>
+        <item name="gluttony">5</item>
+        <item name="mistakes">0</item>
+        <item name="type">@array/earth_egg</item>
+        <item name="attackicon">@drawable/child_earth_beetle_attack</item>
+        <item name="happyicon">@drawable/child_earth_beetle_happy</item>
+    </integer-array>
+
+    <integer-array name="earth_child_cabbage">
+        <item name="stage">2</item>
+        <item name="evolutions">4</item>
+        <item name="title">@string/baby_earth_peas_title</item>
+        <item name="description">@string/baby_earth_peas_description</item>
+        <item name="icon">@drawable/child_earth_cabbage_idle</item>
+        <item name="evo1">@array/earth_adult_stump</item>
+        <item name="evo2">@array/earth_adult_monkey</item>
+        <item name="evo3">@array/earth_adult_moose</item>
+        <item name="evo4">@array/earth_adult_watermelon</item>
+        <item name="health">3</item>
+        <item name="attack">2</item>
+        <item name="attackchance">50</item>
+        <item name="diligence">0</item>
+        <item name="hunger">0</item>
+        <item name="gluttony">10000</item>
+        <item name="mistakes">10000</item>
+        <item name="type">@array/earth_egg</item>
+        <item name="attackicon">@drawable/child_earth_cabbage_attack</item>
+        <item name="happyicon">@drawable/child_earth_cabbage_happy</item>
+    </integer-array>
+
+    <integer-array name="earth_child_squirrel">
+        <item name="stage">2</item>
+        <item name="evolutions">5</item>
+        <item name="title">@string/baby_earth_peas_title</item>
+        <item name="description">@string/baby_earth_peas_description</item>
+        <item name="icon">@drawable/child_earth_squirrel_idle</item>
+        <item name="evo1">@array/earth_adult_leafcat</item>
+        <item name="evo2">@array/earth_adult_moose</item>
+        <item name="evo3">@array/earth_adult_monkey</item>
+        <item name="evo4">@array/earth_adult_eggimitate</item>
+        <item name="evo5">@array/earth_adult_blob</item>
+        <item name="health">3</item>
+        <item name="attack">2</item>
+        <item name="attackchance">50</item>
+        <item name="diligence">2</item>
+        <item name="hunger">6</item>
+        <item name="gluttony">6</item>
+        <item name="mistakes">0</item>
+        <item name="type">@array/earth_egg</item>
+        <item name="attackicon">@drawable/child_earth_squirrel_attack</item>
+        <item name="happyicon">@drawable/child_earth_squirrel_happy</item>
+    </integer-array>
+
+    <integer-array name="earth_child_plant">
+        <item name="stage">2</item>
+        <item name="evolutions">5</item>
+        <item name="title">@string/baby_earth_peas_title</item>
+        <item name="description">@string/baby_earth_peas_description</item>
+        <item name="icon">@drawable/child_earth_plant_idle</item>
+        <item name="evo1">@array/earth_adult_stump</item>
+        <item name="evo2">@array/earth_adult_monkey</item>
+        <item name="evo3">@array/earth_adult_moose</item>
+        <item name="evo4">@array/earth_adult_eggimitate</item>
+        <item name="evo5">@array/earth_adult_watermelon</item>
+        <item name="health">3</item>
+        <item name="attack">2</item>
+        <item name="attackchance">50</item>
+        <item name="diligence">4</item>
+        <item name="hunger">4</item>
+        <item name="gluttony">2</item>
+        <item name="mistakes">5</item>
+        <item name="type">@array/earth_egg</item>
+        <item name="attackicon">@drawable/child_earth_plant_attack</item>
+        <item name="happyicon">@drawable/child_earth_plant_happy</item>
+    </integer-array>
+
+    <integer-array name="earth_child_bush">
+        <item name="stage">2</item>
+        <item name="evolutions">5</item>
+        <item name="title">@string/baby_earth_peas_title</item>
+        <item name="description">@string/baby_earth_peas_description</item>
+        <item name="icon">@drawable/child_earth_bush_idle</item>
+        <item name="evo1">@array/earth_adult_leafcat</item>
+        <item name="evo2">@array/earth_adult_moose</item>
+        <item name="evo3">@array/earth_adult_monkey</item>
+        <item name="evo4">@array/earth_adult_eggimitate</item>
+        <item name="evo5">@array/earth_adult_blob</item>
+        <item name="health">3</item>
+        <item name="attack">2</item>
+        <item name="attackchance">50</item>
+        <item name="diligence">6</item>
+        <item name="hunger">4</item>
+        <item name="gluttony">3</item>
+        <item name="mistakes">4</item>
+        <item name="type">@array/earth_egg</item>
+        <item name="attackicon">@drawable/child_earth_bush_attack</item>
+        <item name="happyicon">@drawable/child_earth_bush_happy</item>
+    </integer-array>
+
+<!--    Earth Adults-->
+
+    <integer-array name="earth_adult_blob">
+        <item name="stage">3</item>
+        <item name="evolutions">0</item>
+        <item name="title">@string/baby_earth_peas_title</item>
+        <item name="description">@string/baby_earth_peas_description</item>
+        <item name="icon">@drawable/adult_earth_blob_idle</item>
+        <item name="health">11</item>
+        <item name="attack">3</item>
+        <item name="attackchance">50</item>
+        <item name="diligence">0</item>
+        <item name="hunger">0</item>
+        <item name="gluttony">10000</item>
+        <item name="mistakes">10000</item>
+        <item name="type">@array/earth_egg</item>
+        <item name="attackicon">@drawable/adult_earth_blob_attack</item>
+        <item name="happyicon">@drawable/adult_earth_blob_happy</item>
+    </integer-array>
+
+    <integer-array name="earth_adult_watermelon">
+        <item name="stage">3</item>
+        <item name="evolutions">0</item>
+        <item name="title">@string/baby_earth_peas_title</item>
+        <item name="description">@string/baby_earth_peas_description</item>
+        <item name="icon">@drawable/adult_earth_watermelon_idle</item>
+        <item name="health">11</item>
+        <item name="attack">3</item>
+        <item name="attackchance">50</item>
+        <item name="diligence">0</item>
+        <item name="hunger">0</item>
+        <item name="gluttony">10000</item>
+        <item name="mistakes">10000</item>
+        <item name="type">@array/earth_egg</item>
+        <item name="attackicon">@drawable/adult_earth_watermelon_attack</item>
+        <item name="happyicon">@drawable/adult_earth_watermelon_happy</item>
+    </integer-array>
+
+    <integer-array name="earth_adult_leafcat">
+        <item name="stage">3</item>
+        <item name="evolutions">0</item>
+        <item name="title">@string/baby_earth_peas_title</item>
+        <item name="description">@string/baby_earth_peas_description</item>
+        <item name="icon">@drawable/adult_earth_leafcat_idle</item>
+        <item name="health">11</item>
+        <item name="attack">3</item>
+        <item name="attackchance">50</item>
+        <item name="diligence">7</item>
+        <item name="hunger">6</item>
+        <item name="gluttony">0</item>
+        <item name="mistakes">0</item>
+        <item name="type">@array/earth_egg</item>
+        <item name="attackicon">@drawable/adult_earth_leafcat_attack</item>
+        <item name="happyicon">@drawable/adult_earth_leafcat_happy</item>
+    </integer-array>
+
+    <integer-array name="earth_adult_eggimitate">
+        <item name="stage">3</item>
+        <item name="evolutions">0</item>
+        <item name="title">@string/baby_earth_peas_title</item>
+        <item name="description">@string/baby_earth_peas_description</item>
+        <item name="icon">@drawable/adult_earth_eggimitate_idle</item>
+        <item name="health">11</item>
+        <item name="attack">3</item>
+        <item name="attackchance">50</item>
+        <item name="diligence">2</item>
+        <item name="hunger">8</item>
+        <item name="gluttony">8</item>
+        <item name="mistakes">2</item>
+        <item name="type">@array/earth_egg</item>
+        <item name="attackicon">@drawable/adult_earth_eggimitate_attack</item>
+        <item name="happyicon">@drawable/adult_earth_eggimitate_happy</item>
+    </integer-array>
+
+    <integer-array name="earth_adult_butterfly">
+        <item name="stage">3</item>
+        <item name="evolutions">0</item>
+        <item name="title">@string/baby_earth_peas_title</item>
+        <item name="description">@string/baby_earth_peas_description</item>
+        <item name="icon">@drawable/adult_earth_butterfly_idle</item>
+        <item name="health">11</item>
+        <item name="attack">3</item>
+        <item name="attackchance">50</item>
+        <item name="diligence">6</item>
+        <item name="hunger">6</item>
+        <item name="gluttony">2</item>
+        <item name="mistakes">2</item>
+        <item name="type">@array/earth_egg</item>
+        <item name="attackicon">@drawable/adult_earth_butterfly_attack</item>
+        <item name="happyicon">@drawable/adult_earth_butterfly_happy</item>
+    </integer-array>
+
+    <integer-array name="earth_adult_beetle">
+        <item name="stage">3</item>
+        <item name="evolutions">0</item>
+        <item name="title">@string/baby_earth_peas_title</item>
+        <item name="description">@string/baby_earth_peas_description</item>
+        <item name="icon">@drawable/adult_earth_beetle_idle</item>
+        <item name="health">11</item>
+        <item name="attack">3</item>
+        <item name="attackchance">50</item>
+        <item name="diligence">7</item>
+        <item name="hunger">6</item>
+        <item name="gluttony">0</item>
+        <item name="mistakes">0</item>
+        <item name="type">@array/earth_egg</item>
+        <item name="attackicon">@drawable/adult_earth_beetle_attack</item>
+        <item name="happyicon">@drawable/adult_earth_beetle_happy</item>
+    </integer-array>
+
+    <integer-array name="earth_adult_stump">
+        <item name="stage">3</item>
+        <item name="evolutions">0</item>
+        <item name="title">@string/baby_earth_peas_title</item>
+        <item name="description">@string/baby_earth_peas_description</item>
+        <item name="icon">@drawable/adult_earth_stump_idle</item>
+        <item name="health">11</item>
+        <item name="attack">3</item>
+        <item name="attackchance">50</item>
+        <item name="diligence">7</item>
+        <item name="hunger">2</item>
+        <item name="gluttony">1</item>
+        <item name="mistakes">5</item>
+        <item name="type">@array/earth_egg</item>
+        <item name="attackicon">@drawable/adult_earth_stump_attack</item>
+        <item name="happyicon">@drawable/adult_earth_stump_happy</item>
+    </integer-array>
+
+    <integer-array name="earth_adult_moose">
+        <item name="stage">3</item>
+        <item name="evolutions">0</item>
+        <item name="title">@string/baby_earth_peas_title</item>
+        <item name="description">@string/baby_earth_peas_description</item>
+        <item name="icon">@drawable/adult_earth_moose_idle</item>
+        <item name="health">11</item>
+        <item name="attack">3</item>
+        <item name="attackchance">50</item>
+        <item name="diligence">4</item>
+        <item name="hunger">7</item>
+        <item name="gluttony">2</item>
+        <item name="mistakes">3</item>
+        <item name="type">@array/earth_egg</item>
+        <item name="attackicon">@drawable/adult_earth_moose_attack</item>
+        <item name="happyicon">@drawable/adult_earth_moose_happy</item>
+    </integer-array>
+
+    <integer-array name="earth_adult_monkey">
+        <item name="stage">3</item>
+        <item name="evolutions">0</item>
+        <item name="title">@string/baby_earth_peas_title</item>
+        <item name="description">@string/baby_earth_peas_description</item>
+        <item name="icon">@drawable/adult_earth_monkey_idle</item>
+        <item name="health">11</item>
+        <item name="attack">3</item>
+        <item name="attackchance">50</item>
+        <item name="diligence">6</item>
+        <item name="hunger">4</item>
+        <item name="gluttony">2</item>
+        <item name="mistakes">2</item>
+        <item name="type">@array/earth_egg</item>
+        <item name="attackicon">@drawable/adult_earth_monkey_attack</item>
+        <item name="happyicon">@drawable/adult_earth_monkey_happy</item>
+    </integer-array>
+
+
+</resources>

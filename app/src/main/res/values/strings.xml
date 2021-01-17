@@ -75,6 +75,7 @@
     <string name="Retireinfo">Send your monster off to retirement and start raising a new one.</string>
     <string name="RetireConfirm">Are you sure you want to retire your current monster? You will start off with a new egg if you confirm.</string>
     <string name="ReleaseConfirm">Are you sure you want to release this monster? You won\'t be able to get it back if you confirm.</string>
+    <string name="NewEggConfirm">Do you want to select a new egg to add to your party?</string>
 
     <string name="Matchmaking">Matchmaking</string>
     <string name="Matchmakinginfo">Search for a match for your monster!</string>
@@ -115,6 +116,7 @@
 
     <string name="simonsays_title">Memory Repetition</string>
     <string name="simonsays_description">A memory game where you must select buttons in the same pattern presented. Earn steps for each round you pass.</string>
+    <string name="simonsays_rounddone">Round Complete!</string>
 
     <string name="snake_title">Chain connect</string>
     <string name="snake_description">Move a chain along to collect blocks and become longer. Earn steps for each block you collect.</string>

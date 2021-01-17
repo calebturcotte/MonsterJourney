@@ -30,6 +30,7 @@ import java.util.List;
 public class Ranch extends AppCompatActivity {
     public static final String PREFS_NAME = "MyJourneyFile";
     private ImageView imageView;
+    private View eggconfirmView;
 
     private Button backbutton;
 
@@ -162,12 +163,43 @@ public class Ranch extends AppCompatActivity {
 
     /**
      *
-     * @param v the button clicked
+     * @param view the new egg button clicked
      */
-    public void newMonster(View v){
-        v.setEnabled(false);
-        SelectNewEgg runner = new SelectNewEgg(this);
-        runner.execute();
+    public void newMonster(View view){
+        if(eggconfirmView != null){
+            return;
+        }
+        //view.setEnabled(false);
+        LayoutInflater confirminflater = (LayoutInflater)
+                getSystemService(LAYOUT_INFLATER_SERVICE);
+        assert confirminflater != null;
+        View confirmView = confirminflater.inflate(R.layout.confirm_popup, null);
+        int width2 = ConstraintLayout.LayoutParams.MATCH_PARENT;
+        int height2 = ConstraintLayout.LayoutParams.MATCH_PARENT;
+        final PopupWindow confirmWindow = new PopupWindow(confirmView, width2, height2, true);
+        confirmWindow.setOutsideTouchable(false);
+        confirmWindow.setOnDismissListener(()->eggconfirmView = null);
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            confirmWindow.setElevation(20);
+        }
+        // show the popup window
+        // which view you pass in doesn't matter, it is only used for the window token
+        confirmWindow.setAnimationStyle(R.style.PopupAnimation);
+        confirmWindow.showAtLocation(findViewById(R.id.placeholder), Gravity.CENTER, 0, 0);
+        confirmView.findViewById(R.id.close).setOnClickListener(v -> confirmWindow.dismiss());
+
+        confirmView.findViewById(R.id.back).setOnClickListener(v -> confirmWindow.dismiss());
+
+        confirmView.findViewById(R.id.confirm).setOnClickListener(v ->{
+            confirmWindow.dismiss();
+            SelectNewEgg runner = new SelectNewEgg(this);
+            runner.execute();
+        } );
+
+        TextView message = confirmView.findViewById(R.id.confimation_text);
+        message.setText(getText(R.string.NewEggConfirm));
+
     }
 
 

@@ -29,12 +29,12 @@ public abstract class AppDatabase extends RoomDatabase {
                     @Override
                     public void onCreate(@NonNull SupportSQLiteDatabase db) {
                         super.onCreate(db);
-                        Executors.newSingleThreadScheduledExecutor().execute(() -> {
-                            getInstance(context).journeyDao().insertAll(Journey.populateData());
-                            getInstance(context).journeyDao().insertMonster(Monster.populateData());
-                            getInstance(context).journeyDao().insertUnlockedMonster(UnlockedMonster.populateData());
-                            getInstance(context).journeyDao().insertCompletedMaps(CompletedMaps.populateData());
-                        });
+//                        Executors.newSingleThreadScheduledExecutor().execute(() -> {
+//                            getInstance(context).journeyDao().insertAll(Journey.populateData());
+//                            getInstance(context).journeyDao().insertMonster(Monster.populateData());
+//                            getInstance(context).journeyDao().insertUnlockedMonster(UnlockedMonster.populateData());
+//                            getInstance(context).journeyDao().insertCompletedMaps(CompletedMaps.populateData());
+//                        });
                     }
                 })
                 .enableMultiInstanceInvalidation()
@@ -42,6 +42,10 @@ public abstract class AppDatabase extends RoomDatabase {
         RoomDatabase.Callback rdc = new RoomDatabase.Callback() {
             public void onCreate (SupportSQLiteDatabase db) {
                 // ADD YOUR "Math - Sport - Art - Music" here
+//                getInstance(context).journeyDao().insertAll(Journey.populateData());
+//                getInstance(context).journeyDao().insertMonster(Monster.populateData());
+//                getInstance(context).journeyDao().insertUnlockedMonster(UnlockedMonster.populateData());
+//                getInstance(context).journeyDao().insertCompletedMaps(CompletedMaps.populateData());
             }
             public void onOpen (SupportSQLiteDatabase db) {
                 // do something every time database is open

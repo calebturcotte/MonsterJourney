@@ -318,19 +318,27 @@ public class Minigame extends AppCompatActivity {
         final int newstep = step + 1;
         final int temp = rounds.get(step);
         buttons[temp].setOnClickListener(v -> {
-            buttons[temp].setBackgroundResource(R.drawable.ic_simon_says_blue);
-            Handler h = new Handler();
-            //Run a runnable after 200ms that will change the correct colour back to grey
-            h.postDelayed(() -> buttons[temp].setBackgroundResource(R.drawable.ic_simon_says_default), 200);
+            int handlerdelay = 200;
             if(step == rounds.size()-1){
-                for(int i = 0; i < 9; i++){
-                    buttons[i].setOnClickListener(v12 -> {
-                    });
-                }
-                simonSays(rounds);
+                TextView temptext =  findViewById(R.id.count);
+                temptext.setText(getText(R.string.simonsays_rounddone));
+                handlerdelay = 1000;
             }else{
                 attemptsimonSays(rounds,newstep);
             }
+            buttons[temp].setBackgroundResource(R.drawable.ic_simon_says_blue);
+            Handler h = new Handler();
+            //Run a runnable after 200ms that will change the correct colour back to grey
+            h.postDelayed(() -> {
+                buttons[temp].setBackgroundResource(R.drawable.ic_simon_says_default);
+                if(step == rounds.size()-1){
+                    for(int i = 0; i < 9; i++){
+                        buttons[i].setOnClickListener(v12 -> {
+                        });
+                    }
+                    simonSays(rounds);
+                }
+            }, handlerdelay);
         });
 
     }

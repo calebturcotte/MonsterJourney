@@ -162,10 +162,11 @@ public class ForeGroundService extends Service implements SensorEventListener, S
                     storysteps--;
                     temp.setStorysteps(storysteps);
                     if(storysteps <= 0){
+                        temp.setStorysteps(0);
                         if (isAppInBackground(getApplicationContext())) {
                             createNotification("Boss Found!", "You've reach the end of the map! Time to fight the boss!");
                         }
-                        sendBroadcastMessage(0);
+                        sendBroadcastMessage(steps);
                         db.journeyDao().update(temp);
                         return;
                     }
@@ -210,15 +211,12 @@ public class ForeGroundService extends Service implements SensorEventListener, S
                 //sendBroadcastMessage(eventreached);
             }
         });
-        //sendBroadcastMessage(steps);
-
     }
 
     private void sendBroadcastMessage(long steps) {
         Intent intent = new Intent(ACTION_BROADCAST);
         intent.putExtra(STEP_COUNT, steps);
         LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
-
     }
 
     private void sendBroadcastEvent(int eventtype){

@@ -1,12 +1,5 @@
 package com.application.monsterjourney;
 
-import androidx.annotation.StyleableRes;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SwitchCompat;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.constraintlayout.widget.ConstraintSet;
-import androidx.core.content.ContextCompat;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
@@ -51,6 +44,13 @@ import android.widget.PopupWindow;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
+import androidx.annotation.StyleableRes;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SwitchCompat;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintSet;
+import androidx.core.content.ContextCompat;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import com.android.billingclient.api.AcknowledgePurchaseParams;
 import com.android.billingclient.api.AcknowledgePurchaseResponseListener;
 import com.android.billingclient.api.BillingClient;
@@ -65,10 +65,7 @@ import com.android.billingclient.api.SkuDetailsParams;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.nearby.connection.Payload;
-
 import java.lang.ref.WeakReference;
-import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -200,47 +197,12 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.test).setOnClickListener(v -> {
 //            BossDefeated runner2 = new BossDefeated(this);
 //            runner2.execute();
-            {
-                ArrayList<Integer> battleresult = new ArrayList<>();
-                Random ran = new Random();
-                for(int i = 0; i < 6; i++){
-                    battleresult.add(ran.nextInt(3));
-                }
-                int result = 0;
-                int index = 1;
-                for(Integer integer: battleresult){
-                    result = result + integer*index;
-                    index *= 10;
-                }
-                Toast.makeText(this, String.valueOf(result), Toast.LENGTH_LONG).show();
-                battleresult = new ArrayList<>();
-                int length = String.valueOf(result).length();
-                int count = 10;
-                //Toast.makeText(this, String.valueOf(result), Toast.LENGTH_LONG).show();
-                for(int i = length; i > 0; i--){
-                    int added_value = result%10;
-                    result = result /10;
-                    if(added_value == 1){
-                        added_value = 2;
-                    }
-                    else if(added_value == 2){
-                        added_value = 1;
-                    }
-                    battleresult.add(added_value);
-                    Toast.makeText(this, String.valueOf(result), Toast.LENGTH_LONG).show();
-
-                    count *= 10;
-                }
-
-                result = 0;
-                index = 1;
-                for(Integer integer: battleresult){
-                    result = result + integer*index;
-                    index *= 10;
-                }
-                Toast.makeText(this, String.valueOf(result), Toast.LENGTH_LONG).show();
-                Toast.makeText(this, String.valueOf(battleresult.size()), Toast.LENGTH_LONG).show();
-            }
+           AsyncTask.execute(()->{
+               AppDatabase db = AppDatabase.getInstance(getApplicationContext());
+               Journey tempjourney = db.journeyDao().getJourney().get(0);
+               tempjourney.setStorysteps(0);
+               db.journeyDao().update(tempjourney);
+           });
         });
 
         findViewById(R.id.game_options).setOnClickListener(v -> options());
@@ -318,15 +280,6 @@ public class MainActivity extends AppCompatActivity {
                 frmlayout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
             }
         });
-        AsyncTask.execute(() -> {
-            AppDatabase db = AppDatabase.getInstance(getApplicationContext());
-            Journey tempjourney = db.journeyDao().getJourney().get(0);
-            totaltime.setText(String.valueOf(tempjourney.getTotalsteps()));
-
-            currentmonster = db.journeyDao().getMonster().get(0);
-            currentarrayid = currentmonster.getArrayid();
-        });
-
 
     }
 
@@ -434,19 +387,36 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
-        Activity mainActivity = this;
-        findViewById(R.id.placeholder).getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                //TODO add better implementation of current story array
+        AsyncTask.execute(() -> {
+            AppDatabase db = AppDatabase.getInstance(getApplicationContext());
+            Journey tempjourney = db.journeyDao().getJourney().get(0);
+//            totaltime.setText(String.valueOf(tempjourney.getTotalsteps()));
 
-                DisplayMonster runner = new DisplayMonster(mainActivity);
-                runner.execute();
-                initialized = true;
-                handleEvent();
-                findViewById(R.id.placeholder).getViewTreeObserver().removeOnGlobalLayoutListener(this);
-            }
+            currentmonster = db.journeyDao().getMonster().get(0);
+            currentarrayid = currentmonster.getArrayid();
+            currentstoryarray = tempjourney.getStorytype();
         });
+        Activity mainActivity = this;
+        if(initialized){
+            DisplayMonster runner = new DisplayMonster(mainActivity);
+            runner.execute();
+            handleEvent();
+        }
+        else{
+            final FrameLayout frmlayout = findViewById(R.id.placeholder);
+            frmlayout.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                @Override
+                public void onGlobalLayout() {
+                    //TODO add better implementation of current story array
+                    DisplayMonster runner = new DisplayMonster(mainActivity);
+                    runner.execute();
+                    initialized = true;
+                    handleEvent();
+                    frmlayout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                }
+            });
+        }
+
         Purchase.PurchasesResult result = billingClient.queryPurchases(BillingClient.SkuType.INAPP);
         if (result.getPurchasesList() != null) {
             for (Purchase purchase : result.getPurchasesList()) {
@@ -467,19 +437,6 @@ public class MainActivity extends AppCompatActivity {
         //music.prepareAsync();
 
         if(!isplaying)music.start();
-
-        if(initialized){
-            DisplayMonster runner = new DisplayMonster(mainActivity);
-            runner.execute();
-            handleEvent();
-        }
-
-        AsyncTask.execute(() -> {
-            AppDatabase db = AppDatabase.getInstance(getApplicationContext());
-            currentarrayid = db.journeyDao().getMonster().get(0).getArrayid();
-            Journey tempjourney = db.journeyDao().getJourney().get(0);
-            currentstoryarray = tempjourney.getStorytype();
-        });
 
 
         super.onResume();
@@ -979,6 +936,7 @@ public class MainActivity extends AppCompatActivity {
         eventanimation.setRepeatMode(Animation.REVERSE); //animation will start from end point once ended.
         eventimage.startAnimation(eventanimation); //to start animation
         final Button BtnEvent = activity.findViewById(R.id.event);
+        BtnEvent.setOnClickListener(null);
         switch(eventtype){
             case 0: //egg hatching
                 BtnEvent.setOnClickListener(v -> {
@@ -1133,10 +1091,11 @@ public class MainActivity extends AppCompatActivity {
 
             case 2: //battle found
                 BtnEvent.setOnClickListener(v -> {
+                    BtnEvent.setVisibility(View.INVISIBLE);
                     eventimage.setVisibility(View.INVISIBLE);
                     eventanimation.cancel();
                     prepareBattle(true, false);
-                    BtnEvent.setVisibility(View.INVISIBLE);
+
                 });
                 BtnEvent.setText(getText(R.string.enemyfound));
                 BtnEvent.setVisibility(View.VISIBLE);
@@ -1242,11 +1201,10 @@ public class MainActivity extends AppCompatActivity {
                 BtnEvent.setText(getText(R.string.bossfound));
                 BtnEvent.setVisibility(View.VISIBLE);
                 BtnEvent.setOnClickListener(v -> {
+                    BtnEvent.setVisibility(View.INVISIBLE);
                     eventimage.setVisibility(View.INVISIBLE);
                     eventanimation.cancel();
                     prepareBattle(true, true);
-
-                    BtnEvent.setVisibility(View.INVISIBLE);
                 });
                 break;
         }
@@ -1579,11 +1537,27 @@ public class MainActivity extends AppCompatActivity {
         // show the popup window
         // which view you pass in doesn't matter, it is only used for the window token
         trainWindow.setAnimationStyle(R.style.PopupAnimation);
-        trainWindow.showAtLocation(findViewById(R.id.placeholder), Gravity.CENTER, 0, 0);
+        trainWindow.showAtLocation(findViewById(R.id.parent), Gravity.CENTER, 0, 0);
         final TextView trainingtitle = trainView.findViewById(R.id.training_title);
         final TextView trainingtime = trainView.findViewById(R.id.training_time);
         trainingtitle.setText(getText(R.string.TrainingReady));
         trainingtapcount = 0;
+
+        int[] enemyfound = getResources().getIntArray(enemyarrayid);
+        int enemyattack = enemyfound[6+enemyfound[1]];
+        int enemychance = enemyfound[7+enemyfound[1]];
+        AsyncTask.execute(() -> {
+            AppDatabase db = AppDatabase.getInstance(getApplicationContext());
+            Journey temp = db.journeyDao().getJourney().get(0);
+            temp.setEnemyarrayid(enemyarrayid);
+            temp.setEnemyhealth(enemyhealth);
+            temp.setEnemymaxhealth(enemymaxhealth);
+            temp.setIsbattling(true);
+            temp.setBossfight(boss);
+            db.journeyDao().update(temp);
+            db.journeyDao().updateMonster(currentmonster);
+        });
+
         Handler h = new Handler();
         //Run a runnable after 100ms (after that time it is safe to remove the view)
         h.postDelayed(() -> {
@@ -1611,23 +1585,8 @@ public class MainActivity extends AppCompatActivity {
                     h1.postDelayed(() -> {
                         trainWindow.dismiss();
                         trainView = null;
-
-                        int[] enemyfound = getResources().getIntArray(enemyarrayid);
-                        int enemyattack = enemyfound[6+enemyfound[1]];
-                        int enemychance = enemyfound[7+enemyfound[1]];
                         performbattle(currentmonster.battle(enemyattack,enemyhealth,enemychance, trainingtapcount, false),
                                 enemyattack, boss);
-                        AsyncTask.execute(() -> {
-                            AppDatabase db = AppDatabase.getInstance(getApplicationContext());
-                            Journey temp = db.journeyDao().getJourney().get(0);
-                            temp.setEnemyarrayid(enemyarrayid);
-                            temp.setEnemyhealth(enemyhealth);
-                            temp.setEnemymaxhealth(enemymaxhealth);
-                            temp.setIsbattling(true);
-                            temp.setBossfight(boss);
-                            db.journeyDao().update(temp);
-                            db.journeyDao().updateMonster(currentmonster);
-                        });
                     }, 2000);
                 }
             }.start();
@@ -1856,7 +1815,6 @@ public class MainActivity extends AppCompatActivity {
                                 attack2View.setTranslationX(width);
                             });
 
-
                             break;
                         case 1: //p1 win
                             playerattack.addUpdateListener(animation -> {
@@ -2007,6 +1965,9 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onAnimationEnd(Animator animation) {
                         //check if the battle has ended
+                        AnimationDrawable tempanimator = (AnimationDrawable) monster.getBackground();
+                        tempanimator.stop();
+                        monster.setVisibility(View.INVISIBLE);
                         battleWindow.dismiss();
                         if(enemyhealth > 0 && currentmonster.getCurrenthealth() > 0){
                             monster.setScaleX(1);
@@ -2018,7 +1979,7 @@ public class MainActivity extends AppCompatActivity {
                             frmlayout.removeAllViews();
                             LayoutInflater aboutinflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
                             assert aboutinflater != null;
-                            final View home = aboutinflater.inflate(R.layout.home_screen, (ViewGroup)null);
+                            final View home = aboutinflater.inflate(R.layout.home_screen, null);
                             Fade mFade = new Fade(Fade.IN);
                             TransitionManager.beginDelayedTransition(frmlayout, mFade);
 
@@ -2026,9 +1987,7 @@ public class MainActivity extends AppCompatActivity {
                             home.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
                                 @Override
                                 public void onGlobalLayout() {
-
                                     selectedIcon(currentarrayid, mainActivity);
-
                                     home.getViewTreeObserver().removeOnGlobalLayoutListener(this);
                                 }
                             });
@@ -2378,6 +2337,13 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(String... strings) {
             AppDatabase db = AppDatabase.getInstance(weakActivity.get());
+            //check if database has been set up, if not then populate it
+            if(db.journeyDao().getJourney().size() == 0){
+                db.journeyDao().insertAll(Journey.populateData());
+                db.journeyDao().insertMonster(Monster.populateData());
+                db.journeyDao().insertUnlockedMonster(UnlockedMonster.populateData());
+                db.journeyDao().insertCompletedMaps(CompletedMaps.populateData());
+            }
             firsttime = db.journeyDao().getJourney().get(0).isFirsttime();
             return null;
         }

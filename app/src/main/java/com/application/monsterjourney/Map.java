@@ -95,24 +95,9 @@ public class Map extends AppCompatActivity {
                     TypedArray viewarray = getResources().obtainTypedArray(R.array.map_list);
                     storytype = viewarray.getResourceId(selected, R.array.enigma_map);
                     currentselectedstory = selected;
-                    showView();
 
-                    AsyncTask.execute(() -> {
-                        AppDatabase db = AppDatabase.buildDatabase(getApplicationContext());
-                        Journey tempjourney = db.journeyDao().getJourney().get(0);
-                        tempjourney.setStorytype(storytype);
-                        //set the story steps to the new steps for the map
-                        for(CompletedMaps completedMaps : completedMapsList){
-                            if(completedMaps.getMaparray() == tempjourney.getStorytype()){
-                                tempjourney.setStorysteps(completedMaps.getStorysteps());
-                                break;
-                            }
-                        }
-
-                        db.journeyDao().update(tempjourney);
-                    });
-
-                    viewarray.recycle();
+                    ChangeStory runner = new ChangeStory(mainActivity, storytype, completedMapsList);
+                    runner.execute();
                 });
 
                 if(!isbought){
@@ -252,6 +237,46 @@ public class Map extends AppCompatActivity {
             }
             activity.showView();
             viewarray.recycle();
+        }
+    }
+
+    /**
+     * AsyncTask to start the care
+     */
+    static private class ChangeStory extends AsyncTask<String,TextView,String> {
+        private List<CompletedMaps> completedMapsList;
+        private int storytype;
+        private long storysteps;
+        // Weak references will still allow the Activity to be garbage-collected
+        private final WeakReference<Activity> weakActivity;
+
+        public ChangeStory(Activity myActivity, int storytype, List<CompletedMaps> completedMapsList){
+            this.weakActivity = new WeakReference<>(myActivity);
+            this.storytype = storytype;
+            this.completedMapsList = completedMapsList;
+        }
+        @Override
+        protected String doInBackground(String... strings) {
+            AppDatabase db = AppDatabase.buildDatabase(weakActivity.get());
+            Journey tempjourney = db.journeyDao().getJourney().get(0);
+            tempjourney.setStorytype(storytype);
+            //set the story steps to the new steps for the map
+            for(CompletedMaps completedMaps : completedMapsList){
+                if(completedMaps.getMaparray() == tempjourney.getStorytype()){
+                    storysteps = completedMaps.getStorysteps();
+                    tempjourney.setStorysteps(storysteps);
+                    break;
+                }
+            }
+            db.journeyDao().update(tempjourney);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            Map activity = (Map) weakActivity.get();
+            activity.storysteps = storysteps;
+            activity.showView();
         }
     }
 

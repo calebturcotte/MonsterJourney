@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer-array name="cosmic_egg">
+        <item name="stage">0</item>
+        <item name="evolutions">2</item>
+        <item name="title">@string/cosmic_egg_title</item>
+        <item name="description">@string/cosmic_egg_description</item>
+        <item name="icon">@drawable/egg_cosmic_idle</item>
+        <item name="evo1">@array/cosmic_baby1</item>
+        <item name="evo1">@array/cosmic_baby2</item>
+    </integer-array>
+
+    <integer-array name="cosmic_baby1">
+        <item name="stage">1</item>
+        <item name="evolutions">3</item>
+        <item name="title">@string/cosmic_baby1_title</item>
+        <item name="description">@string/cosmic_baby1_description</item>
+        <item name="icon">@drawable/baby_cosmic_idle</item>
+        <item name="evo1">@array/cosmic_child_pisces</item>
+        <item name="evo2">@array/cosmic_child_lyra</item>
+        <item name="evo3">@array/cosmic_child_gemini</item>
+        <item name="health">3</item>
+        <item name="attack">1</item>
+        <item name="attackchance">50</item>
+        <item name="diligence">6</item>
+        <item name="hunger">4</item>
+        <item name="gluttony">3</item>
+        <item name="mistakes">2</item>
+        <item name="type">@array/cosmic_egg</item>
+        <item name="attackicon">@drawable/baby_cosmic_attack</item>
+        <item name="happyicon">@drawable/baby_cosmic_happy</item>
+    </integer-array>
+
+    <integer-array name="cosmic_baby2">
+        <item name="stage">1</item>
+        <item name="evolutions">3</item>
+        <item name="title">@string/cosmic_baby2_title</item>
+        <item name="description">@string/cosmic_baby2_description</item>
+        <item name="icon">@drawable/baby_cosmic2_idle</item>
+        <item name="evo1">@array/cosmic_child_scorpio</item>
+        <item name="evo2">@array/cosmic_child_ursaminor</item>
+        <item name="evo3">@array/cosmic_child_gemini</item>
+        <item name="health">3</item>
+        <item name="attack">1</item>
+        <item name="attackchance">50</item>
+        <item name="diligence">6</item>
+        <item name="hunger">4</item>
+        <item name="gluttony">3</item>
+        <item name="mistakes">2</item>
+        <item name="type">@array/cosmic_egg</item>
+        <item name="attackicon">@drawable/baby_cosmic2_attack</item>
+        <item name="happyicon">@drawable/baby_cosmic2_happy</item>
+    </integer-array>
+
+    <integer-array name="cosmic_child_gemini">
+        <item name="stage">2</item>
+        <item name="evolutions">3</item>
+        <item name="title">@string/baby_fire_sparky_title</item>
+        <item name="description">@string/baby_fire_sparky_description</item>
+        <item name="icon">@drawable/child_cosmic_gemini_idle</item>
+        <item name="evo1">@array/cosmic_adult_cancer</item>
+        <item name="evo2">@array/cosmic_adult_aquarius</item>
+        <item name="evo3">@array/cosmic_adult_capricorn</item>
+        <item name="health">5</item>
+        <item name="attack">2</item>
+        <item name="attackchance">50</item>
+        <item name="diligence">0</item>
+        <item name="hunger">0</item>
+        <item name="gluttony">10000</item>
+        <item name="mistakes">10000</item>
+        <item name="type">@array/cosmic_egg</item>
+        <item name="attackicon">@drawable/child_cosmic_gemini_attack</item>
+        <item name="happyicon">@drawable/child_cosmic_gemini_happy</item>
+    </integer-array>
+
+    <integer-array name="cosmic_child_scorpio">
+        <item name="stage">2</item>
+        <item name="evolutions">3</item>
+        <item name="title">@string/baby_fire_sparky_title</item>
+        <item name="description">@string/baby_fire_sparky_description</item>
+        <item name="icon">@drawable/child_cosmic_scorpion_idle</item>
+        <item name="evo1">@array/cosmic_adult_tauros</item>
+        <item name="evo2">@array/cosmic_adult_cancer</item>
+        <item name="evo3">@array/cosmic_adult_aries</item>
+        <item name="health">6</item>
+        <item name="attack">2</item>
+        <item name="attackchance">55</item>
+        <item name="diligence">5</item>
+        <item name="hunger">3</item>
+        <item name="gluttony">2</item>
+        <item name="mistakes">6</item>
+        <item name="type">@array/cosmic_egg</item>
+        <item name="attackicon">@drawable/child_cosmic_scorpion_attack</item>
+        <item name="happyicon">@drawable/child_cosmic_scorpion_happy</item>
+    </integer-array>
+
+    <integer-array name="cosmic_child_ursaminor">
+        <item name="stage">2</item>
+        <item name="evolutions">4</item>
+        <item name="title">@string/baby_fire_sparky_title</item>
+        <item name="description">@string/baby_fire_sparky_description</item>
+        <item name="icon">@drawable/child_cosmic_ursaminor_idle</item>
+        <item name="evo1">@array/cosmic_adult_tauros</item>
+        <item name="evo1">@array/cosmic_adult_virgo</item>
+        <item name="evo2">@array/cosmic_adult_libra</item>
+        <item name="evo3">@array/cosmic_adult_aries</item>
+        <item name="health">7</item>
+        <item name="attack">2</item>
+        <item name="attackchance">50</item>
+        <item name="diligence">1</item>
+        <item name="hunger">6</item>
+        <item name="gluttony">7</item>
+        <item name="mistakes">2</item>
+        <item name="type">@array/cosmic_egg</item>
+        <item name="attackicon">@drawable/child_cosmic_ursaminor_attack</item>
+        <item name="happyicon">@drawable/child_cosmic_ursaminor_happy</item>
+    </integer-array>
+
+    <integer-array name="cosmic_child_lyra">
+        <item name="stage">2</item>
+        <item name="evolutions">4</item>
+        <item name="title">@string/baby_fire_sparky_title</item>
+        <item name="description">@string/baby_fire_sparky_description</item>
+        <item name="icon">@drawable/child_cosmic_lyra_idle</item>
+        <item name="evo1">@array/cosmic_adult_leo</item>
+        <item name="evo2">@array/cosmic_adult_aquarius</item>
+        <item name="evo3">@array/cosmic_adult_libra</item>
+        <item name="evo4">@array/cosmic_adult_sagittarius</item>
+        <item name="health">7</item>
+        <item name="attack">2</item>
+        <item name="attackchance">50</item>
+        <item name="diligence">2</item>
+        <item name="hunger">6</item>
+        <item name="gluttony">5</item>
+        <item name="mistakes">2</item>
+        <item name="type">@array/cosmic_egg</item>
+        <item name="attackicon">@drawable/child_cosmic_lyra_attack</item>
+        <item name="happyicon">@drawable/child_cosmic_lyra_happy</item>
+    </integer-array>
+
+    <integer-array name="cosmic_child_pisces">
+        <item name="stage">2</item>
+        <item name="evolutions">4</item>
+        <item name="title">@string/baby_fire_sparky_title</item>
+        <item name="description">@string/baby_fire_sparky_description</item>
+        <item name="icon">@drawable/child_cosmic_pisces_idle</item>
+        <item name="evo1">@array/cosmic_adult_leo</item>
+        <item name="evo2">@array/cosmic_adult_virgo</item>
+        <item name="evo3">@array/cosmic_adult_cancer</item>
+        <item name="evo4">@array/cosmic_adult_sagittarius</item>
+        <item name="health">6</item>
+        <item name="attack">2</item>
+        <item name="attackchance">55</item>
+        <item name="diligence">5</item>
+        <item name="hunger">2</item>
+        <item name="gluttony">1</item>
+        <item name="mistakes">8</item>
+        <item name="type">@array/cosmic_egg</item>
+        <item name="attackicon">@drawable/child_cosmic_pisces_attack</item>
+        <item name="happyicon">@drawable/child_cosmic_pisces_happy</item>
+    </integer-array>
+
+<!--    Cosmic Adult-->
+
+    <integer-array name="cosmic_adult_capricorn">
+        <item name="stage">3</item>
+        <item name="evolutions">0</item>
+        <item name="title">@string/baby_fire_sparky_title</item>
+        <item name="description">@string/baby_fire_sparky_description</item>
+        <item name="icon">@drawable/adult_cosmic_capricorn_idle</item>
+        <item name="health">13</item>
+        <item name="attack">3</item>
+        <item name="attackchance">50</item>
+        <item name="diligence">0</item>
+        <item name="hunger">0</item>
+        <item name="gluttony">10000</item>
+        <item name="mistakes">10000</item>
+        <item name="type">@array/cosmic_egg</item>
+        <item name="attackicon">@drawable/adult_cosmic_capricorn_attack</item>
+        <item name="happyicon">@drawable/adult_cosmic_capricorn_happy</item>
+    </integer-array>
+
+    <integer-array name="cosmic_adult_sagittarius">
+        <item name="stage">3</item>
+        <item name="evolutions">0</item>
+        <item name="title">@string/baby_fire_sparky_title</item>
+        <item name="description">@string/baby_fire_sparky_description</item>
+        <item name="icon">@drawable/adult_cosmic_sagittarius_idle</item>
+        <item name="health">13</item>
+        <item name="attack">3</item>
+        <item name="attackchance">50</item>
+        <item name="diligence">0</item>
+        <item name="hunger">0</item>
+        <item name="gluttony">10000</item>
+        <item name="mistakes">10000</item>
+        <item name="type">@array/cosmic_egg</item>
+        <item name="attackicon">@drawable/adult_cosmic_sagittarius_attack</item>
+        <item name="happyicon">@drawable/adult_cosmic_sagittarius_happy</item>
+    </integer-array>
+
+    <integer-array name="cosmic_adult_aries">
+        <item name="stage">3</item>
+        <item name="evolutions">0</item>
+        <item name="title">@string/baby_fire_sparky_title</item>
+        <item name="description">@string/baby_fire_sparky_description</item>
+        <item name="icon">@drawable/adult_cosmic_aries_idle</item>
+        <item name="health">13</item>
+        <item name="attack">3</item>
+        <item name="attackchance">50</item>
+        <item name="diligence">0</item>
+        <item name="hunger">0</item>
+        <item name="gluttony">10000</item>
+        <item name="mistakes">10000</item>
+        <item name="type">@array/cosmic_egg</item>
+        <item name="attackicon">@drawable/adult_cosmic_aries_attack</item>
+        <item name="happyicon">@drawable/adult_cosmic_aries_happy</item>
+    </integer-array>
+
+    <integer-array name="cosmic_adult_cancer">
+        <item name="stage">3</item>
+        <item name="evolutions">0</item>
+        <item name="title">@string/baby_fire_sparky_title</item>
+        <item name="description">@string/baby_fire_sparky_description</item>
+        <item name="icon">@drawable/adult_cosmic_cancer_idle</item>
+        <item name="health">13</item>
+        <item name="attack">3</item>
+        <item name="attackchance">50</item>
+        <item name="diligence">6</item>
+        <item name="hunger">6</item>
+        <item name="gluttony">3</item>
+        <item name="mistakes">3</item>
+        <item name="type">@array/cosmic_egg</item>
+        <item name="attackicon">@drawable/adult_cosmic_cancer_attack</item>
+        <item name="happyicon">@drawable/adult_cosmic_cancer_happy</item>
+    </integer-array>
+
+    <integer-array name="cosmic_adult_aquarius">
+        <item name="stage">3</item>
+        <item name="evolutions">0</item>
+        <item name="title">@string/baby_fire_sparky_title</item>
+        <item name="description">@string/baby_fire_sparky_description</item>
+        <item name="icon">@drawable/adult_cosmic_aquarius_idle</item>
+        <item name="health">13</item>
+        <item name="attack">3</item>
+        <item name="attackchance">50</item>
+        <item name="diligence">3</item>
+        <item name="hunger">7</item>
+        <item name="gluttony">3</item>
+        <item name="mistakes">2</item>
+        <item name="type">@array/cosmic_egg</item>
+        <item name="attackicon">@drawable/adult_cosmic_aquarius_attack</item>
+        <item name="happyicon">@drawable/adult_cosmic_aquarius_happy</item>
+    </integer-array>
+
+    <integer-array name="cosmic_adult_leo">
+        <item name="stage">3</item>
+        <item name="evolutions">0</item>
+        <item name="title">@string/baby_fire_sparky_title</item>
+        <item name="description">@string/baby_fire_sparky_description</item>
+        <item name="icon">@drawable/adult_cosmic_leo_idle</item>
+        <item name="health">16</item>
+        <item name="attack">3</item>
+        <item name="attackchance">55</item>
+        <item name="diligence">8</item>
+        <item name="hunger">6</item>
+        <item name="gluttony">0</item>
+        <item name="mistakes">0</item>
+        <item name="type">@array/cosmic_egg</item>
+        <item name="attackicon">@drawable/adult_cosmic_leo_attack</item>
+        <item name="happyicon">@drawable/adult_cosmic_leo_happy</item>
+    </integer-array>
+
+    <integer-array name="cosmic_adult_tauros">
+        <item name="stage">3</item>
+        <item name="evolutions">0</item>
+        <item name="title">@string/baby_fire_sparky_title</item>
+        <item name="description">@string/baby_fire_sparky_description</item>
+        <item name="icon">@drawable/adult_cosmic_tauros_idle</item>
+        <item name="health">16</item>
+        <item name="attack">3</item>
+        <item name="attackchance">55</item>
+        <item name="diligence">8</item>
+        <item name="hunger">6</item>
+        <item name="gluttony">0</item>
+        <item name="mistakes">0</item>
+        <item name="type">@array/cosmic_egg</item>
+        <item name="attackicon">@drawable/adult_cosmic_tauros_attack</item>
+        <item name="happyicon">@drawable/adult_cosmic_tauros_happy</item>
+    </integer-array>
+
+    <integer-array name="cosmic_adult_virgo">
+        <item name="stage">3</item>
+        <item name="evolutions">0</item>
+        <item name="title">@string/baby_fire_sparky_title</item>
+        <item name="description">@string/baby_fire_sparky_description</item>
+        <item name="icon">@drawable/adult_cosmic_virgo_idle</item>
+        <item name="health">14</item>
+        <item name="attack">3</item>
+        <item name="attackchance">50</item>
+        <item name="diligence">4</item>
+        <item name="hunger">7</item>
+        <item name="gluttony">4</item>
+        <item name="mistakes">3</item>
+        <item name="type">@array/cosmic_egg</item>
+        <item name="attackicon">@drawable/adult_cosmic_virgo_attack</item>
+        <item name="happyicon">@drawable/adult_cosmic_virgo_happy</item>
+    </integer-array>
+
+    <integer-array name="cosmic_adult_libra">
+        <item name="stage">3</item>
+        <item name="evolutions">0</item>
+        <item name="title">@string/baby_fire_sparky_title</item>
+        <item name="description">@string/baby_fire_sparky_description</item>
+        <item name="icon">@drawable/adult_cosmic_libra_idle</item>
+        <item name="health">13</item>
+        <item name="attack">3</item>
+        <item name="attackchance">55</item>
+        <item name="diligence">5</item>
+        <item name="hunger">5</item>
+        <item name="gluttony">2</item>
+        <item name="mistakes">2</item>
+        <item name="type">@array/cosmic_egg</item>
+        <item name="attackicon">@drawable/adult_cosmic_libra_attack</item>
+        <item name="happyicon">@drawable/adult_cosmic_libra_happy</item>
+    </integer-array>
+
+    <integer-array name="cosmic_baby_enemies">
+        <item name="size">2</item>
+        <item name="stage1">@array/cosmic_baby1</item>
+        <item name="stage2">@array/cosmic_baby2</item>
+    </integer-array>
+
+    <integer-array name="cosmic_child_enemies">
+        <item name="size">3</item>
+        <item name="stage2">@array/cosmic_child_scorpio</item>
+        <item name="stage3">@array/cosmic_child_gemini</item>
+        <item name="stage4">@array/cosmic_child_lyra</item>
+    </integer-array>
+
+    <integer-array name="cosmic_adult_enemies">
+        <item name="size">5</item>
+        <item name="stage1">@array/cosmic_adult_cancer</item>
+        <item name="stage2">@array/cosmic_adult_sagittarius</item>
+        <item name="stage3">@array/cosmic_adult_virgo</item>
+        <item name="stage4">@array/cosmic_adult_aquarius</item>
+        <item name="stage4">@array/cosmic_adult_libra</item>
+    </integer-array>
+
+
+</resources>

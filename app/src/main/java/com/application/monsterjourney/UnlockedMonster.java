@@ -33,7 +33,6 @@ public class UnlockedMonster {
         this.stage = stage;
     }
 
-    //TODO implement all missing monsters, to future proof may need to add update method to db to allow more new monster types to be added in
     public static UnlockedMonster[] populateData(){
         return new UnlockedMonster[] {
                 new UnlockedMonster(R.array.enigma_egg,0, true),
@@ -153,7 +152,41 @@ public class UnlockedMonster {
                 new UnlockedMonster(R.array.dark_adult_greedfox, 3,false),
                 new UnlockedMonster(R.array.dark_adult_scorpion, 3,false),
                 new UnlockedMonster(R.array.dark_adult_sloth, 3,false),
-                new UnlockedMonster(R.array.dark_adult_wolf, 3,false)
+                new UnlockedMonster(R.array.dark_adult_wolf, 3,false),
+                new UnlockedMonster(R.array.light_egg, 0,false),
+                new UnlockedMonster(R.array.light_baby1,1, false),
+                new UnlockedMonster(R.array.light_baby2, 1,false),
+                new UnlockedMonster(R.array.light_child_amulet,2, false),
+                new UnlockedMonster(R.array.light_child_angel, 2,false),
+                new UnlockedMonster(R.array.light_child_angeldoctor, 2,false),
+                new UnlockedMonster(R.array.light_child_crystal, 2,false),
+                new UnlockedMonster(R.array.light_child_turtle,2, false),
+                new UnlockedMonster(R.array.light_adult_armour, 3,false),
+                new UnlockedMonster(R.array.light_adult_butterfly, 3,false),
+                new UnlockedMonster(R.array.light_adult_centaur, 3,false),
+                new UnlockedMonster(R.array.light_adult_dragon, 3,false),
+                new UnlockedMonster(R.array.light_adult_frog, 3,false),
+                new UnlockedMonster(R.array.light_adult_holyring, 3,false),
+                new UnlockedMonster(R.array.light_adult_kingarmor, 3,false),
+                new UnlockedMonster(R.array.light_adult_snake, 3,false),
+                new UnlockedMonster(R.array.light_adult_wyvern, 3,false),
+                new UnlockedMonster(R.array.cosmic_egg, 0,false),
+                new UnlockedMonster(R.array.cosmic_baby1,1, false),
+                new UnlockedMonster(R.array.cosmic_baby2, 1,false),
+                new UnlockedMonster(R.array.cosmic_child_gemini,2, false),
+                new UnlockedMonster(R.array.cosmic_child_lyra, 2,false),
+                new UnlockedMonster(R.array.cosmic_child_pisces, 2,false),
+                new UnlockedMonster(R.array.cosmic_child_scorpio, 2,false),
+                new UnlockedMonster(R.array.cosmic_child_ursaminor,2, false),
+                new UnlockedMonster(R.array.cosmic_adult_aquarius, 3,false),
+                new UnlockedMonster(R.array.cosmic_adult_aries, 3,false),
+                new UnlockedMonster(R.array.cosmic_adult_cancer, 3,false),
+                new UnlockedMonster(R.array.cosmic_adult_capricorn, 3,false),
+                new UnlockedMonster(R.array.cosmic_adult_leo, 3,false),
+                new UnlockedMonster(R.array.cosmic_adult_libra, 3,false),
+                new UnlockedMonster(R.array.cosmic_adult_sagittarius, 3,false),
+                new UnlockedMonster(R.array.cosmic_adult_tauros, 3,false),
+                new UnlockedMonster(R.array.cosmic_adult_virgo, 3,false)
         };
     }
 

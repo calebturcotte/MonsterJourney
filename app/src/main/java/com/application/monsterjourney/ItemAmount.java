@@ -27,8 +27,8 @@ public class ItemAmount {
     public int getAmount(){return amount;}
 
     /**
-     *
+     * check the inverted for if it is unlocked or not
      * @return if the amount we have of the item is big enough to be unlocked
      */
-    public boolean isUnlocked(){return unlocked;}
+    public boolean isUnlocked(){return !unlocked;}
 }

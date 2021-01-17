@@ -14,8 +14,8 @@
     <integer-array name="fire_baby1">
         <item name="stage">1</item>
         <item name="evolutions">3</item>
-        <item name="title">@string/basic_baby1_title</item>
-        <item name="description">@string/basic_baby1_description</item>
+        <item name="title">@string/baby_fire_fat_title</item>
+        <item name="description">@string/baby_fire_fat_description</item>
         <item name="icon">@drawable/baby_fire_fat_idle</item>
         <item name="evo1">@array/dino_baby1</item>
         <item name="evo2">@array/dino_baby1</item>
@@ -56,8 +56,8 @@
     <integer-array name="fire_child_chameleon">
         <item name="stage">2</item>
         <item name="evolutions">4</item>
-        <item name="title">@string/baby_fire_sparky_title</item>
-        <item name="description">@string/baby_fire_sparky_description</item>
+        <item name="title">@string/child_fire_chameleon_title</item>
+        <item name="description">@string/child_fire_chameleon_description</item>
         <item name="icon">@drawable/child_fire_chameleon_idle</item>
         <item name="evo1">@array/fire_adult_tikimask</item>
         <item name="evo2">@array/fire_adult_elemental</item>
@@ -78,14 +78,14 @@
     <integer-array name="fire_child_toad">
         <item name="stage">2</item>
         <item name="evolutions">4</item>
-        <item name="title">@string/baby_fire_sparky_title</item>
-        <item name="description">@string/baby_fire_sparky_description</item>
+        <item name="title">@string/child_fire_toad_title</item>
+        <item name="description">@string/child_fire_toad_description</item>
         <item name="icon">@drawable/child_fire_toad_idle</item>
         <item name="evo1">@array/fire_adult_tikimask</item>
         <item name="evo2">@array/fire_adult_spirit</item>
         <item name="evo3">@array/fire_adult_fox</item>
         <item name="evo4">@array/fire_adult_snake</item>
-        <item name="health">5</item>
+        <item name="health">6</item>
         <item name="attack">2</item>
         <item name="attackchance">50</item>
         <item name="diligence">1</item>
@@ -100,8 +100,8 @@
     <integer-array name="fire_child_seaturtle">
         <item name="stage">2</item>
         <item name="evolutions">4</item>
-        <item name="title">@string/baby_fire_sparky_title</item>
-        <item name="description">@string/baby_fire_sparky_description</item>
+        <item name="title">@string/child_fire_seaturtle_title</item>
+        <item name="description">@string/child_fire_seaturtle_description</item>
         <item name="icon">@drawable/child_fire_seaturtle_idle</item>
         <item name="evo1">@array/fire_adult_tikimask</item>
         <item name="evo2">@array/fire_adult_spirit</item>
@@ -109,7 +109,7 @@
         <item name="evo4">@array/fire_adult_snake</item>
         <item name="health">5</item>
         <item name="attack">2</item>
-        <item name="attackchance">50</item>
+        <item name="attackchance">55</item>
         <item name="diligence">5</item>
         <item name="hunger">3</item>
         <item name="gluttony">1</item>
@@ -122,8 +122,8 @@
     <integer-array name="fire_child_fireball">
         <item name="stage">2</item>
         <item name="evolutions">4</item>
-        <item name="title">@string/baby_fire_sparky_title</item>
-        <item name="description">@string/baby_fire_sparky_description</item>
+        <item name="title">@string/child_fire_fireball_title</item>
+        <item name="description">@string/child_fire_fireball_description</item>
         <item name="icon">@drawable/child_fire_fireball_idle</item>
         <item name="evo1">@array/fire_adult_serpent</item>
         <item name="evo2">@array/fire_adult_firelordgoat</item>
@@ -131,7 +131,7 @@
         <item name="evo4">@array/fire_adult_fireball</item>
         <item name="health">5</item>
         <item name="attack">2</item>
-        <item name="attackchance">50</item>
+        <item name="attackchance">55</item>
         <item name="diligence">4</item>
         <item name="hunger">3</item>
         <item name="gluttony">1</item>
@@ -144,14 +144,14 @@
     <integer-array name="fire_child_wyvern">
         <item name="stage">2</item>
         <item name="evolutions">4</item>
-        <item name="title">@string/baby_fire_sparky_title</item>
-        <item name="description">@string/baby_fire_sparky_description</item>
+        <item name="title">@string/child_fire_wyvern_title</item>
+        <item name="description">@string/child_fire_wyvern_description</item>
         <item name="icon">@drawable/child_fire_wyvern_idle</item>
         <item name="evo1">@array/fire_adult_serpent</item>
         <item name="evo2">@array/fire_adult_firelordgoat</item>
         <item name="evo3">@array/fire_adult_baby</item>
         <item name="evo4">@array/fire_adult_fireball</item>
-        <item name="health">5</item>
+        <item name="health">6</item>
         <item name="attack">2</item>
         <item name="attackchance">50</item>
         <item name="diligence">2</item>
@@ -168,8 +168,8 @@
     <integer-array name="fire_adult_fireball">
         <item name="stage">3</item>
         <item name="evolutions">0</item>
-        <item name="title">@string/baby_fire_sparky_title</item>
-        <item name="description">@string/baby_fire_sparky_description</item>
+        <item name="title">@string/adult_fire_fireball_title</item>
+        <item name="description">@string/adult_fire_fireball_description</item>
         <item name="icon">@drawable/adult_fire_fireball_idle</item>
         <item name="health">11</item>
         <item name="attack">3</item>
@@ -186,8 +186,8 @@
     <integer-array name="fire_adult_factorygorilla">
         <item name="stage">3</item>
         <item name="evolutions">0</item>
-        <item name="title">@string/baby_fire_sparky_title</item>
-        <item name="description">@string/baby_fire_sparky_description</item>
+        <item name="title">@string/adult_fire_factorygorilla_title</item>
+        <item name="description">@string/adult_fire_factorygorilla_description</item>
         <item name="icon">@drawable/adult_fire_factorygorilla_idle</item>
         <item name="health">11</item>
         <item name="attack">3</item>
@@ -204,8 +204,8 @@
     <integer-array name="fire_adult_snake">
         <item name="stage">3</item>
         <item name="evolutions">0</item>
-        <item name="title">@string/baby_fire_sparky_title</item>
-        <item name="description">@string/baby_fire_sparky_description</item>
+        <item name="title">@string/adult_fire_snake_title</item>
+        <item name="description">@string/adult_fire_snake_description</item>
         <item name="icon">@drawable/adult_fire_snake_idle</item>
         <item name="health">11</item>
         <item name="attack">3</item>
@@ -222,12 +222,12 @@
     <integer-array name="fire_adult_tikimask">
         <item name="stage">3</item>
         <item name="evolutions">0</item>
-        <item name="title">@string/baby_fire_sparky_title</item>
-        <item name="description">@string/baby_fire_sparky_description</item>
+        <item name="title">@string/adult_fire_tikimask_title</item>
+        <item name="description">@string/adult_fire_tikimask_description</item>
         <item name="icon">@drawable/adult_fire_tikimask_idle</item>
-        <item name="health">11</item>
+        <item name="health">15</item>
         <item name="attack">3</item>
-        <item name="attackchance">50</item>
+        <item name="attackchance">55</item>
         <item name="diligence">8</item>
         <item name="hunger">6</item>
         <item name="gluttony">1</item>
@@ -240,10 +240,10 @@
     <integer-array name="fire_adult_serpent">
         <item name="stage">3</item>
         <item name="evolutions">0</item>
-        <item name="title">@string/baby_fire_sparky_title</item>
-        <item name="description">@string/baby_fire_sparky_description</item>
+        <item name="title">@string/adult_fire_serpent_title</item>
+        <item name="description">@string/adult_fire_serpent_description</item>
         <item name="icon">@drawable/adult_fire_serpent_idle</item>
-        <item name="health">11</item>
+        <item name="health">15</item>
         <item name="attack">3</item>
         <item name="attackchance">50</item>
         <item name="diligence">7</item>
@@ -258,12 +258,12 @@
     <integer-array name="fire_adult_firelordgoat">
         <item name="stage">3</item>
         <item name="evolutions">0</item>
-        <item name="title">@string/baby_fire_sparky_title</item>
-        <item name="description">@string/baby_fire_sparky_description</item>
+        <item name="title">@string/adult_fire_firelordgoat_title</item>
+        <item name="description">@string/adult_fire_firelordgoat_description</item>
         <item name="icon">@drawable/adult_fire_firelordgoat_idle</item>
-        <item name="health">11</item>
+        <item name="health">13</item>
         <item name="attack">3</item>
-        <item name="attackchance">50</item>
+        <item name="attackchance">54</item>
         <item name="diligence">8</item>
         <item name="hunger">4</item>
         <item name="gluttony">0</item>
@@ -276,12 +276,12 @@
     <integer-array name="fire_adult_fox">
         <item name="stage">3</item>
         <item name="evolutions">0</item>
-        <item name="title">@string/baby_fire_sparky_title</item>
-        <item name="description">@string/baby_fire_sparky_description</item>
+        <item name="title">@string/adult_fire_fox_title</item>
+        <item name="description">@string/adult_fire_fox_description</item>
         <item name="icon">@drawable/adult_fire_fox_idle</item>
-        <item name="health">11</item>
+        <item name="health">13</item>
         <item name="attack">3</item>
-        <item name="attackchance">50</item>
+        <item name="attackchance">53</item>
         <item name="diligence">6</item>
         <item name="hunger">6</item>
         <item name="gluttony">3</item>
@@ -294,12 +294,12 @@
     <integer-array name="fire_adult_elemental">
         <item name="stage">3</item>
         <item name="evolutions">0</item>
-        <item name="title">@string/baby_fire_sparky_title</item>
-        <item name="description">@string/baby_fire_sparky_description</item>
+        <item name="title">@string/adult_fire_elemental_title</item>
+        <item name="description">@string/adult_fire_elemental_description</item>
         <item name="icon">@drawable/adult_fire_elemental_idle</item>
-        <item name="health">11</item>
+        <item name="health">14</item>
         <item name="attack">3</item>
-        <item name="attackchance">50</item>
+        <item name="attackchance">45</item>
         <item name="diligence">5</item>
         <item name="hunger">7</item>
         <item name="gluttony">4</item>
@@ -312,12 +312,12 @@
     <integer-array name="fire_adult_spirit">
         <item name="stage">3</item>
         <item name="evolutions">0</item>
-        <item name="title">@string/baby_fire_sparky_title</item>
-        <item name="description">@string/baby_fire_sparky_description</item>
+        <item name="title">@string/adult_fire_spirit_title</item>
+        <item name="description">@string/adult_fire_spirit_description</item>
         <item name="icon">@drawable/adult_fire_spirit_idle</item>
-        <item name="health">11</item>
+        <item name="health">13</item>
         <item name="attack">3</item>
-        <item name="attackchance">50</item>
+        <item name="attackchance">55</item>
         <item name="diligence">7</item>
         <item name="hunger">7</item>
         <item name="gluttony">1</item>
@@ -331,12 +331,12 @@
     <integer-array name="fire_adult_baby">
         <item name="stage">3</item>
         <item name="evolutions">0</item>
-        <item name="title">@string/baby_fire_sparky_title</item>
-        <item name="description">@string/baby_fire_sparky_description</item>
+        <item name="title">@string/adult_fire_baby_title</item>
+        <item name="description">@string/adult_fire_baby_description</item>
         <item name="icon">@drawable/adult_fire_spirit_idle</item>
-        <item name="health">11</item>
+        <item name="health">14</item>
         <item name="attack">3</item>
-        <item name="attackchance">50</item>
+        <item name="attackchance">40</item>
         <item name="diligence">3</item>
         <item name="hunger">7</item>
         <item name="gluttony">5</item>
@@ -344,6 +344,29 @@
         <item name="type">@array/fire_egg</item>
         <item name="attackicon">@drawable/adult_fire_spirit_attack</item>
         <item name="happyicon">@drawable/adult_fire_spirit_happy</item>
+    </integer-array>
+
+    <integer-array name="fire_baby_enemies">
+        <item name="size">2</item>
+        <item name="stage1">@array/fire_baby1</item>
+        <item name="stage2">@array/fire_baby2</item>
+    </integer-array>
+
+    <integer-array name="fire_child_enemies">
+        <item name="size">4</item>
+        <item name="stage1">@array/fire_baby2</item>
+        <item name="stage2">@array/fire_child_toad</item>
+        <item name="stage3">@array/fire_child_wyvern</item>
+        <item name="stage4">@array/fire_child_fireball</item>
+    </integer-array>
+
+    <integer-array name="fire_adult_enemies">
+        <item name="size">5</item>
+        <item name="stage1">@array/fire_adult_fireball</item>
+        <item name="stage2">@array/fire_adult_snake</item>
+        <item name="stage3">@array/fire_adult_spirit</item>
+        <item name="stage4">@array/fire_adult_factorygorilla</item>
+        <item name="stage4">@array/fire_adult_elemental</item>
     </integer-array>
 
 </resources>

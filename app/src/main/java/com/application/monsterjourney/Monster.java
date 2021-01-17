@@ -15,7 +15,7 @@ public class Monster {
     /**
      * The current monster
      */
-    @PrimaryKey
+    @PrimaryKey(autoGenerate=true)
     public int uid;
 
     @ColumnInfo(name = "hatched", defaultValue = "false")
@@ -71,9 +71,7 @@ public class Monster {
      * @return fresh monster
      */
     public static Monster populateData() {
-
         return new Monster(0);
-
     }
 
     public void hatch(){
@@ -149,6 +147,25 @@ public class Monster {
     }
 
     /**
+     * Update the monster with another monsters values
+     * @param monster the class we will copy values over from
+     */
+    public Monster updateMonster(Monster monster){
+        this.generation = monster.getGeneration();
+        maxhealth = monster.getMaxhealth();
+        hunger = monster.getHunger();
+        diligence = monster.getDiligence();
+        gluttony = monster.getGluttony();
+        mistakes = monster.getMistakes();
+        name = monster.getName();
+        arrayid = monster.getArrayid();
+        hatched = monster.getHatched();
+        evolvesteps = monster.getEvolvesteps();
+
+        return this;
+    }
+
+    /**
      *
      * @param type the type of food given to the monster
      */
@@ -172,6 +189,15 @@ public class Monster {
             evolvesteps = evolvesteps - 1000;
         }
 
+    }
+
+    public void battleLost(){
+        if(diligence > 0){
+            diligence = diligence - 1;
+        }
+        else{
+            mistakes++;
+        }
     }
 
     /**
@@ -228,10 +254,10 @@ public class Monster {
                 arrayid = temp;
                 success = true;
                 if((stage + 1 )== 1){
-                    setEvolvesteps(10000 - evolvediscount);
+                    setEvolvesteps(8000 - evolvediscount);
                 }
                 else if ((stage + 1) ==2){
-                    setEvolvesteps(15000-evolvediscount);
+                    setEvolvesteps(12000-evolvediscount);
                 }
 /*                editor.putBoolean(String.valueOf(temp),true);
                 editor.apply();*/
@@ -267,10 +293,6 @@ public class Monster {
             battleboost = 5;
         }
 
-//        int[] monsterresources = applicationcontext.getResources().getIntArray(arrayid);
-//        int evolutions = monsterresources[1];
-//        int chance = monsterresources[evolutions + 7];
-//        int power = monsterresources[evolutions + 6];
         int looplength = 4;
         if(online){
             looplength = 1000;

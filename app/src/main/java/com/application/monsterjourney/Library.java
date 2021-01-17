@@ -61,7 +61,7 @@ public class Library extends AppCompatActivity {
             unlockedMonsterList = db.journeyDao().getUnlockedMonster();
         });
 
-        final FrameLayout frmlayout = (FrameLayout) findViewById(R.id.placeholder);
+        final FrameLayout frmlayout = findViewById(R.id.placeholder);
         LayoutInflater aboutinflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
         final View home = aboutinflater.inflate(R.layout.home_screen, (ViewGroup)null);
         boolean isbought = settings.getBoolean("isbought", false);
@@ -217,7 +217,6 @@ public class Library extends AppCompatActivity {
         if(librarypopup != null){
             return;
         }
-
         LayoutInflater storeinflater = (LayoutInflater)
                 getSystemService(LAYOUT_INFLATER_SERVICE);
         assert storeinflater != null;
@@ -225,7 +224,6 @@ public class Library extends AppCompatActivity {
         int width2 = ConstraintLayout.LayoutParams.MATCH_PARENT;
         int height2 = ConstraintLayout.LayoutParams.MATCH_PARENT;
         final PopupWindow libraryWindow = new PopupWindow(librarypopup, width2, height2, true);
-
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             libraryWindow.setElevation(20);
@@ -251,7 +249,6 @@ public class Library extends AppCompatActivity {
 
         LinearLayout.LayoutParams linearparams = new LinearLayout.LayoutParams(0, 200, 1f);
         for(int i = 0; i < viewarray.length(); i++){
-
             TypedArray array = getResources().obtainTypedArray(viewarray.getResourceId(i, R.array.missing_content));
             int backgroundAnimation = R.drawable.missing_content;
             ImageView newView = new ImageView(this);
@@ -268,11 +265,10 @@ public class Library extends AppCompatActivity {
                             libraryWindow.dismiss();
                             showView();
                         });
-                        break;
                     }
+                    break;
                 }
             }
-
             newView.setBackgroundResource(R.color.colorAccent);
             newView.setImageDrawable(ContextCompat.getDrawable(this,backgroundAnimation));
             newView.setLayoutParams(linearparams);
@@ -281,10 +277,7 @@ public class Library extends AppCompatActivity {
 
             linearLayout.addView(newView);
 
-            //tr.addView(newView);
-
             if((i+1) % 5 == 0) {
-                //egg_layout.addView(tr);
                 egg_layout.addView(linearLayout);
                 linearLayout = new LinearLayout(this);
                 linearLayout.setOrientation(LinearLayout.HORIZONTAL);
@@ -302,7 +295,6 @@ public class Library extends AppCompatActivity {
         TableLayout baby_layout = librarypopup.findViewById(R.id.baby_table);
 
         for(int i = 0; i < viewarray2.length(); i++){
-
             TypedArray array = getResources().obtainTypedArray(viewarray2.getResourceId(i, R.array.missing_content));
             int backgroundAnimation = R.drawable.missing_content;
             ImageView newView = new ImageView(this);
@@ -319,8 +311,8 @@ public class Library extends AppCompatActivity {
                             libraryWindow.dismiss();
                             showView();
                         });
-                        break;
                     }
+                    break;
                 }
             }
 
@@ -350,7 +342,6 @@ public class Library extends AppCompatActivity {
         TableLayout child_layout = librarypopup.findViewById(R.id.child_table);
 
         for(int i = 0; i < viewarray3.length(); i++){
-
             TypedArray array = getResources().obtainTypedArray(viewarray3.getResourceId(i, R.array.missing_content));
             int backgroundAnimation = R.drawable.missing_content;
             ImageView newView = new ImageView(this);
@@ -367,8 +358,8 @@ public class Library extends AppCompatActivity {
                             libraryWindow.dismiss();
                             showView();
                         });
-                        break;
                     }
+                    break;
                 }
             }
 
@@ -399,7 +390,6 @@ public class Library extends AppCompatActivity {
         linearLayout.setWeightSum(5);
 
         for(int i = 0; i < viewarray4.length(); i++){
-
             TypedArray array = getResources().obtainTypedArray(viewarray4.getResourceId(i, R.array.missing_content));
             int backgroundAnimation = R.drawable.missing_content;
             ImageView newView = new ImageView(this);
@@ -416,11 +406,10 @@ public class Library extends AppCompatActivity {
                             libraryWindow.dismiss();
                             showView();
                         });
-                        break;
                     }
+                    break;
                 }
             }
-
             newView.setBackgroundResource(R.color.colorAccent);
             newView.setImageDrawable(ContextCompat.getDrawable(this,backgroundAnimation));
             newView.setLayoutParams(linearparams);
@@ -440,7 +429,6 @@ public class Library extends AppCompatActivity {
             array.recycle();
         }
         adult_layout.addView(linearLayout);
-
 
         viewarray.recycle();
         viewarray2.recycle();

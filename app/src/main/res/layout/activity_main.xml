@@ -72,10 +72,10 @@
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.15"/>
 
-        <ImageView
+        <Button
             android:contentDescription="@string/monsterinfo"
             android:id="@+id/monster_info_popup"
-            android:background="@color/colorPrimary"
+            android:background="@drawable/ic_button_info"
             android:layout_width="0dp"
             app:layout_constraintHeight_percent="0.05"
             android:layout_height="0dp"
@@ -150,7 +150,6 @@
 
             <Button
                 android:id="@+id/test"
-                android:visibility="invisible"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 

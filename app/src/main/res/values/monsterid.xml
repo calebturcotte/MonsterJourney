@@ -32,6 +32,8 @@
         <item name="fireegg">@array/fire_egg</item>
         <item name="machineegg">@array/machine_egg</item>
         <item name="darkegg">@array/dark_egg</item>
+        <item name="lightegg">@array/light_egg</item>
+        <item name="cosmicegg">@array/cosmic_egg</item>
     </integer-array>
 
     <integer-array name="baby_list">
@@ -49,6 +51,10 @@
         <item name="fire_baby2">@array/fire_baby2</item>
         <item name="dark_baby1">@array/dark_baby1</item>
         <item name="dark_baby2">@array/dark_baby2</item>
+        <item name="light_baby1">@array/light_baby1</item>
+        <item name="light_baby2">@array/light_baby2</item>
+        <item name="cosmic_baby1">@array/cosmic_baby1</item>
+        <item name="cosmic_baby2">@array/cosmic_baby2</item>
     </integer-array>
 
     <integer-array name="child_list">
@@ -87,6 +93,16 @@
         <item name="dark_child_flyingeye">@array/dark_child_flyingeye</item>
         <item name="dark_child_egghide">@array/dark_child_egghide</item>
         <item name="dark_child_bigmouth">@array/dark_child_bigmouth</item>
+        <item name="light_child_angel">@array/light_child_angel</item>
+        <item name="light_child_angeldoctor">@array/light_child_angeldoctor</item>
+        <item name="light_child_turtle">@array/light_child_turtle</item>
+        <item name="light_child_crystal">@array/light_child_crystal</item>
+        <item name="light_child_amulet">@array/light_child_amulet</item>
+        <item name="cosmic_child_ursaminor">@array/cosmic_child_ursaminor</item>
+        <item name="cosmic_child_scorpio">@array/cosmic_child_scorpio</item>
+        <item name="cosmic_child_gemini">@array/cosmic_child_gemini</item>
+        <item name="cosmic_child_lyra">@array/cosmic_child_lyra</item>
+        <item name="cosmic_child_pisces">@array/cosmic_child_pisces</item>
     </integer-array>
 
     <integer-array name="adult_list">
@@ -152,6 +168,24 @@
         <item name="dark_adult_bear">@array/dark_adult_bear</item>
         <item name="dark_adult_scorpion">@array/dark_adult_scorpion</item>
         <item name="dark_adult_sloth">@array/dark_adult_sloth</item>
+        <item name="light_adult_dragon">@array/light_adult_dragon</item>
+        <item name="light_adult_wyvern">@array/light_adult_wyvern</item>
+        <item name="light_adult_centaur">@array/light_adult_centaur</item>
+        <item name="light_adult_butterfly">@array/light_adult_butterfly</item>
+        <item name="light_adult_armour">@array/light_adult_armour</item>
+        <item name="light_adult_kingarmor">@array/light_adult_kingarmor</item>
+        <item name="light_adult_snake">@array/light_adult_snake</item>
+        <item name="light_adult_frog">@array/light_adult_frog</item>
+        <item name="light_adult_holyring">@array/light_adult_holyring</item>
+        <item name="cosmic_adult_leo">@array/cosmic_adult_leo</item>
+        <item name="cosmic_adult_aquarius">@array/cosmic_adult_aquarius</item>
+        <item name="cosmic_adult_libra">@array/cosmic_adult_libra</item>
+        <item name="cosmic_adult_sagittarius">@array/cosmic_adult_sagittarius</item>
+        <item name="cosmic_adult_virgo">@array/cosmic_adult_virgo</item>
+        <item name="cosmic_adult_tauros">@array/cosmic_adult_tauros</item>
+        <item name="cosmic_adult_cancer">@array/cosmic_adult_cancer</item>
+        <item name="cosmic_adult_aries">@array/cosmic_adult_aries</item>
+        <item name="cosmic_adult_capricorn">@array/cosmic_adult_capricorn</item>
     </integer-array>
 
     <integer-array name="missing_content">

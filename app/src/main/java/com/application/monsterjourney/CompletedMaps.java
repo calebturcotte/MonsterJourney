@@ -24,32 +24,39 @@ public class CompletedMaps {
     @ColumnInfo(name = "storycompleted")
     boolean storycompleted;
 
-    //tells if the map is of a basic type or a rare type
+    //tells if the map is of a basic type or a rare type, 0 for basic, 1 for light/dark, 2 for cosmic
     @ColumnInfo(name = "isbasic")
-    boolean isbasic;
+    int isbasic;
+
+    @ColumnInfo(name = "isstarter")
+    boolean isstarter;
 
 
-    public CompletedMaps(int maparray, long storysteps, boolean isbasic){
+    public CompletedMaps(int maparray, long storysteps, int isbasic, boolean isstarter){
         this.maparray = maparray;
         this.storysteps = storysteps;
         storycompleted = false;
         this.isbasic = isbasic;
-
+        this.isstarter = isstarter;
     }
 
     //TODO implement all missing maps, to future proof may need to add update method to db to allow more new monster types to be added in
+
+    /**
+     * when adding a new map, be sure it is in the same index as it is in the xml file
+     * @return list of all the map data
+     */
     public static CompletedMaps[] populateData(){
         return new CompletedMaps[] {
-                new CompletedMaps(R.array.enigma_map,30000, true),
-                new CompletedMaps(R.array.dino_map,30000, true),
-                new CompletedMaps(R.array.earth_map,30000, true),
-                new CompletedMaps(R.array.fire_map,30000, true),
-                new CompletedMaps(R.array.machine_map,30000, true),
-                new CompletedMaps(R.array.aqua_map,30000, true),
-                new CompletedMaps(R.array.dark_map,30000, false),
-                new CompletedMaps(R.array.light_map,30000, false),
-                new CompletedMaps(R.array.cosmic_map,30000, false)
-
+                new CompletedMaps(R.array.enigma_map,30000, 0, true),
+                new CompletedMaps(R.array.dino_map,30000, 0, true),
+                new CompletedMaps(R.array.earth_map,30000, 0, false),
+                new CompletedMaps(R.array.aqua_map,30000, 0, false),
+                new CompletedMaps(R.array.fire_map,30000, 0, false),
+                new CompletedMaps(R.array.machine_map,30000, 0, false),
+                new CompletedMaps(R.array.dark_map,45000, 1, false),
+                new CompletedMaps(R.array.light_map,45000, 1, false),
+                new CompletedMaps(R.array.cosmic_map,50000, 2, false)
         };
     }
 
@@ -61,9 +68,13 @@ public class CompletedMaps {
 
     public boolean isStorycompleted(){return storycompleted;}
 
-    public void setIsbasic(boolean isbasic){this.isbasic = isbasic;}
+    public void setIsbasic(int isbasic){this.isbasic = isbasic;}
 
-    public boolean isIsbasic(){return isbasic;}
+    public int isIsbasic(){return isbasic;}
+
+    public void setIsstarter(boolean isstarter){this.isstarter = isstarter;}
+
+    public boolean isIsstarter(){return isstarter;}
 
 
 }

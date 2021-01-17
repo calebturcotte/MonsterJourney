@@ -11,7 +11,7 @@
             android:layout_height="0dp"
             app:layout_constraintHeight_percent="0.5"
             app:layout_constraintWidth_percent="0.8"
-            android:background="@color/colorPrimary"
+            android:background="@drawable/ic_popup_background"
             app:layout_constraintStart_toStartOf="@id/verticalguideline"
             app:layout_constraintTop_toTopOf="@id/horizontalguideline">
 
@@ -173,7 +173,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/horizontalguideline"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.25"/>
+        app:layout_constraintGuide_percent="0.4"/>
 
     <androidx.constraintlayout.widget.Guideline
         android:layout_width="wrap_content"

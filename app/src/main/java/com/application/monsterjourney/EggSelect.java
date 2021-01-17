@@ -17,8 +17,6 @@ import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import androidx.annotation.StyleableRes;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -51,15 +49,6 @@ public class EggSelect extends AppCompatActivity {
         CheckUnlocked runner = new CheckUnlocked(this);
         runner.execute();
 
-
-//        TypedArray egglist = getResources().obtainTypedArray(R.array.egg_list);
-//        totaleggs = egglist.length();
-//
-//        eggs = new ArrayList<>();
-//        for(int i = 0; i < totaleggs; i++){
-//            eggs.add(new Egg(egglist.getResourceId(i,R.array.basic_egg),settings.getBoolean(String.valueOf(egglist.getResourceId(i,R.array.basic_egg)),false)));
-//        }
-//        egglist.recycle();
 
         //add our home screen with the current monster
         final FrameLayout frmlayout = findViewById(R.id.placeholder);
@@ -173,8 +162,8 @@ public class EggSelect extends AppCompatActivity {
             db.journeyDao().updateMonster(tempmonster);
         });
 
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+//        Intent intent = new Intent(this, MainActivity.class);
+//        startActivity(intent);
         //where right side is current view
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         finish();

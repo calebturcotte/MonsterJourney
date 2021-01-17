@@ -58,7 +58,7 @@ public interface JourneyDao {
     @Update
     void updateHistory(List<History> history);
 
-    @Query("SELECT * FROM MONSTER LIMIT 1")
+    @Query("SELECT * FROM MONSTER LIMIT 5")
     List<Monster> getMonster();
 
     @Insert
@@ -66,6 +66,12 @@ public interface JourneyDao {
 
     @Update
     void updateMonster(Monster monster);
+
+    @Update
+    void updateMonster(List<Monster> monsters);
+
+    @Delete
+    void delete(Monster monster);
 
     @Query("SELECT * FROM UNLOCKEDMONSTER")
     List<UnlockedMonster> getUnlockedMonster();

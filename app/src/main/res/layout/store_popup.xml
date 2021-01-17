@@ -10,7 +10,7 @@
         android:layout_height="0dp"
         app:layout_constraintHeight_percent="0.5"
         app:layout_constraintWidth_percent="0.8"
-        android:background="@color/colorPrimary"
+        android:background="@drawable/ic_popup_background"
         app:layout_constraintStart_toStartOf="@id/verticalguideline"
         app:layout_constraintTop_toTopOf="@id/horizontalguideline">
 
@@ -35,12 +35,12 @@
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.15"/>
 
-        <ImageView
+        <Button
             android:contentDescription="@string/close"
             android:id="@+id/close"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:background="@color/colorAccent"
+            android:background="@drawable/ic_button_exit"
             app:layout_constraintHeight_percent="0.08"
             app:layout_constraintWidth_percent="0.1"
             app:layout_constraintEnd_toEndOf="@id/popup"
@@ -81,7 +81,8 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:id="@+id/light_egg_container">
                     <TextView
                         android:layout_width="0dp"
                         android:layout_weight="0.6"
@@ -100,7 +101,8 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:id="@+id/dark_egg_container">
                     <TextView
                         android:layout_width="0dp"
                         android:layout_weight="0.6"
@@ -119,7 +121,8 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:id="@+id/cosmic_egg_container">
                     <TextView
                         android:layout_width="0dp"
                         android:layout_weight="0.6"

@@ -38,6 +38,13 @@
     <androidx.constraintlayout.widget.Guideline
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:id="@+id/selectordisplayguideline"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.955"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:id="@+id/verticalguideline"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.85"/>
@@ -200,7 +207,7 @@
 
     <Button
         android:id="@+id/picker"
-        android:text="@string/confirm"
+        android:background="@drawable/ic_button_confirm"
         android:textSize="20sp"
         android:layout_width="0dp"
         app:layout_constraintWidth_percent="0.3"
@@ -208,6 +215,79 @@
         app:layout_constraintHeight_percent="0.08"
         app:layout_constraintTop_toBottomOf="@id/buttoncontentguideline"
         app:layout_constraintStart_toStartOf="@id/selectorguideline"/>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:weightSum="5"
+        app:layout_constraintHeight_percent="0.04"
+        app:layout_constraintWidth_percent="0.65"
+        app:layout_constraintTop_toBottomOf="@id/selectordisplayguideline"
+        app:layout_constraintStart_toStartOf="@id/buttonguideline">
+
+        <ImageView
+            android:id="@+id/selector1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/ic_selection_off"
+            android:contentDescription="@string/selector" />
+        <ImageView
+            android:id="@+id/selector2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/ic_selection_off"
+            android:contentDescription="@string/selector" />
+        <ImageView
+            android:id="@+id/selector3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/ic_selection_off"
+            android:contentDescription="@string/selector" />
+        <ImageView
+            android:id="@+id/selector4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/ic_selection_off"
+            android:contentDescription="@string/selector" />
+        <ImageView
+            android:id="@+id/selector5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/ic_selection_off"
+            android:contentDescription="@string/selector" />
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/infoguideline"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.05"/>
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/verticaliconguideline"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.87"/>
+
+
+    <ImageView
+        android:contentDescription="@string/monsterinfo"
+        android:id="@+id/ranch_popup"
+        android:background="@color/colorPrimary"
+        android:layout_width="0dp"
+        app:layout_constraintHeight_percent="0.05"
+        android:layout_height="0dp"
+        app:layout_constraintWidth_percent="0.1"
+        app:layout_constraintTop_toBottomOf="@id/infoguideline"
+        app:layout_constraintStart_toStartOf="@id/verticaliconguideline"/>
 
 
 

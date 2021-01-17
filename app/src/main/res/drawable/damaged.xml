@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <animation-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:drawable="@drawable/ic_full"
+        android:drawable="@drawable/damaged1"
         android:duration="100"/>
     <item
-        android:drawable="@drawable/missing_content"
+        android:drawable="@drawable/damaged2"
         android:duration="100"/>
 </animation-list>

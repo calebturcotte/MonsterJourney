@@ -87,7 +87,7 @@
         <item name="evo3">@array/machine_adult_blimp</item>
         <item name="health">5</item>
         <item name="attack">2</item>
-        <item name="attackchance">50</item>
+        <item name="attackchance">55</item>
         <item name="diligence">4</item>
         <item name="hunger">4</item>
         <item name="gluttony">0</item>
@@ -107,7 +107,7 @@
         <item name="evo2">@array/machine_adult_driller</item>
         <item name="evo3">@array/machine_adult_robotdog</item>
         <item name="evo3">@array/machine_adult_blimp</item>
-        <item name="health">5</item>
+        <item name="health">6</item>
         <item name="attack">2</item>
         <item name="attackchance">50</item>
         <item name="diligence">3</item>
@@ -129,7 +129,7 @@
         <item name="evo2">@array/machine_adult_spidermech</item>
         <item name="evo3">@array/machine_adult_robotdog</item>
         <item name="evo3">@array/machine_adult_robocrab</item>
-        <item name="health">5</item>
+        <item name="health">6</item>
         <item name="attack">2</item>
         <item name="attackchance">50</item>
         <item name="diligence">2</item>
@@ -153,7 +153,7 @@
         <item name="evo3">@array/machine_adult_robocrab</item>
         <item name="health">5</item>
         <item name="attack">2</item>
-        <item name="attackchance">50</item>
+        <item name="attackchance">55</item>
         <item name="diligence">5</item>
         <item name="hunger">3</item>
         <item name="gluttony">1</item>
@@ -174,10 +174,10 @@
         <item name="health">11</item>
         <item name="attack">3</item>
         <item name="attackchance">50</item>
-        <item name="diligence">5</item>
-        <item name="hunger">3</item>
-        <item name="gluttony">1</item>
-        <item name="mistakes">7</item>
+        <item name="diligence">0</item>
+        <item name="hunger">0</item>
+        <item name="gluttony">10000</item>
+        <item name="mistakes">10000</item>
         <item name="type">@array/machine_egg</item>
         <item name="attackicon">@drawable/adult_machine_barrelchest_attack</item>
         <item name="happyicon">@drawable/adult_machine_barrelchest_happy</item>
@@ -192,10 +192,10 @@
         <item name="health">11</item>
         <item name="attack">3</item>
         <item name="attackchance">50</item>
-        <item name="diligence">5</item>
-        <item name="hunger">3</item>
-        <item name="gluttony">1</item>
-        <item name="mistakes">7</item>
+        <item name="diligence">0</item>
+        <item name="hunger">0</item>
+        <item name="gluttony">10000</item>
+        <item name="mistakes">10000</item>
         <item name="type">@array/machine_egg</item>
         <item name="attackicon">@drawable/adult_machine_blimp_attack</item>
         <item name="happyicon">@drawable/adult_machine_blimp_happy</item>
@@ -207,9 +207,9 @@
         <item name="title">@string/baby_aqua_tadpole_title</item>
         <item name="description">@string/baby_aqua_tadpole_description</item>
         <item name="icon">@drawable/adult_machine_excavator_idle</item>
-        <item name="health">11</item>
+        <item name="health">15</item>
         <item name="attack">3</item>
-        <item name="attackchance">50</item>
+        <item name="attackchance">55</item>
         <item name="diligence">8</item>
         <item name="hunger">6</item>
         <item name="gluttony">0</item>
@@ -243,9 +243,9 @@
         <item name="title">@string/adult_machine_driller_title</item>
         <item name="description">@string/adult_machine_driller_description</item>
         <item name="icon">@drawable/adult_machine_driller_idle</item>
-        <item name="health">11</item>
+        <item name="health">14</item>
         <item name="attack">3</item>
-        <item name="attackchance">50</item>
+        <item name="attackchance">45</item>
         <item name="diligence">4</item>
         <item name="hunger">8</item>
         <item name="gluttony">4</item>
@@ -261,7 +261,7 @@
         <item name="title">@string/adult_machine_driller_title</item>
         <item name="description">@string/adult_machine_driller_description</item>
         <item name="icon">@drawable/adult_machine_spidermech_idle</item>
-        <item name="health">11</item>
+        <item name="health">13</item>
         <item name="attack">3</item>
         <item name="attackchance">50</item>
         <item name="diligence">7</item>
@@ -279,9 +279,9 @@
         <item name="title">@string/adult_machine_driller_title</item>
         <item name="description">@string/adult_machine_driller_description</item>
         <item name="icon">@drawable/adult_machine_longarm_idle</item>
-        <item name="health">11</item>
+        <item name="health">13</item>
         <item name="attack">3</item>
-        <item name="attackchance">50</item>
+        <item name="attackchance">53</item>
         <item name="diligence">6</item>
         <item name="hunger">7</item>
         <item name="gluttony">2</item>
@@ -297,9 +297,9 @@
         <item name="title">@string/adult_machine_driller_title</item>
         <item name="description">@string/adult_machine_driller_description</item>
         <item name="icon">@drawable/adult_machine_robotdog_idle</item>
-        <item name="health">11</item>
+        <item name="health">13</item>
         <item name="attack">3</item>
-        <item name="attackchance">50</item>
+        <item name="attackchance">47</item>
         <item name="diligence">5</item>
         <item name="hunger">5</item>
         <item name="gluttony">4</item>
@@ -315,9 +315,9 @@
         <item name="title">@string/adult_machine_driller_title</item>
         <item name="description">@string/adult_machine_driller_description</item>
         <item name="icon">@drawable/adult_machine_robotowl_idle</item>
-        <item name="health">11</item>
+        <item name="health">14</item>
         <item name="attack">3</item>
-        <item name="attackchance">50</item>
+        <item name="attackchance">40</item>
         <item name="diligence">8</item>
         <item name="hunger">7</item>
         <item name="gluttony">6</item>
@@ -327,5 +327,28 @@
         <item name="happyicon">@drawable/adult_machine_robotowl_happy</item>
     </integer-array>
 
+    <integer-array name="machine_baby_enemies">
+        <item name="size">2</item>
+        <item name="stage1">@array/machine_baby1</item>
+        <item name="stage2">@array/machine_baby2</item>
+    </integer-array>
+
+    <integer-array name="machine_child_enemies">
+        <item name="size">4</item>
+        <item name="stage1">@array/machine_baby2</item>
+        <item name="stage2">@array/machine_child_ufo</item>
+        <item name="stage3">@array/machine_child_toy</item>
+        <item name="stage4">@array/machine_child_plug</item>
+    </integer-array>
+
+    <integer-array name="machine_adult_enemies">
+        <item name="size">5</item>
+        <item name="stage1">@array/machine_adult_barrelchest</item>
+        <item name="stage2">@array/machine_adult_blimp</item>
+        <item name="stage3">@array/machine_adult_robocrab</item>
+        <item name="stage4">@array/machine_adult_spidermech</item>
+        <item name="stage4">@array/machine_adult_longarm</item>
+    </integer-array>
+z
 
 </resources>

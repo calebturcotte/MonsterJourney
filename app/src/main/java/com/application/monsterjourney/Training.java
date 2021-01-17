@@ -79,6 +79,15 @@ public class Training extends AppCompatActivity {
             taskInfo();
         });
 
+        findViewById(R.id.ranch_popup).setOnClickListener(v->{
+            //music.release();
+            Intent intent = new Intent(this, Ranch.class);
+            startActivity(intent);
+            //where right side is current view
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+            finish();
+        });
+
         taskInfo();
 
         //add our home screen with the current monster
@@ -104,10 +113,6 @@ public class Training extends AppCompatActivity {
         runner.execute();
 
         findViewById(R.id.back).setOnClickListener(v -> {
-//                Intent intent = new Intent(Training.this, MainActivity.class);
-//                startActivity(intent);
-//                //where right side is current view
-//                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             finish();
         });
 
@@ -118,28 +123,44 @@ public class Training extends AppCompatActivity {
      * shows the current monster and description
      */
     public void taskInfo(){
+        ImageView selector1 =  findViewById(R.id.selector1);
+        ImageView selector2 =  findViewById(R.id.selector2);
+        ImageView selector3 =  findViewById(R.id.selector3);
+        ImageView selector4 =  findViewById(R.id.selector4);
+        ImageView selector5 =  findViewById(R.id.selector5);
+        selector1.setImageResource(R.drawable.ic_selection_off);
+        selector2.setImageResource(R.drawable.ic_selection_off);
+        selector3.setImageResource(R.drawable.ic_selection_off);
+        selector4.setImageResource(R.drawable.ic_selection_off);
+        selector5.setImageResource(R.drawable.ic_selection_off);
+
         int tasktitle = R.string.missing_title;
         int tasktext = R.string.missing_description;
         switch(selectedtask){
             case 0:
                 tasktitle = R.string.Training;
                 tasktext = R.string.Traininginfo;
+                selector1.setImageResource(R.drawable.ic_selection_on);
                 break;
             case 1:
                 tasktitle = R.string.Feeding;
                 tasktext = R.string.Feedinginfo;
+                selector2.setImageResource(R.drawable.ic_selection_on);
                 break;
             case 2:
                 tasktitle = R.string.Evolve;
                 tasktext = R.string.EvolveInfo;
+                selector3.setImageResource(R.drawable.ic_selection_on);
                 break;
             case 3:
                 tasktitle = R.string.Retire;
                 tasktext = R.string.Retireinfo;
+                selector4.setImageResource(R.drawable.ic_selection_on);
                 break;
             case 4:
                 tasktitle = R.string.Matchmaking;
                 tasktext = R.string.Matchmakinginfo;
+                selector5.setImageResource(R.drawable.ic_selection_on);
                 break;
         }
 
@@ -812,7 +833,7 @@ public class Training extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Monster already at final stage.", Toast.LENGTH_SHORT).show();
             }
             else if(stepsneeded > 0){
-                Toast.makeText(getApplicationContext(), String.valueOf(stepsneeded) + " steps needed to evolve.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), stepsneeded + " steps needed to evolve.", Toast.LENGTH_SHORT).show();
             }
             else{
                 Toast.makeText(getApplicationContext(), "Evolution requirements not met.", Toast.LENGTH_SHORT).show();
@@ -888,7 +909,7 @@ public class Training extends AppCompatActivity {
             feedamounts.add(new ItemAmount(4,item4));
             rightscroll.setOnClickListener(v -> {
                 feedtype = (feedtype +1)%5;
-                while(!feedamounts.get(feedtype).isUnlocked()){
+                while(feedamounts.get(feedtype).isUnlocked()){
                     feedtype = (feedtype +1)%5;
                 }
                 feeddisplay();
@@ -896,7 +917,7 @@ public class Training extends AppCompatActivity {
 
             leftscroll.setOnClickListener(v -> {
                 feedtype = (feedtype +4)%5;
-                while(!feedamounts.get(feedtype).isUnlocked()){
+                while(feedamounts.get(feedtype).isUnlocked()){
                     feedtype = (feedtype +4)%5;
                 }
                 feeddisplay();

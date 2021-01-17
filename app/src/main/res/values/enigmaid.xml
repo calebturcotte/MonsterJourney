@@ -102,9 +102,9 @@
         <item name="evo1">@array/enigma_adult_scarecrow</item>
         <item name="evo2">@array/enigma_adult_teddybear</item>
         <item name="evo3">@array/enigma_adult_rainspirit</item>
-        <item name="health">3</item>
+        <item name="health">6</item>
         <item name="attack">2</item>
-        <item name="attackchance">50</item>
+        <item name="attackchance">55</item>
         <item name="diligence">4</item>
         <item name="hunger">2</item>
         <item name="gluttony">2</item>
@@ -124,7 +124,7 @@
         <item name="evo2">@array/enigma_adult_electricball</item>
         <item name="evo3">@array/enigma_adult_snowman</item>
         <item name="evo4">@array/enigma_adult_sphinx</item>
-        <item name="health">3</item>
+        <item name="health">5</item>
         <item name="attack">2</item>
         <item name="attackchance">50</item>
         <item name="diligence">0</item>
@@ -146,7 +146,7 @@
         <item name="evo2">@array/enigma_adult_electricball</item>
         <item name="evo3">@array/enigma_adult_vampireking</item>
         <item name="evo3">@array/enigma_adult_specter</item>
-        <item name="health">3</item>
+        <item name="health">7</item>
         <item name="attack">2</item>
         <item name="attackchance">50</item>
         <item name="diligence">6</item>
@@ -168,9 +168,9 @@
         <item name="evo2">@array/enigma_adult_electricball</item>
         <item name="evo3">@array/enigma_adult_vampireking</item>
         <item name="evo3">@array/enigma_adult_sphinx</item>
-        <item name="health">3</item>
+        <item name="health">6</item>
         <item name="attack">2</item>
-        <item name="attackchance">50</item>
+        <item name="attackchance">55</item>
         <item name="diligence">2</item>
         <item name="hunger">6</item>
         <item name="gluttony">3</item>
@@ -207,7 +207,7 @@
         <item name="description">@string/enigma_baby_tanuki_description</item>
         <item name="icon">@drawable/adult_enigma_teddybear_idle</item>
         <item name="health">14</item>
-        <item name="attack">2</item>
+        <item name="attack">3</item>
         <item name="attackchance">50</item>
         <item name="diligence">2</item>
         <item name="hunger">8</item>
@@ -224,9 +224,9 @@
         <item name="title">@string/enigma_baby_tanuki_title</item>
         <item name="description">@string/enigma_baby_tanuki_description</item>
         <item name="icon">@drawable/adult_enigma_snowman_idle</item>
-        <item name="health">11</item>
+        <item name="health">12</item>
         <item name="attack">3</item>
-        <item name="attackchance">50</item>
+        <item name="attackchance">55</item>
         <item name="diligence">2</item>
         <item name="hunger">8</item>
         <item name="gluttony">4</item>
@@ -242,9 +242,9 @@
         <item name="title">@string/enigma_baby_tanuki_title</item>
         <item name="description">@string/enigma_baby_tanuki_description</item>
         <item name="icon">@drawable/adult_enigma_scarecrow_idle</item>
-        <item name="health">11</item>
+        <item name="health">13</item>
         <item name="attack">3</item>
-        <item name="attackchance">50</item>
+        <item name="attackchance">55</item>
         <item name="diligence">6</item>
         <item name="hunger">6</item>
         <item name="gluttony">1</item>
@@ -296,9 +296,9 @@
         <item name="title">@string/enigma_baby_tanuki_title</item>
         <item name="description">@string/enigma_baby_tanuki_description</item>
         <item name="icon">@drawable/adult_enigma_vampireking_idle</item>
-        <item name="health">11</item>
+        <item name="health">12</item>
         <item name="attack">3</item>
-        <item name="attackchance">50</item>
+        <item name="attackchance">60</item>
         <item name="diligence">4</item>
         <item name="hunger">6</item>
         <item name="gluttony">3</item>
@@ -314,9 +314,9 @@
         <item name="title">@string/enigma_baby_tanuki_title</item>
         <item name="description">@string/enigma_baby_tanuki_description</item>
         <item name="icon">@drawable/adult_enigma_electricball_idle</item>
-        <item name="health">11</item>
+        <item name="health">14</item>
         <item name="attack">3</item>
-        <item name="attackchance">50</item>
+        <item name="attackchance">55</item>
         <item name="diligence">6</item>
         <item name="hunger">4</item>
         <item name="gluttony">0</item>
@@ -332,9 +332,9 @@
         <item name="title">@string/enigma_baby_tanuki_title</item>
         <item name="description">@string/enigma_baby_tanuki_description</item>
         <item name="icon">@drawable/adult_enigma_frankenstein_idle</item>
-        <item name="health">11</item>
+        <item name="health">15</item>
         <item name="attack">3</item>
-        <item name="attackchance">50</item>
+        <item name="attackchance">55</item>
         <item name="diligence">7</item>
         <item name="hunger">6</item>
         <item name="gluttony">0</item>
@@ -342,6 +342,29 @@
         <item name="type">@array/enigma_egg</item>
         <item name="attackicon">@drawable/adult_enigma_frankenstein_attack</item>
         <item name="happyicon">@drawable/adult_enigma_frankenstein_happy</item>
+    </integer-array>
+
+    <integer-array name="enigma_baby_enemies">
+        <item name="size">2</item>
+        <item name="stage1">@array/enigma_baby1</item>
+        <item name="stage2">@array/enigma_baby2</item>
+    </integer-array>
+
+    <integer-array name="enigma_child_enemies">
+        <item name="size">4</item>
+        <item name="stage1">@array/enigma_baby2</item>
+        <item name="stage2">@array/enigma_child_mushroom</item>
+        <item name="stage3">@array/enigma_child_ghost</item>
+        <item name="stage4">@array/enigma_child_snake</item>
+    </integer-array>
+
+    <integer-array name="enigma_adult_enemies">
+        <item name="size">5</item>
+        <item name="stage1">@array/enigma_adult_teddybear</item>
+        <item name="stage2">@array/enigma_adult_scarecrow</item>
+        <item name="stage3">@array/enigma_adult_electricball</item>
+        <item name="stage4">@array/enigma_adult_snowman</item>
+        <item name="stage4">@array/enigma_adult_specter</item>
     </integer-array>
 
 </resources>

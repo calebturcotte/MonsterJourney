@@ -79,8 +79,8 @@ index (14+number of evolutions) is the happy icon/animation-->
         <item name="icon">@drawable/child_dino_armadillo_idle</item>
         <item name="evo1">@array/dino_adult_sabretooth</item>
         <item name="evo2">@array/dino_adult_sloth</item>
-        <item name="health">3</item>
-        <item name="attack">1</item>
+        <item name="health">5</item>
+        <item name="attack">2</item>
         <item name="attackchance">50</item>
         <item name="diligence">0</item>
         <item name="hunger">0</item>
@@ -101,9 +101,9 @@ index (14+number of evolutions) is the happy icon/animation-->
     <item name="evo2">@array/dino_adult_horneddino</item>
     <item name="evo3">@array/dino_adult_brachiosaur</item>
     <item name="evo4">@array/dino_adult_plesiosaur</item>
-    <item name="health">3</item>
+    <item name="health">5</item>
     <item name="attack">2</item>
-    <item name="attackchance">50</item>
+    <item name="attackchance">55</item>
     <item name="diligence">6</item>
     <item name="hunger">4</item>
     <item name="gluttony">1</item>
@@ -122,7 +122,7 @@ index (14+number of evolutions) is the happy icon/animation-->
         <item name="evo1">@array/dino_adult_bigheaddino</item>
         <item name="evo2">@array/dino_adult_brachiosaur</item>
         <item name="evo3">@array/dino_adult_plesiosaur</item>
-        <item name="health">3</item>
+        <item name="health">6</item>
         <item name="attack">2</item>
         <item name="attackchance">50</item>
         <item name="diligence">2</item>
@@ -144,7 +144,7 @@ index (14+number of evolutions) is the happy icon/animation-->
         <item name="evo2">@array/dino_adult_horneddino</item>
         <item name="evo3">@array/dino_adult_spinosaur</item>
         <item name="evo4">@array/dino_adult_ankylosaur</item>
-        <item name="health">3</item>
+        <item name="health">6</item>
         <item name="attack">2</item>
         <item name="attackchance">50</item>
         <item name="diligence">4</item>
@@ -166,9 +166,9 @@ index (14+number of evolutions) is the happy icon/animation-->
         <item name="evo2">@array/dino_adult_brachiosaur</item>
         <item name="evo3">@array/dino_adult_spinosaur</item>
         <item name="evo4">@array/dino_adult_ankylosaur</item>
-        <item name="health">3</item>
+        <item name="health">7</item>
         <item name="attack">2</item>
-        <item name="attackchance">50</item>
+        <item name="attackchance">45</item>
         <item name="diligence">2</item>
         <item name="hunger">4</item>
         <item name="gluttony">7</item>
@@ -240,9 +240,9 @@ index (14+number of evolutions) is the happy icon/animation-->
         <item name="title">@string/enigma_baby_skull_title</item>
         <item name="description">@string/enigma_baby_skull_description</item>
         <item name="icon">@drawable/adult_dino_sabretooth_idle</item>
-        <item name="health">11</item>
+        <item name="health">13</item>
         <item name="attack">3</item>
-        <item name="attackchance">50</item>
+        <item name="attackchance">55</item>
         <item name="diligence">6</item>
         <item name="hunger">2</item>
         <item name="gluttony">0</item>
@@ -258,9 +258,9 @@ index (14+number of evolutions) is the happy icon/animation-->
         <item name="title">@string/enigma_baby_skull_title</item>
         <item name="description">@string/enigma_baby_skull_description</item>
         <item name="icon">@drawable/adult_dino_horneddino_idle</item>
-        <item name="health">11</item>
+        <item name="health">14</item>
         <item name="attack">3</item>
-        <item name="attackchance">50</item>
+        <item name="attackchance">55</item>
         <item name="diligence">6</item>
         <item name="hunger">6</item>
         <item name="gluttony">0</item>
@@ -276,9 +276,9 @@ index (14+number of evolutions) is the happy icon/animation-->
         <item name="title">@string/enigma_baby_skull_title</item>
         <item name="description">@string/enigma_baby_skull_description</item>
         <item name="icon">@drawable/adult_dino_spinosaur_idle</item>
-        <item name="health">11</item>
+        <item name="health">12</item>
         <item name="attack">3</item>
-        <item name="attackchance">50</item>
+        <item name="attackchance">55</item>
         <item name="diligence">7</item>
         <item name="hunger">4</item>
         <item name="gluttony">1</item>
@@ -294,9 +294,9 @@ index (14+number of evolutions) is the happy icon/animation-->
         <item name="title">@string/enigma_baby_skull_title</item>
         <item name="description">@string/enigma_baby_skull_description</item>
         <item name="icon">@drawable/adult_dino_bigheaddino_idle</item>
-        <item name="health">11</item>
+        <item name="health">15</item>
         <item name="attack">3</item>
-        <item name="attackchance">50</item>
+        <item name="attackchance">55</item>
         <item name="diligence">8</item>
         <item name="hunger">4</item>
         <item name="gluttony">1</item>
@@ -312,9 +312,9 @@ index (14+number of evolutions) is the happy icon/animation-->
         <item name="title">@string/enigma_baby_skull_title</item>
         <item name="description">@string/enigma_baby_skull_description</item>
         <item name="icon">@drawable/adult_dino_brachiosaur_idle</item>
-        <item name="health">11</item>
+        <item name="health">15</item>
         <item name="attack">3</item>
-        <item name="attackchance">50</item>
+        <item name="attackchance">40</item>
         <item name="diligence">2</item>
         <item name="hunger">7</item>
         <item name="gluttony">3</item>
@@ -322,6 +322,29 @@ index (14+number of evolutions) is the happy icon/animation-->
         <item name="type">@array/dino_egg</item>
         <item name="attackicon">@drawable/adult_dino_brachiosaur_attack</item>
         <item name="happyicon">@drawable/adult_dino_brachiosaur_happy</item>
+    </integer-array>
+
+    <integer-array name="basic_dino_enemies">
+        <item name="size">2</item>
+        <item name="stage1">@array/dino_baby1</item>
+        <item name="stage2">@array/dino_baby2</item>
+    </integer-array>
+
+    <integer-array name="child_dino_enemies">
+        <item name="size">4</item>
+        <item name="stage1">@array/dino_baby1</item>
+        <item name="stage2">@array/dino_child_stegosaur</item>
+        <item name="stage3">@array/dino_child_armadillo</item>
+        <item name="stage4">@array/dino_child_longneck</item>
+    </integer-array>
+
+    <integer-array name="adult_dino_enemies">
+        <item name="size">5</item>
+        <item name="stage1">@array/dino_adult_horneddino</item>
+        <item name="stage2">@array/dino_adult_plesiosaur</item>
+        <item name="stage3">@array/dino_adult_ankylosaur</item>
+        <item name="stage4">@array/dino_adult_spinosaur</item>
+        <item name="stage4">@array/dino_adult_sabretooth</item>
     </integer-array>
 
 

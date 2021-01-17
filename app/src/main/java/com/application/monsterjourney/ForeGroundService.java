@@ -55,7 +55,7 @@ public class ForeGroundService extends Service implements SensorEventListener, S
 
 
         AsyncTask.execute(() -> {
-            db = AppDatabase.buildDatabase(getApplicationContext());
+            db = AppDatabase.getInstance(getApplicationContext());
             Journey temp = db.journeyDao().getJourney().get(0);
             // run your queries here!
             steps = temp.getTotalsteps();
@@ -143,27 +143,38 @@ public class ForeGroundService extends Service implements SensorEventListener, S
     @Override
     public void step(long timeNs) {
         AsyncTask.execute(() -> {
-            db = AppDatabase.buildDatabase(getApplicationContext());
+            db = AppDatabase.getInstance(getApplicationContext());
             Journey temp = db.journeyDao().getJourney().get(0);
             steps = temp.getTotalsteps();
             eventsteps = temp.getEventsteps();
             eventreached = temp.isEventreached();
             Monster tempmonster  = db.journeyDao().getMonster().get(0);
+            boolean isbattling = temp.getIsbattling();
             long storysteps = temp.getStorysteps();
 
             //if we reach an event then wait until it is addressed before counting steps again
-            if (!eventreached) {
+            if (!eventreached && !isbattling) {
                 steps++;
                 eventsteps--;
                 evolvesteps = tempmonster.getEvolvesteps() - 1;
                 //if monster is hatched then add a story step
                 if(tempmonster.getHatched()){
-                    temp.setStorysteps(storysteps-1);
+                    storysteps--;
+                    temp.setStorysteps(storysteps);
+                    if(storysteps <= 0){
+                        if (isAppInBackground(getApplicationContext())) {
+                            createNotification("Boss Found!", "You've reach the end of the map! Time to fight the boss!");
+                        }
+                        sendBroadcastMessage(0);
+                        db.journeyDao().update(temp);
+                        return;
+                    }
                 }
                 if (eventsteps <= 0) {
-                    //steps = steps % goal;
                     eventreached = true;
-                    //editor.putBoolean("eventreached", eventreached).apply();
+                    if(!tempmonster.getHatched()){
+                        temp.setEventtype(0);
+                    }
                     if (isAppInBackground(getApplicationContext())) {
                         switch (temp.getEventtype()) {
                             case 0: // egg hatching
@@ -176,7 +187,6 @@ public class ForeGroundService extends Service implements SensorEventListener, S
                                 createNotification("Enemy Found", "Your monster encountered an enemy!");
                                 break;
                         }
-
                     }
                 }
                 else if(temp.isMatching()){
@@ -185,7 +195,9 @@ public class ForeGroundService extends Service implements SensorEventListener, S
                     temp.setMatchmakersteps(matchmakersteps);
                     if(matchmakersteps <= 0){
                         eventreached = true;
-                        createNotification("Match found", "The Matchmaker has found a match for your monster!");
+                        if (isAppInBackground(getApplicationContext())) {
+                            createNotification("Match found", "The Matchmaker has found a match for your monster!");
+                        }
                     }
                 }
                 temp.setTotalsteps(steps);
@@ -194,11 +206,11 @@ public class ForeGroundService extends Service implements SensorEventListener, S
                 tempmonster.setEvolvesteps(evolvesteps);
                 db.journeyDao().update(temp);
                 db.journeyDao().updateMonster(tempmonster);
-
                 sendBroadcastMessage(steps);
                 //sendBroadcastMessage(eventreached);
             }
         });
+        //sendBroadcastMessage(steps);
 
     }
 

@@ -3,11 +3,12 @@ package com.application.monsterjourney;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.content.res.TypedArray;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -26,17 +27,11 @@ import java.util.List;
 
 public class Map extends AppCompatActivity {
     public static final String PREFS_NAME = "MyJourneyFile";
-    private ImageView imageView;
-
-    private Button confirmbutton;
-
-    private Button backbutton;
-    private TextView description;
-    private TextView title, stepsneeded;
-
+    private ImageView imageView, completedView;
+    private Button confirmbutton, backbutton;
+    private TextView title, stepsneeded, description;
     private @StyleableRes
-    int selected;
-    int currentselectedstory;
+    int selected, currentselectedstory;
 
     private List<UnlockedMonster> unlockedMonsterList;
     private List<CompletedMaps> completedMapsList;
@@ -53,7 +48,7 @@ public class Map extends AppCompatActivity {
         final FrameLayout frmlayout = findViewById(R.id.placeholder);
         LayoutInflater aboutinflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
         assert aboutinflater != null;
-        final View home = aboutinflater.inflate(R.layout.home_screen, (ViewGroup)null);
+        final View home = aboutinflater.inflate(R.layout.home_screen, null);
         boolean isbought = settings.getBoolean("isbought", false);
         AdView mAdView = findViewById(R.id.adView);
         Activity mainActivity = this;
@@ -64,13 +59,12 @@ public class Map extends AppCompatActivity {
                 frmlayout.addView(home,0);
 
                 imageView = home.findViewById(R.id.monster_icon);
+                completedView = findViewById(R.id.unlockedindicator);
                 title = findViewById(R.id.Title);
                 stepsneeded = findViewById(R.id.Steps);
                 description = findViewById(R.id.content);
                 backbutton = findViewById(R.id.back);
-
                 confirmbutton = findViewById(R.id.Confirm);
-
 
                 ImageView rightscroll = findViewById(R.id.right_arrow);
                 ImageView leftscroll = findViewById(R.id.left_arrow);
@@ -80,8 +74,6 @@ public class Map extends AppCompatActivity {
                 leftscroll.startAnimation(rightscrollanimation);
                 rightscroll.startAnimation(leftscrollanimation);
 
-
-
                 backbutton.setOnClickListener(v -> finish());
 
                 findViewById(R.id.right_arrow).setOnClickListener(v -> {
@@ -89,7 +81,6 @@ public class Map extends AppCompatActivity {
                     TypedArray temp = getResources().obtainTypedArray(R.array.egg_list);
                     selected = (selected+1)%(temp.length());
                     temp.recycle();
-
                     showView();
                 });
                 findViewById(R.id.left_arrow).setOnClickListener(v -> {
@@ -103,6 +94,8 @@ public class Map extends AppCompatActivity {
                 confirmbutton.setOnClickListener(v -> {
                     TypedArray viewarray = getResources().obtainTypedArray(R.array.map_list);
                     storytype = viewarray.getResourceId(selected, R.array.enigma_map);
+                    currentselectedstory = selected;
+                    showView();
 
                     AsyncTask.execute(() -> {
                         AppDatabase db = AppDatabase.buildDatabase(getApplicationContext());
@@ -122,7 +115,6 @@ public class Map extends AppCompatActivity {
                     viewarray.recycle();
                 });
 
-
                 if(!isbought){
                     MobileAds.initialize(getApplicationContext(), initializationStatus -> {
                     });
@@ -135,17 +127,11 @@ public class Map extends AppCompatActivity {
                     mAdView.setVisibility(View.GONE);
                 }
 
-                //setView(0);
-
                 DisplayMap runner = new DisplayMap(mainActivity);
                 runner.execute();
-
                 frmlayout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
             }
         });
-
-
-
     }
 
     /**
@@ -161,42 +147,61 @@ public class Map extends AppCompatActivity {
         TypedArray viewarray2 = getResources().obtainTypedArray(R.array.egg_list);
         TypedArray array = getResources().obtainTypedArray(viewarray.getResourceId(selected, R.array.missing_content));
 
-        int backgroundAnimation = R.drawable.missing_content;
         int monstertitle = R.string.missing_title;
         int monstertext = R.string.missing_description;
+        confirmbutton.setEnabled(false);
         //normally defvalue is false but we loaded it as true for demo
-        //settings.getBoolean(String.valueOf(viewarray.getResourceId(selected, R.array.missing_content)),true)
+        ColorMatrix matrix = new ColorMatrix();
         for(UnlockedMonster unlockedMonster : unlockedMonsterList){
             if(unlockedMonster.getMonsterarrayid() == viewarray2.getResourceId(selected, R.array.missing_content)){
                 if(unlockedMonster.isUnlocked()){
                     @StyleableRes int tempid = 5;
-                    backgroundAnimation = array.getResourceId(tempid-1,R.drawable.egg_idle);
                     monstertitle = array.getResourceId(tempid,R.drawable.egg_idle);
+                    confirmbutton.setEnabled(true);
+                    imageView.setImageResource(0);
+                    matrix.setSaturation(1);
+                    imageView.setColorFilter(new ColorMatrixColorFilter(matrix));
+                    stepsneeded.setVisibility(View.VISIBLE);
+                    completedView.setVisibility(View.VISIBLE);
+                }
+                else {
+                    imageView.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(),R.drawable.missing_content));
+                    matrix.setSaturation(0);
+                    imageView.setColorFilter(new ColorMatrixColorFilter(matrix));
+                    stepsneeded.setVisibility(View.INVISIBLE);
+                    completedView.setVisibility(View.INVISIBLE);
                 }
                 if(unlockedMonster.isDiscovered()){
                     @StyleableRes int tempid = 6;
                     monstertext = array.getResourceId(tempid,R.drawable.egg_idle);
                 }
+                break;
             }
         }
-
         if(selected == currentselectedstory) {
+            confirmbutton.setEnabled(false);
             stepsneeded.setText(String.valueOf(storysteps));
+            if(completedMapsList.get(selected).isStorycompleted()){
+                completedView.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_selection_on));
+            }
+            else {
+                completedView.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_selection_off));
+            }
         }
         else{
             if(completedMapsList.get(selected).isStorycompleted()){
                 stepsneeded.setText(getText(R.string.mapcompleted));
+                completedView.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_selection_on));
             }
             else {
                 stepsneeded.setText(getText(R.string.mapnotcompleted));
+                completedView.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_selection_off));
             }
 
         }
 
-
-
-        imageView.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(),backgroundAnimation));
-        imageView.setBackgroundResource(R.drawable.mapbackground2);
+        @StyleableRes int tempid = 4;
+        imageView.setBackgroundResource(array.getResourceId(tempid,R.drawable.mapbackground2));
 
         this.title.setText(getText(monstertitle));
         description.setText(getText(monstertext));
@@ -237,9 +242,7 @@ public class Map extends AppCompatActivity {
             activity.completedMapsList = completedMapsList;
             activity.storytype = storytype;
             activity.storysteps = storysteps;
-
             TypedArray viewarray = weakActivity.get().getResources().obtainTypedArray(R.array.map_list);
-
             for(int i = 0; i < viewarray.length(); i++){
                 if(storytype == viewarray.getResourceId(i, R.array.missing_content)){
                     activity.selected = i;
@@ -247,9 +250,7 @@ public class Map extends AppCompatActivity {
                     break;
                 }
             }
-
             activity.showView();
-
             viewarray.recycle();
         }
     }

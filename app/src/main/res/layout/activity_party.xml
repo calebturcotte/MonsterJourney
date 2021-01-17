@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_weight="10"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        tools:context=".MainActivity">
+
+
+        <androidx.constraintlayout.widget.Guideline
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/horizontalguideline"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.45"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textboxguideline"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.50"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textcontentguideline"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.6"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/buttoncontentguideline"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.87"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/verticalguideline"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.85"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/buttonguideline"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.2"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/selectorguideline"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/verticaliconguideline"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.87"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/infoguideline"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.05"/>
+
+        <ImageView
+            android:contentDescription="@string/monsterinfo"
+            android:id="@+id/training_popup"
+            android:background="@color/colorPrimary"
+            android:layout_width="0dp"
+            app:layout_constraintHeight_percent="0.05"
+            android:layout_height="0dp"
+            app:layout_constraintWidth_percent="0.1"
+            app:layout_constraintTop_toBottomOf="@id/infoguideline"
+            app:layout_constraintStart_toStartOf="@id/verticaliconguideline"/>
+
+        <FrameLayout
+            android:id="@+id/placeholder"
+            android:background="@drawable/ic_launcher_background"
+            android:layout_width="0dp"
+            app:layout_constraintHeight_percent="0.4"
+            android:layout_height="0dp"
+            app:layout_constraintWidth_percent="0.7"
+            android:gravity="center"
+            app:layout_constraintBottom_toBottomOf="@id/horizontalguideline"
+            app:layout_constraintEnd_toEndOf="@id/verticalguideline" />
+
+        <TextView
+            android:background="@drawable/ic_launcher_background"
+            android:id="@+id/Title"
+            android:text="@string/partycollection"
+            android:gravity="center"
+            android:textSize="25sp"
+            android:layout_width="0dp"
+            app:layout_constraintHeight_percent="0.07"
+            android:layout_height="0dp"
+            app:layout_constraintWidth_percent="0.7"
+            app:layout_constraintTop_toBottomOf="@id/textboxguideline"
+            app:layout_constraintEnd_toEndOf="@id/verticalguideline" />
+
+        <ScrollView
+            android:layout_width="0dp"
+            app:layout_constraintHeight_percent="0.28"
+            android:layout_height="0dp"
+            app:layout_constraintWidth_percent="0.7"
+            app:layout_constraintTop_toBottomOf="@id/Title"
+            app:layout_constraintEnd_toEndOf="@id/verticalguideline"
+            android:background="@drawable/ic_launcher_background">
+
+            <TableLayout
+                android:id="@+id/egg_table"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:id="@+id/layout1"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:weightSum="4"
+                    app:layout_constraintHeight_percent="0.04"
+                    app:layout_constraintWidth_percent="0.65">
+
+                    <ImageView
+                        android:id="@+id/monster1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:scaleType="fitXY"
+                        android:layout_weight="1"
+                        android:contentDescription="@string/selector" />
+                    <TextView
+                        android:id="@+id/name1"
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:contentDescription="@string/selector" />
+
+                    <Button
+                        android:id="@+id/selector1"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/ic_button_confirm"
+                        android:layout_weight="1"
+                        android:onClick="selectMonster" />
+                    <Button
+                        android:id="@+id/delete1"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/ic_button_exit"
+                        android:layout_weight="1"
+                        android:onClick="deleteMonster"
+                        android:contentDescription="@string/selector" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layout2"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:weightSum="4"
+                    android:visibility="gone"
+                    app:layout_constraintHeight_percent="0.04"
+                    app:layout_constraintWidth_percent="0.65">
+
+                    <ImageView
+                        android:id="@+id/monster2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:scaleType="fitXY"
+                        android:contentDescription="@string/selector" />
+                    <TextView
+                        android:id="@+id/name2"
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:contentDescription="@string/selector" />
+
+                    <Button
+                        android:id="@+id/selector2"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:onClick="selectMonster"
+                        android:background="@drawable/ic_button_confirm" />
+                    <Button
+                        android:id="@+id/delete2"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/ic_button_exit"
+                        android:layout_weight="1"
+                        android:onClick="deleteMonster"
+                        android:contentDescription="@string/selector" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layout3"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:weightSum="4"
+                    android:visibility="gone"
+                    app:layout_constraintHeight_percent="0.04"
+                    app:layout_constraintWidth_percent="0.65">
+
+                    <ImageView
+                        android:id="@+id/monster3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:scaleType="fitXY"
+                        android:layout_weight="1"
+                        android:contentDescription="@string/selector" />
+                    <TextView
+                        android:id="@+id/name3"
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:contentDescription="@string/selector" />
+
+                    <Button
+                        android:id="@+id/selector3"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/ic_button_confirm"
+                        android:layout_weight="1"
+                        android:onClick="selectMonster" />
+                    <Button
+                        android:id="@+id/delete3"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/ic_button_exit"
+                        android:layout_weight="1"
+                        android:onClick="deleteMonster" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layout4"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:weightSum="4"
+                    android:visibility="gone"
+                    app:layout_constraintHeight_percent="0.04"
+                    app:layout_constraintWidth_percent="0.65">
+
+                    <ImageView
+                        android:id="@+id/monster4"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:scaleType="fitXY"
+                        android:contentDescription="@string/selector" />
+                    <TextView
+                        android:id="@+id/name4"
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:contentDescription="@string/selector" />
+
+                    <Button
+                        android:id="@+id/selector4"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:onClick="selectMonster"
+                        android:background="@drawable/ic_button_confirm"
+                        android:contentDescription="@string/selector" />
+                    <Button
+                        android:id="@+id/delete4"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/ic_button_exit"
+                        android:layout_weight="1"
+                        android:onClick="deleteMonster" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layout5"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:weightSum="4"
+                    android:visibility="gone"
+                    app:layout_constraintHeight_percent="0.04"
+                    app:layout_constraintWidth_percent="0.65">
+
+                    <ImageView
+                        android:id="@+id/monster5"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:scaleType="fitXY"
+                        android:contentDescription="@string/selector" />
+                    <TextView
+                        android:id="@+id/name5"
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:contentDescription="@string/selector" />
+
+                    <Button
+                        android:id="@+id/selector5"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:onClick="selectMonster"
+                        android:background="@drawable/ic_button_confirm"
+                        android:contentDescription="@string/selector" />
+                    <Button
+                        android:id="@+id/delete5"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/ic_button_exit"
+                        android:layout_weight="1"
+                        android:onClick="deleteMonster" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/newegg"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:visibility="gone"
+                    android:weightSum="1"
+                    app:layout_constraintHeight_percent="0.04"
+                    app:layout_constraintWidth_percent="0.65">
+
+                    <Button
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:onClick="newMonster"
+                        android:contentDescription="@string/selector" />
+                </LinearLayout>
+
+            </TableLayout>
+
+        </ScrollView>
+
+        <Button
+            android:id="@+id/back"
+            android:layout_width="0dp"
+            app:layout_constraintWidth_percent="0.3"
+            android:background="@drawable/return_button"
+            android:layout_height="0dp"
+            app:layout_constraintHeight_percent="0.1"
+            app:layout_constraintTop_toBottomOf="@id/buttoncontentguideline"
+            app:layout_constraintStart_toStartOf="@id/buttonguideline"/>
+
+        <TextView
+            android:id="@+id/partycount"
+            android:layout_width="0dp"
+            app:layout_constraintWidth_percent="0.3"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:layout_height="0dp"
+            app:layout_constraintHeight_percent="0.1"
+            app:layout_constraintTop_toBottomOf="@id/buttoncontentguideline"
+            app:layout_constraintStart_toEndOf="@id/back"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- our banner ad view, adUnitId saved in repository will be the
+    default test ID-->
+    <com.google.android.gms.ads.AdView
+        android:layout_weight="1"
+        xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        ads:adSize="BANNER"
+        ads:adUnitId="ca-app-pub-3940256099942544/6300978111">
+    </com.google.android.gms.ads.AdView>
+
+
+</LinearLayout>

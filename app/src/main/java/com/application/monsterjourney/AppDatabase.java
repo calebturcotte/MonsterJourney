@@ -1,9 +1,7 @@
 package com.application.monsterjourney;
 
 import android.content.Context;
-
 import androidx.annotation.NonNull;
-import androidx.room.ColumnInfo;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
@@ -31,14 +29,11 @@ public abstract class AppDatabase extends RoomDatabase {
                     @Override
                     public void onCreate(@NonNull SupportSQLiteDatabase db) {
                         super.onCreate(db);
-                        Executors.newSingleThreadScheduledExecutor().execute(new Runnable() {
-                            @Override
-                            public void run() {
-                                getInstance(context).journeyDao().insertAll(Journey.populateData());
-                                getInstance(context).journeyDao().insertMonster(Monster.populateData());
-                                getInstance(context).journeyDao().insertUnlockedMonster(UnlockedMonster.populateData());
-                                getInstance(context).journeyDao().insertCompletedMaps(CompletedMaps.populateData());
-                            }
+                        Executors.newSingleThreadScheduledExecutor().execute(() -> {
+                            getInstance(context).journeyDao().insertAll(Journey.populateData());
+                            getInstance(context).journeyDao().insertMonster(Monster.populateData());
+                            getInstance(context).journeyDao().insertUnlockedMonster(UnlockedMonster.populateData());
+                            getInstance(context).journeyDao().insertCompletedMaps(CompletedMaps.populateData());
                         });
                     }
                 })

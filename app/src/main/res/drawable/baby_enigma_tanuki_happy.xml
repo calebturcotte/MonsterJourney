@@ -4,6 +4,6 @@
         android:drawable="@drawable/baby_enigma_tanuki4"
         android:duration="600"/>
     <item
-        android:drawable="@drawable/baby_enigma_skull1"
+        android:drawable="@drawable/baby_enigma_tanuki1"
         android:duration="600"/>
 </animation-list>

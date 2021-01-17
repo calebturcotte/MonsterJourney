@@ -1,25 +1,20 @@
 package com.application.monsterjourney;
 
 import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ValueAnimator;
 import android.app.Activity;
-import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.ClipDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.os.Handler;
 import android.transition.Fade;
 import android.transition.TransitionManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewTreeObserver;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.view.animation.LinearInterpolator;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -29,7 +24,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.core.content.ContextCompat;
-
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Random;
@@ -78,9 +72,9 @@ public class Minigame extends AppCompatActivity {
 
                     ImageView rightscroll = findViewById(R.id.right_arrow);
                     ImageView leftscroll = findViewById(R.id.left_arrow);
-                    Animation leftscrollanimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.leftarrow);
-
-                    Animation rightscrollanimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rightarrow);
+//                    Animation leftscrollanimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.leftarrow);
+//
+//                    Animation rightscrollanimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rightarrow);
 //                    leftscroll.startAnimation(rightscrollanimation);
 //                    rightscroll.startAnimation(leftscrollanimation);
 
@@ -152,13 +146,7 @@ public class Minigame extends AppCompatActivity {
      */
     private void prepareInfoView(boolean firstinitialize){
         if(firstinitialize){
-            findViewById(R.id.back).setOnClickListener(v -> {
-                Intent intent = new Intent(Minigame.this, MainActivity.class);
-                startActivity(intent);
-                //where right side is current view
-                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-                finish();
-            });
+            findViewById(R.id.back).setOnClickListener(v -> finish());
 
             findViewById(R.id.confirm).setOnClickListener(v -> {
                 StartMinigame runner = new StartMinigame(this);
@@ -166,6 +154,11 @@ public class Minigame extends AppCompatActivity {
                 startGame();
             });
         }
+
+        ImageView selector1 =  findViewById(R.id.selector1);
+        ImageView selector2 =  findViewById(R.id.selector2);
+        selector1.setImageResource(R.drawable.ic_selection_off);
+        selector2.setImageResource(R.drawable.ic_selection_off);
 
 
         TextView titletext = findViewById(R.id.Title);
@@ -175,10 +168,12 @@ public class Minigame extends AppCompatActivity {
             case 0:
                 titletext.setText(getText(R.string.simonsays_title));
                 descriptiontext.setText(getText(R.string.simonsays_description));
+                selector1.setImageResource(R.drawable.ic_selection_on);
                 break;
             case 1:
                 titletext.setText(getText(R.string.snake_title));
                 descriptiontext.setText(getText(R.string.snake_description));
+                selector2.setImageResource(R.drawable.ic_selection_on);
                 break;
         }
 

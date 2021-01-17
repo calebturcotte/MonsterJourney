@@ -6,7 +6,7 @@
         <item name="evolutions">2</item>
         <item name="title">@string/earth_egg_title</item>
         <item name="description">@string/earth_egg_description</item>
-        <item name="icon">@drawable/egg_idle</item>
+        <item name="icon">@drawable/egg_earth_idle</item>
         <item name="evo1">@array/earth_baby1</item>
         <item name="evo1">@array/earth_baby2</item>
     </integer-array>
@@ -327,6 +327,29 @@
         <item name="type">@array/earth_egg</item>
         <item name="attackicon">@drawable/adult_earth_monkey_attack</item>
         <item name="happyicon">@drawable/adult_earth_monkey_happy</item>
+    </integer-array>
+
+    <integer-array name="earth_baby_enemies">
+        <item name="size">2</item>
+        <item name="stage1">@array/earth_baby1</item>
+        <item name="stage2">@array/earth_baby2</item>
+    </integer-array>
+
+    <integer-array name="earth_child_enemies">
+        <item name="size">4</item>
+        <item name="stage1">@array/earth_baby2</item>
+        <item name="stage2">@array/earth_child_squirrel</item>
+        <item name="stage3">@array/earth_child_bush</item>
+        <item name="stage4">@array/earth_child_plant</item>
+    </integer-array>
+
+    <integer-array name="earth_adult_enemies">
+        <item name="size">5</item>
+        <item name="stage1">@array/earth_adult_eggimitate</item>
+        <item name="stage2">@array/earth_adult_stump</item>
+        <item name="stage3">@array/earth_adult_blob</item>
+        <item name="stage4">@array/earth_adult_moose</item>
+        <item name="stage4">@array/earth_adult_butterfly</item>
     </integer-array>
 
 

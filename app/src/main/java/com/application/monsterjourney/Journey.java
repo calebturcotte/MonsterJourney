@@ -54,8 +54,14 @@ public class Journey {
     @ColumnInfo(name = "enemyhealth")
     public int enemyhealth;
 
+    @ColumnInfo(name = "enemymaxhealth")
+    public int enemymaxhealth;
+
     @ColumnInfo(name = "evolvediscount")
     public long evolvediscount;
+
+    @ColumnInfo(name = "bossfight")
+    public boolean bossfight;
 
 
     public Journey(){
@@ -70,9 +76,10 @@ public class Journey {
         matchmakersteps = 1000;
         matchmakerreached = false;
         //TODO decide starting map for player
-        storytype = R.array.dino_map;
+        storytype = R.array.enigma_map;
         storysteps = 30000;
         isbattling = false;
+        bossfight = false;
         evolvediscount = 0;
     }
     public static Journey[] populateData() {
@@ -86,20 +93,22 @@ public class Journey {
      * @param stepsadded the steps added by a source such as minigame
      */
     public void addStepstoJourney(long stepsadded, boolean hatched){
-        eventsteps -= stepsadded;
-        if(eventsteps <= 0){
-            eventsteps = 0;
-            eventreached = true;
+        if(!eventreached){
+            eventsteps -= stepsadded;
+            if(eventsteps <= 0){
+                eventsteps = 0;
+                eventreached = true;
+            }
+            matchmakersteps -= stepsadded;
+            if(matchmakersteps <= 0){
+                matchmakersteps = 0;
+                matchmakerreached = true;
+            }
+            if(hatched){
+                storysteps -= stepsadded;
+            }
+            totalsteps += stepsadded;
         }
-        matchmakersteps -= stepsadded;
-        if(matchmakersteps <= 0){
-            matchmakersteps = 0;
-            matchmakerreached = true;
-        }
-        if(hatched){
-            storysteps -= stepsadded;
-        }
-        totalsteps += stepsadded;
     }
 
     public long getTotalsteps(){
@@ -168,9 +177,17 @@ public class Journey {
 
     public int getEnemyhealth(){return enemyhealth;}
 
+    public void setEnemymaxhealth(int enemymaxhealth){this.enemymaxhealth = enemymaxhealth;}
+
+    public int getEnemymaxhealth(){return enemymaxhealth;}
+
     public void setEvolvediscount(long evolvediscount){this.evolvediscount = evolvediscount;}
 
     public long getEvolveddiscount(){return evolvediscount;}
+
+    public  boolean isBossfight(){return bossfight;}
+
+    public void setBossfight(boolean bossfight){this.bossfight = bossfight;}
 
 }
 

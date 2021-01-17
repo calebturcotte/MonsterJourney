@@ -10,7 +10,7 @@
         android:layout_height="0dp"
         app:layout_constraintHeight_percent="0.8"
         app:layout_constraintWidth_percent="0.8"
-        android:background="@color/colorPrimary"
+        android:background="@drawable/ic_popup_background"
         app:layout_constraintStart_toStartOf="@id/verticalguideline"
         app:layout_constraintTop_toTopOf="@id/horizontalguideline">
 
@@ -68,12 +68,12 @@
             app:layout_constraintStart_toEndOf="@id/himageguideline"
             app:layout_constraintTop_toTopOf="@id/imageguideline"/>
 
-        <ImageView
+        <Button
             android:contentDescription="@string/close"
             android:id="@+id/close"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:background="@color/colorAccent"
+            android:background="@drawable/ic_button_exit"
             app:layout_constraintHeight_percent="0.05"
             app:layout_constraintWidth_percent="0.1"
             app:layout_constraintEnd_toEndOf="@id/popup"
@@ -89,6 +89,28 @@
             app:layout_constraintStart_toEndOf="@id/textguideline"
             app:layout_constraintTop_toBottomOf="@id/monster_popup_icon"/>
 
+
+        <TextView
+            app:layout_constraintHeight_percent="0.1"
+            android:id="@+id/stepsevolve"
+            android:text="@string/stepsevolve"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:layout_height="0dp"
+            android:layout_width="0dp"
+            app:layout_constraintWidth_percent="0.4"
+            app:layout_constraintStart_toEndOf="@id/textguideline"
+            app:layout_constraintTop_toBottomOf="@id/hunger_text"/>
+        <TextView
+            android:id="@+id/stepsevolvenumber"
+            app:layout_constraintHeight_percent="0.1"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:layout_height="0dp"
+            android:layout_width="0dp"
+            app:layout_constraintWidth_percent="0.4"
+            app:layout_constraintStart_toEndOf="@id/stepsevolve"
+            app:layout_constraintTop_toBottomOf="@id/hunger_text"/>
 
         <TextView
             android:id="@+id/training_text"
@@ -112,7 +134,6 @@
             app:layout_constraintWidth_percent="0.4"
             app:layout_constraintStart_toEndOf="@id/textguideline"
             app:layout_constraintTop_toTopOf="@id/hungerguideline"/>
-
 
         <ImageView
             android:contentDescription="@string/hungerbar"

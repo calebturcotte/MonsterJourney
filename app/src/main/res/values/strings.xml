@@ -13,6 +13,10 @@
     <string name="rate">Rate this game!</string>
     <string name="quit">Quit the app?</string>
     <string name="stepsneeded">Steps needed:\u0020</string>
+    <string name="stepsevolve">Steps to evolve:\u0020</string>
+    <string name="readytoevolve">Ready to evolve</string>
+    <string name="maxstage">Monster is at Max Stage</string>
+    <string name="partycollection">Current Monsters</string>
 
     <string name="removeads">Remove ads</string>
     <string name="buylightegg">Buy Light Egg</string>
@@ -28,10 +32,16 @@
 
     <string name="playagain">Play Again</string>
     <string name="cancel">Cancel</string>
+    <string name="selector">Selected Task Display</string>
 
     <string name="monsterinfo">Monster Info</string>
     <string name="congratulations">Congratulations!</string>
     <string name="entername">Please enter a name for your new Monster: </string>
+
+<!--    Map Completed-->
+    <string name="newegg">New egg unlocked!</string>
+    <string name="evolutiondiscount">Cost for evolution reduced.</string>
+    <string name="evolutionitem">Earned an evolution drug.</string>
 
     <string name="Training">Training</string>
     <string name="Traininginfo">Train your monster!</string>
@@ -64,6 +74,7 @@
     <string name="Retire">Retire</string>
     <string name="Retireinfo">Send your monster off to retirement and start raising a new one.</string>
     <string name="RetireConfirm">Are you sure you want to retire your current monster? You will start off with a new egg if you confirm.</string>
+    <string name="ReleaseConfirm">Are you sure you want to release this monster? You won\'t be able to get it back if you confirm.</string>
 
     <string name="Matchmaking">Matchmaking</string>
     <string name="Matchmakinginfo">Search for a match for your monster!</string>
@@ -72,7 +83,8 @@
     <string name="BattleFriendInfo">Connect and battle with another nearby person\'s monster.</string>
 
     <string name="BreedFriend">Match</string>
-    <string name="BreedingFriendInfo">Connect with another person\'s monster and create a new egg. (Caution: will retire your current monster, both players must have an adult stage monster.)</string>
+    <string name="BreedingFriendInfo">Connect with another person\'s monster and create a new egg. (Caution: will retire your current monster if ranch is full, both players must have an adult stage monster.)</string>
+    <string name="BreedingFriendMessage">Mufufu, looks like you met a friend. Shall we make this a match? (This will retire your current monster if your ranch is full)</string>
 
     <string name="RockFriend">Rock Paper Scissors</string>
     <string name="RockDescription">Challenge a nearby player to rock paper scissors. The first one to get 3 points wins!</string>
@@ -88,7 +100,7 @@
 
     <string name="MatchmakerEarly">Hello young soul. I am the matchmaker. Once your monster has grown seek me again so I may find it a suitor.</string>
     <string name="MatchmakerText">Hello old soul. I am the matchmaker. Bear your heart to me and I shall find you a suitor. Shall I look for a match for your monster?</string>
-    <string name="MatchmakerFound">I come bearing a match. Do you accept this proposition? (This will retire your current monster)</string>
+    <string name="MatchmakerFound">I come bearing a match. Do you accept this proposition? (This will retire your current monster if your ranch is full)</string>
 
     <string name="BattleTitle">Battle!</string>
     <string name="BattleEnemyHealth">Enemy Health: </string>
@@ -112,6 +124,7 @@
     <string name="scissors">Scissors</string>
 
     <string name="searching">Searching…</string>
+    <string name="searchmessage">Please wait at least 10 seconds for search to finish.</string>
 
     <string name="mapcompleted">Completed</string>
     <string name="mapnotcompleted">Not Completed</string>
@@ -128,13 +141,13 @@
 
     <string name="firedescription">A scorching island in a sea of flames. Monsters that live here have learned to adapt to the extreme heat.</string>
     <string name="dinodescription">An ancient island full of savage terrain. Dino type monsters can be found here.</string>
-    <string name="aquadescription">Aqua</string>
+    <string name="aquadescription">An island of coral and sea life. Monsters here are accustomed to living in the sea.</string>
     <string name="enigmadescription">A strange land inhabited by Enigma type monsters. Spirits and strange beings can be found here.</string>
     <string name="earthdescription">An island that has been overrun with foliage. Monsters here have become one with nature.</string>
-    <string name="machinedescription">Machine</string>
+    <string name="machinedescription">An island built out of metal. The lack of organic materials has caused it to be full of machines.</string>
     <string name="darkdescription">An island covered in dark miasma. Monsters on this island have become one with darkness</string>
-    <string name="lightdescription">Light</string>
-    <string name="cosmicdescription">Cosmic</string>
+    <string name="lightdescription">An island in the clouds surrounded by light. Monsters here are accustomed to the constant daytime.</string>
+    <string name="cosmicdescription">An island that is said to have once been in the stars. All the monsters here are celestial beings.</string>
 
     <string name="missing_title">Not Found</string>
     <string name="missing_description">This entry hasn\'t been unlocked yet.</string>
@@ -219,6 +232,51 @@
     <string name="baby_aqua_octopus_title">Octo</string>
     <string name="baby_aqua_octopus_description">An aqua type monster. With its many arms it floats around hoping small prey will get stuck in its tentacles.</string>
 
+    <string name="child_aqua_eel_title">Eely</string>
+    <string name="child_aqua_eel_description">This aqua type monster is often mistaken by some cultures as a mythical dragon. It is however actually a type of eel.</string>
+
+    <string name="child_aqua_pufferfish_title">Paulo</string>
+    <string name="child_aqua_pufferfish_description">When threatened this aqua type monster will expand to try and intimidate the threat. It also expands when happy,
+       which is… confusing.</string>
+
+    <string name="child_aqua_watertoad_title">Aqua Toad</string>
+    <string name="child_aqua_watertoad_description">This aqua type monster stores water in a sac on its back. The water combines with mucus on its skin to produce large bubbles.</string>
+
+    <string name="child_aqua_bubblething_title">Bubbles</string>
+    <string name="child_aqua_bubblething_description">This aqua type monster hides in a large bubble made of water. It will keep adding water to its bubble and try and
+        replace any water lost on hot days.</string>
+
+    <string name="child_aqua_clam_title">Clamman</string>
+    <string name="child_aqua_clam_description">Normally found at the bottom of the ocean, this aqua type monster will come up for air every few days to socialize.</string>
+
+    <string name="adult_aqua_jellyfish_title">Jellish</string>
+    <string name="adult_aqua_jellyfish_description">This aqua type monster has no bones. Because of this it floats around hoping smaller creatures get caught in its tentacles.</string>
+
+    <string name="adult_aqua_walrus_title">Walno</string>
+    <string name="adult_aqua_walrus_description">This aqua type monster spends most of its time relaxing on beaches with its herd. The largest one is in charge of keeping a lookout
+    for threats while the others sleep.</string>
+
+    <string name="adult_aqua_whaleseal_title">Whalepup</string>
+    <string name="adult_aqua_whaleseal_description">Found on beaches it will use its cute appearance to befriend other monsters and join their group.</string>
+
+    <string name="adult_aqua_waterdragon_title">Haku</string>
+    <string name="adult_aqua_waterdragon_description">According to legend, a carp that could swim upstream and then leap the falls of the Yellow River at Dragon Gate
+        would be transformed into a dragon. Researchers have tossed carp through this gate but it appears that unless a carp makes the journey itself it will not transform.</string>
+
+    <string name="adult_aqua_footballfish_title">Angler</string>
+    <string name="adult_aqua_footballfish_description">Because of its fearsome appearance this monster likes to hide in the dark depths of the sea. It will use the light as a lure to
+    draw prey closer before it strikes.</string>
+
+    <string name="adult_aqua_octopus_title">Octolock</string>
+    <string name="adult_aqua_octopus_description">This strange monster has no bones. Because of this it is able to hide and squeeze through tight crevasses on the ocean floor.</string>
+
+    <string name="adult_aqua_stingray_title">Stinghy</string>
+    <string name="adult_aqua_stingray_description">This monster uses sensors on its body to detect electric signals from passing organisms to hunt its prey.</string>
+
+    <string name="adult_aqua_scaleyfootsnail_title">Pangolo</string>
+    <string name="adult_aqua_scaleyfootsnail_description">The shell on this monster is actually made out of iron, which it will collect on the sea floor over its life. All of its
+    feet are covered in tiny iron scales as well for further protection.</string>
+
     <!--   Machine descriptions-->
     <string name="adult_machine_driller_title">Mach Gurren</string>
     <string name="adult_machine_driller_description">A machine type monster. Originally a simple drilling machine used for construction that has been taken over
@@ -228,8 +286,78 @@
     <string name="baby_fire_sparky_title">Sparky</string>
     <string name="baby_fire_sparky_description">A fire type monster. Enjoys sitting around campfires and eating stray embers.</string>
 
+    <string name="baby_fire_fat_title">Bailu</string>
+    <string name="baby_fire_fat_description">A fire type monster. Some cultures carry totems based on it for good luck and fortune.</string>
+
+    <string name="child_fire_chameleon_title">Chameon</string>
+    <string name="child_fire_chameleon_description">This horned monster carries a small fire on its back. This fire is used to regulate its internal temperature.</string>
+
+    <string name="child_fire_toad_title">Fire Toad</string>
+    <string name="child_fire_toad_description">This fire type monster stores fuel in a sac on its back. The fuel produces strong flames which are expelled constantly.</string>
+
+    <string name="child_fire_seaturtle_title">Turtu</string>
+    <string name="child_fire_seaturtle_description">The shell on its back is actually a miniature volcano. This monster mainly eats stones which are melted in its core to
+    filter out nutrients it can digest.</string>
+
+    <string name="child_fire_fireball_title">Sputter</string>
+    <string name="child_fire_fireball_description">This ball of fire has obtained sentience through some bizarre accident. Through fear of eventually burning out it
+    will search out smaller flames to consume.</string>
+
+    <string name="child_fire_wyvern_title">Baogon</string>
+    <string name="child_fire_wyvern_description">A rare wyrm thought to be a descendant of ancient dragons. Despite having wings it spends most of its time slithering
+    on the ground.</string>
+
+    <string name="adult_fire_fireball_title">Bo-bo-bo-bo</string>
+    <string name="adult_fire_fireball_description">Once a smaller fireball it has managed to consume enough flames that it has become large and complacent.</string>
+
+    <string name="adult_fire_factorygorilla_title">Factorilla</string>
+    <string name="adult_fire_factorygorilla_description">A mad scientist has combined this monster with a factory. Because of this it now has a large chimney
+    on its back that expels flames from its internal furnace.</string>
+
+    <string name="adult_fire_snake_title">Serpentia</string>
+    <string name="adult_fire_snake_description">In the harsh heat of its environment this monster has been forced to develop fierce instincts to survive.</string>
+
+    <string name="adult_fire_tikimask_title">MakuMaku</string>
+    <string name="adult_fire_tikimask_description">Indigenous tribes on small islands worship this monster believing it will protect them on fishing trips.</string>
+
+    <string name="adult_fire_serpent_title">Pyrosnake</string>
+    <string name="adult_fire_serpent_description">In the extreme heat of the desert this monster can be found. The heat also produces mirages which makes studying it difficult.</string>
+
+    <string name="adult_fire_firelordgoat_title">Baahlzebub</string>
+    <string name="adult_fire_firelordgoat_description">Despite its fearsome appearance this monster is quite kind. It will spend most of its time caring for baby
+    monsters. It also guards them so be careful not to get too close.</string>
+
+    <string name="adult_fire_fox_title">Fennefire</string>
+    <string name="adult_fire_fox_description">This monster uses its large ears to detect anything hiding in its surroundings. Flames from its tail let others know
+    not to get too close.</string>
+
+    <string name="adult_fire_elemental_title">Smoldris</string>
+    <string name="adult_fire_elemental_description">A living being made of coal. The friction from moving causes the coal to ignite which creates the large mane of fire
+    surrounging it.</string>
+
+    <string name="adult_fire_spirit_title">Agnis</string>
+    <string name="adult_fire_spirit_description">A spirit that is said to be the embodiment of fire. It contains its energy within the large beads around its neck
+    which can be used to generate all sorts of flames.</string>
+
+    <string name="adult_fire_baby_title">HouSu</string>
+    <string name="adult_fire_baby_description">With many coals on its back this monster constantly generates heat. It is very popular in hot springs.</string>
+
     <!--   Dark descriptions-->
     <string name="dark_egg_title">Dark</string>
     <string name="dark_egg_description">An egg shrouded in darkness. Contains a dark type monster.</string>
+
+    <!--   Light descriptions-->
+    <string name="light_egg_title">Light</string>
+    <string name="light_egg_description">An egg that has descended from the heavens. Contains a light type monster.</string>
+
+    <!--   Cosmic descriptions-->
+    <string name="cosmic_egg_title">Cosmic</string>
+    <string name="cosmic_egg_description">An egg that was found among the stars. Contains a cosmic type monster.</string>
+
+    <string name="cosmic_baby1_title">Stardu</string>
+    <string name="cosmic_baby1_description">A monster made up of bright stardust. Enjoys spending time with others.</string>
+
+    <string name="cosmic_baby2_title">Stardi</string>
+    <string name="cosmic_baby2_description">A monster made up of dark stardust. Likes to be alone.</string>
 
 </resources>

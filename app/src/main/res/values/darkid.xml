@@ -107,8 +107,8 @@
         <item name="evo3">@array/dark_adult_gorilla</item>
         <item name="evo4">@array/dark_adult_cthulu</item>
         <item name="evo5">@array/dark_adult_bear</item>
-        <item name="health">3</item>
-        <item name="attack">1</item>
+        <item name="health">5</item>
+        <item name="attack">2</item>
         <item name="attackchance">50</item>
         <item name="diligence">0</item>
         <item name="hunger">0</item>
@@ -129,8 +129,8 @@
         <item name="evo2">@array/dark_adult_greedfox</item>
         <item name="evo3">@array/dark_adult_cthulu</item>
         <item name="evo4">@array/dark_adult_eyeball</item>
-        <item name="health">3</item>
-        <item name="attack">1</item>
+        <item name="health">7</item>
+        <item name="attack">2</item>
         <item name="attackchance">50</item>
         <item name="diligence">2</item>
         <item name="hunger">6</item>
@@ -151,9 +151,9 @@
         <item name="evo2">@array/dark_adult_greedfox</item>
         <item name="evo3">@array/dark_adult_cthulu</item>
         <item name="evo4">@array/dark_adult_eyeball</item>
-        <item name="health">3</item>
-        <item name="attack">1</item>
-        <item name="attackchance">50</item>
+        <item name="health">6</item>
+        <item name="attack">2</item>
+        <item name="attackchance">55</item>
         <item name="diligence">5</item>
         <item name="hunger">4</item>
         <item name="gluttony">2</item>
@@ -171,7 +171,7 @@
         <item name="title">@string/baby_fire_sparky_title</item>
         <item name="description">@string/baby_fire_sparky_description</item>
         <item name="icon">@drawable/adult_dark_bear_idle</item>
-        <item name="health">11</item>
+        <item name="health">12</item>
         <item name="attack">3</item>
         <item name="attackchance">50</item>
         <item name="diligence">0</item>
@@ -189,7 +189,7 @@
         <item name="title">@string/baby_fire_sparky_title</item>
         <item name="description">@string/baby_fire_sparky_description</item>
         <item name="icon">@drawable/adult_dark_sloth_idle</item>
-        <item name="health">11</item>
+        <item name="health">12</item>
         <item name="attack">3</item>
         <item name="attackchance">50</item>
         <item name="diligence">0</item>
@@ -207,7 +207,7 @@
         <item name="title">@string/baby_fire_sparky_title</item>
         <item name="description">@string/baby_fire_sparky_description</item>
         <item name="icon">@drawable/adult_dark_eyeball_idle</item>
-        <item name="health">11</item>
+        <item name="health">12</item>
         <item name="attack">3</item>
         <item name="attackchance">50</item>
         <item name="diligence">0</item>
@@ -227,7 +227,7 @@
         <item name="icon">@drawable/adult_dark_eyeball_idle</item>
         <item name="health">14</item>
         <item name="attack">3</item>
-        <item name="attackchance">50</item>
+        <item name="attackchance">55</item>
         <item name="diligence">7</item>
         <item name="hunger">6</item>
         <item name="gluttony">1</item>
@@ -245,7 +245,7 @@
         <item name="icon">@drawable/adult_dark_cthulu_idle</item>
         <item name="health">14</item>
         <item name="attack">3</item>
-        <item name="attackchance">50</item>
+        <item name="attackchance">45</item>
         <item name="diligence">6</item>
         <item name="hunger">6</item>
         <item name="gluttony">5</item>
@@ -261,7 +261,7 @@
         <item name="title">@string/baby_fire_sparky_title</item>
         <item name="description">@string/baby_fire_sparky_description</item>
         <item name="icon">@drawable/adult_dark_gorilla_idle</item>
-        <item name="health">14</item>
+        <item name="health">13</item>
         <item name="attack">3</item>
         <item name="attackchance">50</item>
         <item name="diligence">4</item>
@@ -279,7 +279,7 @@
         <item name="title">@string/baby_fire_sparky_title</item>
         <item name="description">@string/baby_fire_sparky_description</item>
         <item name="icon">@drawable/adult_dark_greedfox_idle</item>
-        <item name="health">14</item>
+        <item name="health">13</item>
         <item name="attack">3</item>
         <item name="attackchance">50</item>
         <item name="diligence">6</item>
@@ -297,9 +297,9 @@
         <item name="title">@string/baby_fire_sparky_title</item>
         <item name="description">@string/baby_fire_sparky_description</item>
         <item name="icon">@drawable/adult_dark_scorpion_idle</item>
-        <item name="health">14</item>
+        <item name="health">13</item>
         <item name="attack">3</item>
-        <item name="attackchance">50</item>
+        <item name="attackchance">55</item>
         <item name="diligence">6</item>
         <item name="hunger">3</item>
         <item name="gluttony">0</item>
@@ -315,9 +315,9 @@
         <item name="title">@string/baby_fire_sparky_title</item>
         <item name="description">@string/baby_fire_sparky_description</item>
         <item name="icon">@drawable/adult_dark_wolf_idle</item>
-        <item name="health">14</item>
+        <item name="health">15</item>
         <item name="attack">3</item>
-        <item name="attackchance">50</item>
+        <item name="attackchance">55</item>
         <item name="diligence">8</item>
         <item name="hunger">6</item>
         <item name="gluttony">0</item>
@@ -325,6 +325,29 @@
         <item name="type">@array/dark_egg</item>
         <item name="attackicon">@drawable/adult_dark_wolf_attack</item>
         <item name="happyicon">@drawable/adult_dark_wolf_happy</item>
+    </integer-array>
+
+    <integer-array name="dark_baby_enemies">
+        <item name="size">2</item>
+        <item name="stage1">@array/dark_baby1</item>
+        <item name="stage2">@array/dark_baby2</item>
+    </integer-array>
+
+    <integer-array name="dark_child_enemies">
+        <item name="size">4</item>
+        <item name="stage1">@array/dark_baby2</item>
+        <item name="stage2">@array/dark_child_bigmouth</item>
+        <item name="stage3">@array/dark_child_flyingeye</item>
+        <item name="stage4">@array/dark_child_egghide</item>
+    </integer-array>
+
+    <integer-array name="dark_adult_enemies">
+        <item name="size">5</item>
+        <item name="stage1">@array/dark_adult_sloth</item>
+        <item name="stage2">@array/dark_adult_scorpion</item>
+        <item name="stage3">@array/dark_adult_greedfox</item>
+        <item name="stage4">@array/dark_adult_anglerfish</item>
+        <item name="stage4">@array/dark_adult_cthulu</item>
     </integer-array>
 
 </resources>

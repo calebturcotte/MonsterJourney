@@ -1,7 +1,6 @@
 package com.application.monsterjourney;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.AsyncTask;
@@ -17,6 +16,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.annotation.StyleableRes;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -33,7 +33,7 @@ public class EggSelect extends AppCompatActivity {
     private int selectedid;
     private AppDatabase db;
 
-    private List<UnlockedMonster> unlockedMonsters;
+    private List<CompletedMaps> completedMapsList;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -42,9 +42,6 @@ public class EggSelect extends AppCompatActivity {
         selectedegg = 0;
         //set the id for selected id first so it is not null
         selectedid = R.array.enigma_egg;
-
-        //TODO left and right arrows giving divide by 0 error
-
 
         CheckUnlocked runner = new CheckUnlocked(this);
         runner.execute();
@@ -68,6 +65,7 @@ public class EggSelect extends AppCompatActivity {
                 final TextView description = findViewById(R.id.content);
                 imageView.setBackgroundResource(R.drawable.egg_idle);
                 egganimator = (AnimationDrawable) imageView.getBackground();
+                findViewById(R.id.back_screen).setBackgroundResource(R.drawable.ic_background_egg);
 
                 ImageView rightscroll = findViewById(R.id.right_arrow);
                 ImageView leftscroll = findViewById(R.id.left_arrow);
@@ -109,9 +107,13 @@ public class EggSelect extends AppCompatActivity {
      */
     private void initializeSelect(){
         eggs = new ArrayList<>();
-        for(UnlockedMonster unlockedMonster : unlockedMonsters){
-            if(unlockedMonster.getStage() == 0 && unlockedMonster.isUnlocked()){
-                eggs.add(new Egg(unlockedMonster.getMonsterarrayid(), unlockedMonster.isUnlocked()));
+        for(CompletedMaps completedMaps : completedMapsList){
+            if(completedMaps.isIsunlocked()){
+                @StyleableRes int index = 7;
+                TypedArray array = getBaseContext().getResources().obtainTypedArray(completedMaps.getMaparray());
+                int unlockedegg = array.getResourceId(index, R.array.enigma_egg);
+                array.recycle();
+                eggs.add(new Egg(unlockedegg, true));
             }
         }
         totaleggs = eggs.size();
@@ -152,6 +154,7 @@ public class EggSelect extends AppCompatActivity {
             temp.setEventtype(0);
             temp.setFirsttime(false);
             temp.setEventreached(false);
+            temp.setMatching(false);
             db.journeyDao().update(temp);
 
             Monster tempmonster = db.journeyDao().getMonster().get(0);
@@ -188,6 +191,7 @@ public class EggSelect extends AppCompatActivity {
         // Weak references will still allow the Activity to be garbage-collected
         private final WeakReference<Activity> weakActivity;
         List<UnlockedMonster> unlockedMonsters;
+        List<CompletedMaps> completedMapsList;
 
         public CheckUnlocked(Activity activity){
             weakActivity = new WeakReference<>(activity);
@@ -196,13 +200,14 @@ public class EggSelect extends AppCompatActivity {
         protected String doInBackground(String... strings) {
             AppDatabase db = AppDatabase.buildDatabase(weakActivity.get());
             unlockedMonsters = db.journeyDao().getUnlockedMonster();
+            completedMapsList = db.journeyDao().getCompletedMaps();
             return null;
         }
 
         @Override
         protected void onPostExecute(String result) {
             EggSelect thisActivity = (EggSelect) weakActivity.get();
-            thisActivity.unlockedMonsters = unlockedMonsters;
+            thisActivity.completedMapsList = completedMapsList;
             thisActivity.initializeSelect();
         }
     }

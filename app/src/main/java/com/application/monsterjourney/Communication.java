@@ -8,10 +8,12 @@ import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.TypedArray;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.ClipDrawable;
+import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -126,6 +128,8 @@ public class Communication extends AppCompatActivity {
     private View rockView, matchView;
     private PopupWindow rockWindow, matchWindow;
     private TextView statusText;
+    private boolean isplaying;
+    private MediaPlayer music;
 
     private String opponentEndpointId;
 
@@ -185,7 +189,10 @@ public class Communication extends AppCompatActivity {
             }
         });
 
-        findViewById(R.id.back).setOnClickListener(v -> finish());
+        findViewById(R.id.back).setOnClickListener(v -> {
+            music.release();
+            finish();
+        } );
 
         findViewById(R.id.picker).setOnClickListener(v -> startTask());
 
@@ -235,6 +242,7 @@ public class Communication extends AppCompatActivity {
         for (int grantResult : grantResults) {
             if (grantResult == PackageManager.PERMISSION_DENIED) {
                 //Toast.makeText(this, R.string.error_missing_permissions, Toast.LENGTH_LONG).show();
+                music.release();
                 finish();
                 return;
             }
@@ -325,8 +333,7 @@ public class Communication extends AppCompatActivity {
         final View match = aboutinflater.inflate(R.layout.matchmaking_screen, (ViewGroup)null);
 
         @StyleableRes int index = 4;
-        //TODO replace with communications arrray
-        match.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.basic_background));
+        match.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_background_communications));
         Fade mFade = new Fade(Fade.IN);
         TransitionManager.beginDelayedTransition(frmlayout, mFade);
         frmlayout.removeAllViews();
@@ -430,7 +437,6 @@ public class Communication extends AppCompatActivity {
         Button backbutton = matchView.findViewById(R.id.back);
 
         confirmbutton.setOnClickListener(v -> {
-            //TODO send payload confirming respons
             myMatchChoice = 2;
             byte[] bytes = ByteBuffer.allocate(4).putInt(myMatchChoice).array();
             connectionsClient.sendPayload(
@@ -475,6 +481,7 @@ public class Communication extends AppCompatActivity {
             startActivity(intent);
             //where right side is current view
             overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+            music.release();
             finish();
         }, 3000);
         //TODO breed/egg animation
@@ -522,6 +529,7 @@ public class Communication extends AppCompatActivity {
         array.recycle();
         ImageView imageView = findViewById(R.id.monster_icon);
         imageView.setImageDrawable(ContextCompat.getDrawable(this, resource));
+        findViewById(R.id.back_screen).setBackgroundResource(R.drawable.ic_background_communications);
 
         AnimationDrawable monsteranimator = (AnimationDrawable) imageView.getDrawable();
         monsteranimator.start();
@@ -717,7 +725,8 @@ public class Communication extends AppCompatActivity {
                         // We're connected! Can now start sending and receiving data.
                         connectionsClient.stopDiscovery();
                         connectionsClient.stopAdvertising();
-                        initializeRockPaperScissors();
+                        battleSetup();
+                        //initializeRockPaperScissors();
                         opponentEndpointId = endpointId; // the id of the device we are connected to
                         //done after so endpointid is not overwritten
                     }
@@ -804,13 +813,23 @@ public class Communication extends AppCompatActivity {
             new PayloadCallback() {
                 @Override
                 public void onPayloadReceived(String endpointId, Payload payload) {
-                    opponentChoice = GameChoice.valueOf(new String(Objects.requireNonNull(payload.asBytes()), UTF_8));
+                    if(enemyarrayid == 0){
+                        enemyarrayid = ByteBuffer.wrap(Objects.requireNonNull(payload.asBytes())).getInt();
+                        logDiscovery(enemyarrayid);
+                    }
+                    else {
+                        opponentChoice = GameChoice.valueOf(new String(Objects.requireNonNull(payload.asBytes()), UTF_8));
+                    }
+
                 }
 
                 @Override
                 public void onPayloadTransferUpdate(String endpointId, PayloadTransferUpdate update) {
                     if (update.getStatus() == PayloadTransferUpdate.Status.SUCCESS) {
-                        if (myChoice != null && opponentChoice != null) {
+                        if(enemyarrayid != 0 && rockView == null){
+                            initializeRockPaperScissors();
+                        }
+                        else if (myChoice != null && opponentChoice != null) {
                             finishRound();
                         }
                     }
@@ -1129,8 +1148,7 @@ public class Communication extends AppCompatActivity {
 
         frmlayout.removeAllViews();
         frmlayout.addView(battle,0);
-        //TODO replace with proper communications background
-        findViewById(R.id.back_screen).setBackgroundResource(R.drawable.basic_background);
+        findViewById(R.id.back_screen).setBackgroundResource(R.drawable.ic_background_communications);
 
         final ImageView monster = battle.findViewById(R.id.monster_icon);
         final ImageView attack1View = battle.findViewById(R.id.myattack);
@@ -1522,5 +1540,27 @@ public class Communication extends AppCompatActivity {
             activity.selectedIcon(arrayid);
 
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        SharedPreferences settings = getSharedPreferences(MainActivity.PREFS_NAME, 0);
+        int tempvolume = 80;
+        music = MediaPlayer.create(Communication.this,R.raw.communications);
+        music.setLooping(true);
+        int currentvolume = settings.getInt("bgvolume", tempvolume);
+
+        music.setVolume((float) currentvolume /100, (float) currentvolume /100);
+        isplaying = settings.getBoolean("isplaying",isplaying);
+        //music.prepareAsync();
+
+        if(!isplaying)music.start();
+    }
+
+    @Override
+    protected void onPause() {
+        music.release();
+        super.onPause();
     }
 }

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background_material"
     tools:context=".MainActivity">
 
 
@@ -63,6 +64,20 @@
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.5"/>
 
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/verticaliconguideline"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.87"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/horizontalguideline3"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.46"/>
+
     <FrameLayout
         android:id="@+id/placeholder"
         android:background="@drawable/ic_launcher_background"
@@ -74,8 +89,19 @@
         app:layout_constraintBottom_toBottomOf="@id/horizontalguideline"
         app:layout_constraintEnd_toEndOf="@id/verticalguideline" />
 
+    <ImageView
+        android:layout_width="0dp"
+        app:layout_constraintHeight_percent="0.43"
+        android:src="@drawable/ic_screen_border"
+        android:scaleType="fitXY"
+        android:layout_height="0dp"
+        app:layout_constraintWidth_percent="0.73"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="@id/horizontalguideline3"
+        app:layout_constraintEnd_toEndOf="@id/verticaliconguideline"/>
+
     <TextView
-        android:background="@drawable/ic_launcher_background"
+        android:background="@drawable/ic_picker_background"
         android:id="@+id/Title"
         android:text="@string/app_name"
         android:gravity="center"
@@ -88,7 +114,7 @@
         app:layout_constraintEnd_toEndOf="@id/verticalguideline" />
 
     <TextView
-        android:background="@drawable/ic_launcher_background"
+        android:background="@drawable/ic_popup_background_text"
         android:id="@+id/content"
         android:text="@string/app_name"
         android:gravity="center"

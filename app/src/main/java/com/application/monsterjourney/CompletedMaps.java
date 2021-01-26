@@ -31,16 +31,19 @@ public class CompletedMaps {
     @ColumnInfo(name = "isstarter")
     boolean isstarter;
 
+    @ColumnInfo(name = "isunlocked")
+    boolean isunlocked;
 
-    public CompletedMaps(int maparray, long storysteps, int isbasic, boolean isstarter){
+
+    public CompletedMaps(int maparray, long storysteps, int isbasic, boolean isstarter, boolean isunlocked){
         this.maparray = maparray;
         this.storysteps = storysteps;
         storycompleted = false;
         this.isbasic = isbasic;
         this.isstarter = isstarter;
+        this.isunlocked = isunlocked;
     }
 
-    //TODO implement all missing maps, to future proof may need to add update method to db to allow more new monster types to be added in
 
     /**
      * when adding a new map, be sure it is in the same index as it is in the xml file
@@ -48,15 +51,15 @@ public class CompletedMaps {
      */
     public static CompletedMaps[] populateData(){
         return new CompletedMaps[] {
-                new CompletedMaps(R.array.enigma_map,30000, 0, true),
-                new CompletedMaps(R.array.dino_map,30000, 0, true),
-                new CompletedMaps(R.array.earth_map,30000, 0, false),
-                new CompletedMaps(R.array.aqua_map,30000, 0, false),
-                new CompletedMaps(R.array.fire_map,30000, 0, false),
-                new CompletedMaps(R.array.machine_map,30000, 0, false),
-                new CompletedMaps(R.array.dark_map,45000, 1, false),
-                new CompletedMaps(R.array.light_map,45000, 1, false),
-                new CompletedMaps(R.array.cosmic_map,50000, 2, false)
+                new CompletedMaps(R.array.enigma_map,25000, 0, true, true),
+                new CompletedMaps(R.array.dino_map,25000, 0, true, true),
+                new CompletedMaps(R.array.earth_map,25000, 0, false, false),
+                new CompletedMaps(R.array.aqua_map,25000, 0, false, false),
+                new CompletedMaps(R.array.fire_map,25000, 0, false, false),
+                new CompletedMaps(R.array.machine_map,25000, 0, false, false),
+                new CompletedMaps(R.array.dark_map,40000, 1, false, false),
+                new CompletedMaps(R.array.light_map,40000, 1, false, false),
+                new CompletedMaps(R.array.cosmic_map,50000, 2, false, false)
         };
     }
 
@@ -75,6 +78,10 @@ public class CompletedMaps {
     public void setIsstarter(boolean isstarter){this.isstarter = isstarter;}
 
     public boolean isIsstarter(){return isstarter;}
+
+    public void setIsunlocked(boolean isunlocked){this.isunlocked = isunlocked;}
+
+    public boolean isIsunlocked(){return isunlocked;}
 
 
 }

@@ -48,6 +48,20 @@
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.35"/>
 
+        <androidx.constraintlayout.widget.Guideline
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/himageguideline2"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.084"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/vborderguideline"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.085"/>
+
 
         <Button
             android:contentDescription="@string/close"
@@ -68,6 +82,18 @@
             app:layout_constraintWidth_percent="0.3"
             app:layout_constraintStart_toStartOf="@id/backguideline"
             app:layout_constraintTop_toTopOf="@id/textinfoguideline"/>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:id="@+id/border"
+            app:layout_constraintHeight_percent="0.33"
+            android:src="@drawable/ic_screen_border"
+            android:scaleType="fitXY"
+            android:layout_height="0dp"
+            app:layout_constraintWidth_percent="0.33"
+            android:gravity="center"
+            app:layout_constraintTop_toBottomOf="@id/vborderguideline"
+            app:layout_constraintStart_toStartOf="@id/himageguideline2"/>
         <ImageView
             android:contentDescription="@string/close"
             android:id="@+id/food_icon"
@@ -159,7 +185,5 @@
         android:id="@+id/verticalguideline"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.1"/>
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

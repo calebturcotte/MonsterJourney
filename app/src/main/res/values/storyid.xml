@@ -86,7 +86,7 @@
         <item name="stage2">@array/light_child_enemies</item>
         <item name="stage3">@array/light_adult_enemies</item>
         <item name="boss">@array/light_adult_dragon</item>
-        <item name="icon">@drawable/basic_background</item>
+        <item name="icon">@drawable/ic_background_light</item>
         <item name="title">@string/lighttype</item>
         <item name="description">@string/lightdescription</item>
         <item name="egg">@array/light_egg</item>
@@ -97,7 +97,7 @@
         <item name="stage2">@array/cosmic_child_enemies</item>
         <item name="stage3">@array/cosmic_adult_enemies</item>
         <item name="boss">@array/cosmic_adult_leo</item>
-        <item name="icon">@drawable/ic_background_fire</item>
+        <item name="icon">@drawable/ic_background_cosmic</item>
         <item name="title">@string/cosmictype</item>
         <item name="description">@string/cosmicdescription</item>
         <item name="egg">@array/cosmic_egg</item>

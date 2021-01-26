@@ -75,9 +75,8 @@ public class Journey {
         matching = false;
         matchmakersteps = 1000;
         matchmakerreached = false;
-        //TODO decide starting map for player
         storytype = R.array.enigma_map;
-        storysteps = 30000;
+        storysteps = 25000;
         isbattling = false;
         bossfight = false;
         evolvediscount = 0;

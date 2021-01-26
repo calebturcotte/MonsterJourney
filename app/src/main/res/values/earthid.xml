@@ -14,8 +14,8 @@
     <integer-array name="earth_baby1">
         <item name="stage">1</item>
         <item name="evolutions">3</item>
-        <item name="title">@string/dino_baby_dinoegg_title</item>
-        <item name="description">@string/dino_baby_dinoegg_description</item>
+        <item name="title">@string/baby_earth_seed_title</item>
+        <item name="description">@string/baby_earth_seed_description</item>
         <item name="icon">@drawable/baby_earth_seed_idle</item>
         <item name="evo1">@array/earth_child_squirrel</item>
         <item name="evo2">@array/earth_child_bush</item>
@@ -56,8 +56,8 @@
     <integer-array name="earth_child_beetle">
         <item name="stage">2</item>
         <item name="evolutions">3</item>
-        <item name="title">@string/baby_earth_peas_title</item>
-        <item name="description">@string/baby_earth_peas_description</item>
+        <item name="title">@string/child_earth_beetle_title</item>
+        <item name="description">@string/child_earth_beetle_description</item>
         <item name="icon">@drawable/child_earth_beetle_idle</item>
         <item name="evo1">@array/earth_adult_beetle</item>
         <item name="evo2">@array/earth_adult_butterfly</item>
@@ -77,8 +77,8 @@
     <integer-array name="earth_child_cabbage">
         <item name="stage">2</item>
         <item name="evolutions">4</item>
-        <item name="title">@string/baby_earth_peas_title</item>
-        <item name="description">@string/baby_earth_peas_description</item>
+        <item name="title">@string/child_earth_cabbage_title</item>
+        <item name="description">@string/child_earth_cabbage_description</item>
         <item name="icon">@drawable/child_earth_cabbage_idle</item>
         <item name="evo1">@array/earth_adult_stump</item>
         <item name="evo2">@array/earth_adult_monkey</item>
@@ -99,8 +99,8 @@
     <integer-array name="earth_child_squirrel">
         <item name="stage">2</item>
         <item name="evolutions">5</item>
-        <item name="title">@string/baby_earth_peas_title</item>
-        <item name="description">@string/baby_earth_peas_description</item>
+        <item name="title">@string/child_earth_squirrel_title</item>
+        <item name="description">@string/child_earth_squirrel_description</item>
         <item name="icon">@drawable/child_earth_squirrel_idle</item>
         <item name="evo1">@array/earth_adult_leafcat</item>
         <item name="evo2">@array/earth_adult_moose</item>
@@ -122,8 +122,8 @@
     <integer-array name="earth_child_plant">
         <item name="stage">2</item>
         <item name="evolutions">5</item>
-        <item name="title">@string/baby_earth_peas_title</item>
-        <item name="description">@string/baby_earth_peas_description</item>
+        <item name="title">@string/child_earth_plant_title</item>
+        <item name="description">@string/child_earth_plant_description</item>
         <item name="icon">@drawable/child_earth_plant_idle</item>
         <item name="evo1">@array/earth_adult_stump</item>
         <item name="evo2">@array/earth_adult_monkey</item>
@@ -145,8 +145,8 @@
     <integer-array name="earth_child_bush">
         <item name="stage">2</item>
         <item name="evolutions">5</item>
-        <item name="title">@string/baby_earth_peas_title</item>
-        <item name="description">@string/baby_earth_peas_description</item>
+        <item name="title">@string/child_earth_bush_title</item>
+        <item name="description">@string/child_earth_bush_description</item>
         <item name="icon">@drawable/child_earth_bush_idle</item>
         <item name="evo1">@array/earth_adult_leafcat</item>
         <item name="evo2">@array/earth_adult_moose</item>
@@ -170,8 +170,8 @@
     <integer-array name="earth_adult_blob">
         <item name="stage">3</item>
         <item name="evolutions">0</item>
-        <item name="title">@string/baby_earth_peas_title</item>
-        <item name="description">@string/baby_earth_peas_description</item>
+        <item name="title">@string/adult_earth_blob_title</item>
+        <item name="description">@string/adult_earth_blob_description</item>
         <item name="icon">@drawable/adult_earth_blob_idle</item>
         <item name="health">11</item>
         <item name="attack">3</item>
@@ -188,8 +188,8 @@
     <integer-array name="earth_adult_watermelon">
         <item name="stage">3</item>
         <item name="evolutions">0</item>
-        <item name="title">@string/baby_earth_peas_title</item>
-        <item name="description">@string/baby_earth_peas_description</item>
+        <item name="title">@string/adult_earth_watermelon_title</item>
+        <item name="description">@string/adult_earth_watermelon_description</item>
         <item name="icon">@drawable/adult_earth_watermelon_idle</item>
         <item name="health">11</item>
         <item name="attack">3</item>
@@ -206,8 +206,8 @@
     <integer-array name="earth_adult_leafcat">
         <item name="stage">3</item>
         <item name="evolutions">0</item>
-        <item name="title">@string/baby_earth_peas_title</item>
-        <item name="description">@string/baby_earth_peas_description</item>
+        <item name="title">@string/adult_earth_leafcat_title</item>
+        <item name="description">@string/adult_earth_leafcat_description</item>
         <item name="icon">@drawable/adult_earth_leafcat_idle</item>
         <item name="health">11</item>
         <item name="attack">3</item>
@@ -224,8 +224,8 @@
     <integer-array name="earth_adult_eggimitate">
         <item name="stage">3</item>
         <item name="evolutions">0</item>
-        <item name="title">@string/baby_earth_peas_title</item>
-        <item name="description">@string/baby_earth_peas_description</item>
+        <item name="title">@string/adult_earth_eggimitate_title</item>
+        <item name="description">@string/adult_earth_eggimitate_description</item>
         <item name="icon">@drawable/adult_earth_eggimitate_idle</item>
         <item name="health">11</item>
         <item name="attack">3</item>
@@ -242,8 +242,8 @@
     <integer-array name="earth_adult_butterfly">
         <item name="stage">3</item>
         <item name="evolutions">0</item>
-        <item name="title">@string/baby_earth_peas_title</item>
-        <item name="description">@string/baby_earth_peas_description</item>
+        <item name="title">@string/adult_earth_butterfly_title</item>
+        <item name="description">@string/adult_earth_butterfly_description</item>
         <item name="icon">@drawable/adult_earth_butterfly_idle</item>
         <item name="health">11</item>
         <item name="attack">3</item>
@@ -260,8 +260,8 @@
     <integer-array name="earth_adult_beetle">
         <item name="stage">3</item>
         <item name="evolutions">0</item>
-        <item name="title">@string/baby_earth_peas_title</item>
-        <item name="description">@string/baby_earth_peas_description</item>
+        <item name="title">@string/adult_earth_beetle_title</item>
+        <item name="description">@string/adult_earth_beetle_description</item>
         <item name="icon">@drawable/adult_earth_beetle_idle</item>
         <item name="health">11</item>
         <item name="attack">3</item>
@@ -278,8 +278,8 @@
     <integer-array name="earth_adult_stump">
         <item name="stage">3</item>
         <item name="evolutions">0</item>
-        <item name="title">@string/baby_earth_peas_title</item>
-        <item name="description">@string/baby_earth_peas_description</item>
+        <item name="title">@string/adult_earth_stump_title</item>
+        <item name="description">@string/adult_earth_stump_description</item>
         <item name="icon">@drawable/adult_earth_stump_idle</item>
         <item name="health">11</item>
         <item name="attack">3</item>
@@ -293,11 +293,12 @@
         <item name="happyicon">@drawable/adult_earth_stump_happy</item>
     </integer-array>
 
+<!--    TODO gives battle stats to earth-->
     <integer-array name="earth_adult_moose">
         <item name="stage">3</item>
         <item name="evolutions">0</item>
-        <item name="title">@string/baby_earth_peas_title</item>
-        <item name="description">@string/baby_earth_peas_description</item>
+        <item name="title">@string/adult_earth_moose_title</item>
+        <item name="description">@string/adult_earth_moose_description</item>
         <item name="icon">@drawable/adult_earth_moose_idle</item>
         <item name="health">11</item>
         <item name="attack">3</item>
@@ -314,8 +315,8 @@
     <integer-array name="earth_adult_monkey">
         <item name="stage">3</item>
         <item name="evolutions">0</item>
-        <item name="title">@string/baby_earth_peas_title</item>
-        <item name="description">@string/baby_earth_peas_description</item>
+        <item name="title">@string/adult_earth_monkey_title</item>
+        <item name="description">@string/adult_earth_monkey_description</item>
         <item name="icon">@drawable/adult_earth_monkey_idle</item>
         <item name="health">11</item>
         <item name="attack">3</item>

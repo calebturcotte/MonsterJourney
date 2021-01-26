@@ -2,9 +2,11 @@ package com.application.monsterjourney;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.TypedArray;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.ClipDrawable;
+import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -50,6 +52,9 @@ public class Training extends AppCompatActivity {
     private View trainView, matchView, feedView;
     private int feedtype;
     private ArrayList<ItemAmount> feedamounts;
+    private MediaPlayer music;
+    private boolean isplaying;
+    private int currentarrayid;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,6 +90,7 @@ public class Training extends AppCompatActivity {
             startActivity(intent);
             //where right side is current view
             overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+            music.release();
             finish();
         });
 
@@ -113,10 +119,38 @@ public class Training extends AppCompatActivity {
         runner.execute();
 
         findViewById(R.id.back).setOnClickListener(v -> {
+            music.release();
             finish();
         });
 
         findViewById(R.id.picker).setOnClickListener(v -> startTask());
+    }
+
+    @Override
+    protected void onResume() {
+        SharedPreferences settings = getSharedPreferences(MainActivity.PREFS_NAME, 0);
+        int tempvolume = 80;
+        music = MediaPlayer.create(Training.this,R.raw.training);
+        music.setLooping(true);
+        int currentvolume = settings.getInt("bgvolume", tempvolume);
+
+        music.setVolume((float) currentvolume /100, (float) currentvolume /100);
+        isplaying = settings.getBoolean("isplaying",isplaying);
+        //music.prepareAsync();
+
+        if(!isplaying)music.start();
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        music.release();
+        super.onPause();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
     }
 
     /**
@@ -221,6 +255,7 @@ public class Training extends AppCompatActivity {
         trainingtitle.setText(getText(R.string.TrainingReady));
         trainingtapcount = 0;
         Handler h = new Handler();
+        Activity mainActivity = this;
         //Run a runnable after 100ms (after that time it is safe to remove the view)
         h.postDelayed(() -> {
             trainingtitle.setText(getText(R.string.TrainingStart));
@@ -241,8 +276,7 @@ public class Training extends AppCompatActivity {
                 public void onFinish() {
                     String timetext =  "0 s";
                     trainingtime.setText(timetext);
-
-                    TrainingResult runner = new TrainingResult();
+                    TrainingResult runner = new TrainingResult(mainActivity);
                     runner.execute();
 
                     Handler h1 = new Handler();
@@ -318,7 +352,14 @@ public class Training extends AppCompatActivity {
             trainingfill.setLevel(trainingtapcount*2000);
             startTrain(trainView);
         });
+    }
 
+    /**
+     * fetch the number of successful taps
+     * @return the number of taps for training
+     */
+    public int getTrainingtapcount(){
+        return trainingtapcount;
     }
 
     /**
@@ -382,7 +423,7 @@ public class Training extends AppCompatActivity {
                     }
                 }
             });
-            final FrameLayout frmlayout = (FrameLayout) findViewById(R.id.placeholder);
+            final FrameLayout frmlayout = findViewById(R.id.placeholder);
             LayoutInflater aboutinflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
             assert aboutinflater != null;
             final View feeding = aboutinflater.inflate(R.layout.feeding_screen, (ViewGroup)null);
@@ -457,7 +498,7 @@ public class Training extends AppCompatActivity {
      * evolve the monster if conditions are met, or display notification that monster cannot evolve
      */
     private void evolve(){
-        EvolveRunner runner = new EvolveRunner();
+        EvolveRunner runner = new EvolveRunner(this);
         runner.execute();
     }
 
@@ -521,6 +562,7 @@ public class Training extends AppCompatActivity {
         if(matchView != null){
             return;
         }
+        //TODO add more info for if we are currently matching, do they wish to cancel, etc
         LayoutInflater confirminflater = (LayoutInflater)
                 getSystemService(LAYOUT_INFLATER_SERVICE);
         assert confirminflater != null;
@@ -529,7 +571,6 @@ public class Training extends AppCompatActivity {
         int height2 = ConstraintLayout.LayoutParams.MATCH_PARENT;
         final PopupWindow matchWindow = new PopupWindow(matchView, width2, height2, true);
         matchWindow.setOutsideTouchable(false);
-
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             matchWindow.setElevation(20);
@@ -552,24 +593,28 @@ public class Training extends AppCompatActivity {
         TextView matchtext = matchView.findViewById(R.id.confimation_text);
         matchtext.setText(getText(R.string.MatchmakerText));
 
-        matchView.findViewById(R.id.confirm).setOnClickListener(v -> AsyncTask.execute(() -> {
-            AppDatabase db = AppDatabase.buildDatabase(getApplicationContext());
-            Journey tempjourney = db.journeyDao().getJourney().get(0);
-            tempjourney.setMatching(true);
-            tempjourney.setMatchmakersteps(2000);
-            db.journeyDao().update(tempjourney);
+        matchView.findViewById(R.id.confirm).setOnClickListener(v -> {
+            AsyncTask.execute(() -> {
+                AppDatabase db = AppDatabase.buildDatabase(getApplicationContext());
+                Journey tempjourney = db.journeyDao().getJourney().get(0);
+                tempjourney.setMatching(true);
+                tempjourney.setMatchmakersteps(2000);
+                db.journeyDao().update(tempjourney);
+            });
             matchWindow.dismiss();
             matchView = null;
-        }));
-        matchView.findViewById(R.id.back).setOnClickListener(v -> AsyncTask.execute(() -> {
-            AppDatabase db = AppDatabase.buildDatabase(getApplicationContext());
-            Journey tempjourney = db.journeyDao().getJourney().get(0);
-            tempjourney.setMatching(false);
-            tempjourney.setMatchmakersteps(1000);
-            db.journeyDao().update(tempjourney);
+        });
+        matchView.findViewById(R.id.back).setOnClickListener(v -> {
+            AsyncTask.execute(() -> {
+                AppDatabase db = AppDatabase.buildDatabase(getApplicationContext());
+                Journey tempjourney = db.journeyDao().getJourney().get(0);
+                tempjourney.setMatching(false);
+                tempjourney.setMatchmakersteps(2000);
+                db.journeyDao().update(tempjourney);
+            });
             matchWindow.dismiss();
             matchView = null;
-        }));
+        });
         matchView.findViewById(R.id.confirm).setVisibility(View.INVISIBLE);
         matchView.findViewById(R.id.back).setVisibility(View.INVISIBLE);
 
@@ -595,6 +640,48 @@ public class Training extends AppCompatActivity {
         AnimationDrawable monsteranimator = (AnimationDrawable) imageView.getDrawable();
         monsteranimator.start();
 
+    }
+
+    /**
+     * play happy animation for selected amount of time
+     */
+    public void happyAnimation(int duration){
+        TypedArray array = getBaseContext().getResources().obtainTypedArray(currentarrayid);
+        @StyleableRes int index = 4;
+        int[] monsterresources = getResources().getIntArray(currentarrayid);
+        int evolutions = monsterresources[1];
+        int resource = array.getResourceId(index+evolutions+10, R.drawable.egg_idle);
+        array.recycle();
+        ImageView imageView = findViewById(R.id.monster_icon);
+        imageView.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), resource));
+        AnimationDrawable monsteranimator = (AnimationDrawable) imageView.getDrawable();
+        monsteranimator.start();
+        Handler h = new Handler();
+        h.postDelayed(() -> {
+            monsteranimator.stop();
+            selectedIcon(currentarrayid);
+        }, duration);
+    }
+
+    /**
+     * play angry animation for selected amount of time
+     */
+    public void angryAnimation(int duration){
+        TypedArray array = getBaseContext().getResources().obtainTypedArray(currentarrayid);
+        @StyleableRes int index = 4;
+        int[] monsterresources = getResources().getIntArray(currentarrayid);
+        int evolutions = monsterresources[1];
+        int resource = array.getResourceId(index+evolutions+9, R.drawable.egg_idle);
+        array.recycle();
+        ImageView imageView = findViewById(R.id.monster_icon);
+        imageView.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), resource));
+        AnimationDrawable monsteranimator = (AnimationDrawable) imageView.getDrawable();
+        monsteranimator.start();
+        Handler h = new Handler();
+        h.postDelayed(() -> {
+            monsteranimator.stop();
+            selectedIcon(currentarrayid);
+        }, duration);
     }
 
 
@@ -627,14 +714,20 @@ public class Training extends AppCompatActivity {
     }
 
     //fetch and display the monster info for current status
-    private class TrainingResult extends AsyncTask<String,TextView,String>{
+    private static class TrainingResult extends AsyncTask<String,TextView,String>{
 
         private boolean trainresult;
+        private final WeakReference<Activity> weakActivity;
+
+        public TrainingResult(Activity myActivity){
+            this.weakActivity = new WeakReference<>(myActivity);
+        }
         @Override
         protected String doInBackground(String... strings) {
-            AppDatabase db = AppDatabase.buildDatabase(getApplicationContext());
+            AppDatabase db = AppDatabase.getInstance(weakActivity.get());
+            Training training = (Training) weakActivity.get();
             Monster temp = db.journeyDao().getMonster().get(0);
-            if (trainingtapcount >= 5){
+            if (training.getTrainingtapcount() >= 5){
                 trainresult = true;
                 if(temp.getDiligence() < 8){
                     temp.setDiligence(temp.getDiligence()+1);
@@ -652,13 +745,16 @@ public class Training extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
             //where max clip is 10000, hunger/diligence is in increments of 8
-            TextView trainingresult = trainView.findViewById(R.id.training_result);
-            ImageView tempimage = trainView.findViewById(R.id.training_layout);
+            Training training = (Training) weakActivity.get();
+            TextView trainingresult = training.trainView.findViewById(R.id.training_result);
+            ImageView tempimage = training.trainView.findViewById(R.id.training_layout);
             tempimage.setVisibility(View.INVISIBLE);
             if(trainresult){
-                trainingresult.setText(getText(R.string.TrainingSuccess));
+                training.happyAnimation(3000);
+                trainingresult.setText(weakActivity.get().getText(R.string.TrainingSuccess));
             } else {
-                trainingresult.setText(getText(R.string.TrainingFailed));
+                training.angryAnimation(3000);
+                trainingresult.setText(weakActivity.get().getText(R.string.TrainingFailed));
             }
 
         }
@@ -668,6 +764,7 @@ public class Training extends AppCompatActivity {
     private class MatchmakingResult extends AsyncTask<String,TextView,String>{
 
         private int stage;
+        boolean ismatching;
         @Override
         protected String doInBackground(String... strings) {
             AppDatabase db = AppDatabase.buildDatabase(getApplicationContext());
@@ -676,6 +773,7 @@ public class Training extends AppCompatActivity {
             TypedArray array = getApplicationContext().getResources().obtainTypedArray(arrayid);
             int[] monsterresources = getApplicationContext().getResources().getIntArray(arrayid);
             stage = monsterresources[0];
+            ismatching = db.journeyDao().getJourney().get(0).isMatching();
             array.recycle();
 
             return null;
@@ -687,7 +785,11 @@ public class Training extends AppCompatActivity {
             TextView matchtext = matchView.findViewById(R.id.confimation_text);
 
             if(stage == 3){
-                matchtext.setText(getText(R.string.MatchmakerText));
+                if(ismatching){
+                    matchtext.setText(getText(R.string.CurrentBreeding));
+                }else{
+                    matchtext.setText(getText(R.string.MatchmakerText));
+                }
                 matchView.findViewById(R.id.confirm).setVisibility(View.VISIBLE);
                 matchView.findViewById(R.id.back).setVisibility(View.VISIBLE);
             } else {
@@ -767,6 +869,7 @@ public class Training extends AppCompatActivity {
 //                        InitializeScreen runner = new InitializeScreen(weakActivity.get());
 //                        runner.execute();
                         thisActivity.selectedIcon(currentarrayid);
+                        thisActivity.happyAnimation(2000);
 
                         homelayout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
                     }
@@ -777,24 +880,34 @@ public class Training extends AppCompatActivity {
     }
 
     //perform check for evolving our monster and change view if appropriate
-    private class EvolveRunner extends AsyncTask<String,String, String>{
+    private static class EvolveRunner extends AsyncTask<String,String, String>{
         private int currentarrayid;
         private boolean evolved;
         private int stage;
         private long stepsneeded;
+
+        private final WeakReference<Activity> weakActivity;
+
+        public EvolveRunner(Activity myActivity){
+            this.weakActivity = new WeakReference<>(myActivity);
+        }
         @Override
         protected String doInBackground(String... strings) {
-            AppDatabase db = AppDatabase.buildDatabase(getApplicationContext());
+            AppDatabase db = AppDatabase.buildDatabase(weakActivity.get());
             Monster temp = db.journeyDao().getMonster().get(0);
             Journey tempjourney = db.journeyDao().getJourney().get(0);
-            evolved = temp.evolve(getApplicationContext(), tempjourney.getEvolveddiscount());
+            evolved = temp.evolve(weakActivity.get(), tempjourney.getEvolveddiscount());
             //currentarrayid = db.journeyDao().getMonster().get(0).getArrayid();
             currentarrayid = temp.getArrayid();
-            int[] monsterresources = getApplication().getResources().getIntArray(currentarrayid);
+            int[] monsterresources = weakActivity.get().getResources().getIntArray(currentarrayid);
             stage = monsterresources[0];
             stepsneeded = temp.getEvolvesteps();
 
             db.journeyDao().updateMonster(temp);
+
+            Training training = (Training) weakActivity.get();
+            training.currentarrayid = currentarrayid;
+
 
             List<UnlockedMonster> unlockedMonsters = db.journeyDao().getUnlockedMonster();
             if(evolved){
@@ -811,8 +924,9 @@ public class Training extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String result) {
+            Training training = (Training) weakActivity.get();
             if(evolved){
-                ImageView eventimage = findViewById(R.id.monster_event);
+                ImageView eventimage = training.findViewById(R.id.monster_event);
                 eventimage.setVisibility(View.VISIBLE);
                 final Animation eventanimation = new AlphaAnimation(1, 0); //to change visibility from visible to invisible
                 eventanimation.setDuration(400); //half a second duration for each animation cycle
@@ -825,18 +939,19 @@ public class Training extends AppCompatActivity {
                 h1.postDelayed(() -> {
                     eventimage.setVisibility(View.INVISIBLE);
                     eventanimation.cancel();
-                    selectedIcon(currentarrayid);
+                    training.selectedIcon(currentarrayid);
+                    training.happyAnimation(2000);
                 }, 2000);
 
             }
             else if(stage >= 3){
-                Toast.makeText(getApplicationContext(), "Monster already at final stage.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(weakActivity.get(), "Monster already at final stage.", Toast.LENGTH_SHORT).show();
             }
             else if(stepsneeded > 0){
-                Toast.makeText(getApplicationContext(), stepsneeded + " steps needed to evolve.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(weakActivity.get(), stepsneeded + " steps needed to evolve.", Toast.LENGTH_SHORT).show();
             }
             else{
-                Toast.makeText(getApplicationContext(), "Evolution requirements not met.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(weakActivity.get(), "Evolution requirements not met.", Toast.LENGTH_SHORT).show();
             }
 //            ImageView eventimage = findViewById(R.id.monster_event);
 //            eventimage.setVisibility(View.VISIBLE);
@@ -945,6 +1060,7 @@ public class Training extends AppCompatActivity {
         protected void onPostExecute(String result) {
             //check if item is owned, if so then it can be an option to view
             Training training = (Training) weakActivity.get();
+            training.currentarrayid = currentarrayid;
 
             training.selectedIcon(currentarrayid);
 

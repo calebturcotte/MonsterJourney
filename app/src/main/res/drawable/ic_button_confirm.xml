@@ -14,5 +14,5 @@
         android:state_pressed="true"
         android:drawable="@drawable/ic_button_confirm_1" />
     <item android:state_enabled="false"
-        android:drawable="@drawable/ic_button_confirm_1" />
+        android:drawable="@drawable/ic_button_confirm_3" />
 </selector>

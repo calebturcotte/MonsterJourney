@@ -14,4 +14,9 @@
         <item name="android:windowFullscreen">true</item>
     </style>
 
+    <style name="NumberPickerTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customized Number Picker. -->
+        <item name="android:textSize">18sp</item>
+    </style>
+
 </resources>

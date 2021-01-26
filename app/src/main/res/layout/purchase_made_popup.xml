@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/popup"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintHeight_percent="0.6"
+        app:layout_constraintWidth_percent="0.8"
+        android:background="@drawable/ic_popup_background"
+        app:layout_constraintStart_toStartOf="@id/verticalguideline"
+        app:layout_constraintTop_toTopOf="@id/horizontalguideline">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/trainingguideline"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.7"/>
+        <androidx.constraintlayout.widget.Guideline
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageguideline"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.1"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textguideline"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.1"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/himageguideline"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.15"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/himageguideline2"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.14"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/vborderguideline"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.09"/>
+
+
+        <ImageView
+            android:contentDescription="@string/icon_description"
+            android:background="@drawable/ic_launcher_background"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintHeight_percent="0.5"
+            app:layout_constraintWidth_percent="0.7"
+            app:layout_constraintStart_toEndOf="@id/himageguideline"
+            app:layout_constraintTop_toTopOf="@id/imageguideline"/>
+        <ImageView
+            android:id="@+id/reward_icon"
+            android:scaleType="fitXY"
+            android:contentDescription="@string/icon_description"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintHeight_percent="0.5"
+            app:layout_constraintWidth_percent="0.7"
+            app:layout_constraintStart_toEndOf="@id/himageguideline"
+            app:layout_constraintTop_toTopOf="@id/imageguideline"/>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:id="@+id/border"
+            app:layout_constraintHeight_percent="0.53"
+            android:src="@drawable/ic_screen_border"
+            android:scaleType="fitXY"
+            android:layout_height="0dp"
+            app:layout_constraintWidth_percent="0.73"
+            android:gravity="center"
+            app:layout_constraintTop_toBottomOf="@id/vborderguideline"
+            app:layout_constraintStart_toStartOf="@id/himageguideline2"/>
+
+        <Button
+            android:contentDescription="@string/close"
+            android:id="@+id/close"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/ic_button_exit"
+            app:layout_constraintHeight_percent="0.05"
+            app:layout_constraintWidth_percent="0.1"
+            app:layout_constraintEnd_toEndOf="@id/popup"
+            app:layout_constraintTop_toTopOf="@id/popup"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:gravity="center"
+            android:text="@string/congratulations"
+            android:textSize="25sp"
+            app:layout_constraintHeight_percent="0.1"
+            app:layout_constraintStart_toEndOf="@id/textguideline"
+            app:layout_constraintTop_toBottomOf="@id/border"/>
+
+        <TextView
+            android:id="@+id/message_text"
+            app:layout_constraintHeight_percent="0.2"
+            android:text="@string/entername"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:layout_height="0dp"
+            android:layout_width="0dp"
+            app:layout_constraintWidth_percent="0.8"
+            app:layout_constraintStart_toEndOf="@id/textguideline"
+            app:layout_constraintTop_toTopOf="@id/trainingguideline"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/horizontalguideline"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.2"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/verticalguideline"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.1"/>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

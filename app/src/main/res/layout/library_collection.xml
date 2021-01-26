@@ -59,6 +59,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
                 <TextView
+                    android:background="@drawable/ic_picker_background"
                     android:layout_width="match_parent"
                     android:gravity="center"
                     android:layout_height="wrap_content"
@@ -70,6 +71,7 @@
                     android:layout_height="wrap_content">
                 </TableLayout>
                 <TextView
+                    android:background="@drawable/ic_picker_background"
                     android:layout_width="match_parent"
                     android:gravity="center"
                     android:layout_height="wrap_content"
@@ -81,6 +83,7 @@
                     android:layout_height="wrap_content">
                 </TableLayout>
                 <TextView
+                    android:background="@drawable/ic_picker_background"
                     android:layout_width="match_parent"
                     android:gravity="center"
                     android:layout_height="wrap_content"
@@ -92,6 +95,7 @@
                     android:layout_height="wrap_content">
                 </TableLayout>
                 <TextView
+                    android:background="@drawable/ic_picker_background"
                     android:layout_width="match_parent"
                     android:gravity="center"
                     android:layout_height="wrap_content"
@@ -101,7 +105,6 @@
                     android:id="@+id/adult_table"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
-
                 </TableLayout>
 
 

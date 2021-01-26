@@ -8,6 +8,7 @@
 
     <TextView
         android:gravity="center"
+        android:background="@drawable/ic_picker_background"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:id="@+id/count"
@@ -200,6 +201,7 @@
 
         <Button
             android:id="@+id/up_direction"
+            android:background="@drawable/ic_button_up"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintWidth_percent="0.33"
@@ -209,6 +211,7 @@
             />
         <Button
             android:id="@+id/left_direction"
+            android:background="@drawable/ic_button_left"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintWidth_percent="0.33"
@@ -218,6 +221,7 @@
             />
         <Button
             android:id="@+id/down_direction"
+            android:background="@drawable/ic_button_down"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintWidth_percent="0.33"
@@ -227,6 +231,7 @@
             />
         <Button
             android:id="@+id/right_direction"
+            android:background="@drawable/ic_button_right"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintWidth_percent="0.33"

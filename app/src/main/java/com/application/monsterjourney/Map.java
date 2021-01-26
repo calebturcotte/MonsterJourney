@@ -137,31 +137,20 @@ public class Map extends AppCompatActivity {
         confirmbutton.setEnabled(false);
         //normally defvalue is false but we loaded it as true for demo
         ColorMatrix matrix = new ColorMatrix();
-        for(UnlockedMonster unlockedMonster : unlockedMonsterList){
-            if(unlockedMonster.getMonsterarrayid() == viewarray2.getResourceId(selected, R.array.missing_content)){
-                if(unlockedMonster.isUnlocked()){
-                    @StyleableRes int tempid = 5;
-                    monstertitle = array.getResourceId(tempid,R.drawable.egg_idle);
-                    confirmbutton.setEnabled(true);
-                    imageView.setImageResource(0);
-                    matrix.setSaturation(1);
-                    imageView.setColorFilter(new ColorMatrixColorFilter(matrix));
-                    stepsneeded.setVisibility(View.VISIBLE);
-                    completedView.setVisibility(View.VISIBLE);
-                }
-                else {
-                    imageView.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(),R.drawable.missing_content));
-                    matrix.setSaturation(0);
-                    imageView.setColorFilter(new ColorMatrixColorFilter(matrix));
-                    stepsneeded.setVisibility(View.INVISIBLE);
-                    completedView.setVisibility(View.INVISIBLE);
-                }
-                if(unlockedMonster.isDiscovered()){
-                    @StyleableRes int tempid = 6;
-                    monstertext = array.getResourceId(tempid,R.drawable.egg_idle);
-                }
-                break;
-            }
+        if(completedMapsList.get(selected).isIsunlocked()){
+            @StyleableRes int tempid = 5;
+            monstertitle = array.getResourceId(tempid,R.drawable.egg_idle);
+            confirmbutton.setEnabled(true);
+            imageView.setImageResource(0);
+            matrix.setSaturation(1);
+            stepsneeded.setVisibility(View.VISIBLE);
+            completedView.setVisibility(View.VISIBLE);
+            monstertext = array.getResourceId(tempid+1,R.drawable.egg_idle);
+        }else {
+            imageView.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(),R.drawable.missing_content));
+            matrix.setSaturation(0.3f);
+            stepsneeded.setVisibility(View.INVISIBLE);
+            completedView.setVisibility(View.INVISIBLE);
         }
         if(selected == currentselectedstory) {
             confirmbutton.setEnabled(false);
@@ -187,6 +176,7 @@ public class Map extends AppCompatActivity {
 
         @StyleableRes int tempid = 4;
         imageView.setBackgroundResource(array.getResourceId(tempid,R.drawable.mapbackground2));
+        imageView.getBackground().setColorFilter(new ColorMatrixColorFilter(matrix));
 
         this.title.setText(getText(monstertitle));
         description.setText(getText(monstertext));

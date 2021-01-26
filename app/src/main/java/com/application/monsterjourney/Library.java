@@ -3,6 +3,7 @@ package com.application.monsterjourney;
 import android.content.SharedPreferences;
 import android.content.res.TypedArray;
 import android.graphics.drawable.AnimationDrawable;
+import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -40,7 +41,7 @@ public class Library extends AppCompatActivity {
 
     private Button backbutton;
     private TextView description;
-    private TextView title;
+    private TextView title, libraryindex;
 
     private @StyleableRes int selected;
     private int selectedarray;
@@ -48,6 +49,8 @@ public class Library extends AppCompatActivity {
     private List<UnlockedMonster> unlockedMonsterList;
 
     private View librarypopup;
+    private MediaPlayer music;
+    private boolean isplaying;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -63,6 +66,7 @@ public class Library extends AppCompatActivity {
 
         final FrameLayout frmlayout = findViewById(R.id.placeholder);
         LayoutInflater aboutinflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+        assert aboutinflater != null;
         final View home = aboutinflater.inflate(R.layout.home_screen, (ViewGroup)null);
         boolean isbought = settings.getBoolean("isbought", false);
         AdView mAdView = findViewById(R.id.adView);
@@ -76,6 +80,7 @@ public class Library extends AppCompatActivity {
                 title = findViewById(R.id.Title);
                 description = findViewById(R.id.content);
                 backbutton = findViewById(R.id.back);
+                libraryindex = findViewById(R.id.libraryindex);
 
                 picker1 = findViewById(R.id.picker);
                 imageView.setBackgroundResource(R.drawable.egg_idle);
@@ -139,8 +144,28 @@ public class Library extends AppCompatActivity {
             }
         });
 
+    }
 
+    @Override
+    protected void onResume() {
+        SharedPreferences settings = getSharedPreferences(MainActivity.PREFS_NAME, 0);
+        int tempvolume = 80;
+        music = MediaPlayer.create(Library.this,R.raw.library);
+        music.setLooping(true);
+        int currentvolume = settings.getInt("bgvolume", tempvolume);
 
+        music.setVolume((float) currentvolume /100, (float) currentvolume /100);
+        isplaying = settings.getBoolean("isplaying",isplaying);
+        //music.prepareAsync();
+
+        if(!isplaying)music.start();
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        music.release();
+        super.onPause();
     }
 
     /**
@@ -163,7 +188,27 @@ public class Library extends AppCompatActivity {
                 selectedarray = R.array.adult_list;
                 break;
         }
+        unlockedChecker();
         showView();
+    }
+
+    /**
+     * checks which monster is unlocked first so moving the number selector looks better
+     */
+    private void unlockedChecker(){
+        TypedArray viewarray = getResources().obtainTypedArray(selectedarray);
+        for(int i = 0; i < viewarray.length(); i++){
+            for(UnlockedMonster unlockedMonster : unlockedMonsterList){
+                if(unlockedMonster.getMonsterarrayid() == viewarray.getResourceId(i, R.array.missing_content)){
+                    if(unlockedMonster.isDiscovered()){
+                        selected = i;
+                        viewarray.recycle();
+                        return;
+                    }
+                }
+            }
+        }
+        viewarray.recycle();
     }
 
     /**
@@ -176,6 +221,9 @@ public class Library extends AppCompatActivity {
         }
         TypedArray viewarray = getResources().obtainTypedArray(selectedarray);
         TypedArray array = getResources().obtainTypedArray(viewarray.getResourceId(selected, R.array.missing_content));
+
+        String selectedview = (selected+1) + "/" + viewarray.length();
+        libraryindex.setText(selectedview);
 
         boolean animate = false;
         int backgroundAnimation = R.drawable.missing_content;

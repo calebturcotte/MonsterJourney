@@ -58,7 +58,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:gravity="center"
-            android:textSize="15sp"
+            android:textSize="18sp"
             app:layout_constraintHeight_percent="0.5"
             app:layout_constraintStart_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textinfoguideline"/>

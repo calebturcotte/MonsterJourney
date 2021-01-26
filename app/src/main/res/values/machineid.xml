@@ -14,8 +14,8 @@
     <integer-array name="machine_baby1">
         <item name="stage">1</item>
         <item name="evolutions">3</item>
-        <item name="title">@string/baby_aqua_octopus_title</item>
-        <item name="description">@string/baby_aqua_octopus_description</item>
+        <item name="title">@string/baby_machine_roomba_title</item>
+        <item name="description">@string/baby_machine_roomba_description</item>
         <item name="icon">@drawable/baby_machine_roomba_idle</item>
         <item name="evo1">@array/aqua_child_bubblething</item>
         <item name="evo2">@array/aqua_child_clam</item>
@@ -35,8 +35,8 @@
     <integer-array name="machine_baby2">
         <item name="stage">1</item>
         <item name="evolutions">3</item>
-        <item name="title">@string/baby_aqua_tadpole_title</item>
-        <item name="description">@string/baby_aqua_tadpole_description</item>
+        <item name="title">@string/baby_machine_windup_title</item>
+        <item name="description">@string/baby_machine_windup_description</item>
         <item name="icon">@drawable/baby_machine_winduphead_idle</item>
         <item name="evo1">@array/aqua_child_eelthing</item>
         <item name="evo2">@array/aqua_child_watertoad</item>

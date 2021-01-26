@@ -17,9 +17,9 @@
         <item name="title">@string/baby_fire_fat_title</item>
         <item name="description">@string/baby_fire_fat_description</item>
         <item name="icon">@drawable/baby_fire_fat_idle</item>
-        <item name="evo1">@array/dino_baby1</item>
-        <item name="evo2">@array/dino_baby1</item>
-        <item name="evo3">@array/dino_baby1</item>
+        <item name="evo1">@array/fire_child_seaturtle</item>
+        <item name="evo2">@array/fire_child_toad</item>
+        <item name="evo3">@array/fire_child_chameleon</item>
         <item name="health">3</item>
         <item name="attack">1</item>
         <item name="attackchance">50</item>

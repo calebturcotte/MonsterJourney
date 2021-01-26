@@ -8,6 +8,7 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.TypedArray;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -16,6 +17,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.IBinder;
 import androidx.annotation.Nullable;
+import androidx.annotation.StyleableRes;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
@@ -28,14 +30,13 @@ public class ForeGroundService extends Service implements SensorEventListener, S
             ACTION_BROADCAST = ForeGroundService.class.getName() + "Broadcast",
             CHANNEL_ID = "ForegroundServiceChannel";
     private StepDetector simpleStepDetector;
-    private SensorManager sensorManager;
-    private Sensor accel;
     private long steps, evolvesteps;
     private long eventsteps;
     private long matchmakersteps;
     private boolean eventreached;
     private PendingIntent pendingIntent;
     private AppDatabase db;
+    private int currentarrayid;
     @Override
     public void onCreate() {
         super.onCreate();
@@ -47,9 +48,9 @@ public class ForeGroundService extends Service implements SensorEventListener, S
 
 
         // Get an instance of the SensorManager
-        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+        SensorManager sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         assert sensorManager != null;
-        accel = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        Sensor accel = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         simpleStepDetector = new StepDetector();
         simpleStepDetector.registerListener(this);
 
@@ -148,12 +149,14 @@ public class ForeGroundService extends Service implements SensorEventListener, S
             steps = temp.getTotalsteps();
             eventsteps = temp.getEventsteps();
             eventreached = temp.isEventreached();
+            matchmakersteps = temp.getMatchmakersteps();
             Monster tempmonster  = db.journeyDao().getMonster().get(0);
+            currentarrayid = tempmonster.getArrayid();
             boolean isbattling = temp.getIsbattling();
             long storysteps = temp.getStorysteps();
 
             //if we reach an event then wait until it is addressed before counting steps again
-            if (!eventreached && !isbattling) {
+            if (!eventreached && !isbattling && matchmakersteps >0) {
                 steps++;
                 eventsteps--;
                 evolvesteps = tempmonster.getEvolvesteps() - 1;
@@ -191,11 +194,10 @@ public class ForeGroundService extends Service implements SensorEventListener, S
                     }
                 }
                 else if(temp.isMatching()){
-                    matchmakersteps = temp.getMatchmakersteps();
                     matchmakersteps--;
                     temp.setMatchmakersteps(matchmakersteps);
                     if(matchmakersteps <= 0){
-                        eventreached = true;
+                        //eventreached = true;
                         if (isAppInBackground(getApplicationContext())) {
                             createNotification("Match found", "The Matchmaker has found a match for your monster!");
                         }
@@ -207,7 +209,8 @@ public class ForeGroundService extends Service implements SensorEventListener, S
                 tempmonster.setEvolvesteps(evolvesteps);
                 db.journeyDao().update(temp);
                 db.journeyDao().updateMonster(tempmonster);
-                sendBroadcastMessage(steps);
+                sendBroadcastMessage(matchmakersteps);
+                //sendBroadcastMessage(steps);
                 //sendBroadcastMessage(eventreached);
             }
         });
@@ -257,12 +260,17 @@ public class ForeGroundService extends Service implements SensorEventListener, S
      * create a notification for different events reached
      */
     public void createNotification(String contenttitle, String contenttext) {
+        @StyleableRes int index = 4;
+        //use our r.array id to find array for current monster
+        TypedArray array = getBaseContext().getResources().obtainTypedArray(currentarrayid);
+        int resource = array.getResourceId(index,R.drawable.egg_idle);
+        array.recycle();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             Notification notification =
                     new Notification.Builder(this, CHANNEL_ID)
                             .setContentTitle(contenttitle)
                             .setContentText(contenttext)
-                            .setSmallIcon(R.drawable.ic_launcher_background)
+                            .setSmallIcon(resource)
                             .setContentIntent(pendingIntent)
                             .setAutoCancel(true)
                             .setTicker(getText(R.string.channel_description))
@@ -276,7 +284,7 @@ public class ForeGroundService extends Service implements SensorEventListener, S
                     new NotificationCompat.Builder(this, CHANNEL_ID)
                             .setContentTitle(contenttitle)
                             .setContentText(contenttext)
-                            .setSmallIcon(R.drawable.ic_launcher_background)
+                            .setSmallIcon(resource)
                             .setContentIntent(pendingIntent)
                             .setAutoCancel(true)
                             .setTicker(getText(R.string.channel_description))

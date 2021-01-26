@@ -113,6 +113,7 @@
 
                     <Button
                         android:id="@+id/buydarkegg"
+                        android:background="@drawable/ic_button_darkbuy"
                         android:layout_width="0dp"
                         android:gravity="center"
                         android:layout_weight="0.4"
@@ -152,6 +153,25 @@
 
                     <Button
                         android:id="@+id/buyitempack"
+                        android:layout_width="0dp"
+                        android:gravity="center"
+                        android:layout_weight="0.4"
+                        android:layout_height="50dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="0.6"
+                        android:gravity="center"
+                        android:layout_height="50dp"
+                        android:textSize="15sp"
+                        android:text="@string/restorepurchase"/>
+
+                    <Button
+                        android:id="@+id/restorepurchase"
                         android:layout_width="0dp"
                         android:gravity="center"
                         android:layout_weight="0.4"

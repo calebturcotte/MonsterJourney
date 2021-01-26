@@ -15,14 +15,19 @@
     <string name="stepsneeded">Steps needed:\u0020</string>
     <string name="stepsevolve">Steps to evolve:\u0020</string>
     <string name="readytoevolve">Ready to evolve</string>
-    <string name="maxstage">Monster is at Max Stage</string>
+    <string name="maxstage">Max Stage</string>
     <string name="partycollection">Current Monsters</string>
+    <string name="soundbutton">Sound Button</string>
+    <string name="no">No</string>
+    <string name="yes">Yes</string>
+    <string name="addegg">Add another egg</string>
 
     <string name="removeads">Remove ads</string>
     <string name="buylightegg">Buy Light Egg</string>
     <string name="buydarkegg">Buy Dark Egg</string>
     <string name="buycosmicegg">Buy Cosmic Egg</string>
     <string name="buyitempack">Buy Item Pack</string>
+    <string name="restorepurchase">Restore Purchases</string>
 
     <string name="enemyfound">ENEMY FOUND</string>
     <string name="bossfound">BOSS FOUND</string>
@@ -42,6 +47,14 @@
     <string name="newegg">New egg unlocked!</string>
     <string name="evolutiondiscount">Cost for evolution reduced.</string>
     <string name="evolutionitem">Earned an evolution drug.</string>
+    <string name="evolutionitem3">Earned three evolution drugs!</string>
+
+<!--    Purchase Messages-->
+    <string name="cosmiceggbought">Thank you for buying the Cosmic egg.</string>
+    <string name="darkeggbought">Thank you for buying the Dark egg.</string>
+    <string name="lighteggbought">Thank you for buying the Light egg.</string>
+    <string name="removedads">You will no longer see advertisements.</string>
+    <string name="item_pack">Thank you for purchasing this item bundle.</string>
 
     <string name="Training">Training</string>
     <string name="Traininginfo">Train your monster!</string>
@@ -86,7 +99,7 @@
     <string name="BreedFriend">Match</string>
     <string name="BreedingFriendInfo">Connect with another person\'s monster and create a new egg. (Caution: will retire your current monster if ranch is full, both players must have an adult stage monster.)</string>
     <string name="BreedingFriendMessage">Mufufu, looks like you met a friend. Shall we make this a match? (This will retire your current monster if your ranch is full)</string>
-
+    <string name="CurrentBreeding">I see that you are already searching for a match. Did you want me to keep looking?</string>
     <string name="RockFriend">Rock Paper Scissors</string>
     <string name="RockDescription">Challenge a nearby player to rock paper scissors. The first one to get 3 points wins!</string>
 
@@ -209,8 +222,49 @@
     <string name="dino_baby2_title">Dozer</string>
     <string name="dino_baby2_description">A dino type monster. It sleeps for 20 hours a day and only wakes up to eat or when bothered.</string>
 
+    <string name="dino_child_armadillo_title">Armadon</string>
+    <string name="dino_child_armadillo_description">Said to be an ancestor of the armadillo. This monster relies on its tough shell to protect itself.</string>
+
+    <string name="dino_child_crocodile_title">Crocodon</string>
+    <string name="dino_child_crocodile_description">Researchers believe that this monster\'s jaws can chew through steel. Other monsters keep their distance from this one.</string>
+
+    <string name="dino_child_longneck_title">Arbosaur</string>
+    <string name="dino_child_longneck_description">Its long neck is surprisingly made up of only seven bones. Researchers believe that the long neck helps with the digestion of plants.</string>
+
+    <string name="dino_child_stegosaur_title">Armorhide</string>
+    <string name="dino_child_stegosaur_description">With armored plates on its back and spikes on its tail this monster enjoys tests of strength to prove which is the strongest in the herd.</string>
+
+    <string name="dino_child_triceratops_title">Keratops</string>
+    <string name="dino_child_triceratops_description">The three horns on its head are used to dig up tough plants so it can eat the roots. A herd of these
+        monsters can clear an entire forest in months.</string>
+
+    <string name="dino_adult_sloth_title">Primaloth</string>
+    <string name="dino_adult_sloth_description">Thought to be an ancient relative of the sloth, this monster used its large claws to dig into tough bark. In order to keep moving it must
+    eat one ton of food each day.</string>
+
     <string name="dino_adult_ankylosaur_title">Ankylo</string>
-    <string name="dino_adult_ankylosaur_description">Covered in scales, this dino type monster protects itself while bludgeoning enemies with its tail</string>
+    <string name="dino_adult_ankylosaur_description">Covered in scales, this dino type monster protects itself while bludgeoning enemies with its tail.</string>
+
+    <string name="dino_adult_plesiosaur_title">Nessie</string>
+    <string name="dino_adult_plesiosaur_description">This monster enjoys spending its time swimming in large lakes. Its long neck can be used to reach
+        above or deep below the water.</string>
+
+    <string name="dino_adult_sabretooth_title">Saber Fang</string>
+    <string name="dino_adult_sabretooth_description">A savage monster who prefers to be alone. It is very territorial so if you notice one then keep your distance.</string>
+
+    <string name="dino_adult_horneddino_title">Sharposaur</string>
+    <string name="dino_adult_horneddino_description">A proud dinosaur with small horns on its forehead. The hard scales on its back keep it close to the top of the food chain.</string>
+
+    <string name="dino_adult_spinosaur_title">Spinolizard</string>
+    <string name="dino_adult_spinosaur_description">Researchers believe that the large fin on its back is used for temperature regulation. One can often find two of these monsters
+    fighting over territory or food.</string>
+
+    <string name="dino_adult_bigheaddino_title">Terrorsaur</string>
+    <string name="dino_adult_bigheaddino_description">An apex predator in both size and ferocity. Their territory is so huge that most people don\'t even realize that they\'re living in it.</string>
+
+    <string name="dino_adult_brachiosaur_title">Brachiodon</string>
+    <string name="dino_adult_brachiosaur_description">A large and docile dino type monster. It likes to spend its time in large herds with many large trees nearby to snack on.</string>
+
 
     <string name="child_list">Children Collected: </string>
     <string name="dino_child2_title">Ripper</string>
@@ -226,6 +280,51 @@
     <string name="baby_earth_peas_title">Peas</string>
     <string name="baby_earth_peas_description">An earth type monster. For a long time researchers have wondered if this monster is actually three monsters
     gathered together or a monster with three heads.</string>
+
+    <string name="child_earth_beetle_title">HollowShell</string>
+    <string name="child_earth_beetle_description">This monster wanders around the forest on its hind legs looking for friends in need. …It just needs to find a friend first…</string>
+
+    <string name="child_earth_cabbage_title">Cabbonage</string>
+    <string name="child_earth_cabbage_description">A garden vegetable that has mysteriously gained sentience. It will guard the garden it came from hoping that other vegetables
+    will someday talk back to it.</string>
+
+    <string name="child_earth_squirrel_title">Seedle</string>
+    <string name="child_earth_squirrel_description">A monster that has started to become one with the plant life that surrounds it. Its main hobby is storing nuts in
+    any trees in the area.</string>
+
+    <string name="child_earth_plant_title">TwinPlant</string>
+    <string name="child_earth_plant_description">Both of this monsters heads work together to help the main body survive. It will migrate long distances to pollinate new areas.</string>
+
+    <string name="child_earth_bush_title">Shrubero</string>
+    <string name="child_earth_bush_description">A mysterious monster that hides inside a bush. No one is exactly sure what it looks like or if any two look the same.</string>
+
+    <string name="adult_earth_blob_title">Bobobulb</string>
+    <string name="adult_earth_blob_description">A squishy blob that bounces through the forest. The large leaf on its head is used to protect itself from the environment.</string>
+
+    <string name="adult_earth_watermelon_title">Sabermelon</string>
+    <string name="adult_earth_watermelon_description">A savage vegetable. Known to gobble insects that get too close it will protect its garden at all costs.</string>
+
+    <string name="adult_earth_leafcat_title">Foliacat</string>
+    <string name="adult_earth_leafcat_description">A cat that has sprung from the earth. Most of the nutrients it gains are from photosynthesis.</string>
+
+    <string name="adult_earth_eggimitate_title">Mimicegg</string>
+    <string name="adult_earth_eggimitate_description">This monster imitates an egg in hopes that someone else will take care of it.</string>
+
+    <string name="adult_earth_butterfly_title">Floralfly</string>
+    <string name="adult_earth_butterfly_description">Known for pollinating plant life in the forest it lives in. Some believe this monster is a guardian that brings good luck.</string>
+
+    <string name="adult_earth_beetle_title">Hercubeetle</string>
+    <string name="adult_earth_beetle_description">A large beetle that guards the forest. In its spare time it often gives rides to smaller monsters.</string>
+
+    <string name="adult_earth_stump_title">Freestump</string>
+    <string name="adult_earth_stump_description">The spirit of a tree that has been cut down. It wanders the forest trying to protect other trees from the same fate.</string>
+
+    <string name="adult_earth_moose_title">Moosherb</string>
+    <string name="adult_earth_moose_description">A gentle monster who is one with the forest. The plant life that grows on its head can be used for medicine.</string>
+
+    <string name="adult_earth_monkey_title">Plantaebaboon</string>
+    <string name="adult_earth_monkey_description">A group of these monsters is known as a troop. The alpha of the troop oversees the others and teaches the young.</string>
+
 
     <!--    Aqua descriptions-->
     <string name="baby_aqua_tadpole_title">Taddy</string>
@@ -280,6 +379,13 @@
     feet are covered in tiny iron scales as well for further protection.</string>
 
     <!--   Machine descriptions-->
+    <string name="baby_machine_roomba_title">Roombaron</string>
+    <string name="baby_machine_roomba_description">A roomba that has been taken over by a cybernetic organism. It forgot the reason it first came to this island so
+    now it spends its time cleaning factory floors.</string>
+
+    <string name="baby_machine_windup_title">Windobot</string>
+    <string name="baby_machine_windup_description">Despite its tough appearance it relies on other to keep its key winded so that it can move around.</string>
+
     <string name="adult_machine_driller_title">Mach Gurren</string>
     <string name="adult_machine_driller_description">A machine type monster. Originally a simple drilling machine used for construction that has been taken over
     by an unknown cybernetic organism. Its dream is to drill to the heavens.</string>

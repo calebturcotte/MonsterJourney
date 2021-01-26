@@ -31,6 +31,7 @@ import java.util.Random;
 public class Minigame extends AppCompatActivity {
 
     private int selectedgame;
+    private int currentarrayid;
 
     private int snakedirection;
 
@@ -320,6 +321,11 @@ public class Minigame extends AppCompatActivity {
         buttons[temp].setOnClickListener(v -> {
             int handlerdelay = 200;
             if(step == rounds.size()-1){
+                for(int i = 0; i < 9; i++){
+                    buttons[i].setOnClickListener(v12 -> {
+                    });
+                }
+                happyAnimation(2000);
                 TextView temptext =  findViewById(R.id.count);
                 temptext.setText(getText(R.string.simonsays_rounddone));
                 handlerdelay = 1000;
@@ -353,8 +359,10 @@ public class Minigame extends AppCompatActivity {
         String roundspassed = "Steps earned: " + stepsearned;
         temp.setText(roundspassed);
 
+        angryAnimation(2500);
+
         AsyncTask.execute(() -> {
-            AppDatabase db = AppDatabase.buildDatabase(getApplicationContext());
+            AppDatabase db = AppDatabase.getInstance(getApplicationContext());
             Journey tempjourney = db.journeyDao().getJourney().get(0);
             Monster tempmonster = db.journeyDao().getMonster().get(0);
             tempjourney.addStepstoJourney(stepsearned, tempmonster.getHatched());
@@ -376,6 +384,12 @@ public class Minigame extends AppCompatActivity {
         findViewById(R.id.left_direction).setOnClickListener(v -> snakedirection = 2);
         findViewById(R.id.down_direction).setOnClickListener(v -> snakedirection = 3);
         findViewById(R.id.right_direction).setOnClickListener(v -> snakedirection = 4);
+        ImageView rightscroll = findViewById(R.id.right_arrow);
+        ImageView leftscroll = findViewById(R.id.left_arrow);
+        rightscroll.clearAnimation();
+        leftscroll.clearAnimation();
+        rightscroll.setVisibility(View.INVISIBLE);
+        leftscroll.setVisibility(View.INVISIBLE);
         ArrayList<SnakePosition> snakePositions = new ArrayList<>();
         snakePositions.add(new SnakePosition(4,4,R.id.snake_head));
         addSnakeSection(snakePositions);
@@ -388,7 +402,7 @@ public class Minigame extends AppCompatActivity {
      * @param snakePositions the container for each snake in the view
      */
     public void snakeMove(ArrayList<SnakePosition> snakePositions){
-        ConstraintLayout templayout = findViewById(R.id.game_spot);
+        final ConstraintLayout templayout = findViewById(R.id.game_spot);
         TextView counttext = findViewById(R.id.count);
         String countstring = "Energy collected: " + (snakePositions.size() - 2);
         counttext.setText(countstring);
@@ -515,7 +529,7 @@ public class Minigame extends AppCompatActivity {
                 countstring = "Steps Earned: " + stepsearned;
                 counttext.setText(countstring);
                 AsyncTask.execute(() -> {
-                    AppDatabase db = AppDatabase.buildDatabase(getApplicationContext());
+                    AppDatabase db = AppDatabase.getInstance(getApplicationContext());
                     Journey tempjourney = db.journeyDao().getJourney().get(0);
                     Monster tempmonster = db.journeyDao().getMonster().get(0);
                     tempjourney.addStepstoJourney(stepsearned, tempmonster.getHatched());
@@ -539,7 +553,7 @@ public class Minigame extends AppCompatActivity {
                     countstring = "Steps Earned: " + stepsearned;
                     counttext.setText(countstring);
                     AsyncTask.execute(() -> {
-                        AppDatabase db = AppDatabase.buildDatabase(getApplicationContext());
+                        AppDatabase db = AppDatabase.getInstance(getApplicationContext());
                         Journey tempjourney = db.journeyDao().getJourney().get(0);
                         Monster tempmonster = db.journeyDao().getMonster().get(0);
                         tempjourney.addStepstoJourney(stepsearned,tempmonster.getHatched());
@@ -558,12 +572,6 @@ public class Minigame extends AppCompatActivity {
         snakePositions.get(0).setXposition(xposition);
         snakePositions.get(0).setYposition(yposition);
 
-        ImageView rightscroll = findViewById(R.id.right_arrow);
-        ImageView leftscroll = findViewById(R.id.left_arrow);
-        rightscroll.clearAnimation();
-        leftscroll.clearAnimation();
-        rightscroll.setVisibility(View.INVISIBLE);
-        leftscroll.setVisibility(View.INVISIBLE);
 
         Handler h = new Handler();
         h.postDelayed(() -> snakeMove(snakePositions), 200);
@@ -668,6 +676,54 @@ public class Minigame extends AppCompatActivity {
         snakePositions.add(new SnakePosition(xposition,yposition,newviewid));
     }
 
+    /**
+     * play happy animation for selected amount of time
+     */
+    public void happyAnimation(int duration){
+        @StyleableRes int index = 4;
+        int[] monsterresources = getResources().getIntArray(currentarrayid);
+        if(monsterresources[0] == 0){
+            return;
+        }
+        TypedArray array = getBaseContext().getResources().obtainTypedArray(currentarrayid);
+        int evolutions = monsterresources[1];
+        int resource = array.getResourceId(index+evolutions+10, R.drawable.egg_idle);
+        array.recycle();
+        ImageView imageView = findViewById(R.id.monster_icon);
+        imageView.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), resource));
+        AnimationDrawable monsteranimator = (AnimationDrawable) imageView.getDrawable();
+        monsteranimator.start();
+        Handler h = new Handler();
+        h.postDelayed(() -> {
+            monsteranimator.stop();
+            selectedIcon(currentarrayid, this);
+        }, duration);
+    }
+
+    /**
+     * play angry animation for selected amount of time
+     */
+    public void angryAnimation(int duration){
+        @StyleableRes int index = 4;
+        int[] monsterresources = getResources().getIntArray(currentarrayid);
+        if(monsterresources[0] == 0){
+            return;
+        }
+        TypedArray array = getBaseContext().getResources().obtainTypedArray(currentarrayid);
+        int evolutions = monsterresources[1];
+        int resource = array.getResourceId(index+evolutions+9, R.drawable.egg_idle);
+        array.recycle();
+        ImageView imageView = findViewById(R.id.monster_icon);
+        imageView.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), resource));
+        AnimationDrawable monsteranimator = (AnimationDrawable) imageView.getDrawable();
+        monsteranimator.start();
+        Handler h = new Handler();
+        h.postDelayed(() -> {
+            monsteranimator.stop();
+            selectedIcon(currentarrayid, this);
+        }, duration);
+    }
+
     //async task to initialize hunger bar
     static private class HungerFill extends AsyncTask<String,TextView,String>{
         private final WeakReference<Activity> weakActivity;
@@ -680,7 +736,7 @@ public class Minigame extends AppCompatActivity {
         private int currentarrayid;
         @Override
         protected String doInBackground(String... strings) {
-            AppDatabase db = AppDatabase.buildDatabase(weakActivity.get());
+            AppDatabase db = AppDatabase.getInstance(weakActivity.get());
             Monster temp = db.journeyDao().getMonster().get(0);
             hunger = temp.getHunger();
             currentarrayid = temp.getArrayid();
@@ -693,8 +749,10 @@ public class Minigame extends AppCompatActivity {
             ImageView temp = weakActivity.get().findViewById(R.id.hungerfill);
             ClipDrawable hungerfill = (ClipDrawable) temp.getDrawable();
             hungerfill.setLevel(hunger*1250);
+            Minigame activity = (Minigame) weakActivity.get();
+            activity.currentarrayid = currentarrayid;
 
-            new Minigame().selectedIcon(currentarrayid, weakActivity.get());
+            activity.selectedIcon(currentarrayid, weakActivity.get());
         }
     }
 
@@ -709,7 +767,7 @@ public class Minigame extends AppCompatActivity {
         private int hunger;
         @Override
         protected String doInBackground(String... strings) {
-            AppDatabase db = AppDatabase.buildDatabase(weakActivity.get());
+            AppDatabase db = AppDatabase.getInstance(weakActivity.get());
             Monster temp = db.journeyDao().getMonster().get(0);
             hunger = temp.getHunger();
             if(hunger > 0){

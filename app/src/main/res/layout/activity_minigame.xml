@@ -94,17 +94,29 @@
         app:layout_constraintWidth_percent="0.73"
         android:gravity="center"
         app:layout_constraintBottom_toBottomOf="@id/horizontalguideline3"
-        app:layout_constraintEnd_toEndOf="@id/verticaliconguideline"/>
+        app:layout_constraintEnd_toEndOf="@id/verticaliconguideline"
+        android:contentDescription="@string/border" />
 
     <ImageView
         android:contentDescription="@string/hungerbar"
         android:background="@drawable/ic_health_fill_vertical"
         app:layout_constraintStart_toEndOf="@id/border"
-        app:layout_constraintTop_toTopOf="@id/placeholder"
+        app:layout_constraintTop_toBottomOf="@id/hungericon"
         android:layout_width="0dp"
-        app:layout_constraintHeight_percent="0.4"
+        app:layout_constraintHeight_percent="0.3"
         android:layout_height="0dp"
         app:layout_constraintWidth_percent="0.1"/>
+
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:id="@+id/hungericon"
+        android:scaleType="fitXY"
+        app:layout_constraintHeight_percent="0.1"
+        app:layout_constraintWidth_percent="0.1"
+        android:background="@drawable/ic_food_display_2"
+        app:layout_constraintStart_toEndOf="@id/border"
+        app:layout_constraintTop_toTopOf="@id/placeholder"/>
 
     <ImageView
         android:id="@+id/hungerfill"
@@ -112,9 +124,9 @@
         android:src="@drawable/ic_hunger_fill_clip"
         android:scaleType="fitXY"
         app:layout_constraintStart_toEndOf="@id/border"
-        app:layout_constraintTop_toTopOf="@id/placeholder"
+        app:layout_constraintTop_toBottomOf="@id/hungericon"
         android:layout_width="0dp"
-        app:layout_constraintHeight_percent="0.4"
+        app:layout_constraintHeight_percent="0.3"
         android:layout_height="0dp"
         app:layout_constraintWidth_percent="0.1"/>
 

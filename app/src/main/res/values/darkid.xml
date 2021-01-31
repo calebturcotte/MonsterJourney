@@ -13,8 +13,8 @@
     <integer-array name="dark_baby1">
         <item name="stage">1</item>
         <item name="evolutions">3</item>
-        <item name="title">@string/basic_baby1_title</item>
-        <item name="description">@string/basic_baby1_description</item>
+        <item name="title">@string/dark_baby1_title</item>
+        <item name="description">@string/dark_baby1_description</item>
         <item name="icon">@drawable/baby_dark_head_idle</item>
         <item name="evo1">@array/dark_child_bigmouth</item>
         <item name="evo2">@array/dark_child_egghide</item>
@@ -34,8 +34,8 @@
     <integer-array name="dark_baby2">
         <item name="stage">1</item>
         <item name="evolutions">3</item>
-        <item name="title">@string/baby_fire_sparky_title</item>
-        <item name="description">@string/baby_fire_sparky_description</item>
+        <item name="title">@string/dark_baby2_title</item>
+        <item name="description">@string/dark_baby2_description</item>
         <item name="icon">@drawable/baby_dark_bunny_idle</item>
         <item name="evo1">@array/dark_child_flyingeye</item>
         <item name="evo2">@array/dark_child_crystal</item>
@@ -55,8 +55,8 @@
     <integer-array name="dark_child_bigmouth">
         <item name="stage">2</item>
         <item name="evolutions">4</item>
-        <item name="title">@string/baby_fire_sparky_title</item>
-        <item name="description">@string/baby_fire_sparky_description</item>
+        <item name="title">@string/child_dark_bigmouth_title</item>
+        <item name="description">@string/child_dark_bigmouth_description</item>
         <item name="icon">@drawable/child_dark_bigmouth_idle</item>
         <item name="evo1">@array/dark_adult_wolf</item>
         <item name="evo2">@array/dark_adult_scorpion</item>
@@ -77,8 +77,8 @@
     <integer-array name="dark_child_egghide">
         <item name="stage">2</item>
         <item name="evolutions">4</item>
-        <item name="title">@string/baby_fire_sparky_title</item>
-        <item name="description">@string/baby_fire_sparky_description</item>
+        <item name="title">@string/child_dark_egghide_title</item>
+        <item name="description">@string/child_dark_egghide_description</item>
         <item name="icon">@drawable/child_dark_egghide_idle</item>
         <item name="evo1">@array/dark_adult_wolf</item>
         <item name="evo2">@array/dark_adult_scorpion</item>
@@ -99,8 +99,8 @@
     <integer-array name="dark_child_salamander">
         <item name="stage">2</item>
         <item name="evolutions">5</item>
-        <item name="title">@string/baby_fire_sparky_title</item>
-        <item name="description">@string/baby_fire_sparky_description</item>
+        <item name="title">@string/child_dark_salamander_title</item>
+        <item name="description">@string/child_dark_salamander_description</item>
         <item name="icon">@drawable/child_dark_salamander_idle</item>
         <item name="evo1">@array/dark_adult_anglerfish</item>
         <item name="evo2">@array/dark_adult_greedfox</item>
@@ -122,8 +122,8 @@
     <integer-array name="dark_child_crystal">
         <item name="stage">2</item>
         <item name="evolutions">4</item>
-        <item name="title">@string/baby_fire_sparky_title</item>
-        <item name="description">@string/baby_fire_sparky_description</item>
+        <item name="title">@string/child_dark_crystal_title</item>
+        <item name="description">@string/child_dark_crystal_description</item>
         <item name="icon">@drawable/child_dark_crystal_idle</item>
         <item name="evo1">@array/dark_adult_anglerfish</item>
         <item name="evo2">@array/dark_adult_greedfox</item>
@@ -144,8 +144,8 @@
     <integer-array name="dark_child_flyingeye">
         <item name="stage">2</item>
         <item name="evolutions">4</item>
-        <item name="title">@string/baby_fire_sparky_title</item>
-        <item name="description">@string/baby_fire_sparky_description</item>
+        <item name="title">@string/child_dark_flyingeye_title</item>
+        <item name="description">@string/child_dark_flyingeye_description</item>
         <item name="icon">@drawable/child_dark_flyingeye_idle</item>
         <item name="evo1">@array/dark_adult_anglerfish</item>
         <item name="evo2">@array/dark_adult_greedfox</item>
@@ -168,8 +168,8 @@
     <integer-array name="dark_adult_bear">
         <item name="stage">3</item>
         <item name="evolutions">0</item>
-        <item name="title">@string/baby_fire_sparky_title</item>
-        <item name="description">@string/baby_fire_sparky_description</item>
+        <item name="title">@string/adult_dark_bear_title</item>
+        <item name="description">@string/adult_dark_bear_description</item>
         <item name="icon">@drawable/adult_dark_bear_idle</item>
         <item name="health">12</item>
         <item name="attack">3</item>
@@ -186,8 +186,8 @@
     <integer-array name="dark_adult_sloth">
         <item name="stage">3</item>
         <item name="evolutions">0</item>
-        <item name="title">@string/baby_fire_sparky_title</item>
-        <item name="description">@string/baby_fire_sparky_description</item>
+        <item name="title">@string/adult_dark_sloth_title</item>
+        <item name="description">@string/adult_dark_sloth_description</item>
         <item name="icon">@drawable/adult_dark_sloth_idle</item>
         <item name="health">12</item>
         <item name="attack">3</item>
@@ -204,8 +204,8 @@
     <integer-array name="dark_adult_eyeball">
         <item name="stage">3</item>
         <item name="evolutions">0</item>
-        <item name="title">@string/baby_fire_sparky_title</item>
-        <item name="description">@string/baby_fire_sparky_description</item>
+        <item name="title">@string/adult_dark_eye_title</item>
+        <item name="description">@string/adult_dark_eye_description</item>
         <item name="icon">@drawable/adult_dark_eyeball_idle</item>
         <item name="health">12</item>
         <item name="attack">3</item>
@@ -222,9 +222,9 @@
     <integer-array name="dark_adult_anglerfish">
         <item name="stage">3</item>
         <item name="evolutions">0</item>
-        <item name="title">@string/baby_fire_sparky_title</item>
-        <item name="description">@string/baby_fire_sparky_description</item>
-        <item name="icon">@drawable/adult_dark_eyeball_idle</item>
+        <item name="title">@string/adult_dark_anglerfish_title</item>
+        <item name="description">@string/adult_dark_anglerfish_description</item>
+        <item name="icon">@drawable/adult_dark_anglerfish_idle</item>
         <item name="health">14</item>
         <item name="attack">3</item>
         <item name="attackchance">55</item>
@@ -233,15 +233,15 @@
         <item name="gluttony">1</item>
         <item name="mistakes">0</item>
         <item name="type">@array/dark_egg</item>
-        <item name="attackicon">@drawable/adult_dark_eyeball_attack</item>
-        <item name="happyicon">@drawable/adult_dark_eyeball_happy</item>
+        <item name="attackicon">@drawable/adult_dark_anglerfish_attack</item>
+        <item name="happyicon">@drawable/adult_dark_anglerfish_happy</item>
     </integer-array>
 
     <integer-array name="dark_adult_cthulu">
         <item name="stage">3</item>
         <item name="evolutions">0</item>
-        <item name="title">@string/baby_fire_sparky_title</item>
-        <item name="description">@string/baby_fire_sparky_description</item>
+        <item name="title">@string/adult_dark_cthulu_title</item>
+        <item name="description">@string/adult_dark_cthulu_description</item>
         <item name="icon">@drawable/adult_dark_cthulu_idle</item>
         <item name="health">14</item>
         <item name="attack">3</item>
@@ -258,8 +258,8 @@
     <integer-array name="dark_adult_gorilla">
         <item name="stage">3</item>
         <item name="evolutions">0</item>
-        <item name="title">@string/baby_fire_sparky_title</item>
-        <item name="description">@string/baby_fire_sparky_description</item>
+        <item name="title">@string/adult_dark_gorilla_title</item>
+        <item name="description">@string/adult_dark_gorilla_description</item>
         <item name="icon">@drawable/adult_dark_gorilla_idle</item>
         <item name="health">13</item>
         <item name="attack">3</item>
@@ -276,8 +276,8 @@
     <integer-array name="dark_adult_greedfox">
         <item name="stage">3</item>
         <item name="evolutions">0</item>
-        <item name="title">@string/baby_fire_sparky_title</item>
-        <item name="description">@string/baby_fire_sparky_description</item>
+        <item name="title">@string/adult_dark_greedfox_title</item>
+        <item name="description">@string/adult_dark_greedfox_description</item>
         <item name="icon">@drawable/adult_dark_greedfox_idle</item>
         <item name="health">13</item>
         <item name="attack">3</item>
@@ -294,8 +294,8 @@
     <integer-array name="dark_adult_scorpion">
         <item name="stage">3</item>
         <item name="evolutions">0</item>
-        <item name="title">@string/baby_fire_sparky_title</item>
-        <item name="description">@string/baby_fire_sparky_description</item>
+        <item name="title">@string/adult_dark_scorpion_title</item>
+        <item name="description">@string/adult_dark_scorpion_description</item>
         <item name="icon">@drawable/adult_dark_scorpion_idle</item>
         <item name="health">13</item>
         <item name="attack">3</item>
@@ -312,8 +312,8 @@
     <integer-array name="dark_adult_wolf">
         <item name="stage">3</item>
         <item name="evolutions">0</item>
-        <item name="title">@string/baby_fire_sparky_title</item>
-        <item name="description">@string/baby_fire_sparky_description</item>
+        <item name="title">@string/adult_dark_wolf_title</item>
+        <item name="description">@string/adult_dark_wolf_description</item>
         <item name="icon">@drawable/adult_dark_wolf_idle</item>
         <item name="health">15</item>
         <item name="attack">3</item>

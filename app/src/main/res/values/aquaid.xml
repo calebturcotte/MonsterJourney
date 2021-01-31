@@ -186,8 +186,8 @@
     <integer-array name="aqua_adult_walrus">
         <item name="stage">3</item>
         <item name="evolutions">0</item>
-        <item name="title">@string/baby_aqua_tadpole_title</item>
-        <item name="description">@string/baby_aqua_tadpole_description</item>
+        <item name="title">@string/adult_aqua_walrus_title</item>
+        <item name="description">@string/adult_aqua_walrus_description</item>
         <item name="icon">@drawable/adult_aqua_walrus_idle</item>
         <item name="health">11</item>
         <item name="attack">3</item>
@@ -204,8 +204,8 @@
     <integer-array name="aqua_adult_whaleseal">
         <item name="stage">3</item>
         <item name="evolutions">0</item>
-        <item name="title">@string/baby_aqua_tadpole_title</item>
-        <item name="description">@string/baby_aqua_tadpole_description</item>
+        <item name="title">@string/adult_aqua_whaleseal_title</item>
+        <item name="description">@string/adult_aqua_whaleseal_description</item>
         <item name="icon">@drawable/adult_aqua_whaleseal_idle</item>
         <item name="health">11</item>
         <item name="attack">3</item>
@@ -225,7 +225,7 @@
         <item name="title">@string/adult_aqua_waterdragon_title</item>
         <item name="description">@string/adult_aqua_waterdragon_description</item>
         <item name="icon">@drawable/adult_aqua_waterdragon_idle</item>
-        <item name="health">14</item>
+        <item name="health">15</item>
         <item name="attack">3</item>
         <item name="attackchance">55</item>
         <item name="diligence">8</item>

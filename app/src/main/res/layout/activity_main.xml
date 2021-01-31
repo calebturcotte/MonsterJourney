@@ -154,7 +154,8 @@
             app:layout_constraintWidth_percent="0.73"
             android:gravity="center"
             app:layout_constraintBottom_toBottomOf="@id/horizontalguideline3"
-            app:layout_constraintEnd_toEndOf="@id/verticaliconguideline"/>
+            app:layout_constraintEnd_toEndOf="@id/verticaliconguideline"
+            android:contentDescription="@string/border" />
 
 <!--        <TextView-->
 <!--            android:id="@+id/monster_name"-->
@@ -188,12 +189,12 @@
                 android:id="@+id/btn_start"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="invisible"
-                android:text="Start Pedometer" />
+                android:visibility="invisible" />
 
 
             <Button
                 android:id="@+id/test"
+                android:visibility="invisible"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
         </LinearLayout>

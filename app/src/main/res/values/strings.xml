@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">Monster Journey</string>
-    <string name="channel_name">Game Notifications</string>
-    <string name="channel_description">Tells you when your monster has encounted an event.</string>
+    <string name="app_name" translatable="false">Monster Journey</string>
+    <string name="channel_name" translatable="false">Game Notifications</string>
+    <string name="channel_description" translatable="false">Tells you when your monster has encounted an event.</string>
     <string name="icon_description">Current monster animation</string>
     <string name="arrow">View selection arrow</string>
     <string name="eggconfirm">Select Egg</string>
@@ -21,6 +21,26 @@
     <string name="no">No</string>
     <string name="yes">Yes</string>
     <string name="addegg">Add another egg</string>
+    <string name="border">Viewing Screen Border</string>
+    <string name="newmap">NEW MAP</string>
+    <string name="continueing">CONTINUE</string>
+    <string name="about">About this game: </string>
+
+    <string name="appdescription1">Welcome to Monster Journey!</string>
+    <string name="appdescription2">Monster Journey is an app that will track your steps as your device moves. There are various ways to take care of your monster: \n
+    \u2022 Library: Check information on Monsters that you have currently unlocked or discovered.\n
+    \u2022 Map: Select the current island to travel on, each island completed will unlock new rewards that help you on your journey.\n
+    \u2022 Care: Raise your monster by Training or Feeding it. Also where you Evolve, Retire, or ask the Matchmaker to look for a match for your monster.\n
+    \u2022 Ranch: Holds up to 5 monsters for you. You can select a monster there to release or take with you on your journey.\n
+    \u2022 Minigame: Play minigames as a way to unlock more steps. Minigames cost Hunger points from your current monster.\n
+    \u2022 Connect: Connect with nearby players to battle, match, or play games with.\n
+    \u2022 Shop: Spend real world money to buy items that help you on your journey. Or to remove advertisements from the game.
+    \n\n
+    App designs, code, and music were made by: Caleb Turcotte \n
+    \n Special thanks to the following for help with monster designs:\n
+    \u2022 Michael Le\n
+    \u2022 Kimmie Truong\n
+    \u2022 Julia To\n</string>
 
     <string name="removeads">Remove ads</string>
     <string name="buylightegg">Buy Light Egg</string>
@@ -203,9 +223,42 @@
     <string name="enigma_child_snake_description">An enigma type monster. A symbol of the desert. This monster spends a lot of time alone so it becomes
     startled and unpredictable when something new approaches.</string>
 
+    <string name="enigma_child_floatingskull_title">Ectospirit</string>
+    <string name="enigma_child_floatingskull_description">The ectoplasm around this skull has given it the power of flight. Groups of this monster float around graveyards hoping to reconnect with lost loved ones.</string>
+
+    <string name="enigma_child_ghost_title">Casper</string>
+    <string name="enigma_child_ghost_description">A friendly ghost. Not many are able to see it without aid. Because of this it feels quite lonely.</string>
+
     <string name="enigma_adult_sphinx_title">Riddler</string>
     <string name="enigma_adult_sphinx_description">This enigma type monster strangely resembles a sphinx. It spends most of its time lounging around in front of
     caves and passageways. Only allowing passage to whoever can solve its riddles.</string>
+
+    <string name="enigma_adult_rainspirit_title">Rainyday</string>
+    <string name="enigma_adult_rainspirit_description">Rain will follow this monster wherever it goes. Which is unfortunate since this monster hates getting wet. With stolen leaf and rain jacket it tries its best to
+    stay covered  up at all times.</string>
+
+    <string name="enigma_adult_teddybear_title">Mimicbear</string>
+    <string name="enigma_adult_teddybear_description">The result of a spirit possessing a discarded stuffed bear. Most will seek revenge to their previous owners but some simply wish to be loved.</string>
+
+    <string name="enigma_adult_snowman_title">Yukidama</string>
+    <string name="enigma_adult_snowman_description">A snowman that has come to life. They can cause snowstorms easily when frightened.</string>
+
+    <string name="enigma_adult_scarecrow_title">Fearcrow</string>
+    <string name="enigma_adult_scarecrow_description">Originally used to ward off enemies from farms. One day it suddenly came to life. Since it has no legs its forced to hop around.</string>
+
+    <string name="enigma_adult_specter_title">Grandspecter</string>
+    <string name="enigma_adult_specter_description">Smaller spirits are drawn to this monster. Their spiritual energy joins with the main host supplying it with more power.</string>
+
+    <string name="enigma_adult_vampireking_title">Lucifer</string>
+    <string name="enigma_adult_vampireking_description">An enigma monster with a terrifying appearance. It is actually very friendly and loves the company of others.</string>
+
+    <string name="enigma_adult_electricball_title">Specterbolt</string>
+    <string name="enigma_adult_electricball_description">An electrical surge created this strange monster. Made up of spiritual energy and electricity it is able to travel immense distances through electrical wiring.</string>
+
+    <string name="enigma_adult_frankenstein_title">Frankenwight</string>
+    <string name="enigma_adult_frankenstein_description">Said to be put together from old parts by a mad scientist. A large bolt of lightning was used to give it life. The lightning granted it immense strength and stamina as well.</string>
+
+
     <string name="basic_baby1_title">Eye</string>
     <string name="basic_baby1_description">An enigma type monster. It can\'t move its main body so it waits and gazes at the passing world.</string>
 
@@ -292,7 +345,7 @@
     <string name="child_earth_squirrel_description">A monster that has started to become one with the plant life that surrounds it. Its main hobby is storing nuts in
     any trees in the area.</string>
 
-    <string name="child_earth_plant_title">TwinPlant</string>
+    <string name="child_earth_plant_title">Dandyblossom</string>
     <string name="child_earth_plant_description">Both of this monsters heads work together to help the main body survive. It will migrate long distances to pollinate new areas.</string>
 
     <string name="child_earth_bush_title">Shrubero</string>
@@ -322,7 +375,7 @@
     <string name="adult_earth_moose_title">Moosherb</string>
     <string name="adult_earth_moose_description">A gentle monster who is one with the forest. The plant life that grows on its head can be used for medicine.</string>
 
-    <string name="adult_earth_monkey_title">Plantaebaboon</string>
+    <string name="adult_earth_monkey_title">Mimuki</string>
     <string name="adult_earth_monkey_description">A group of these monsters is known as a troop. The alpha of the troop oversees the others and teaches the young.</string>
 
 
@@ -340,7 +393,7 @@
     <string name="child_aqua_pufferfish_description">When threatened this aqua type monster will expand to try and intimidate the threat. It also expands when happy,
        which is… confusing.</string>
 
-    <string name="child_aqua_watertoad_title">Aqua Toad</string>
+    <string name="child_aqua_watertoad_title">Amphibasplash</string>
     <string name="child_aqua_watertoad_description">This aqua type monster stores water in a sac on its back. The water combines with mucus on its skin to produce large bubbles.</string>
 
     <string name="child_aqua_bubblething_title">Bubbles</string>
@@ -360,12 +413,12 @@
     <string name="adult_aqua_whaleseal_title">Whalepup</string>
     <string name="adult_aqua_whaleseal_description">Found on beaches it will use its cute appearance to befriend other monsters and join their group.</string>
 
-    <string name="adult_aqua_waterdragon_title">Haku</string>
+    <string name="adult_aqua_waterdragon_title">Hakulu</string>
     <string name="adult_aqua_waterdragon_description">According to legend, a carp that could swim upstream and then leap the falls of the Yellow River at Dragon Gate
         would be transformed into a dragon. Researchers have tossed carp through this gate but it appears that unless a carp makes the journey itself it will not transform.</string>
 
-    <string name="adult_aqua_footballfish_title">Angler</string>
-    <string name="adult_aqua_footballfish_description">Because of its fearsome appearance this monster likes to hide in the dark depths of the sea. It will use the light as a lure to
+    <string name="adult_aqua_footballfish_title">Feesher</string>
+    <string name="adult_aqua_footballfish_description">Because of its fearsome appearance this monster likes to hide in the dark depths of the sea. It will use the light at the end of it\'s lure to
     draw prey closer before it strikes.</string>
 
     <string name="adult_aqua_octopus_title">Octolock</string>
@@ -386,6 +439,45 @@
     <string name="baby_machine_windup_title">Windobot</string>
     <string name="baby_machine_windup_description">Despite its tough appearance it relies on other to keep its key winded so that it can move around.</string>
 
+    <string name="child_machine_oven_title">Jumboven</string>
+    <string name="child_machine_oven_description">It once was a simple kitchen oven. However one day it mysteriously gained sentience. Now it roams around spewing heat if others get too near.</string>
+
+    <string name="child_machine_ufo_title">Mufo</string>
+    <string name="child_machine_ufo_description">A mysterious vehicle from space that has been taken over by a cybernetic organism. It soars through the night sky startling unsuspecting tourists.</string>
+
+    <string name="child_machine_tank_title">Panzor</string>
+    <string name="child_machine_tank_description">An armored vehicle that was taken over by a cybernetic organism. It enjoys long patrols and target practice.</string>
+
+    <string name="child_machine_plug_title">Dynaplug</string>
+    <string name="child_machine_plug_description">This monster can plug itself into electrical sockets to charge and distribute energy. It is popular in factories since it can keep machines running for twice their average lifespan.</string>
+
+    <string name="child_machine_toy_title">Windobite</string>
+    <string name="child_machine_toy_description">A machine type monster that must be rewound each day. Their internal mechanisms allow it to travel long distances without any need for food or water.</string>
+
+    <string name="adult_machine_barrelchest_title">Barrelchest</string>
+    <string name="adult_machine_barrelchest_description">A heavy robot used in construction. It spends its life eating tons of scrap metal to have the energy so it can keep moving.</string>
+
+    <string name="adult_machine_blimp_title">Dronigible</string>
+    <string name="adult_machine_blimp_description">A cybernetic organism that has taken over a blimp. Companies love to have it carry advertisements for them since they can fly for so long.</string>
+
+    <string name="adult_machine_excavator_title">Excavatron</string>
+    <string name="adult_machine_excavator_description">A large excavator taken over by a cybernetic organism. When it sets its mind to it, it can change entire landscapes enough that local maps must be redrawn.</string>
+
+    <string name="adult_machine_robocrab_title">Robocrab</string>
+    <string name="adult_machine_robocrab_description">A robot that slightly resembles a crab. The giant glass dome on its head allows it to look in every direction giving it next to no blind spots.</string>
+
+    <string name="adult_machine_spider_title">Arachnotech</string>
+    <string name="adult_machine_spider_description">Built by a mad scientist. This monster can climb on walls and likes to occupy abandoned factories.</string>
+
+    <string name="adult_machine_longarm_title">Buildoblock</string>
+    <string name="adult_machine_longarm_description">This monsters long and sturdy arms help it lift metal beams. It is able to adjust itself as needed for almost any job.</string>
+
+    <string name="adult_machine_robotdog_title">Bowow</string>
+    <string name="adult_machine_robotdog_description">Popular among children. This monster has been programmed to bring joy to families.</string>
+
+    <string name="adult_machine_robotowl_title">Mobile Suit Owl-0</string>
+    <string name="adult_machine_robotowl_description">A bizarre machine that oddly resembles an owl. It is believed to be part of a top secret project to defend humanity from a mysterious threat in space.</string>
+
     <string name="adult_machine_driller_title">Mach Gurren</string>
     <string name="adult_machine_driller_description">A machine type monster. Originally a simple drilling machine used for construction that has been taken over
     by an unknown cybernetic organism. Its dream is to drill to the heavens.</string>
@@ -400,7 +492,7 @@
     <string name="child_fire_chameleon_title">Chameon</string>
     <string name="child_fire_chameleon_description">This horned monster carries a small fire on its back. This fire is used to regulate its internal temperature.</string>
 
-    <string name="child_fire_toad_title">Fire Toad</string>
+    <string name="child_fire_toad_title">Amphibaflare</string>
     <string name="child_fire_toad_description">This fire type monster stores fuel in a sac on its back. The fuel produces strong flames which are expelled constantly.</string>
 
     <string name="child_fire_seaturtle_title">Turtu</string>
@@ -428,7 +520,7 @@
     <string name="adult_fire_tikimask_title">MakuMaku</string>
     <string name="adult_fire_tikimask_description">Indigenous tribes on small islands worship this monster believing it will protect them on fishing trips.</string>
 
-    <string name="adult_fire_serpent_title">Pyrosnake</string>
+    <string name="adult_fire_serpent_title">Pyryu</string>
     <string name="adult_fire_serpent_description">In the extreme heat of the desert this monster can be found. The heat also produces mirages which makes studying it difficult.</string>
 
     <string name="adult_fire_firelordgoat_title">Baahlzebub</string>
@@ -454,9 +546,107 @@
     <string name="dark_egg_title">Dark</string>
     <string name="dark_egg_description">An egg shrouded in darkness. Contains a dark type monster.</string>
 
+    <string name="dark_baby1_title">Bario</string>
+    <string name="dark_baby1_description">This monster has a tough personality. It enjoys tackling nearby objects as a show of strength.</string>
+
+    <string name="dark_baby2_title">Bunby</string>
+    <string name="dark_baby2_description">Its long ears help it stay aware of its surroundings. This monster is incredibly nervous and does not like to be surprised.</string>
+
+    <string name="child_dark_bigmouth_title">Blubario</string>
+    <string name="child_dark_bigmouth_description">A large monster that loves to eat. It is known to be very selfish and will push smaller monsters out of the way to steal their meals.</string>
+
+    <string name="child_dark_egghide_title">Hermitegg</string>
+    <string name="child_dark_egghide_description">This monster will wait patiently for a nearby egg to hatch. It does this so it can steal the shell for its new home, the bigger the shell the better.</string>
+
+    <string name="child_dark_salamander_title">Salamandark</string>
+    <string name="child_dark_salamander_description">A salamander cloaked in darkness. It uses this darkness to help it hide in the shadows.</string>
+
+    <string name="child_dark_crystal_title">Cryshade</string>
+    <string name="child_dark_crystal_description">A spirit of darkness contained in a mysterious crystal. No one knows what will happen if the crystal breaks.</string>
+
+    <string name="child_dark_flyingeye_title">Fleyer</string>
+    <string name="child_dark_flyingeye_description">A messenger for other dark monsters. Dark clouds in the sky are often caused by groups of this monster flying together.</string>
+
+    <string name="adult_dark_bear_title">Gloombear</string>
+    <string name="adult_dark_bear_description">A large monster who spends most of its time lazing around. It always seems to dampen the mood somehow.</string>
+
+    <string name="adult_dark_sloth_title">Comavoid</string>
+    <string name="adult_dark_sloth_description">This monster will spend its entire life asleep, only communicating with its visible dreams. Researchers worry about what would happen if it ever wakes up.</string>
+
+    <string name="adult_dark_eye_title">Tentastare</string>
+    <string name="adult_dark_eye_description">With its large eye it stares out across its domain. Known for its violent tendencies it is best to avoid this monsters gaze.</string>
+
+    <string name="adult_dark_anglerfish_title">AbyssFeesher</string>
+    <string name="adult_dark_anglerfish_description">The object at the end of its lure resembles an item that can be found while journeying. It uses this item to lure unsuspecting travelers to a dark fate.</string>
+
+    <string name="adult_dark_cthulu_title">Voidthulu</string>
+    <string name="adult_dark_cthulu_description">Often worshipped by cults due to its bizarre appearance. This monster is thought to have come from another dimension.</string>
+
+    <string name="adult_dark_gorilla_title">Abyssape</string>
+    <string name="adult_dark_gorilla_description">This monster was once peaceful before being imbued by darkness. This dark energy grants ridiculous strength which can be hard to control.</string>
+
+    <string name="adult_dark_greedfox_title">Fennegreed</string>
+    <string name="adult_dark_greedfox_description">Known for swindling travellers. This monster waits for gullible people and monsters to sell its faulty wares to.</string>
+
+    <string name="adult_dark_scorpion_title">Scoldion</string>
+    <string name="adult_dark_scorpion_description">With sharp claws and a poisonous tail this monster is known for causing trouble. It usually ends up helping out in the community to make up for the messes it causes.</string>
+
+    <string name="adult_dark_wolf_title">Fenrir</string>
+    <string name="adult_dark_wolf_description">The guardian of dark island. Locals fear that one day it will cause Ragnarok, the end of days.</string>
+
+
     <!--   Light descriptions-->
     <string name="light_egg_title">Light</string>
     <string name="light_egg_description">An egg that has descended from the heavens. Contains a light type monster.</string>
+
+    <string name="light_baby1_title">Brightfly</string>
+    <string name="light_baby1_description">Large groups of this monster keep the skies lighted during night. It always does its best to brighten the mood.</string>
+
+    <string name="light_baby2_title">Brightsquire</string>
+    <string name="light_baby2_description">A light monster in training. It hopes to one day become a powerful knight who can protect others.</string>
+
+    <string name="child_light_angeldoctor_title">Lightkeeper</string>
+    <string name="child_light_angeldoctor_description">This monster is proficient in medicine. It spends its life trying to help those in need.</string>
+
+    <string name="child_light_angel_title">Brightknight</string>
+    <string name="child_light_angel_description">The results of training its entire life are finally starting to show. With wings strong enough to lift itself of the ground it patrols the skys.</string>
+
+    <string name="child_light_amulet_title">Shinemulet</string>
+    <string name="child_light_amulet_description">An ancient symbol of light. Born from the rarest of metals it reflects the sun in beautiful patterns.</string>
+
+    <string name="child_light_crystal_title">Crysbright</string>
+    <string name="child_light_crystal_description">A being of light sealed inside an ancient crystal. Some believe that it used to do battle with an ancient being of darkness before it was sealed.</string>
+
+    <string name="child_light_turtle_title">Tortle</string>
+    <string name="child_light_turtle_description">The amulet on its forehead is a symbol of hope and good fortune. It does its best to brighten the world even though it moves rather slowly.</string>
+
+    <string name="adult_light_frog_title">Amphibideiti</string>
+    <string name="adult_light_frog_description">A benevolent leader of all frog monsters. The croaks it makes are known as a heavenly form of music… to other frogs.</string>
+
+    <string name="adult_light_armor_title">Brightduke</string>
+    <string name="adult_light_armor_description">A full fledged knight of light. All of its training has caused it to lost its wings but it is still able to float. It has an oath to protect the weak form darkness.</string>
+
+    <string name="adult_light_dragon_title">Guardragon</string>
+    <string name="adult_light_dragon_description">A dragon that has spent its life collecting treasure. Although it won\'t share its treasure it tries to help others in other ways such as manual labour.</string>
+
+    <string name="adult_light_wyvern_title">Drymbuson</string>
+    <string name="adult_light_wyvern_description">A monster only found on the island of light. Groups can be seen soaring the skies. Despite the somewhat intimidating appearance it loves to give rides to smaller monsters.</string>
+
+    <string name="adult_light_kingarmor_title">Brightking</string>
+    <string name="adult_light_kingarmor_description">The training it has done all its life has caused it to surpass the power of a knight. With its lordly abilities it oversees those in its domain swearing to protect them all.</string>
+
+    <string name="adult_light_centaur_title">Chiron</string>
+    <string name="adult_light_centaur_description">A centaur who trains young squires who hope to become knights one day. Known for being strict but kind. Their hind legs help them run at incredible speeds.</string>
+
+    <string name="adult_light_holyring_title">Everlight</string>
+    <string name="adult_light_holyring_description">A being surrounded by a ring of bright light. Thought to be a star it helps to brighten up settlements when the sun goes down.</string>
+
+    <string name="adult_light_butterfly_title">Glitterfly</string>
+    <string name="adult_light_butterfly_description">This butterfly gives off light in different shapes. It can be used to send signals far away depending on what pattern is on its wings.</string>
+
+    <string name="adult_light_snake_title">Serpentence</string>
+    <string name="adult_light_snake_description">The amulet on its head was stolen from another monster. Wearing the amulet has changed this monsters nature and it hopes to make up for its past deeds.</string>
+
 
     <!--   Cosmic descriptions-->
     <string name="cosmic_egg_title">Cosmic</string>
@@ -467,5 +657,55 @@
 
     <string name="cosmic_baby2_title">Stardi</string>
     <string name="cosmic_baby2_description">A monster made up of dark stardust. Likes to be alone.</string>
+
+    <string name="child_cosmic_gemini_title">Gemineye</string>
+    <string name="child_cosmic_gemini_description">Two celestial beings born from the same star. The two are linked together by a mysterious force.</string>
+
+    <string name="child_cosmic_scorpion_title">Scorpistar</string>
+    <string name="child_cosmic_scorpion_description">Despite it being dangerous to find one in the wild, the venom from its tail has been used in medicine to treat various sicknesses. Some doctors will spend their
+    entire lives searching for this celestial being.</string>
+
+    <string name="child_cosmic_ursaminor_title">Ursamo</string>
+    <string name="child_cosmic_ursaminor_description">Researchers call this monster "little dipper". It is said that sailors could use the light it gives off to help them
+    navigate while out at sea.</string>
+
+    <string name="child_cosmic_lyra_title">Lyra</string>
+    <string name="child_cosmic_lyra_description">The music that this monster makes is said to soothe the soul. This monster is very popular at high brow events.</string>
+
+    <string name="child_cosmic_pisces_title">Cosmopisces</string>
+    <string name="child_cosmic_pisces_description">This monster spends its life swimming among the stars with its school. Some people believe that a meteor shower
+    is actually a group of this monster swimming by.</string>
+
+    <string name="adult_cosmic_capricorn_title">Caprihorn</string>
+    <string name="adult_cosmic_capricorn_description">A goat like monster that has been blessed with the ability to swim with its scaled tail. Its two different forms
+    can be seen as a symbol of conflicting desires to live different ways.</string>
+
+    <string name="adult_cosmic_sagittarius_title">Sagittarrow</string>
+    <string name="adult_cosmic_sagittarius_description">An arrow from the heavens that has gained sentience. It floats along with its bow ready to fire at unsuspecting foes.</string>
+
+    <string name="adult_cosmic_aries_title">Baaries</string>
+    <string name="adult_cosmic_aries_description">This monster is known for its incredible softness. Counting a herd of them is said to put you into a blissful slumber.</string>
+
+    <string name="adult_cosmic_cancer_title">Crabcer</string>
+    <string name="adult_cosmic_cancer_description">The meat hidden under its shell is known as a rare delicacy. Due to a life of being over hunted by top chefs around the world it
+    has become rather defensive and distrustful.</string>
+
+    <string name="adult_cosmic_aquarius_title">Aquario</string>
+    <string name="adult_cosmic_aquarius_description">The water inside this mysterious pot is actually a part of the monster itself. The water it creates is known for being rich
+    in minerals.</string>
+
+    <string name="adult_cosmic_leo_title">Astralleo</string>
+    <string name="adult_cosmic_leo_description">The king among the stars. With its proud stance it watches over the other monsters in its family.</string>
+
+    <string name="adult_cosmic_tauros_title">Astratauros</string>
+    <string name="adult_cosmic_tauros_description">Said to be the most steadfast among the cosmic types. Its loyalty is only matched by its power.</string>
+
+    <string name="adult_cosmic_virgo_title">Cosmivirgo</string>
+    <string name="adult_cosmic_virgo_description">This monsters wings are described as a mythical beauty. Many artists spend their life searching for this monster hoping
+    to find their muse.</string>
+
+    <string name="adult_cosmic_libra_title">Librastral</string>
+    <string name="adult_cosmic_libra_description">The scales it carries are able to measure the kindness in one\'s soul. If it deems someone worthy they may
+    gain passageway to cosmic island.</string>
 
 </resources>

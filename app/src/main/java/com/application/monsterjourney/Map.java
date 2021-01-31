@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.content.res.TypedArray;
 import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
+import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -32,6 +33,8 @@ public class Map extends AppCompatActivity {
     private TextView title, stepsneeded, description;
     private @StyleableRes
     int selected, currentselectedstory;
+    private MediaPlayer music;
+    private boolean isplaying;
 
     private List<UnlockedMonster> unlockedMonsterList;
     private List<CompletedMaps> completedMapsList;
@@ -48,7 +51,7 @@ public class Map extends AppCompatActivity {
         final FrameLayout frmlayout = findViewById(R.id.placeholder);
         LayoutInflater aboutinflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
         assert aboutinflater != null;
-        final View home = aboutinflater.inflate(R.layout.home_screen, null);
+        final View home = aboutinflater.inflate(R.layout.home_screen,findViewById(R.id.parent),false);
         boolean isbought = settings.getBoolean("isbought", false);
         AdView mAdView = findViewById(R.id.adView);
         Activity mainActivity = this;
@@ -95,6 +98,7 @@ public class Map extends AppCompatActivity {
                     TypedArray viewarray = getResources().obtainTypedArray(R.array.map_list);
                     storytype = viewarray.getResourceId(selected, R.array.enigma_map);
                     currentselectedstory = selected;
+                    viewarray.recycle();
 
                     ChangeStory runner = new ChangeStory(mainActivity, storytype, completedMapsList);
                     runner.execute();
@@ -117,6 +121,28 @@ public class Map extends AppCompatActivity {
                 frmlayout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        SharedPreferences settings = getSharedPreferences(MainActivity.PREFS_NAME, 0);
+        int tempvolume = 80;
+        music = MediaPlayer.create(Map.this,R.raw.map);
+        music.setLooping(true);
+        int currentvolume = settings.getInt("bgvolume", tempvolume);
+
+        music.setVolume((float) currentvolume /100, (float) currentvolume /100);
+        isplaying = settings.getBoolean("isplaying",isplaying);
+        //music.prepareAsync();
+
+        if(!isplaying)music.start();
+    }
+
+    @Override
+    protected void onPause() {
+        music.release();
+        super.onPause();
     }
 
     /**

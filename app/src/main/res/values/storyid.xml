@@ -13,7 +13,6 @@
         <item name="dino_map">@array/cosmic_map</item>
     </integer-array>
 
-<!--    TODO add background to each array-->
 
     <integer-array name="enigma_map">
         <item name="stage1">@array/enigma_baby_enemies</item>
@@ -102,8 +101,6 @@
         <item name="description">@string/cosmicdescription</item>
         <item name="egg">@array/cosmic_egg</item>
     </integer-array>
-
-<!--    TODO add map icons and descriptions for each type-->
 
 
     <integer-array name="dino_map">

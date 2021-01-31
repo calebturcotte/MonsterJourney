@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:drawable="@drawable/ic_centipede_body"
+        android:duration="600"/>
+    <item
+        android:drawable="@drawable/ic_centipede_body2"
+        android:duration="600"/>
+</animation-list>

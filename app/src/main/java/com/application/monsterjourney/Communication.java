@@ -484,7 +484,6 @@ public class Communication extends AppCompatActivity {
             music.release();
             finish();
         }, 3000);
-        //TODO breed/egg animation
         AsyncTask.execute(() -> {
             AppDatabase db = AppDatabase.buildDatabase(getApplicationContext());
             // run your queries here!
@@ -910,7 +909,6 @@ public class Communication extends AppCompatActivity {
         if(rockView != null){
             return;
         }
-        //TODO connection doesn't initialize every time
 
         LayoutInflater rockinflater = (LayoutInflater)
                 getSystemService(LAYOUT_INFLATER_SERVICE);

@@ -4,9 +4,11 @@ import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ValueAnimator;
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.content.res.TypedArray;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.ClipDrawable;
+import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -14,6 +16,7 @@ import android.transition.Fade;
 import android.transition.TransitionManager;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.animation.LinearInterpolator;
 import android.widget.FrameLayout;
@@ -34,6 +37,8 @@ public class Minigame extends AppCompatActivity {
     private int currentarrayid;
 
     private int snakedirection;
+    private MediaPlayer music;
+    private boolean isplaying;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -47,7 +52,8 @@ public class Minigame extends AppCompatActivity {
         final FrameLayout homelayout = findViewById(R.id.placeholder);
         LayoutInflater homeinflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
         assert homeinflater != null;
-        final View monsterview = homeinflater.inflate(R.layout.home_screen, null);
+        ViewGroup parentView = findViewById(R.id.parent);
+        final View monsterview = homeinflater.inflate(R.layout.home_screen,parentView, false);
         Fade mFade = new Fade(Fade.IN);
         TransitionManager.beginDelayedTransition(homelayout, mFade);
         homelayout.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -61,7 +67,7 @@ public class Minigame extends AppCompatActivity {
         final FrameLayout frmlayout = findViewById(R.id.placeholder2);
         LayoutInflater aboutinflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
         assert aboutinflater != null;
-        final View home = aboutinflater.inflate(R.layout.minigame_info, null);
+        final View home = aboutinflater.inflate(R.layout.minigame_info,parentView, false);
         frmlayout.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
@@ -105,7 +111,7 @@ public class Minigame extends AppCompatActivity {
 //                        rightscroll.startAnimation(leftscrollanimation);
                         LayoutInflater aboutinflater1 = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
                         assert aboutinflater1 != null;
-                        final View home1 = aboutinflater1.inflate(R.layout.minigame_info, null);
+                        final View home1 = aboutinflater1.inflate(R.layout.minigame_info,findViewById(R.id.parent), false);
                         frmlayout.removeAllViews();
                         frmlayout.addView(home1,0);
                         prepareInfoView(true);
@@ -122,6 +128,28 @@ public class Minigame extends AppCompatActivity {
         });
 
 
+    }
+
+    @Override
+    protected void onResume() {
+        SharedPreferences settings = getSharedPreferences(MainActivity.PREFS_NAME, 0);
+        int tempvolume = 80;
+        music = MediaPlayer.create(Minigame.this,R.raw.minigame);
+        music.setLooping(true);
+        int currentvolume = settings.getInt("bgvolume", tempvolume);
+
+        music.setVolume((float) currentvolume /100, (float) currentvolume /100);
+        isplaying = settings.getBoolean("isplaying",isplaying);
+        //music.prepareAsync();
+
+        if(!isplaying)music.start();
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        music.release();
+        super.onPause();
     }
 
     /**
@@ -384,6 +412,9 @@ public class Minigame extends AppCompatActivity {
         findViewById(R.id.left_direction).setOnClickListener(v -> snakedirection = 2);
         findViewById(R.id.down_direction).setOnClickListener(v -> snakedirection = 3);
         findViewById(R.id.right_direction).setOnClickListener(v -> snakedirection = 4);
+        ImageView centipedehead = findViewById(R.id.snake_head);
+        AnimationDrawable monsteranimator = (AnimationDrawable) centipedehead.getDrawable();
+        monsteranimator.start();
         ImageView rightscroll = findViewById(R.id.right_arrow);
         ImageView leftscroll = findViewById(R.id.left_arrow);
         rightscroll.clearAnimation();
@@ -393,7 +424,8 @@ public class Minigame extends AppCompatActivity {
         ArrayList<SnakePosition> snakePositions = new ArrayList<>();
         snakePositions.add(new SnakePosition(4,4,R.id.snake_head));
         addSnakeSection(snakePositions);
-        snakeMove(snakePositions);
+        final ConstraintLayout templayout = findViewById(R.id.game_spot);
+        snakeMove(snakePositions, templayout);
 
     }
 
@@ -401,8 +433,8 @@ public class Minigame extends AppCompatActivity {
      * move our snake along the view
      * @param snakePositions the container for each snake in the view
      */
-    public void snakeMove(ArrayList<SnakePosition> snakePositions){
-        final ConstraintLayout templayout = findViewById(R.id.game_spot);
+    public void snakeMove(ArrayList<SnakePosition> snakePositions, ConstraintLayout templayout){
+
         TextView counttext = findViewById(R.id.count);
         String countstring = "Energy collected: " + (snakePositions.size() - 2);
         counttext.setText(countstring);
@@ -488,34 +520,33 @@ public class Minigame extends AppCompatActivity {
         int xposition = snakePositions.get(0).getXposition();
         int yposition = snakePositions.get(0).getYposition();
 
-
         switch (snakedirection){
             case 1: //up
                 yposition = yposition - 1;
                 if(yposition < 0) {
                     yposition = 0;
-                    snakedirection = 0;
+                    xposition = wallhit(1,xposition, yposition);
                 }
                 break;
             case 2: //left
                 xposition = xposition - 1;
                 if(xposition < 0) {
                     xposition = 0;
-                    snakedirection = 0;
+                    yposition = wallhit(2, xposition, yposition);
                 }
                 break;
             case 3: //down
                 yposition = yposition + 1;
                 if(yposition > 9){
                     yposition = 9;
-                    snakedirection = 0;
+                    xposition = wallhit(1,xposition, yposition);
                 }
                 break;
             case 4: //right
                 xposition = xposition + 1;
                 if(xposition > 9){
                     xposition = 9;
-                    snakedirection = 0;
+                    yposition = wallhit(2, xposition,yposition);
                 }
                 break;
         }
@@ -572,10 +603,55 @@ public class Minigame extends AppCompatActivity {
         snakePositions.get(0).setXposition(xposition);
         snakePositions.get(0).setYposition(yposition);
 
-
         Handler h = new Handler();
-        h.postDelayed(() -> snakeMove(snakePositions), 200);
+        h.postDelayed(() -> snakeMove(snakePositions, templayout), 200);
 
+    }
+
+    /**
+     * Handles when snake has hit a wall
+     * @param direction the wall that has been hit
+     * @return the new x/y position
+     */
+    private int wallhit(int direction, int xposition, int yposition){
+        Random ran = new Random();
+        int position = 0;
+        switch (direction){
+            case 1: //up/down
+                position = xposition;
+                snakedirection = (ran.nextInt(2)+1)*2;
+                if(xposition == 9){
+                    snakedirection = 2;
+                    position--;
+                }
+                else if(xposition == 0){
+                    snakedirection = 4;
+                    position++;
+                }
+                else if(snakedirection == 2 ){
+                    position--;
+                }else{
+                    position++;
+                }
+                break;
+            case 2: //left/right
+                position = yposition;
+                snakedirection = (ran.nextInt(2)+1)*2-1;
+                if(yposition == 9){
+                    snakedirection = 1;
+                    position--;
+                }
+                else if(yposition == 0){
+                    snakedirection = 3;
+                    position++;
+                }
+                else if( snakedirection ==1){
+                    position--;
+                }else{
+                    position++;
+                }
+        }
+        return position;
     }
 
     /**
@@ -586,7 +662,9 @@ public class Minigame extends AppCompatActivity {
         ConstraintSet set = new ConstraintSet();
         ConstraintLayout templayout = findViewById(R.id.game_spot);
         ImageView childView = new ImageView(this);
-        childView.setBackgroundResource(R.drawable.training_touch);
+        childView.setBackgroundResource(R.drawable.ic_centipede_body_idle);
+        AnimationDrawable valueAnimator = (AnimationDrawable) childView.getBackground();
+        valueAnimator.start();
         // set view id, else getId() returns -1
         int newviewid = View.generateViewId();
         childView.setId(newviewid);

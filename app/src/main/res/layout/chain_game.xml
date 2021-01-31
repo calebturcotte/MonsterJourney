@@ -19,7 +19,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/game_spot"
-        android:background="@color/colorAccent"
+        android:background="@drawable/ic_popup_background_text"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintHeight_percent="0.6"
@@ -28,9 +28,10 @@
 
         <ImageView
             android:id="@+id/snake_head"
-            android:src="@drawable/training_touch"
+            android:src="@drawable/ic_centipede_head"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            android:scaleType="fitXY"
             android:layout_width="0dp"
             android:layout_height="0dp" />
 

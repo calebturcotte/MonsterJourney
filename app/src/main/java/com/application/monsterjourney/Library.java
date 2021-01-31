@@ -265,10 +265,11 @@ public class Library extends AppCompatActivity {
         if(librarypopup != null){
             return;
         }
+        //currently runs very slow, maybe look into multi threading to speed it up
         LayoutInflater storeinflater = (LayoutInflater)
                 getSystemService(LAYOUT_INFLATER_SERVICE);
         assert storeinflater != null;
-        librarypopup = storeinflater.inflate(R.layout.library_collection, null);
+        librarypopup = storeinflater.inflate(R.layout.library_collection,findViewById(R.id.parent), false);
         int width2 = ConstraintLayout.LayoutParams.MATCH_PARENT;
         int height2 = ConstraintLayout.LayoutParams.MATCH_PARENT;
         final PopupWindow libraryWindow = new PopupWindow(librarypopup, width2, height2, true);
@@ -317,7 +318,7 @@ public class Library extends AppCompatActivity {
                     break;
                 }
             }
-            newView.setBackgroundResource(R.color.colorAccent);
+            newView.setBackgroundResource(R.drawable.ic_background_popup);
             newView.setImageDrawable(ContextCompat.getDrawable(this,backgroundAnimation));
             newView.setLayoutParams(linearparams);
             newView.setScaleType(ImageView.ScaleType.FIT_XY);
@@ -339,6 +340,8 @@ public class Library extends AppCompatActivity {
         linearLayout = new LinearLayout(this);
         linearLayout.setOrientation(LinearLayout.HORIZONTAL);
         linearLayout.setWeightSum(5);
+
+        viewarray.recycle();
 
         TableLayout baby_layout = librarypopup.findViewById(R.id.baby_table);
 
@@ -364,7 +367,7 @@ public class Library extends AppCompatActivity {
                 }
             }
 
-            newView.setBackgroundResource(R.color.colorAccent);
+            newView.setBackgroundResource(R.drawable.ic_background_popup);
             newView.setImageDrawable(ContextCompat.getDrawable(this,backgroundAnimation));
             newView.setLayoutParams(linearparams);
             newView.setScaleType(ImageView.ScaleType.FIT_XY);
@@ -386,6 +389,8 @@ public class Library extends AppCompatActivity {
         linearLayout = new LinearLayout(this);
         linearLayout.setOrientation(LinearLayout.HORIZONTAL);
         linearLayout.setWeightSum(5);
+
+        viewarray2.recycle();
 
         TableLayout child_layout = librarypopup.findViewById(R.id.child_table);
 
@@ -411,15 +416,13 @@ public class Library extends AppCompatActivity {
                 }
             }
 
-            //TODO replace with proper drawable
-            newView.setBackgroundResource(R.color.colorAccent);
+            newView.setBackgroundResource(R.drawable.ic_background_popup);
             newView.setImageDrawable(ContextCompat.getDrawable(this,backgroundAnimation));
             newView.setLayoutParams(linearparams);
             newView.setScaleType(ImageView.ScaleType.FIT_XY);
             newView.setPadding(2,2,2,2);
 
             linearLayout.addView(newView);
-            //TODO displaying children makes the display smaller for some reason
             if((i+1) % 5 == 0) {
                 child_layout.addView(linearLayout);
                 linearLayout = new LinearLayout(this);
@@ -436,6 +439,8 @@ public class Library extends AppCompatActivity {
         linearLayout = new LinearLayout(this);
         linearLayout.setOrientation(LinearLayout.HORIZONTAL);
         linearLayout.setWeightSum(5);
+
+        viewarray3.recycle();
 
         for(int i = 0; i < viewarray4.length(); i++){
             TypedArray array = getResources().obtainTypedArray(viewarray4.getResourceId(i, R.array.missing_content));
@@ -458,7 +463,7 @@ public class Library extends AppCompatActivity {
                     break;
                 }
             }
-            newView.setBackgroundResource(R.color.colorAccent);
+            newView.setBackgroundResource(R.drawable.ic_background_popup);
             newView.setImageDrawable(ContextCompat.getDrawable(this,backgroundAnimation));
             newView.setLayoutParams(linearparams);
             newView.setScaleType(ImageView.ScaleType.FIT_XY);
@@ -478,9 +483,6 @@ public class Library extends AppCompatActivity {
         }
         adult_layout.addView(linearLayout);
 
-        viewarray.recycle();
-        viewarray2.recycle();
-        viewarray3.recycle();
         viewarray4.recycle();
 
 

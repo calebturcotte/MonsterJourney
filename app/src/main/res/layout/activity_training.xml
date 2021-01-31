@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_material"
-    tools:context=".MainActivity">
+    android:id="@+id/parent"
+    tools:context=".Training">
 
 
     <androidx.constraintlayout.widget.Guideline
@@ -83,6 +84,7 @@
 
     <ImageView
         android:layout_width="0dp"
+        android:contentDescription="@string/border"
         android:id="@+id/border"
         app:layout_constraintHeight_percent="0.43"
         android:src="@drawable/ic_screen_border"
@@ -148,6 +150,7 @@
 
     <TextView
         android:id="@+id/training_text"
+        android:background="@drawable/ic_text_background2"
         app:layout_constraintHeight_percent="0.05"
         android:text="@string/diligence"
         android:gravity="center"
@@ -159,6 +162,7 @@
         app:layout_constraintTop_toBottomOf="@id/content"/>
     <TextView
         android:id="@+id/hunger_text"
+        android:background="@drawable/ic_text_background2"
         app:layout_constraintHeight_percent="0.05"
         android:text="@string/hunger"
         android:gravity="center"

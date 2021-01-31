@@ -117,7 +117,8 @@
             app:layout_constraintWidth_percent="0.73"
             android:gravity="center"
             app:layout_constraintBottom_toBottomOf="@id/horizontalguideline3"
-            app:layout_constraintEnd_toEndOf="@id/verticaliconguideline"/>
+            app:layout_constraintEnd_toEndOf="@id/verticaliconguideline"
+            android:contentDescription="@string/border" />
 
         <TextView
             android:background="@drawable/ic_text_background"
@@ -215,8 +216,6 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintTop_toBottomOf="@id/buttoncontentguideline"
             app:layout_constraintStart_toStartOf="@id/selectorguideline"/>
-
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -27,8 +27,11 @@ public class Journey {
     @ColumnInfo(name = "story_type")
     public int storytype;
 
-    @ColumnInfo(name = "first_time", defaultValue = "0")
+    @ColumnInfo(name = "first_time")
     public boolean firsttime;
+
+    @ColumnInfo(name = "showabout")
+    public boolean showabout;
 
     @ColumnInfo(name = "event_reached", defaultValue = "0")
     public boolean eventreached;
@@ -80,6 +83,7 @@ public class Journey {
         isbattling = false;
         bossfight = false;
         evolvediscount = 0;
+        showabout = false;
     }
     public static Journey[] populateData() {
         return new Journey[] {
@@ -98,11 +102,14 @@ public class Journey {
                 eventsteps = 0;
                 eventreached = true;
             }
-            matchmakersteps -= stepsadded;
-            if(matchmakersteps <= 0){
-                matchmakersteps = 0;
-                matchmakerreached = true;
+            if(matching){
+                matchmakersteps -= stepsadded;
+                if(matchmakersteps <= 0){
+                    matchmakersteps = 0;
+                    matchmakerreached = true;
+                }
             }
+
             if(hatched){
                 storysteps -= stepsadded;
             }
@@ -138,6 +145,14 @@ public class Journey {
 
     public void setFirsttime(boolean value){
         firsttime = value;
+    }
+
+    public boolean isShowabout(){
+        return showabout;
+    }
+
+    public void setShowabout(boolean value){
+        showabout = value;
     }
 
     public void setEventtype(int type){

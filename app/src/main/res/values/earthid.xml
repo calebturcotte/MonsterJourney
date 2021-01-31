@@ -62,7 +62,7 @@
         <item name="evo1">@array/earth_adult_beetle</item>
         <item name="evo2">@array/earth_adult_butterfly</item>
         <item name="evo3">@array/earth_adult_blob</item>
-        <item name="health">3</item>
+        <item name="health">6</item>
         <item name="attack">2</item>
         <item name="attackchance">50</item>
         <item name="diligence">4</item>
@@ -84,7 +84,7 @@
         <item name="evo2">@array/earth_adult_monkey</item>
         <item name="evo3">@array/earth_adult_moose</item>
         <item name="evo4">@array/earth_adult_watermelon</item>
-        <item name="health">3</item>
+        <item name="health">5</item>
         <item name="attack">2</item>
         <item name="attackchance">50</item>
         <item name="diligence">0</item>
@@ -107,7 +107,7 @@
         <item name="evo3">@array/earth_adult_monkey</item>
         <item name="evo4">@array/earth_adult_eggimitate</item>
         <item name="evo5">@array/earth_adult_blob</item>
-        <item name="health">3</item>
+        <item name="health">6</item>
         <item name="attack">2</item>
         <item name="attackchance">50</item>
         <item name="diligence">2</item>
@@ -130,9 +130,9 @@
         <item name="evo3">@array/earth_adult_moose</item>
         <item name="evo4">@array/earth_adult_eggimitate</item>
         <item name="evo5">@array/earth_adult_watermelon</item>
-        <item name="health">3</item>
+        <item name="health">5</item>
         <item name="attack">2</item>
-        <item name="attackchance">50</item>
+        <item name="attackchance">55</item>
         <item name="diligence">4</item>
         <item name="hunger">4</item>
         <item name="gluttony">2</item>
@@ -153,9 +153,9 @@
         <item name="evo3">@array/earth_adult_monkey</item>
         <item name="evo4">@array/earth_adult_eggimitate</item>
         <item name="evo5">@array/earth_adult_blob</item>
-        <item name="health">3</item>
+        <item name="health">5</item>
         <item name="attack">2</item>
-        <item name="attackchance">50</item>
+        <item name="attackchance">55</item>
         <item name="diligence">6</item>
         <item name="hunger">4</item>
         <item name="gluttony">3</item>
@@ -209,9 +209,9 @@
         <item name="title">@string/adult_earth_leafcat_title</item>
         <item name="description">@string/adult_earth_leafcat_description</item>
         <item name="icon">@drawable/adult_earth_leafcat_idle</item>
-        <item name="health">11</item>
+        <item name="health">15</item>
         <item name="attack">3</item>
-        <item name="attackchance">50</item>
+        <item name="attackchance">55</item>
         <item name="diligence">7</item>
         <item name="hunger">6</item>
         <item name="gluttony">0</item>
@@ -227,9 +227,9 @@
         <item name="title">@string/adult_earth_eggimitate_title</item>
         <item name="description">@string/adult_earth_eggimitate_description</item>
         <item name="icon">@drawable/adult_earth_eggimitate_idle</item>
-        <item name="health">11</item>
+        <item name="health">13</item>
         <item name="attack">3</item>
-        <item name="attackchance">50</item>
+        <item name="attackchance">45</item>
         <item name="diligence">2</item>
         <item name="hunger">8</item>
         <item name="gluttony">8</item>
@@ -245,7 +245,7 @@
         <item name="title">@string/adult_earth_butterfly_title</item>
         <item name="description">@string/adult_earth_butterfly_description</item>
         <item name="icon">@drawable/adult_earth_butterfly_idle</item>
-        <item name="health">11</item>
+        <item name="health">13</item>
         <item name="attack">3</item>
         <item name="attackchance">50</item>
         <item name="diligence">6</item>
@@ -263,9 +263,9 @@
         <item name="title">@string/adult_earth_beetle_title</item>
         <item name="description">@string/adult_earth_beetle_description</item>
         <item name="icon">@drawable/adult_earth_beetle_idle</item>
-        <item name="health">11</item>
+        <item name="health">15</item>
         <item name="attack">3</item>
-        <item name="attackchance">50</item>
+        <item name="attackchance">55</item>
         <item name="diligence">7</item>
         <item name="hunger">6</item>
         <item name="gluttony">0</item>
@@ -281,9 +281,9 @@
         <item name="title">@string/adult_earth_stump_title</item>
         <item name="description">@string/adult_earth_stump_description</item>
         <item name="icon">@drawable/adult_earth_stump_idle</item>
-        <item name="health">11</item>
+        <item name="health">12</item>
         <item name="attack">3</item>
-        <item name="attackchance">50</item>
+        <item name="attackchance">60</item>
         <item name="diligence">7</item>
         <item name="hunger">2</item>
         <item name="gluttony">1</item>
@@ -293,16 +293,15 @@
         <item name="happyicon">@drawable/adult_earth_stump_happy</item>
     </integer-array>
 
-<!--    TODO gives battle stats to earth-->
     <integer-array name="earth_adult_moose">
         <item name="stage">3</item>
         <item name="evolutions">0</item>
         <item name="title">@string/adult_earth_moose_title</item>
         <item name="description">@string/adult_earth_moose_description</item>
         <item name="icon">@drawable/adult_earth_moose_idle</item>
-        <item name="health">11</item>
+        <item name="health">14</item>
         <item name="attack">3</item>
-        <item name="attackchance">50</item>
+        <item name="attackchance">45</item>
         <item name="diligence">4</item>
         <item name="hunger">7</item>
         <item name="gluttony">2</item>
@@ -318,7 +317,7 @@
         <item name="title">@string/adult_earth_monkey_title</item>
         <item name="description">@string/adult_earth_monkey_description</item>
         <item name="icon">@drawable/adult_earth_monkey_idle</item>
-        <item name="health">11</item>
+        <item name="health">13</item>
         <item name="attack">3</item>
         <item name="attackchance">50</item>
         <item name="diligence">6</item>

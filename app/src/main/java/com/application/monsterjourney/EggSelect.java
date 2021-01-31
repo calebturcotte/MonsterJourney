@@ -1,8 +1,10 @@
 package com.application.monsterjourney;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.content.res.TypedArray;
 import android.graphics.drawable.AnimationDrawable;
+import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.transition.Fade;
@@ -32,6 +34,8 @@ public class EggSelect extends AppCompatActivity {
     private ArrayList<Egg> eggs;
     private int selectedid;
     private AppDatabase db;
+    private MediaPlayer music;
+    private boolean isplaying;
 
     private List<CompletedMaps> completedMapsList;
 
@@ -99,6 +103,28 @@ public class EggSelect extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        SharedPreferences settings = getSharedPreferences(MainActivity.PREFS_NAME, 0);
+        int tempvolume = 80;
+        music = MediaPlayer.create(EggSelect.this,R.raw.eggselect);
+        music.setLooping(true);
+        int currentvolume = settings.getInt("bgvolume", tempvolume);
+
+        music.setVolume((float) currentvolume /100, (float) currentvolume /100);
+        isplaying = settings.getBoolean("isplaying",isplaying);
+        //music.prepareAsync();
+
+        if(!isplaying)music.start();
+    }
+
+    @Override
+    protected void onPause() {
+        music.release();
+        super.onPause();
     }
 
 

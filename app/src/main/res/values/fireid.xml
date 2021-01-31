@@ -327,13 +327,12 @@
         <item name="happyicon">@drawable/adult_fire_spirit_happy</item>
     </integer-array>
 
-<!--    TODO add drawable for big baby, or replace chameleon with it if it's small enough-->
     <integer-array name="fire_adult_baby">
         <item name="stage">3</item>
         <item name="evolutions">0</item>
         <item name="title">@string/adult_fire_baby_title</item>
         <item name="description">@string/adult_fire_baby_description</item>
-        <item name="icon">@drawable/adult_fire_spirit_idle</item>
+        <item name="icon">@drawable/adult_fire_baby_idle</item>
         <item name="health">14</item>
         <item name="attack">3</item>
         <item name="attackchance">40</item>
@@ -342,8 +341,8 @@
         <item name="gluttony">5</item>
         <item name="mistakes">1</item>
         <item name="type">@array/fire_egg</item>
-        <item name="attackicon">@drawable/adult_fire_spirit_attack</item>
-        <item name="happyicon">@drawable/adult_fire_spirit_happy</item>
+        <item name="attackicon">@drawable/adult_fire_baby_attack</item>
+        <item name="happyicon">@drawable/adult_fire_baby_happy</item>
     </integer-array>
 
     <integer-array name="fire_baby_enemies">

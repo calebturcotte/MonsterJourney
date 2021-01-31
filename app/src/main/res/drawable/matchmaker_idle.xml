@@ -2,8 +2,8 @@
 <animation-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:drawable="@drawable/matchmaker_1"
-        android:duration="400"/>
+        android:duration="600"/>
     <item
         android:drawable="@drawable/matchmaker_2"
-        android:duration="400"/>
+        android:duration="600"/>
 </animation-list>

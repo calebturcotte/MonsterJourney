@@ -1,13 +1,13 @@
 package com.application.monsterjourney;
 
 import android.animation.TimeAnimator;
-import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.TypedArray;
 import android.graphics.drawable.AnimationDrawable;
+import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -17,14 +17,11 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.view.animation.LinearInterpolator;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import androidx.annotation.StyleableRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -42,6 +39,8 @@ public class Ranch extends AppCompatActivity {
     private ImageView imageView, imageView2, imageView3, imageView4, imageView5;
     private View eggconfirmView, home;
     private List<RanchContainer> ranchContainerList;
+    private boolean isplaying;
+    private MediaPlayer music;
 
     private Button backbutton;
     private TimeAnimator monsterwalk;
@@ -57,8 +56,6 @@ public class Ranch extends AppCompatActivity {
         setContentView(R.layout.activity_party);
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
         currentmonster = 0;
-
-        //TODO add a way to release monsters from party, creating an empty space
 
 
         final FrameLayout frmlayout = findViewById(R.id.placeholder);
@@ -110,6 +107,28 @@ public class Ranch extends AppCompatActivity {
                 frmlayout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        SharedPreferences settings = getSharedPreferences(MainActivity.PREFS_NAME, 0);
+        int tempvolume = 80;
+        music = MediaPlayer.create(Ranch.this,R.raw.ranch);
+        music.setLooping(true);
+        int currentvolume = settings.getInt("bgvolume", tempvolume);
+
+        music.setVolume((float) currentvolume /100, (float) currentvolume /100);
+        isplaying = settings.getBoolean("isplaying",isplaying);
+        //music.prepareAsync();
+
+        if(!isplaying)music.start();
+    }
+
+    @Override
+    protected void onPause() {
+        music.release();
+        super.onPause();
     }
 
     //the ontouch listeners are purely for visuals and not usability so warning is suppressed
@@ -333,7 +352,7 @@ public class Ranch extends AppCompatActivity {
         LayoutInflater confirminflater = (LayoutInflater)
                 getSystemService(LAYOUT_INFLATER_SERVICE);
         assert confirminflater != null;
-        eggconfirmView = confirminflater.inflate(R.layout.confirm_popup, null);
+        eggconfirmView = confirminflater.inflate(R.layout.confirm_popup,findViewById(R.id.parent), false);
         int width2 = ConstraintLayout.LayoutParams.MATCH_PARENT;
         int height2 = ConstraintLayout.LayoutParams.MATCH_PARENT;
         final PopupWindow confirmWindow = new PopupWindow(eggconfirmView, width2, height2, true);
@@ -456,7 +475,7 @@ public class Ranch extends AppCompatActivity {
         LayoutInflater confirminflater = (LayoutInflater)
                 getSystemService(LAYOUT_INFLATER_SERVICE);
         assert confirminflater != null;
-        View confirmView = confirminflater.inflate(R.layout.confirm_popup, null);
+        View confirmView = confirminflater.inflate(R.layout.confirm_popup,findViewById(R.id.parent), false);
         int width2 = ConstraintLayout.LayoutParams.MATCH_PARENT;
         int height2 = ConstraintLayout.LayoutParams.MATCH_PARENT;
         final PopupWindow confirmWindow = new PopupWindow(confirmView, width2, height2, true);

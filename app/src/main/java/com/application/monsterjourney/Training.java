@@ -236,7 +236,7 @@ public class Training extends AppCompatActivity {
         LayoutInflater traininflater = (LayoutInflater)
                 getSystemService(LAYOUT_INFLATER_SERVICE);
         assert traininflater != null;
-        trainView = traininflater.inflate(R.layout.training_game, null);
+        trainView = traininflater.inflate(R.layout.training_game,findViewById(R.id.parent), false);
         int width2 = ConstraintLayout.LayoutParams.MATCH_PARENT;
         int height2 = ConstraintLayout.LayoutParams.MATCH_PARENT;
         final PopupWindow trainWindow = new PopupWindow(trainView, width2, height2, false);
@@ -372,7 +372,7 @@ public class Training extends AppCompatActivity {
         LayoutInflater confirminflater = (LayoutInflater)
                 getSystemService(LAYOUT_INFLATER_SERVICE);
         assert confirminflater != null;
-        feedView = confirminflater.inflate(R.layout.feeding_popup, null);
+        feedView = confirminflater.inflate(R.layout.feeding_popup,findViewById(R.id.parent), false);
         int width2 = ConstraintLayout.LayoutParams.MATCH_PARENT;
         int height2 = ConstraintLayout.LayoutParams.MATCH_PARENT;
         final PopupWindow feedWindow = new PopupWindow(feedView, width2, height2, true);
@@ -405,8 +405,6 @@ public class Training extends AppCompatActivity {
         FetchItems runner = new FetchItems();
         runner.execute();
 
-
-
         feedView.findViewById(R.id.confirm).setOnClickListener(v -> {
             AsyncTask.execute(() -> {
                 AppDatabase db = AppDatabase.buildDatabase(getApplicationContext());
@@ -427,14 +425,13 @@ public class Training extends AppCompatActivity {
             LayoutInflater aboutinflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
             assert aboutinflater != null;
             final View feeding = aboutinflater.inflate(R.layout.feeding_screen, (ViewGroup)null);
-            Fade mFade = new Fade(Fade.IN);
-            TransitionManager.beginDelayedTransition(frmlayout, mFade);
             frmlayout.removeAllViews();
             frmlayout.addView(feeding,0);
             Activity myActivity = this;
             feeding.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
                 @Override
                 public void onGlobalLayout() {
+                    selectedIcon(currentarrayid);
                     FoodAnimation runner1 = new FoodAnimation(myActivity);
                     runner1.execute();
                     feeding.getViewTreeObserver().removeOnGlobalLayoutListener(this);
@@ -453,7 +450,6 @@ public class Training extends AppCompatActivity {
      * configures display for the food popup
      */
     private void feeddisplay(){
-        //TODO add icons and animation for each different type of food
         TextView title = feedView.findViewById(R.id.food_title);
         TextView description = feedView.findViewById(R.id.confimation_text);
         ImageView foodimage = feedView.findViewById(R.id.food_icon);
@@ -467,7 +463,7 @@ public class Training extends AppCompatActivity {
             case 1:
                 title.setText(getText(R.string.FoodTitle2));
                 description.setText(getText(R.string.FoodDescription2));
-                foodimage.setBackgroundResource(R.drawable.food_display_0);
+                foodimage.setBackgroundResource(R.drawable.ic_food_display_0);
                 break;
             case 2:
                 title.setText(getText(R.string.FoodTitle3));
@@ -509,7 +505,7 @@ public class Training extends AppCompatActivity {
         LayoutInflater confirminflater = (LayoutInflater)
                 getSystemService(LAYOUT_INFLATER_SERVICE);
         assert confirminflater != null;
-        View confirmView = confirminflater.inflate(R.layout.confirm_popup, null);
+        View confirmView = confirminflater.inflate(R.layout.confirm_popup,findViewById(R.id.parent), false);
         int width2 = ConstraintLayout.LayoutParams.MATCH_PARENT;
         int height2 = ConstraintLayout.LayoutParams.MATCH_PARENT;
         final PopupWindow confirmWindow = new PopupWindow(confirmView, width2, height2, true);
@@ -562,11 +558,10 @@ public class Training extends AppCompatActivity {
         if(matchView != null){
             return;
         }
-        //TODO add more info for if we are currently matching, do they wish to cancel, etc
         LayoutInflater confirminflater = (LayoutInflater)
                 getSystemService(LAYOUT_INFLATER_SERVICE);
         assert confirminflater != null;
-        matchView = confirminflater.inflate(R.layout.matchmaker_popup, null);
+        matchView = confirminflater.inflate(R.layout.matchmaker_popup,findViewById(R.id.parent), false);
         int width2 = ConstraintLayout.LayoutParams.MATCH_PARENT;
         int height2 = ConstraintLayout.LayoutParams.MATCH_PARENT;
         final PopupWindow matchWindow = new PopupWindow(matchView, width2, height2, true);

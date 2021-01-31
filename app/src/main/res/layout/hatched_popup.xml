@@ -64,7 +64,7 @@
 
         <ImageView
             android:contentDescription="@string/icon_description"
-            android:background="@drawable/ic_launcher_background"
+            android:background="@drawable/ic_background_popup"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintHeight_percent="0.4"
@@ -92,7 +92,8 @@
             app:layout_constraintWidth_percent="0.73"
             android:gravity="center"
             app:layout_constraintTop_toBottomOf="@id/vborderguideline"
-            app:layout_constraintStart_toStartOf="@id/himageguideline2"/>
+            app:layout_constraintStart_toStartOf="@id/himageguideline2"
+            android:contentDescription="@string/border" />
 
         <Button
             android:contentDescription="@string/close"

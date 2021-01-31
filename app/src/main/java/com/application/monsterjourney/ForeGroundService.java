@@ -209,8 +209,8 @@ public class ForeGroundService extends Service implements SensorEventListener, S
                 tempmonster.setEvolvesteps(evolvesteps);
                 db.journeyDao().update(temp);
                 db.journeyDao().updateMonster(tempmonster);
-                sendBroadcastMessage(matchmakersteps);
-                //sendBroadcastMessage(steps);
+                //sendBroadcastMessage(matchmakersteps);
+                sendBroadcastMessage(steps);
                 //sendBroadcastMessage(eventreached);
             }
         });
@@ -255,7 +255,6 @@ public class ForeGroundService extends Service implements SensorEventListener, S
         return isInBackground;
     }
 
-    //TODO add proper icons and such to notification
     /**
      * create a notification for different events reached
      */

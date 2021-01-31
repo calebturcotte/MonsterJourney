@@ -70,7 +70,7 @@
             android:contentDescription="@string/close"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:background="@color/colorAccent"
+            android:background="@drawable/ic_background_popup"
             app:layout_constraintHeight_percent="0.3"
             app:layout_constraintWidth_percent="0.3"
             app:layout_constraintStart_toStartOf="@id/backguideline"
@@ -80,8 +80,6 @@
             android:id="@+id/matchmaker_popup_icon"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:scaleX="2"
-            android:scaleY="2"
             app:layout_constraintHeight_percent="0.3"
             app:layout_constraintWidth_percent="0.3"
             app:layout_constraintStart_toStartOf="@id/backguideline"
@@ -96,7 +94,8 @@
             app:layout_constraintWidth_percent="0.33"
             android:gravity="center"
             app:layout_constraintTop_toBottomOf="@id/vborderguideline"
-            app:layout_constraintStart_toStartOf="@id/himageguideline2"/>
+            app:layout_constraintStart_toStartOf="@id/himageguideline2"
+            android:contentDescription="@string/border" />
 
         <TextView
             android:id="@+id/confimation_text"

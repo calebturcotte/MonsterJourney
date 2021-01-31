@@ -31,6 +31,7 @@
 
         <TextView
             android:id="@+id/training_title"
+            android:background="@drawable/ic_picker_background"
             android:layout_width="0dp"
             app:layout_constraintWidth_percent="0.8"
             android:layout_height="0dp"
@@ -42,6 +43,7 @@
 
         <TextView
             android:id="@+id/training_time"
+            android:background="@drawable/ic_text_background2"
             android:layout_width="0dp"
             app:layout_constraintWidth_percent="0.2"
             android:layout_height="0dp"

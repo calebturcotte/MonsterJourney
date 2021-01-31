@@ -107,12 +107,12 @@
 
                     <Button
                         android:id="@+id/rock"
+                        android:background="@drawable/ic_button_rock"
                         android:onClick="makeMove"
                         android:layout_width="0dp"
                         android:layout_weight="0.4"
                         android:layout_height="match_parent" />
                 </LinearLayout>
-
 
 
                 <LinearLayout
@@ -129,6 +129,7 @@
 
                     <Button
                         android:id="@+id/paper"
+                        android:background="@drawable/ic_button_paper"
                         android:onClick="makeMove"
                         android:layout_width="0dp"
                         android:gravity="center"
@@ -150,6 +151,7 @@
 
                     <Button
                         android:id="@+id/scissors"
+                        android:background="@drawable/ic_button_scissors"
                         android:onClick="makeMove"
                         android:layout_width="0dp"
                         android:gravity="center"

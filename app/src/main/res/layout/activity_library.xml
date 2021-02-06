@@ -54,6 +54,13 @@
         <androidx.constraintlayout.widget.Guideline
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/verticalguideline2"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.83"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:id="@+id/buttonguideline"
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.2"/>
@@ -145,14 +152,22 @@
             app:layout_constraintTop_toBottomOf="@id/Title"
             app:layout_constraintEnd_toEndOf="@id/verticalguideline" />
 
-        <ScrollView
+        <ImageView
             android:layout_width="0dp"
             app:layout_constraintHeight_percent="0.25"
             android:layout_height="0dp"
             app:layout_constraintWidth_percent="0.7"
             app:layout_constraintTop_toBottomOf="@id/textcontentguideline"
             app:layout_constraintEnd_toEndOf="@id/verticalguideline"
-            android:background="@drawable/ic_popup_background_text">
+            android:background="@drawable/ic_popup_background_text"/>
+
+        <ScrollView
+            android:layout_width="0dp"
+            app:layout_constraintHeight_percent="0.25"
+            android:layout_height="0dp"
+            app:layout_constraintWidth_percent="0.66"
+            app:layout_constraintTop_toBottomOf="@id/textcontentguideline"
+            app:layout_constraintEnd_toEndOf="@id/verticalguideline2">
 
             <TextView
                 android:id="@+id/content"
@@ -227,7 +242,7 @@
         android:id="@+id/adView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        ads:adSize="BANNER"
+        ads:adSize="SMART_BANNER"
         ads:adUnitId="ca-app-pub-3940256099942544/6300978111">
     </com.google.android.gms.ads.AdView>
 

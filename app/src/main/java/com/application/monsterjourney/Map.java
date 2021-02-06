@@ -7,7 +7,9 @@ import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -16,9 +18,11 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import androidx.annotation.StyleableRes;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -35,6 +39,7 @@ public class Map extends AppCompatActivity {
     int selected, currentselectedstory;
     private MediaPlayer music;
     private boolean isplaying;
+    private View mapChangeView;
 
     private List<UnlockedMonster> unlockedMonsterList;
     private List<CompletedMaps> completedMapsList;
@@ -94,15 +99,7 @@ public class Map extends AppCompatActivity {
                     showView();
                 });
 
-                confirmbutton.setOnClickListener(v -> {
-                    TypedArray viewarray = getResources().obtainTypedArray(R.array.map_list);
-                    storytype = viewarray.getResourceId(selected, R.array.enigma_map);
-                    currentselectedstory = selected;
-                    viewarray.recycle();
-
-                    ChangeStory runner = new ChangeStory(mainActivity, storytype, completedMapsList);
-                    runner.execute();
-                });
+                confirmbutton.setOnClickListener(v -> mapChange());
 
                 if(!isbought){
                     MobileAds.initialize(getApplicationContext(), initializationStatus -> {
@@ -143,6 +140,50 @@ public class Map extends AppCompatActivity {
     protected void onPause() {
         music.release();
         super.onPause();
+    }
+
+    /**
+     * Bring up option to select a new egg to raise
+     */
+    public void mapChange(){
+        if(mapChangeView != null){
+            return;
+        }
+        LayoutInflater confirminflater = (LayoutInflater)
+                getSystemService(LAYOUT_INFLATER_SERVICE);
+        assert confirminflater != null;
+        mapChangeView = confirminflater.inflate(R.layout.confirm_popup,findViewById(R.id.parent), false);
+        int width2 = ConstraintLayout.LayoutParams.MATCH_PARENT;
+        int height2 = ConstraintLayout.LayoutParams.MATCH_PARENT;
+        final PopupWindow confirmWindow = new PopupWindow(mapChangeView, width2, height2, true);
+        confirmWindow.setOutsideTouchable(false);
+        confirmWindow.setOnDismissListener(()->mapChangeView = null);
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            confirmWindow.setElevation(20);
+        }
+        // show the popup window
+        // which view you pass in doesn't matter, it is only used for the window token
+        confirmWindow.setAnimationStyle(R.style.PopupAnimation);
+        confirmWindow.showAtLocation(findViewById(R.id.placeholder), Gravity.CENTER, 0, 0);
+        mapChangeView.findViewById(R.id.close).setOnClickListener(v -> confirmWindow.dismiss());
+
+        mapChangeView.findViewById(R.id.back).setOnClickListener(v -> confirmWindow.dismiss());
+
+        mapChangeView.findViewById(R.id.confirm).setOnClickListener(v ->{
+            TypedArray viewarray = getResources().obtainTypedArray(R.array.map_list);
+            storytype = viewarray.getResourceId(selected, R.array.enigma_map);
+            currentselectedstory = selected;
+            viewarray.recycle();
+
+            ChangeStory runner = new ChangeStory(this, storytype, completedMapsList);
+            runner.execute();
+            confirmWindow.dismiss();
+        } );
+
+        TextView message = mapChangeView.findViewById(R.id.confimation_text);
+        message.setText(getText(R.string.mapchangeconfirm));
+
     }
 
     /**

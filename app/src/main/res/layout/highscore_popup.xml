@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/popup"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintHeight_percent="0.35"
+        app:layout_constraintWidth_percent="0.8"
+        android:background="@drawable/ic_popup_background"
+        app:layout_constraintStart_toStartOf="@id/verticalguideline"
+        app:layout_constraintTop_toTopOf="@id/horizontalguideline">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/himageguideline2"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.05"/>
+        
+        <androidx.constraintlayout.widget.Guideline
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/vborderguideline"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.2"/>
+
+
+        <Button
+            android:contentDescription="@string/close"
+            android:id="@+id/close"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/ic_button_exit"
+            app:layout_constraintHeight_percent="0.1"
+            app:layout_constraintWidth_percent="0.1"
+            app:layout_constraintEnd_toEndOf="@id/popup"
+            app:layout_constraintTop_toTopOf="@id/popup"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:fadeScrollbars="false"
+            android:text="@string/highScoreTitle"
+            android:textSize="25sp"
+            android:gravity="center"
+            app:layout_constraintStart_toEndOf="@id/himageguideline2"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintHeight_percent="0.2"
+            app:layout_constraintWidth_percent="0.9"/>
+
+        <ScrollView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:fadeScrollbars="false"
+            app:layout_constraintStart_toEndOf="@id/himageguideline2"
+            app:layout_constraintTop_toTopOf="@id/vborderguideline"
+            app:layout_constraintHeight_percent="0.85"
+            app:layout_constraintWidth_percent="0.9">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:id="@+id/layout1"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    app:layout_constraintHeight_percent="0.04"
+                    app:layout_constraintWidth_percent="0.65">
+
+                    <TextView
+                        android:background="@drawable/ic_picker_background"
+                        android:text="@string/simonsays_title"
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:scaleType="fitXY"
+                        android:layout_weight="1"
+                        android:contentDescription="@string/selector" />
+                    <TextView
+                        android:id="@+id/score1"
+                        android:background="@drawable/ic_text_background2"
+                        android:gravity="center"
+                        android:textSize="20sp"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:contentDescription="@string/selector" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    app:layout_constraintHeight_percent="0.04"
+                    app:layout_constraintWidth_percent="0.65">
+
+                    <TextView
+                        android:background="@drawable/ic_picker_background"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:text="@string/snake_title"
+                        android:gravity="center"
+                        android:scaleType="fitXY"
+                        android:layout_weight="1"
+                        android:contentDescription="@string/selector" />
+                    <TextView
+                        android:id="@+id/score2"
+                        android:background="@drawable/ic_text_background2"
+                        android:gravity="center"
+                        android:textSize="20sp"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:contentDescription="@string/selector" />
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/horizontalguideline"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/verticalguideline"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.1"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

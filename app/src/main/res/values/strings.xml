@@ -25,6 +25,8 @@
     <string name="newmap">NEW MAP</string>
     <string name="continueing">CONTINUE</string>
     <string name="about">About this game: </string>
+    <string name="highScore">High Score Button</string>
+    <string name="highScoreTitle">High Scores</string>
 
     <string name="appdescription1">Welcome to Monster Journey!</string>
     <string name="appdescription2">Monster Journey is an app that will track your steps as your device moves. There are various ways to take care of your monster: \n
@@ -40,7 +42,8 @@
     \n Special thanks to the following for help with monster designs:\n
     \u2022 Michael Le\n
     \u2022 Kimmie Truong\n
-    \u2022 Julia To\n</string>
+    \u2022 Julia To\n
+    \u2022 Carolyn Thompson\n</string>
 
     <string name="removeads">Remove ads</string>
     <string name="buylightegg">Buy Light Egg</string>
@@ -88,6 +91,7 @@
 
     <string name="FoodTitle1">Small Apple</string>
     <string name="FoodDescription1">A basic food item. Restores half a heart upon consumption</string>
+    <string name="infinity">x \u221e</string>
 
     <string name="FoodTitle2">Large Apple</string>
     <string name="FoodDescription2">A food item. Restores a heart upon consumption</string>
@@ -151,7 +155,7 @@
     <string name="simonsays_description">A memory game where you must select buttons in the same pattern presented. Earn steps for each round you pass.</string>
     <string name="simonsays_rounddone">Round Complete!</string>
 
-    <string name="snake_title">Chain connect</string>
+    <string name="snake_title">Chain Connect</string>
     <string name="snake_description">Move a chain along to collect blocks and become longer. Earn steps for each block you collect.</string>
 
     <string name="rock">Rock</string>
@@ -163,6 +167,7 @@
 
     <string name="mapcompleted">Completed</string>
     <string name="mapnotcompleted">Not Completed</string>
+    <string name="mapchangeconfirm">Are you sure you want to change Maps? (This will reset your current steps needed)</string>
 
     <string name="firetype">Fire</string>
     <string name="dinotype">Dino</string>

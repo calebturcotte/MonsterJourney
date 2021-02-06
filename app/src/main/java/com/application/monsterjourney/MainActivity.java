@@ -6,13 +6,17 @@ import android.animation.AnimatorSet;
 import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.app.ActivityManager;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.content.res.TypedArray;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.ClipDrawable;
@@ -69,6 +73,7 @@ import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
@@ -279,6 +284,31 @@ public class MainActivity extends AppCompatActivity {
                 frmlayout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
             }
         });
+
+        //TODO implement daily alarm that reduces our monsters hunger bar by 1 heart (2 points) daily, and generates a notification if empty
+        AlarmManager alarmManager =
+                (AlarmManager) getApplicationContext().getSystemService(Context.ALARM_SERVICE);
+        //RTC - Fires the pending intent at the specified time
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this,
+                0, new Intent(this, HungerService.class), PendingIntent.FLAG_UPDATE_CURRENT);
+        assert alarmManager != null;
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(Calendar.HOUR_OF_DAY, 23);
+        calendar.set(Calendar.MINUTE, 59);
+        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+                AlarmManager.INTERVAL_DAY, pendingIntent);
+
+        //enable the boot receiver so it will run if we reboot the app
+        ComponentName receiver = new ComponentName(this, BootReceiver.class);
+        PackageManager pm = getPackageManager();
+
+        pm.setComponentEnabledSetting(receiver,
+                PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+                PackageManager.DONT_KILL_APP);
+//        if (pendingIntent != null && alarmManager != null) {
+//            alarmManager.cancel(pendingIntent);
+//        }
     }
 
     /**

@@ -9,7 +9,7 @@ import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Journey.class,Item.class, History.class, Monster.class, UnlockedMonster.class, CompletedMaps.class}, version = 1, exportSchema = false)
+@Database(entities = {Journey.class,Item.class, History.class, Monster.class, UnlockedMonster.class, CompletedMaps.class}, version = 2, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
     private static AppDatabase db;
     public abstract JourneyDao journeyDao();
@@ -37,6 +37,7 @@ public abstract class AppDatabase extends RoomDatabase {
 //                        });
                     }
                 })
+                .addMigrations(MIGRATION_1_2)
                 .enableMultiInstanceInvalidation()
                 .build();
         RoomDatabase.Callback rdc = new RoomDatabase.Callback() {
@@ -61,7 +62,9 @@ public abstract class AppDatabase extends RoomDatabase {
         @Override
         public void migrate(SupportSQLiteDatabase database) {
             database.execSQL("ALTER TABLE journey "
-                    + " ADD COLUMN pub_year INTEGER");
+                    + " ADD COLUMN 'score1' INTEGER default 0 NOT NULL" );
+            database.execSQL("ALTER TABLE journey "
+                    + " ADD COLUMN 'score2' INTEGER default 0 NOT NULL" );
         }
     };
 

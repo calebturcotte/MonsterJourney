@@ -147,6 +147,20 @@ public class Monster {
     }
 
     /**
+     * called once a day on each monster to reduce their current hunger level by 1 heart
+     */
+    public void dayPassed(){
+        hunger = hunger - 2;
+        if(hunger <0){
+            hunger = 0;
+        }
+        if(diligence > 0){
+            diligence--;
+        }
+
+    }
+
+    /**
      * Update the monster with another monsters values
      * @param monster the class we will copy values over from
      */

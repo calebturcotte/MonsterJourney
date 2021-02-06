@@ -10,10 +10,12 @@ import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.ClipDrawable;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.transition.Fade;
 import android.transition.TransitionManager;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +23,7 @@ import android.view.ViewTreeObserver;
 import android.view.animation.LinearInterpolator;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import androidx.annotation.StyleableRes;
 import androidx.appcompat.app.AppCompatActivity;
@@ -39,6 +42,7 @@ public class Minigame extends AppCompatActivity {
     private int snakedirection;
     private MediaPlayer music;
     private boolean isplaying;
+    private View highScoreView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -395,6 +399,7 @@ public class Minigame extends AppCompatActivity {
             Monster tempmonster = db.journeyDao().getMonster().get(0);
             tempjourney.addStepstoJourney(stepsearned, tempmonster.getHatched());
             tempmonster.setEvolvesteps(tempmonster.getEvolvesteps() - stepsearned);
+            tempjourney.updateHighScore(0,currentround-1);
             db.journeyDao().update(tempjourney);
             db.journeyDao().updateMonster(tempmonster);
         });
@@ -564,7 +569,7 @@ public class Minigame extends AppCompatActivity {
                     Journey tempjourney = db.journeyDao().getJourney().get(0);
                     Monster tempmonster = db.journeyDao().getMonster().get(0);
                     tempjourney.addStepstoJourney(stepsearned, tempmonster.getHatched());
-
+                    tempjourney.updateHighScore(1,snakePositions.size() - 2);
                     tempmonster.setEvolvesteps(tempmonster.getEvolvesteps() - stepsearned);
                     db.journeyDao().update(tempjourney);
                     db.journeyDao().updateMonster(tempmonster);
@@ -588,6 +593,7 @@ public class Minigame extends AppCompatActivity {
                         Journey tempjourney = db.journeyDao().getJourney().get(0);
                         Monster tempmonster = db.journeyDao().getMonster().get(0);
                         tempjourney.addStepstoJourney(stepsearned,tempmonster.getHatched());
+                        tempjourney.updateHighScore(1,snakePositions.size() - 2);
                         tempmonster.setEvolvesteps(tempmonster.getEvolvesteps() - stepsearned);
                         db.journeyDao().update(tempjourney);
                         db.journeyDao().updateMonster(tempmonster);
@@ -802,6 +808,49 @@ public class Minigame extends AppCompatActivity {
         }, duration);
     }
 
+    /**
+     * display the high score popup
+     * @param v the high score button clicked
+     */
+    public void highScore(View v){
+        CreateHighScorePopup runner = new CreateHighScorePopup(this);
+        runner.execute();
+    }
+
+    /**
+     * Display scores after fetching from database
+     * @param score1 first minigame highscore
+     * @param score2 second minigame highscore
+     */
+    public void createHighScore(int score1, int score2){
+        if(highScoreView != null){
+            return;
+        }
+        LayoutInflater highScoreInflater = (LayoutInflater)
+                getSystemService(LAYOUT_INFLATER_SERVICE);
+        assert highScoreInflater != null;
+        highScoreView = highScoreInflater.inflate(R.layout.highscore_popup, findViewById(R.id.parent), false);
+        int width2 = ConstraintLayout.LayoutParams.MATCH_PARENT;
+        int height2 = ConstraintLayout.LayoutParams.MATCH_PARENT;
+        final PopupWindow highscoreWindow = new PopupWindow(highScoreView, width2, height2, true);
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            highscoreWindow.setElevation(20);
+        }
+        // show the popup window
+        // which view you pass in doesn't matter, it is only used for the window token
+        highscoreWindow.setAnimationStyle(R.style.PopupAnimation);
+        highscoreWindow.showAtLocation(findViewById(R.id.parent), Gravity.CENTER, 0, 0);
+        highScoreView.findViewById(R.id.close).setOnClickListener(view -> highscoreWindow.dismiss());
+
+        TextView score1text = highScoreView.findViewById(R.id.score1);
+        score1text.setText(String.valueOf(score1));
+
+        TextView score2text = highScoreView.findViewById(R.id.score2);
+        score2text.setText(String.valueOf(score2));
+
+        highscoreWindow.setOnDismissListener(()-> highScoreView = null);
+    }
+
     //async task to initialize hunger bar
     static private class HungerFill extends AsyncTask<String,TextView,String>{
         private final WeakReference<Activity> weakActivity;
@@ -865,6 +914,30 @@ public class Minigame extends AppCompatActivity {
             ImageView temp = weakActivity.get().findViewById(R.id.hungerfill);
             ClipDrawable hungerfill = (ClipDrawable) temp.getDrawable();
             hungerfill.setLevel(hunger*1250);
+        }
+    }
+
+    static private class CreateHighScorePopup extends AsyncTask<String,TextView,String>{
+        private final WeakReference<Activity> weakActivity;
+        private int score1;
+        private int score2;
+
+        public CreateHighScorePopup(Activity myActivity){
+            this.weakActivity = new WeakReference<>(myActivity);
+        }
+        @Override
+        protected String doInBackground(String... strings) {
+            AppDatabase db = AppDatabase.getInstance(weakActivity.get());
+            Journey tempjourney = db.journeyDao().getJourney().get(0);
+            score1 = tempjourney.getScore1();
+            score2 =tempjourney.getScore2();
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            Minigame activity = (Minigame) weakActivity.get();
+            activity.createHighScore(score1,score2);
         }
     }
 }

@@ -191,6 +191,32 @@
         android:rotation="180"
         />
 
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/infoguideline"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.05"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/soundguideline"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.03"/>
+
+    <Button
+        android:contentDescription="@string/highScore"
+        android:id="@+id/sound_button"
+        android:background="@drawable/ic_button_highscore"
+        android:onClick="highScore"
+        android:layout_width="0dp"
+        app:layout_constraintHeight_percent="0.05"
+        android:layout_height="0dp"
+        app:layout_constraintWidth_percent="0.1"
+        app:layout_constraintTop_toBottomOf="@id/infoguideline"
+        app:layout_constraintStart_toStartOf="@id/soundguideline"/>
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

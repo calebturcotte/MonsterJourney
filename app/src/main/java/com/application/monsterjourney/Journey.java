@@ -66,6 +66,12 @@ public class Journey {
     @ColumnInfo(name = "bossfight")
     public boolean bossfight;
 
+    @ColumnInfo(name = "score1", defaultValue = "0")
+    public int score1;
+
+    @ColumnInfo(name = "score2", defaultValue = "0")
+    public int score2;
+
 
     public Journey(){
         totalsteps = 0;
@@ -115,6 +121,26 @@ public class Journey {
             }
             totalsteps += stepsadded;
         }
+    }
+
+    /**
+     * update our high scores
+     * @param score the score earned
+     */
+    public void updateHighScore(int gametype, int score){
+        switch (gametype){
+            case 0:
+                if(score > score1){
+                    score1 = score;
+                }
+                break;
+            case 1:
+                if(score > score2){
+                    score2 = score;
+                }
+                break;
+        }
+
     }
 
     public long getTotalsteps(){
@@ -203,5 +229,12 @@ public class Journey {
 
     public void setBossfight(boolean bossfight){this.bossfight = bossfight;}
 
+    public int getScore1(){return score1;}
+
+    public void setScore1(int score1){this.score1 = score1;}
+
+    public int getScore2(){return score2;}
+
+    public void setScore2(int score2){this.score2 = score2;}
 }
 

@@ -486,7 +486,7 @@ public class Training extends AppCompatActivity {
             amount.setText(tempamount);
         }
         else{
-            amount.setText("");
+            amount.setText(R.string.infinity);
         }
     }
 

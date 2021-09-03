@@ -817,40 +817,46 @@ public class Training extends AppCompatActivity {
             thisActivity.selectedIcon(currentarrayid);
             FrameLayout homelayout = weakActivity.get().findViewById(R.id.placeholder);
             ImageView foodimageView = homelayout.findViewById(R.id.eating_icon);
-            AnimationDrawable foodanimator;
-            switch (thisActivity.feedtype){
-                case 1: //large apple
-                    foodimageView.setImageDrawable(ContextCompat.getDrawable(weakActivity.get(),R.drawable.food1_eat));
-                    foodanimator = (AnimationDrawable) foodimageView.getDrawable();
-                    foodanimator.start();
-                    break;
-                case 2: //meat
-                    foodimageView.setImageDrawable(ContextCompat.getDrawable(weakActivity.get(),R.drawable.food2_eat));
-                    foodanimator = (AnimationDrawable) foodimageView.getDrawable();
-                    foodanimator.start();
-                    break;
-                case 3: //training pill
-                    foodimageView.setImageDrawable(ContextCompat.getDrawable(weakActivity.get(),R.drawable.food3_eat));
-                    foodanimator = (AnimationDrawable) foodimageView.getDrawable();
-                    foodanimator.start();
-                    break;
-                case 4: //evolution medicine
-                    foodimageView.setImageDrawable(ContextCompat.getDrawable(weakActivity.get(),R.drawable.food4_eat));
-                    foodanimator = (AnimationDrawable) foodimageView.getDrawable();
-                    foodanimator.start();
-                    break;
-                default: // basic apple
-                    foodimageView.setImageDrawable(ContextCompat.getDrawable(weakActivity.get(),R.drawable.food_eat));
-                    foodanimator = (AnimationDrawable) foodimageView.getDrawable();
-                    foodanimator.start();
-                    break;
+            AnimationDrawable foodanimator = null;
+            if(foodimageView != null){
+                switch (thisActivity.feedtype){
+                    case 1: //large apple
+                        foodimageView.setImageDrawable(ContextCompat.getDrawable(weakActivity.get(),R.drawable.food1_eat));
+                        foodanimator = (AnimationDrawable) foodimageView.getDrawable();
+                        foodanimator.start();
+                        break;
+                    case 2: //meat
+                        foodimageView.setImageDrawable(ContextCompat.getDrawable(weakActivity.get(),R.drawable.food2_eat));
+                        foodanimator = (AnimationDrawable) foodimageView.getDrawable();
+                        foodanimator.start();
+                        break;
+                    case 3: //training pill
+                        foodimageView.setImageDrawable(ContextCompat.getDrawable(weakActivity.get(),R.drawable.food3_eat));
+                        foodanimator = (AnimationDrawable) foodimageView.getDrawable();
+                        foodanimator.start();
+                        break;
+                    case 4: //evolution medicine
+                        foodimageView.setImageDrawable(ContextCompat.getDrawable(weakActivity.get(),R.drawable.food4_eat));
+                        foodanimator = (AnimationDrawable) foodimageView.getDrawable();
+                        foodanimator.start();
+                        break;
+                    default: // basic apple
+                        foodimageView.setImageDrawable(ContextCompat.getDrawable(weakActivity.get(),R.drawable.food_eat));
+                        foodanimator = (AnimationDrawable) foodimageView.getDrawable();
+                        foodanimator.start();
+                        break;
 
+                }
             }
 
             Handler h = new Handler();
             //Run a runnable to hide food after it has been eaten
+            AnimationDrawable finalFoodanimator = foodanimator;
             h.postDelayed(() -> {
-                foodanimator.stop();
+                if(finalFoodanimator != null){
+                    finalFoodanimator.stop();
+                }
+
                 LayoutInflater homeinflater = (LayoutInflater) weakActivity.get().getSystemService(LAYOUT_INFLATER_SERVICE);
                 assert homeinflater != null;
                 final View monsterview = homeinflater.inflate(R.layout.home_screen, (ViewGroup)null);

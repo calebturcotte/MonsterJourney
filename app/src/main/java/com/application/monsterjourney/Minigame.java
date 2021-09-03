@@ -1,7 +1,9 @@
 package com.application.monsterjourney;
 
 import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
+import android.animation.TimeAnimator;
 import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.SharedPreferences;
@@ -25,6 +27,8 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.StyleableRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -43,6 +47,7 @@ public class Minigame extends AppCompatActivity {
     private MediaPlayer music;
     private boolean isplaying;
     private View highScoreView;
+    private ValueAnimator snakeAnimator;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -432,6 +437,33 @@ public class Minigame extends AppCompatActivity {
         final ConstraintLayout templayout = findViewById(R.id.game_spot);
         snakeMove(snakePositions, templayout);
 
+        snakeAnimator = ValueAnimator.ofFloat(0.0f,1.0f);
+        snakeAnimator.setInterpolator(new LinearInterpolator());
+        snakeAnimator.setRepeatMode(ValueAnimator.RESTART);
+        snakeAnimator.setRepeatCount(ValueAnimator.INFINITE);
+        snakeAnimator.setDuration(200);
+//        snakeAnimator.addUpdateListener(animation->{
+//            final float progress = (float) animation.getAnimatedValue();
+////            if(progress == 0.0f){
+////                snakeMove(snakePositions,templayout);
+////            }
+//            //snakeMove(snakePositions,templayout);
+//        });
+        snakeAnimator.addListener(new AnimatorListenerAdapter()
+        {
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+                snakeMove(snakePositions,templayout);
+                super.onAnimationRepeat(animation);
+            }
+        });
+//        snakeAnimator.setTimeListener((animation, totalTime, deltaTime) -> {
+//            if(totalTime % 200 == 0){
+//                snakeMove(snakePositions, templayout);
+//            }
+//
+//        });
+        snakeAnimator.start();
     }
 
     /**
@@ -439,17 +471,17 @@ public class Minigame extends AppCompatActivity {
      * @param snakePositions the container for each snake in the view
      */
     public void snakeMove(ArrayList<SnakePosition> snakePositions, ConstraintLayout templayout){
+        //Toast.makeText(this,"called", Toast.LENGTH_SHORT).show();
 
         TextView counttext = findViewById(R.id.count);
         String countstring = "Energy collected: " + (snakePositions.size() - 2);
         counttext.setText(countstring);
+        ConstraintSet constraintSet = new ConstraintSet();
+        constraintSet.clone(templayout);
         for(SnakePosition snakePosition : snakePositions){
             int viewid = snakePosition.getViewid();
             int xposition = snakePosition.getXposition();
             int yposition = snakePosition.getYposition();
-
-            ConstraintSet constraintSet = new ConstraintSet();
-            constraintSet.clone(templayout);
             switch(xposition){
                 case 0:
                     constraintSet.connect(viewid,ConstraintSet.START,R.id.vguideline0,ConstraintSet.START,0);
@@ -519,8 +551,8 @@ public class Minigame extends AppCompatActivity {
             constraintSet.constrainWidth(viewid, 0);
             constraintSet.constrainPercentHeight(viewid, 0.1f);
             constraintSet.constrainPercentWidth(viewid, 0.1f);
-            constraintSet.applyTo(templayout);
         }
+        constraintSet.applyTo(templayout);
 
         int xposition = snakePositions.get(0).getXposition();
         int yposition = snakePositions.get(0).getYposition();
@@ -576,6 +608,7 @@ public class Minigame extends AppCompatActivity {
                 });
                 findViewById(R.id.playagain).setVisibility(View.VISIBLE);
                 findViewById(R.id.cancel).setVisibility(View.VISIBLE);
+                snakeAnimator.end();
                 return;
             }
 
@@ -600,6 +633,7 @@ public class Minigame extends AppCompatActivity {
                     });
                     findViewById(R.id.playagain).setVisibility(View.VISIBLE);
                     findViewById(R.id.cancel).setVisibility(View.VISIBLE);
+                    snakeAnimator.end();
                     return;
                 }
                 snakePositions.get(i).setYposition(snakePositions.get(i-1).getYposition());
@@ -609,8 +643,8 @@ public class Minigame extends AppCompatActivity {
         snakePositions.get(0).setXposition(xposition);
         snakePositions.get(0).setYposition(yposition);
 
-        Handler h = new Handler();
-        h.postDelayed(() -> snakeMove(snakePositions, templayout), 200);
+//        Handler h = new Handler();
+//        h.postDelayed(() -> snakeMove(snakePositions, templayout), 200);
 
     }
 

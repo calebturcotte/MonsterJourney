@@ -24,9 +24,7 @@ import androidx.annotation.StyleableRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.MobileAds;
+import com.appodeal.ads.Appodeal;
 import java.lang.ref.WeakReference;
 import java.util.List;
 
@@ -38,8 +36,9 @@ public class Map extends AppCompatActivity {
     private @StyleableRes
     int selected, currentselectedstory;
     private MediaPlayer music;
-    private boolean isplaying;
+    private boolean isplaying, isbought;
     private View mapChangeView;
+    private View banner;
 
     private List<UnlockedMonster> unlockedMonsterList;
     private List<CompletedMaps> completedMapsList;
@@ -51,15 +50,17 @@ public class Map extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+        Appodeal.initialize(this, MainActivity.APP_ID, Appodeal.BANNER, false);
 
 
         final FrameLayout frmlayout = findViewById(R.id.placeholder);
         LayoutInflater aboutinflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
         assert aboutinflater != null;
         final View home = aboutinflater.inflate(R.layout.home_screen,findViewById(R.id.parent),false);
-        boolean isbought = settings.getBoolean("isbought", false);
-        AdView mAdView = findViewById(R.id.adView);
+        isbought = settings.getBoolean("isbought", false);
+        //AdView mAdView = findViewById(R.id.adView);
         Activity mainActivity = this;
+        banner = findViewById(R.id.appodealBannerView);
 
         frmlayout.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
@@ -102,15 +103,20 @@ public class Map extends AppCompatActivity {
                 confirmbutton.setOnClickListener(v -> mapChange());
 
                 if(!isbought){
-                    MobileAds.initialize(getApplicationContext(), initializationStatus -> {
-                    });
+                    Appodeal.setBannerViewId(R.id.appodealBannerView);
+                    Appodeal.set728x90Banners(true);
+                    Appodeal.show(mainActivity, Appodeal.BANNER_VIEW);
+//                    MobileAds.initialize(getApplicationContext(), initializationStatus -> {
+//                    });
+//
+//                    AdRequest adRequest = new AdRequest.Builder().build();
+//                    mAdView.loadAd(adRequest);
 
-                    AdRequest adRequest = new AdRequest.Builder().build();
-                    mAdView.loadAd(adRequest);
                 }
                 else{
-                    mAdView.pause();
-                    mAdView.setVisibility(View.GONE);
+//                    mAdView.pause();
+//                    mAdView.setVisibility(View.GONE);
+                    banner.setVisibility(View.GONE);
                 }
 
                 DisplayMap runner = new DisplayMap(mainActivity);
@@ -134,11 +140,18 @@ public class Map extends AppCompatActivity {
         //music.prepareAsync();
 
         if(!isplaying)music.start();
+
+        if(!isbought){
+            Appodeal.show(this, Appodeal.BANNER_VIEW);
+        }
     }
 
     @Override
     protected void onPause() {
         music.release();
+        if(!isbought){
+            Appodeal.hide(this, Appodeal.BANNER_VIEW);
+        }
         super.onPause();
     }
 

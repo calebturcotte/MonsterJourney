@@ -1,5 +1,6 @@
 package com.application.monsterjourney;
 
+import android.app.Activity;
 import android.content.SharedPreferences;
 import android.content.res.TypedArray;
 import android.graphics.drawable.AnimationDrawable;
@@ -26,15 +27,16 @@ import androidx.annotation.StyleableRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.MobileAds;
+import com.appodeal.ads.Appodeal;
+
+import java.util.HashMap;
 import java.util.List;
 
 public class Library extends AppCompatActivity {
     public static final String PREFS_NAME = "MyJourneyFile";
     private ImageView imageView;
     private AnimationDrawable spriteanimator;
+    private View banner;
 
     private NumberPicker picker1;
     private String[] pickervals;
@@ -46,30 +48,38 @@ public class Library extends AppCompatActivity {
     private @StyleableRes int selected;
     private int selectedarray;
 
-    private List<UnlockedMonster> unlockedMonsterList;
+    private HashMap<Integer, UnlockedMonster> unlockedMonsterList;
 
     private View librarypopup;
     private MediaPlayer music;
-    private boolean isplaying;
+    private boolean isplaying, isbought;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        unlockedMonsterList = new HashMap<>();
         setContentView(R.layout.activity_library);
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
         selected = 0;
+        Appodeal.initialize(this, MainActivity.APP_ID, Appodeal.BANNER, false);
 
         AsyncTask.execute(() -> {
             AppDatabase db = AppDatabase.buildDatabase(getApplicationContext());
-            unlockedMonsterList = db.journeyDao().getUnlockedMonster();
+            List<UnlockedMonster> tempList = db.journeyDao().getUnlockedMonster();
+            for (UnlockedMonster unlockedMonster : tempList) {
+                unlockedMonsterList.put(unlockedMonster.getMonsterarrayid(),unlockedMonster);
+            }
+            //unlockedMonsterList = db.journeyDao().getUnlockedMonster();
         });
 
         final FrameLayout frmlayout = findViewById(R.id.placeholder);
         LayoutInflater aboutinflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
         assert aboutinflater != null;
         final View home = aboutinflater.inflate(R.layout.home_screen, (ViewGroup)null);
-        boolean isbought = settings.getBoolean("isbought", false);
-        AdView mAdView = findViewById(R.id.adView);
+        isbought = settings.getBoolean("isbought", false);
+        //AdView mAdView = findViewById(R.id.adView);
+        banner = findViewById(R.id.appodealBannerView);
+        Activity mainActivity = this;
 
         frmlayout.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
@@ -127,15 +137,20 @@ public class Library extends AppCompatActivity {
                 findViewById(R.id.library_info_popup).setOnClickListener(v -> showLibraryPopup());
 
                 if(!isbought){
-                    MobileAds.initialize(getApplicationContext(), initializationStatus -> {
-                    });
+                    Appodeal.setBannerViewId(R.id.appodealBannerView);
+                    Appodeal.set728x90Banners(true);
+                    Appodeal.show(mainActivity, Appodeal.BANNER_VIEW);
+//                    MobileAds.initialize(getApplicationContext(), initializationStatus -> {
+//                    });
+//
+//                    AdRequest adRequest = new AdRequest.Builder().build();
+//                    mAdView.loadAd(adRequest);
 
-                    AdRequest adRequest = new AdRequest.Builder().build();
-                    mAdView.loadAd(adRequest);
                 }
                 else{
-                    mAdView.pause();
-                    mAdView.setVisibility(View.GONE);
+//                    mAdView.pause();
+//                    mAdView.setVisibility(View.GONE);
+                    banner.setVisibility(View.GONE);
                 }
 
                 setView(0);
@@ -159,12 +174,18 @@ public class Library extends AppCompatActivity {
         //music.prepareAsync();
 
         if(!isplaying)music.start();
+        if(!isbought){
+            Appodeal.show(this, Appodeal.BANNER_VIEW);
+        }
         super.onResume();
     }
 
     @Override
     protected void onPause() {
         music.release();
+        if(!isbought){
+            Appodeal.hide(this, Appodeal.BANNER_VIEW);
+        }
         super.onPause();
     }
 
@@ -198,15 +219,24 @@ public class Library extends AppCompatActivity {
     private void unlockedChecker(){
         TypedArray viewarray = getResources().obtainTypedArray(selectedarray);
         for(int i = 0; i < viewarray.length(); i++){
-            for(UnlockedMonster unlockedMonster : unlockedMonsterList){
-                if(unlockedMonster.getMonsterarrayid() == viewarray.getResourceId(i, R.array.missing_content)){
-                    if(unlockedMonster.isDiscovered()){
-                        selected = i;
-                        viewarray.recycle();
-                        return;
-                    }
+            UnlockedMonster unlockedMonster = unlockedMonsterList.get(viewarray.getResourceId(i, R.array.missing_content));
+            if(unlockedMonster != null &&
+                    unlockedMonster.getMonsterarrayid() == viewarray.getResourceId(i, R.array.missing_content)){
+                if(unlockedMonster.isDiscovered()){
+                    selected = i;
+                    viewarray.recycle();
+                    return;
                 }
             }
+//            for(UnlockedMonster unlockedMonster : unlockedMonsterList){
+//                if(unlockedMonster.getMonsterarrayid() == viewarray.getResourceId(i, R.array.missing_content)){
+//                    if(unlockedMonster.isDiscovered()){
+//                        selected = i;
+//                        viewarray.recycle();
+//                        return;
+//                    }
+//                }
+//            }
         }
         viewarray.recycle();
     }
@@ -231,20 +261,33 @@ public class Library extends AppCompatActivity {
         int monstertext = R.string.missing_description;
         //normally defvalue is false but we loaded it as true for demo
         //settings.getBoolean(String.valueOf(viewarray.getResourceId(selected, R.array.missing_content)),true)
-        for(UnlockedMonster unlockedMonster : unlockedMonsterList){
-            if(unlockedMonster.getMonsterarrayid() == viewarray.getResourceId(selected, R.array.missing_content)){
-                if(unlockedMonster.isDiscovered()){
-                    @StyleableRes int tempid = 4;
-                    backgroundAnimation = array.getResourceId(tempid,R.drawable.egg_idle);
-                    monstertitle = array.getResourceId(tempid-2,R.drawable.egg_idle);
-                    animate = true;
-                }
-                if(unlockedMonster.isUnlocked()){
-                    @StyleableRes int tempid = 4;
-                    monstertext = array.getResourceId(tempid-1,R.drawable.egg_idle);
-                }
+        UnlockedMonster unlockedMonster = unlockedMonsterList.get(viewarray.getResourceId(selected, R.array.missing_content));
+        if (unlockedMonster != null){
+            if(unlockedMonster.isDiscovered()){
+                @StyleableRes int tempid = 4;
+                backgroundAnimation = array.getResourceId(tempid,R.drawable.egg_idle);
+                monstertitle = array.getResourceId(tempid-2,R.drawable.egg_idle);
+                animate = true;
+            }
+            if(unlockedMonster.isUnlocked()){
+                @StyleableRes int tempid = 4;
+                monstertext = array.getResourceId(tempid-1,R.drawable.egg_idle);
             }
         }
+//        for(UnlockedMonster unlockedMonster : unlockedMonsterList){
+//            if(unlockedMonster.getMonsterarrayid() == viewarray.getResourceId(selected, R.array.missing_content)){
+//                if(unlockedMonster.isDiscovered()){
+//                    @StyleableRes int tempid = 4;
+//                    backgroundAnimation = array.getResourceId(tempid,R.drawable.egg_idle);
+//                    monstertitle = array.getResourceId(tempid-2,R.drawable.egg_idle);
+//                    animate = true;
+//                }
+//                if(unlockedMonster.isUnlocked()){
+//                    @StyleableRes int tempid = 4;
+//                    monstertext = array.getResourceId(tempid-1,R.drawable.egg_idle);
+//                }
+//            }
+//        }
 
         imageView.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(),backgroundAnimation));
         imageView.setBackgroundResource(R.drawable.ic_background_library);
@@ -301,21 +344,19 @@ public class Library extends AppCompatActivity {
             TypedArray array = getResources().obtainTypedArray(viewarray.getResourceId(i, R.array.missing_content));
             int backgroundAnimation = R.drawable.missing_content;
             ImageView newView = new ImageView(this);
-            for(UnlockedMonster unlockedMonster : unlockedMonsterList){
-                if(unlockedMonster.getMonsterarrayid() == viewarray.getResourceId(i, R.array.missing_content)){
-                    if(unlockedMonster.isDiscovered()){
-                        @StyleableRes int tempid = 4;
-                        backgroundAnimation = array.getResourceId(tempid,R.drawable.egg_idle);
-                        int finalI = i;
-                        newView.setOnClickListener(v -> {
-                            picker1.setValue(0);
-                            selectedarray = R.array.egg_list;
-                            selected = finalI;
-                            libraryWindow.dismiss();
-                            showView();
-                        });
-                    }
-                    break;
+            UnlockedMonster unlockedMonster = unlockedMonsterList.get(viewarray.getResourceId(i, R.array.missing_content));
+            if (unlockedMonster != null){
+                if(unlockedMonster.isDiscovered()){
+                    @StyleableRes int tempid = 4;
+                    backgroundAnimation = array.getResourceId(tempid,R.drawable.egg_idle);
+                    int finalI = i;
+                    newView.setOnClickListener(v -> {
+                        picker1.setValue(0);
+                        selectedarray = R.array.egg_list;
+                        selected = finalI;
+                        libraryWindow.dismiss();
+                        showView();
+                    });
                 }
             }
             newView.setBackgroundResource(R.drawable.ic_background_popup);
@@ -336,11 +377,9 @@ public class Library extends AppCompatActivity {
             array.recycle();
         }
         egg_layout.addView(linearLayout);
-
         linearLayout = new LinearLayout(this);
         linearLayout.setOrientation(LinearLayout.HORIZONTAL);
         linearLayout.setWeightSum(5);
-
         viewarray.recycle();
 
         TableLayout baby_layout = librarypopup.findViewById(R.id.baby_table);
@@ -349,21 +388,19 @@ public class Library extends AppCompatActivity {
             TypedArray array = getResources().obtainTypedArray(viewarray2.getResourceId(i, R.array.missing_content));
             int backgroundAnimation = R.drawable.missing_content;
             ImageView newView = new ImageView(this);
-            for(UnlockedMonster unlockedMonster : unlockedMonsterList){
-                if(unlockedMonster.getMonsterarrayid() == viewarray2.getResourceId(i, R.array.missing_content)){
-                    if(unlockedMonster.isDiscovered()){
-                        @StyleableRes int tempid = 4;
-                        backgroundAnimation = array.getResourceId(tempid,R.drawable.egg_idle);
-                        int finalI = i;
-                        newView.setOnClickListener(v -> {
-                            picker1.setValue(1);
-                            selectedarray = R.array.baby_list;
-                            selected = finalI;
-                            libraryWindow.dismiss();
-                            showView();
-                        });
-                    }
-                    break;
+            UnlockedMonster unlockedMonster = unlockedMonsterList.get(viewarray2.getResourceId(i, R.array.missing_content));
+            if (unlockedMonster != null){
+                if(unlockedMonster.isDiscovered()){
+                    @StyleableRes int tempid = 4;
+                    backgroundAnimation = array.getResourceId(tempid,R.drawable.egg_idle);
+                    int finalI = i;
+                    newView.setOnClickListener(v -> {
+                        picker1.setValue(1);
+                        selectedarray = R.array.baby_list;
+                        selected = finalI;
+                        libraryWindow.dismiss();
+                        showView();
+                    });
                 }
             }
 
@@ -372,7 +409,6 @@ public class Library extends AppCompatActivity {
             newView.setLayoutParams(linearparams);
             newView.setScaleType(ImageView.ScaleType.FIT_XY);
             newView.setPadding(2,2,2,2);
-
             linearLayout.addView(newView);
 
             if((i+1) % 5 == 0) {
@@ -385,7 +421,6 @@ public class Library extends AppCompatActivity {
             array.recycle();
         }
         baby_layout.addView(linearLayout);
-
         linearLayout = new LinearLayout(this);
         linearLayout.setOrientation(LinearLayout.HORIZONTAL);
         linearLayout.setWeightSum(5);
@@ -398,21 +433,19 @@ public class Library extends AppCompatActivity {
             TypedArray array = getResources().obtainTypedArray(viewarray3.getResourceId(i, R.array.missing_content));
             int backgroundAnimation = R.drawable.missing_content;
             ImageView newView = new ImageView(this);
-            for(UnlockedMonster unlockedMonster : unlockedMonsterList){
-                if(unlockedMonster.getMonsterarrayid() == viewarray3.getResourceId(i, R.array.missing_content)){
-                    if(unlockedMonster.isDiscovered()){
-                        @StyleableRes int tempid = 4;
-                        backgroundAnimation = array.getResourceId(tempid,R.drawable.egg_idle);
-                        int finalI = i;
-                        newView.setOnClickListener(v -> {
-                            picker1.setValue(2);
-                            selectedarray = R.array.child_list;
-                            selected = finalI;
-                            libraryWindow.dismiss();
-                            showView();
-                        });
-                    }
-                    break;
+            UnlockedMonster unlockedMonster = unlockedMonsterList.get(viewarray3.getResourceId(i, R.array.missing_content));
+            if (unlockedMonster != null){
+                if(unlockedMonster.isDiscovered()){
+                    @StyleableRes int tempid = 4;
+                    backgroundAnimation = array.getResourceId(tempid,R.drawable.egg_idle);
+                    int finalI = i;
+                    newView.setOnClickListener(v -> {
+                        picker1.setValue(2);
+                        selectedarray = R.array.child_list;
+                        selected = finalI;
+                        libraryWindow.dismiss();
+                        showView();
+                    });
                 }
             }
 
@@ -428,12 +461,10 @@ public class Library extends AppCompatActivity {
                 linearLayout = new LinearLayout(this);
                 linearLayout.setOrientation(LinearLayout.HORIZONTAL);
                 linearLayout.setWeightSum(5);
-
             }
             array.recycle();
         }
         child_layout.addView(linearLayout);
-
         TableLayout adult_layout = librarypopup.findViewById(R.id.adult_table);
 
         linearLayout = new LinearLayout(this);
@@ -446,21 +477,19 @@ public class Library extends AppCompatActivity {
             TypedArray array = getResources().obtainTypedArray(viewarray4.getResourceId(i, R.array.missing_content));
             int backgroundAnimation = R.drawable.missing_content;
             ImageView newView = new ImageView(this);
-            for(UnlockedMonster unlockedMonster : unlockedMonsterList){
-                if(unlockedMonster.getMonsterarrayid() == viewarray4.getResourceId(i, R.array.missing_content)){
-                    if(unlockedMonster.isDiscovered()){
-                        @StyleableRes int tempid = 4;
-                        backgroundAnimation = array.getResourceId(tempid,R.drawable.egg_idle);
-                        int finalI = i;
-                        newView.setOnClickListener(v -> {
-                            picker1.setValue(3);
-                            selectedarray = R.array.adult_list;
-                            selected = finalI;
-                            libraryWindow.dismiss();
-                            showView();
-                        });
-                    }
-                    break;
+            UnlockedMonster unlockedMonster = unlockedMonsterList.get(viewarray4.getResourceId(i, R.array.missing_content));
+            if (unlockedMonster != null){
+                if(unlockedMonster.isDiscovered()){
+                    @StyleableRes int tempid = 4;
+                    backgroundAnimation = array.getResourceId(tempid,R.drawable.egg_idle);
+                    int finalI = i;
+                    newView.setOnClickListener(v -> {
+                        picker1.setValue(3);
+                        selectedarray = R.array.adult_list;
+                        selected = finalI;
+                        libraryWindow.dismiss();
+                        showView();
+                    });
                 }
             }
             newView.setBackgroundResource(R.drawable.ic_background_popup);
@@ -468,7 +497,6 @@ public class Library extends AppCompatActivity {
             newView.setLayoutParams(linearparams);
             newView.setScaleType(ImageView.ScaleType.FIT_XY);
             newView.setPadding(2,2,2,2);
-
             linearLayout.addView(newView);
 
             if((i+1) % 5 == 0) {
@@ -478,14 +506,9 @@ public class Library extends AppCompatActivity {
                 linearLayout.setWeightSum(5);
 
             }
-
             array.recycle();
         }
         adult_layout.addView(linearLayout);
-
         viewarray4.recycle();
-
-
     }
-
 }

@@ -1,7 +1,8 @@
 <resources>
     <string name="app_name" translatable="false">Monster Journey</string>
-    <string name="channel_name" translatable="false">Game Notifications</string>
-    <string name="channel_description" translatable="false">Tells you when your monster has encounted an event.</string>
+    <string name="channel_name">Game Notifications</string>
+    <string name="channel2_name">Event Notifications</string>
+    <string name="channel_description">Tells you when your monster has encounted an event.</string>
     <string name="icon_description">Current monster animation</string>
     <string name="arrow">View selection arrow</string>
     <string name="eggconfirm">Select Egg</string>
@@ -27,9 +28,16 @@
     <string name="about">About this game: </string>
     <string name="highScore">High Score Button</string>
     <string name="highScoreTitle">High Scores</string>
+    <string name="playvideo">Play video: </string>
+    <string name="skip">Skip?</string>
+    <string name="facebook_app_id">877933422995934</string>
+    <string name="fb_login_protocol_scheme">fb877933422995934</string>
+
+    <string name="contenttitle">Currently tracking your steps.</string>
+    <string name="contentext">Monster Journey is counting your steps in the background.</string>
 
     <string name="appdescription1">Welcome to Monster Journey!</string>
-    <string name="appdescription2">Monster Journey is an app that will track your steps as your device moves. There are various ways to take care of your monster: \n
+    <string name="appdescription2">Monster Journey is an app that will track your steps as your device moves. As each day passes your monster will need to be fed and trained. There are various ways to take care of your monster: \n
     \u2022 Library: Check information on Monsters that you have currently unlocked or discovered.\n
     \u2022 Map: Select the current island to travel on, each island completed will unlock new rewards that help you on your journey.\n
     \u2022 Care: Raise your monster by Training or Feeding it. Also where you Evolve, Retire, or ask the Matchmaker to look for a match for your monster.\n
@@ -136,7 +144,7 @@
     <string name="game_win">Game Won!</string>
     <string name="game_lost">Game Lost!</string>
 
-    <string name="MatchmakerEarly">Hello young soul. I am the matchmaker. Once your monster has grown seek me again so I may find it a suitor.</string>
+    <string name="MatchmakerEarly">Hello young soul. I am the matchmaker. Seek me again when you evolve your monster so I may find it a suitor.</string>
     <string name="MatchmakerText">Hello old soul. I am the matchmaker. Bear your heart to me and I shall find you a suitor. Shall I look for a match for your monster?</string>
     <string name="MatchmakerFound">I come bearing a match. Do you accept this proposition? (This will retire your current monster if your ranch is full)</string>
 

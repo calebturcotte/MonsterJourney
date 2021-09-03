@@ -8,7 +8,6 @@ import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
-import android.app.Service;
 import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
@@ -16,7 +15,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.content.res.TypedArray;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.ClipDrawable;
@@ -29,6 +30,7 @@ import android.os.CountDownTimer;
 import android.os.Handler;
 import android.transition.Fade;
 import android.transition.TransitionManager;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -41,6 +43,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LinearInterpolator;
 import android.view.inputmethod.EditorInfo;
+import android.webkit.URLUtil;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -68,10 +71,11 @@ import com.android.billingclient.api.ConsumeResponseListener;
 import com.android.billingclient.api.Purchase;
 import com.android.billingclient.api.PurchasesUpdatedListener;
 import com.android.billingclient.api.SkuDetailsParams;
-import com.google.android.gms.ads.AdRequest;
+import com.appodeal.ads.Appodeal;
 import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.MobileAds;
 import java.lang.ref.WeakReference;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -81,11 +85,13 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public class MainActivity extends AppCompatActivity {
     public static final String PREFS_NAME = "MyJourneyFile";
+    public static final String APP_ID = "temp";
     SharedPreferences settings;
 
-    private boolean runbackground; //the check for if we track steps while the app is closed
+    private boolean runbackground, restartset, offlineService, isbattling; //the check for if we track steps while the app is closed
 
     private Monster currentmonster;
+    private Intent mServiceIntent;
 
     public int currentarrayid, currentstoryarray;
 
@@ -93,26 +99,33 @@ public class MainActivity extends AppCompatActivity {
     private Button selectedpick;
 
     //views used for our popups, stored in global variables so we don't make 2 popups at once
-    public View aboutView, trainView, battleView, optionsView, storeView, matchView, purchaseView, aboutpopupView;
+    public View aboutView, trainView, battleView, optionsView, storeView, matchView, purchaseView, aboutpopupView, hatchedView;
     public int trainingtapcount;
 
     private int enemyarrayid, enemyhealth, enemymaxhealth;
 
     private AdView mAdView;
+    private View banner;
     private BillingClient billingClient;
+    private StepReceiver stepReceiver;
 
     private MediaPlayer music;
     private int currentvolume;
     private boolean isplaying;
 
     private boolean initialized = false;
+    boolean isbought;
 
     private int nexteventran = 1000;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //initialize appodeal ads
+        Appodeal.initialize(this, APP_ID, Appodeal.BANNER, false);
+
+        //Appodeal.setLogLevel(com.appodeal.ads.utils.Log.LogLevel.verbose);
+        offlineService = false;
         FirstTimeCheck runner = new FirstTimeCheck(this);
         runner.execute();
         setContentView(R.layout.activity_main);
@@ -120,25 +133,32 @@ public class MainActivity extends AppCompatActivity {
         //totaltime = findViewById(R.id.total_time);
         picker = findViewById(R.id.picker);
         selectedpick = findViewById(R.id.selection);
+        restartset = false;
 
-        boolean isbought = settings.getBoolean("isbought", false);
+        isbought = settings.getBoolean("isbought", false);
         setupBillingClient();
-
+        Activity mainActivity = this;
         //check if player has paid for app to remove ads, if not then initialize and load our ad
-        mAdView = findViewById(R.id.adView);
-        mAdView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+        //mAdView = findViewById(R.id.adView);
+        banner = findViewById(R.id.appodealBannerView);
+        banner.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
                 if(!isbought){
-                    MobileAds.initialize(getApplicationContext(), initializationStatus -> {
-                    });
+                    Appodeal.setBannerViewId(R.id.appodealBannerView);
+                    Appodeal.set728x90Banners(true);
+                    Appodeal.show(mainActivity, Appodeal.BANNER_VIEW);
+//                    MobileAds.initialize(getApplicationContext(), initializationStatus -> {
+//                    });
+//
+//                    AdRequest adRequest = new AdRequest.Builder().build();
+//                    mAdView.loadAd(adRequest);
 
-                    AdRequest adRequest = new AdRequest.Builder().build();
-                    mAdView.loadAd(adRequest);
                 }
                 else{
-                    mAdView.pause();
-                    mAdView.setVisibility(View.GONE);
+//                    mAdView.pause();
+//                    mAdView.setVisibility(View.GONE);
+                    banner.setVisibility(View.GONE);
                 }
 
                 String[] pickervals = new String[]{"Library", "Map", "Care", "Ranch", "Minigame","Connect", "Shop"};
@@ -159,14 +179,27 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
 
-                mAdView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                banner.getViewTreeObserver().removeOnGlobalLayoutListener(this);
             }
         });
 
         runbackground = settings.getBoolean("runbackground", true);
 
-
-
+        // Add code to print out the key hash
+//        try {
+//            PackageInfo info = getPackageManager().getPackageInfo(
+//                    "your.package",
+//                    PackageManager.GET_SIGNATURES);
+//            for (Signature signature : info.signatures) {
+//                MessageDigest md = MessageDigest.getInstance("SHA");
+//                md.update(signature.toByteArray());
+//                Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
+//            }
+//        } catch (PackageManager.NameNotFoundException e) {
+//
+//        } catch (NoSuchAlgorithmException e) {
+//
+//        }
 
 //        findViewById(R.id.btn_start).setOnClickListener(arg0 -> {
 ////            monster_hatched(this);
@@ -200,6 +233,7 @@ public class MainActivity extends AppCompatActivity {
 //                    });
 //                });
 
+        //button for testing
 //        findViewById(R.id.test).setOnClickListener(v -> {
 ////            BossDefeated runner2 = new BossDefeated(this);
 ////            runner2.execute();
@@ -234,7 +268,6 @@ public class MainActivity extends AppCompatActivity {
 
         findViewById(R.id.game_options).setOnClickListener(v -> options());
 
-
         //add our home screen with the current monster
         final FrameLayout frmlayout = findViewById(R.id.placeholder);
         LayoutInflater aboutinflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
@@ -251,13 +284,13 @@ public class MainActivity extends AppCompatActivity {
                 findViewById(R.id.monster_info_popup).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if(aboutView != null){
+                        if(aboutView != null || isbattling){
                             return;
                         }
                         LayoutInflater aboutinflater = (LayoutInflater)
                                 getSystemService(LAYOUT_INFLATER_SERVICE);
                         assert aboutinflater != null;
-                        aboutView = aboutinflater.inflate(R.layout.monster_popup, null);
+                        aboutView = aboutinflater.inflate(R.layout.monster_popup, findViewById(R.id.parent), false);
                         int width2 = ConstraintLayout.LayoutParams.MATCH_PARENT;
                         int height2 = ConstraintLayout.LayoutParams.MATCH_PARENT;
                         final PopupWindow aboutWindow = new PopupWindow(aboutView, width2, height2, true);
@@ -285,7 +318,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //TODO implement daily alarm that reduces our monsters hunger bar by 1 heart (2 points) daily, and generates a notification if empty
         AlarmManager alarmManager =
                 (AlarmManager) getApplicationContext().getSystemService(Context.ALARM_SERVICE);
         //RTC - Fires the pending intent at the specified time
@@ -306,22 +338,29 @@ public class MainActivity extends AppCompatActivity {
         pm.setComponentEnabledSetting(receiver,
                 PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
                 PackageManager.DONT_KILL_APP);
+        //to delete alarm
 //        if (pendingIntent != null && alarmManager != null) {
 //            alarmManager.cancel(pendingIntent);
 //        }
+
+        stepReceiver = new StepReceiver();
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(stepReceiver);
+        LocalBroadcastManager.getInstance(this).registerReceiver(
+                stepReceiver, new IntentFilter(ForeGroundService.ACTION_BROADCAST)
+        );
     }
 
     /**
      * create our options popup for the game, music and stuff
      */
     public void options(){
-        if(optionsView != null){
+        if(optionsView != null || isbattling){
             return;
         }
         LayoutInflater optionsinflater = (LayoutInflater)
                 getSystemService(LAYOUT_INFLATER_SERVICE);
         assert optionsinflater != null;
-        optionsView = optionsinflater.inflate(R.layout.options_popup, null);
+        optionsView = optionsinflater.inflate(R.layout.options_popup,findViewById(R.id.parent), false);
         int width2 = ConstraintLayout.LayoutParams.MATCH_PARENT;
         int height2 = ConstraintLayout.LayoutParams.MATCH_PARENT;
         final PopupWindow optionsWindow = new PopupWindow(optionsView, width2, height2, true);
@@ -381,6 +420,11 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://play.google.com/store/apps/details?id=" + getPackageName())));
             }
         });
+
+        optionsView.findViewById(R.id.videobutton).setOnClickListener(v -> {
+            optionsWindow.dismiss();
+            startVideo(v);
+        });
     }
 
     /**
@@ -395,7 +439,7 @@ public class MainActivity extends AppCompatActivity {
         int width2 = ConstraintLayout.LayoutParams.MATCH_PARENT;
         int height2 = ConstraintLayout.LayoutParams.MATCH_PARENT;
         assert optionsinflater != null;
-        aboutpopupView = optionsinflater.inflate(R.layout.about_popup, null);
+        aboutpopupView = optionsinflater.inflate(R.layout.about_popup, findViewById(R.id.parent), false);
         final PopupWindow aboutWindow = new PopupWindow(aboutpopupView, width2, height2, true);
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             aboutWindow.setElevation(20);
@@ -428,23 +472,51 @@ public class MainActivity extends AppCompatActivity {
         return false;
     }
 
+
+    @Override
+    protected void onStop() {
+        music.release();
+        //stopService();
+        if(runbackground){
+            if(!restartset){
+                restartset = true;
+                Intent broadcastIntent = new Intent();
+                broadcastIntent.setAction("restartservice");
+                broadcastIntent.setClass(this, Restarter.class);
+                this.sendBroadcast(broadcastIntent);
+            }
+        } else {
+            offlineService = false;
+            stopService();
+        }
+        super.onStop();
+    }
+
     @Override
     protected void onDestroy() {
         music.release();
-        if(runbackground){
-            Intent broadcastIntent = new Intent();
-            broadcastIntent.setAction("restartservice");
-            broadcastIntent.setClass(this, Restarter.class);
-            this.sendBroadcast(broadcastIntent);
-        } else {
-            stopService();
-        }
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(stepReceiver);
+//        if(runbackground){
+//            Intent broadcastIntent = new Intent();
+//            broadcastIntent.setAction("restartservice");
+//            broadcastIntent.setClass(this, Restarter.class);
+//            this.sendBroadcast(broadcastIntent);
+//        }
+//        //else {
+//           // Intent serviceIntent = new Intent(this, ForeGroundService.class);
+//            //serviceIntent.setAction("StopService");
+//            //ContextCompat.startForegroundService(this, serviceIntent);
+//            //stopService();
+//        //}
         super.onDestroy();
     }
 
     @Override
     protected void onPause() {
         music.release();
+        if(!isbought){
+            Appodeal.hide(this, Appodeal.BANNER_VIEW);
+        }
         super.onPause();
     }
 
@@ -504,24 +576,21 @@ public class MainActivity extends AppCompatActivity {
             findViewById(R.id.sound_button).setBackgroundResource(R.drawable.ic_button_sound_off);
         }
 
-        Service mForeGroundService = new ForeGroundService();
-        Intent mServiceIntent = new Intent(this, mForeGroundService.getClass());
-        if (!isMyServiceRunning(mForeGroundService.getClass())) {
-            startService(mServiceIntent);
+        if (!isMyServiceRunning(ForeGroundService.class)) {
+        if(mServiceIntent == null){
+            //Service mForeGroundService = new ForeGroundService();
+            mServiceIntent = new Intent(this, ForeGroundService.class);
+                startService(mServiceIntent);
+            }
+            else if (!runbackground && offlineService){
+                startService(mServiceIntent);
+            }
         }
 
-        LocalBroadcastManager.getInstance(this).registerReceiver(
-                new BroadcastReceiver() {
-                    @Override
-                    public void onReceive(Context context, Intent intent) {
-//                        long steps = intent.getLongExtra(ForeGroundService.STEP_COUNT, 0);
-//                        //int eventtype = intent.getIntExtra(ForeGroundService.EVENT_TYPE,0);
-//                        String totalsteptext = TEXT_NUM_STEPS + steps;
-//                        totaltime.setText( totalsteptext);
-                        handleEvent();
-                    }
-                }, new IntentFilter(ForeGroundService.ACTION_BROADCAST)
-        );
+        if(!isbought){
+            Appodeal.show(this, Appodeal.BANNER_VIEW);
+        }
+
         super.onResume();
     }
 
@@ -551,18 +620,29 @@ public class MainActivity extends AppCompatActivity {
      */
     public void startService() {
         Intent serviceIntent = new Intent(this, ForeGroundService.class);
-        serviceIntent.putExtra("inputExtra", "Foreground Service Example in Android");
-
-        //ContextCompat.startForegroundService(this, serviceIntent);
-        startService(serviceIntent);
+        serviceIntent.putExtra("inputExtra", "Foreground Service for tracking steps");
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            startForegroundService(new Intent(this, ForeGroundService.class));
+        } else {
+            startService(new Intent(this, ForeGroundService.class));
+        }
+        //startService(serviceIntent);
     }
 
     /**
      * stop our foreground step tracking service
      */
     public void stopService() {
-        Intent serviceIntent = new Intent(this, ForeGroundService.class);
-        stopService(serviceIntent);
+//        Intent serviceIntent = new Intent(this, ForeGroundService.class);
+//        stopService(serviceIntent);
+        //Intent serviceIntent = new Intent(this, ForeGroundService.class);
+        //mServiceIntent.setAction("StopService");
+        //ContextCompat.startForegroundService(this, mServiceIntent);
+        if(mServiceIntent == null){
+            mServiceIntent = new Intent(this, ForeGroundService.class);
+        }
+        stopService(mServiceIntent);
+        //mServiceIntent = null;
     }
 
     @Override
@@ -591,6 +671,7 @@ public class MainActivity extends AppCompatActivity {
      */
     public void library(){
         music.release();
+        offlineService = true;
         Intent intent = new Intent(this, Library.class);
         startActivity(intent);
         //where right side is current view
@@ -602,6 +683,7 @@ public class MainActivity extends AppCompatActivity {
      */
     public void map(){
         music.release();
+        offlineService = true;
         Intent intent = new Intent(this, Map.class);
         startActivity(intent);
         //where right side is current view
@@ -634,6 +716,7 @@ public class MainActivity extends AppCompatActivity {
      */
     public void minigame(){
         music.release();
+        offlineService = true;
         Intent intent = new Intent(this, Minigame.class);
         startActivity(intent);
         //where right side is current view
@@ -694,10 +777,14 @@ public class MainActivity extends AppCompatActivity {
                         runner.execute();
                         editor.putBoolean("isbought", true);
                         editor.apply();
-                        if(mAdView != null){
-                            mAdView.pause();
-                            mAdView.setVisibility(View.GONE);
+                        if(banner != null) {
+                            Appodeal.destroy(Appodeal.BANNER_VIEW);
                         }
+
+//                        if(mAdView != null)
+//                            mAdView.pause();
+//                            mAdView.setVisibility(View.GONE);
+//                        }
                     }
 
 
@@ -1200,6 +1287,7 @@ public class MainActivity extends AppCompatActivity {
                     BtnEvent.setVisibility(View.INVISIBLE);
                     eventimage.setVisibility(View.INVISIBLE);
                     eventanimation.cancel();
+                    isbattling = true;
                     prepareBattle(true, false);
 
                 });
@@ -1309,6 +1397,7 @@ public class MainActivity extends AppCompatActivity {
                     BtnEvent.setVisibility(View.INVISIBLE);
                     eventimage.setVisibility(View.INVISIBLE);
                     eventanimation.cancel();
+                    isbattling = true;
                     prepareBattle(true, true);
                 });
                 break;
@@ -1439,11 +1528,11 @@ public class MainActivity extends AppCompatActivity {
     /**
      * code for entering name data when monster was hatched
      */
-    static private void monster_hatched(Activity activity){
+    private void monster_hatched(Activity activity){
         final LayoutInflater aboutinflater = (LayoutInflater)
                 activity.getSystemService(LAYOUT_INFLATER_SERVICE);
         assert aboutinflater != null;
-        View hatchedView = aboutinflater.inflate(R.layout.hatched_popup, activity.findViewById(R.id.parent), false);
+        hatchedView = aboutinflater.inflate(R.layout.hatched_popup, activity.findViewById(R.id.parent), false);
         hatchedView.setId(View.generateViewId());
         int width2 = ConstraintLayout.LayoutParams.MATCH_PARENT;
         int height2 = ConstraintLayout.LayoutParams.MATCH_PARENT;
@@ -1472,7 +1561,7 @@ public class MainActivity extends AppCompatActivity {
         hatchedView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
-                MainActivity.HatchedInfo runner = new MainActivity.HatchedInfo(activity, hatchedView.findViewById(R.id.monster_popup_icon));
+                MainActivity.HatchedInfo runner = new MainActivity.HatchedInfo(activity);
                 runner.execute();
                 hatchedView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
             }
@@ -1563,6 +1652,9 @@ public class MainActivity extends AppCompatActivity {
         String temp = picker.getDisplayedValues()[valuePicker];
         selectedpick.setText(temp);
         selectedpick.setOnClickListener(v -> {
+            if (isbattling) {
+                return;
+            }
             switch(valuePicker){
                 case 0:
                     library();
@@ -2162,7 +2254,7 @@ public class MainActivity extends AppCompatActivity {
                                     home.getViewTreeObserver().removeOnGlobalLayoutListener(this);
                                 }
                             });
-
+                            isbattling = false;
                             AsyncTask.execute(() -> {
                                 AppDatabase db = AppDatabase.getInstance(getApplicationContext());
                                 Journey temp = db.journeyDao().getJourney().get(0);
@@ -2206,6 +2298,80 @@ public class MainActivity extends AppCompatActivity {
                 battleAnimation.start();
     }
 
+    /**
+     * fetch the Uri of the media
+     * @param mediaName name of the media
+     * @return Uri of the media
+     */
+    private Uri getMedia(String mediaName) {
+        if (URLUtil.isValidUrl(mediaName)) {
+            // media name is an external URL
+            return Uri.parse(mediaName);
+        } else { // media name is a raw resource embedded in the app
+            return Uri.parse("android.resource://" + getPackageName() +
+                    "/raw/" + mediaName);
+        }
+    }
+
+    /**
+     * start our video
+     */
+    public void startVideo(View v){
+//        LayoutInflater confirminflater = (LayoutInflater)
+//                getSystemService(LAYOUT_INFLATER_SERVICE);
+//        assert confirminflater != null;
+//        View videoView = confirminflater.inflate(R.layout.video_view,findViewById(R.id.parent), false);
+//        int width2 = FrameLayout.LayoutParams.MATCH_PARENT;
+//        int height2 = FrameLayout.LayoutParams.MATCH_PARENT;
+//        final PopupWindow confirmWindow = new PopupWindow(videoView, width2, height2, true);
+//        confirmWindow.showAtLocation(findViewById(R.id.placeholder), Gravity.CENTER, 0, 0);
+//
+//        confirmWindow.setOnDismissListener(()->{
+//            if(v == null){
+//                aboutPopup();
+//            }
+//        });
+//
+//        VideoView mVideoView = videoView.findViewById(R.id.videoview);
+//        Toast.makeText(this,"prepared", Toast.LENGTH_SHORT).show();
+//        Uri videoUri = getMedia(VIDEO_SAMPLE);
+//        mVideoView.setVideoURI(videoUri);
+//
+//        mVideoView.setOnCompletionListener(mediaPlayer -> {
+//            confirmWindow.dismiss();
+//            if(!isplaying){
+//                music.start();
+//            }
+//        });
+//        mVideoView.setOnPreparedListener(mediaPlayer -> {
+//            if(!isplaying){
+//                music.pause();
+//            }
+//            else{
+//                mediaPlayer.setVolume(0f,0f);
+//            }
+//            mVideoView.start();
+//
+//        });
+//        mVideoView.setOnClickListener((view) -> {
+//            confirmWindow.dismiss();
+//            if(!isplaying){
+//                music.start();
+//            }
+//        });
+//        mVideoView.requestFocus();
+        music.release();
+        offlineService = true;
+        Intent intent = new Intent(this, VideoPlayer.class);
+        startActivity(intent);
+        AsyncTask.execute(()->{
+            AppDatabase db = AppDatabase.getInstance(getApplicationContext());
+            Journey temp = db.journeyDao().getJourney().get(0);
+            temp.setShowabout(true);
+            db.journeyDao().update(temp);
+        });
+    }
+
     //resume our activity
     static private class AsyncResume extends AsyncTask<String,TextView,String>{
         // Weak references will still allow the Activity to be garbage-collected
@@ -2216,7 +2382,6 @@ public class MainActivity extends AppCompatActivity {
         }
         private int eventtype;
         private long storysteps, eventsteps;
-        private boolean isEventreached = false;
         private long matchsteps;
         private String message;
         private String monstername;
@@ -2236,7 +2401,7 @@ public class MainActivity extends AppCompatActivity {
             }else{
                 stepsneeded = temp.getEventsteps();
             }
-            isEventreached = temp.isEventreached();
+            boolean isEventreached = temp.isEventreached();
             eventsteps = temp.getEventsteps();
             message = event + stepsneeded;
             eventtype = temp.getEventtype();
@@ -2266,6 +2431,7 @@ public class MainActivity extends AppCompatActivity {
                 MainActivity mainActivity = (MainActivity) weakActivity.get();
                 if(!aboutshowed){
                     mainActivity.aboutPopup();
+                    mainActivity.startVideo(null);
                 }
                 TextView TvSteps = weakActivity.get().findViewById(R.id.tv_steps);
                 //TextView MonsterName = weakActivity.get().findViewById(R.id.monster_name);
@@ -2376,13 +2542,13 @@ public class MainActivity extends AppCompatActivity {
 
     static private class HatchedInfo extends AsyncTask<String,TextView,String> {
         private int arrayid;
-        private View viewid;
+        //private View viewid;
         // Weak references will still allow the Activity to be garbage-collected
         private final WeakReference<Activity> weakActivity;
 
-        public HatchedInfo(Activity myActivity, View viewid){
+        public HatchedInfo(Activity myActivity){
             this.weakActivity = new WeakReference<>(myActivity);
-            this.viewid = viewid;
+            //this.viewid = viewid;
         }
 
         @Override
@@ -2396,11 +2562,12 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
             @StyleableRes int index = 4;
+            MainActivity activity = (MainActivity) weakActivity.get();
             TypedArray array = weakActivity.get().getApplicationContext().getResources().obtainTypedArray(arrayid);
             int resource = array.getResourceId(index,R.drawable.egg_idle);
             array.recycle();
-
-            ImageView infoView = viewid.findViewById(R.id.monster_popup_icon);
+            ImageView infoView = activity.hatchedView.findViewById(R.id.monster_popup_icon);
+            //ImageView infoView = viewid.findViewById(R.id.monster_popup_icon);
             infoView.setBackgroundResource(resource);
             AnimationDrawable infoanimator = (AnimationDrawable) infoView.getBackground();
             infoanimator.start();
@@ -2432,6 +2599,7 @@ public class MainActivity extends AppCompatActivity {
             if(hatched){
                 MainActivity mainActivity = (MainActivity) weakActivity.get();
                 mainActivity.music.release();
+                mainActivity.offlineService = true;
                 Intent intent;
                 switch(toStart){
                     case 1:
@@ -2489,7 +2657,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * AsyncTask to start the care
+     * AsyncTask to start the monster
      */
     static private class DisplayMonster extends AsyncTask<String,TextView,String> {
         private int arrayid;
@@ -2669,7 +2837,7 @@ public class MainActivity extends AppCompatActivity {
         LayoutInflater confirminflater = (LayoutInflater)
                 getSystemService(LAYOUT_INFLATER_SERVICE);
         assert confirminflater != null;
-        View confirmView = confirminflater.inflate(R.layout.confirm_popup, null);
+        View confirmView = confirminflater.inflate(R.layout.confirm_popup,findViewById(R.id.parent), false);
         int width2 = ConstraintLayout.LayoutParams.MATCH_PARENT;
         int height2 = ConstraintLayout.LayoutParams.MATCH_PARENT;
         final PopupWindow confirmWindow = new PopupWindow(confirmView, width2, height2, true);
@@ -2819,6 +2987,17 @@ public class MainActivity extends AppCompatActivity {
             }
 
 
+        }
+    }
+
+    /**
+     * broadcast receiver for handling events
+     */
+    public class StepReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            handleEvent();
         }
     }
 }

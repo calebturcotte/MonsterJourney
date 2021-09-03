@@ -21,14 +21,17 @@ import androidx.annotation.StyleableRes;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+
 import java.util.List;
+import java.util.Objects;
 
 public class ForeGroundService extends Service implements SensorEventListener, StepListener {
     public static final String
             STEP_COUNT = "steps_counted",
             EVENT_TYPE = "event_type",
             ACTION_BROADCAST = ForeGroundService.class.getName() + "Broadcast",
-            CHANNEL_ID = "ForegroundServiceChannel";
+            CHANNEL_ID = "ForegroundServiceChannel",
+            CHANNEL_ID2 = "EventNotificationChannel";
     private StepDetector simpleStepDetector;
     private long steps, evolvesteps;
     private long eventsteps;
@@ -44,8 +47,42 @@ public class ForeGroundService extends Service implements SensorEventListener, S
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-
-
+//        if (Objects.equals(intent.getAction(), "StopService")) {
+//            //Toast.makeText(this,"stopped", Toast.LENGTH_SHORT).show();
+//            //end the service service
+//            stopForeground(true);
+//            //stopSelfResult(startId);
+//            stopSelf();
+//            //return START_NOT_STICKY;
+//        }
+        //call startforeground first
+        createNotificationChannel(CHANNEL_ID, getText(R.string.channel_name), getString(R.string.contentext));
+        createNotificationChannel(CHANNEL_ID2, getText(R.string.channel2_name), getString(R.string.channel_description));
+        Intent notificationIntent = new Intent(this, MainActivity.class);
+        pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
+        Notification notification;
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            notification =
+                    new Notification.Builder(this, CHANNEL_ID)
+                            .setContentTitle(getText(R.string.contenttitle))
+                            .setContentText(getText(R.string.contentext))
+                            .setSmallIcon(R.drawable.ic_notification_logo)
+                            .setTicker(getText(R.string.contentext))
+                            .setOngoing(false)
+                            .setContentIntent(pendingIntent)
+                            .build();
+        }
+        else{
+            notification = new NotificationCompat.Builder(this,CHANNEL_ID)
+                    .setContentTitle(getText(R.string.contenttitle))
+                    .setContentText(getText(R.string.contentext))
+                    .setSmallIcon(R.drawable.ic_notification_logo)
+                    .setTicker(getText(R.string.contentext))
+                    .setOngoing(false)
+                    .setContentIntent(pendingIntent)
+                    .build();
+        }
+        startForeground(1, notification);
 
         // Get an instance of the SensorManager
         SensorManager sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
@@ -64,39 +101,12 @@ public class ForeGroundService extends Service implements SensorEventListener, S
             eventreached = temp.isEventreached();
         });
 
-
-
-        createNotificationChannel(CHANNEL_ID, getText(R.string.channel_name));
-        Intent notificationIntent = new Intent(this, MainActivity.class);
-        pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
-//        Notification notification;
-//        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-//            notification =
-//                    new Notification.Builder(this, CHANNEL_ID)
-//                            .setContentTitle(getText(R.string.channel_name))
-//                            .setContentText(getText(R.string.channel_description))
-//                            .setSmallIcon(R.drawable.ic_launcher_background)
-//                            .setTicker(getText(R.string.channel_description))
-//                            .setOngoing(false)
-//                            .build();
-//        }
-//        else{
-//            notification = new NotificationCompat.Builder(this,CHANNEL_ID)
-//                    .setContentTitle(getText(R.string.channel_name))
-//                    .setContentText(getText(R.string.channel_description))
-//                    .setSmallIcon(R.drawable.ic_launcher_background)
-//                    .setTicker(getText(R.string.channel_description))
-//                    .setOngoing(false)
-//                    .build();
-//        }
-
-
         // Notification ID cannot be 0.
         sensorManager.registerListener(this, accel, SensorManager.SENSOR_DELAY_FASTEST);
-        //startForeground(1, notification);
+
         //do heavy work on a background thread
         //stopSelf();
-        return START_NOT_STICKY;
+        return START_STICKY;
     }
     @Override
     public void onDestroy() {
@@ -108,12 +118,12 @@ public class ForeGroundService extends Service implements SensorEventListener, S
         return null;
     }
 
-    private void createNotificationChannel(String channel_id, CharSequence channel_name) {
+    private void createNotificationChannel(String channel_id, CharSequence channel_name, String description) {
         // Create the NotificationChannel, but only on API 26+ because
         // the NotificationChannel class is new and not in the support library
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            String description = getString(R.string.channel_description);
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            //description = getString(R.string.channel_description);
+            int importance = NotificationManager.IMPORTANCE_NONE;
             NotificationChannel channel = new NotificationChannel(channel_id, channel_name, importance);
             channel.setDescription(description);
             // Register the channel with the system; you can't change the importance
@@ -266,7 +276,7 @@ public class ForeGroundService extends Service implements SensorEventListener, S
         array.recycle();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             Notification notification =
-                    new Notification.Builder(this, CHANNEL_ID)
+                    new Notification.Builder(this, CHANNEL_ID2)
                             .setContentTitle(contenttitle)
                             .setContentText(contenttext)
                             .setSmallIcon(resource)
@@ -280,7 +290,7 @@ public class ForeGroundService extends Service implements SensorEventListener, S
         } else {
             //a notification requires a channelid type for newer operating systems and its own notification id
             Notification notification =
-                    new NotificationCompat.Builder(this, CHANNEL_ID)
+                    new NotificationCompat.Builder(this, CHANNEL_ID2)
                             .setContentTitle(contenttitle)
                             .setContentText(contenttext)
                             .setSmallIcon(resource)

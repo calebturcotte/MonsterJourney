@@ -84,7 +84,8 @@
         app:layout_constraintWidth_percent="0.73"
         android:gravity="center"
         app:layout_constraintBottom_toBottomOf="@id/horizontalguideline3"
-        app:layout_constraintEnd_toEndOf="@id/verticaliconguideline"/>
+        app:layout_constraintEnd_toEndOf="@id/verticaliconguideline"
+        android:contentDescription="@string/border" />
 
     <TextView
         android:background="@drawable/ic_picker_background"

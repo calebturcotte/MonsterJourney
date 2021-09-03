@@ -1,19 +1,9 @@
 package com.application.monsterjourney;
 
-import android.app.IntentService;
-import android.app.Notification;
-import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.media.RingtoneManager;
-import android.net.Uri;
 import android.os.AsyncTask;
-import android.widget.Toast;
-
-import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
-
 import java.util.List;
 
 public class HungerService extends BroadcastReceiver {
@@ -53,12 +43,9 @@ public class HungerService extends BroadcastReceiver {
         AsyncTask.execute(()->{
             AppDatabase db = AppDatabase.getInstance(context);
             List<Monster> monsterList = db.journeyDao().getMonster();
-            for(Monster monster : monsterList){
-                monster.dayPassed();
-            }
+            monsterList.get(0).dayPassed();
             db.journeyDao().updateMonster(monsterList);
         });
-        Toast.makeText(context, "hello", Toast.LENGTH_SHORT).show();
         //Toast.makeText(context, "alarm", Toast.LENGTH_SHORT).show();
     }
 

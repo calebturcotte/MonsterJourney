@@ -236,15 +236,21 @@
 
     <!-- our banner ad view, adUnitId saved in repository will be the
     default test ID-->
-    <com.google.android.gms.ads.AdView
+<!--    <com.google.android.gms.ads.AdView-->
+<!--        android:layout_weight="1"-->
+<!--        xmlns:ads="http://schemas.android.com/apk/res-auto"-->
+<!--        android:id="@+id/adView"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="0dp"-->
+<!--        ads:adSize="SMART_BANNER"-->
+<!--        ads:adUnitId="ca-app-pub-3940256099942544/6300978111">-->
+<!--    </com.google.android.gms.ads.AdView>-->
+
+    <com.appodeal.ads.BannerView
         android:layout_weight="1"
-        xmlns:ads="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/adView"
+        android:id="@+id/appodealBannerView"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        ads:adSize="SMART_BANNER"
-        ads:adUnitId="ca-app-pub-3940256099942544/6300978111">
-    </com.google.android.gms.ads.AdView>
+        android:layout_height="0dp" />
 
 
 </LinearLayout>

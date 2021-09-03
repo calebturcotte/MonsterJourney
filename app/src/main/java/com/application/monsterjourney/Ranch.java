@@ -26,6 +26,8 @@ import androidx.annotation.StyleableRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
+
+import com.appodeal.ads.Appodeal;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
@@ -39,8 +41,9 @@ public class Ranch extends AppCompatActivity {
     private ImageView imageView, imageView2, imageView3, imageView4, imageView5;
     private View eggconfirmView, home;
     private List<RanchContainer> ranchContainerList;
-    private boolean isplaying;
+    private boolean isplaying, isbought;
     private MediaPlayer music;
+    private View banner;
 
     private Button backbutton;
     private TimeAnimator monsterwalk;
@@ -56,15 +59,17 @@ public class Ranch extends AppCompatActivity {
         setContentView(R.layout.activity_party);
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
         currentmonster = 0;
+        Appodeal.initialize(this, MainActivity.APP_ID, Appodeal.BANNER, false);
 
 
         final FrameLayout frmlayout = findViewById(R.id.placeholder);
         LayoutInflater aboutinflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
         assert aboutinflater != null;
         home = aboutinflater.inflate(R.layout.ranch_screen, (ViewGroup)null);
-        boolean isbought = settings.getBoolean("isbought", false);
-        AdView mAdView = findViewById(R.id.adView);
+        isbought = settings.getBoolean("isbought", false);
+        //AdView mAdView = findViewById(R.id.adView);
         Activity mainActivity = this;
+        banner = findViewById(R.id.appodealBannerView);
 
         frmlayout.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
@@ -90,15 +95,20 @@ public class Ranch extends AppCompatActivity {
                 });
 
                 if(!isbought){
-                    MobileAds.initialize(getApplicationContext(), initializationStatus -> {
-                    });
+                    Appodeal.setBannerViewId(R.id.appodealBannerView);
+                    Appodeal.set728x90Banners(true);
+                    Appodeal.show(mainActivity, Appodeal.BANNER_VIEW);
+//                    MobileAds.initialize(getApplicationContext(), initializationStatus -> {
+//                    });
+//
+//                    AdRequest adRequest = new AdRequest.Builder().build();
+//                    mAdView.loadAd(adRequest);
 
-                    AdRequest adRequest = new AdRequest.Builder().build();
-                    mAdView.loadAd(adRequest);
                 }
                 else{
-                    mAdView.pause();
-                    mAdView.setVisibility(View.GONE);
+//                    mAdView.pause();
+//                    mAdView.setVisibility(View.GONE);
+                    banner.setVisibility(View.GONE);
                 }
 
                 DisplayMonsters runner = new DisplayMonsters(mainActivity);
@@ -123,11 +133,18 @@ public class Ranch extends AppCompatActivity {
         //music.prepareAsync();
 
         if(!isplaying)music.start();
+
+        if(!isbought){
+            Appodeal.show(this, Appodeal.BANNER_VIEW);
+        }
     }
 
     @Override
     protected void onPause() {
         music.release();
+        if(!isbought){
+            Appodeal.hide(this, Appodeal.BANNER_VIEW);
+        }
         super.onPause();
     }
 

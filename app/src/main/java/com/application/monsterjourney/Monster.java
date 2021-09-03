@@ -151,7 +151,7 @@ public class Monster {
      */
     public void dayPassed(){
         hunger = hunger - 2;
-        if(hunger <0){
+        if(hunger < 0){
             hunger = 0;
         }
         if(diligence > 0){

@@ -8,7 +8,7 @@
         android:id="@+id/popup"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintHeight_percent="0.35"
+        app:layout_constraintHeight_percent="0.40"
         app:layout_constraintWidth_percent="0.8"
         android:background="@drawable/ic_popup_background"
         app:layout_constraintStart_toStartOf="@id/verticalguideline"
@@ -103,6 +103,26 @@
 
                     <androidx.appcompat.widget.SwitchCompat
                         android:id="@+id/pedometerswitch"
+                        android:layout_width="0dp"
+                        android:gravity="center"
+                        android:layout_weight="0.4"
+                        android:layout_height="50dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="0.6"
+                        android:gravity="center"
+                        android:layout_height="50dp"
+                        android:textSize="15sp"
+                        android:text="@string/playvideo"/>
+
+                    <Button
+                        android:id="@+id/videobutton"
+                        android:background="@drawable/ic_button_video"
                         android:layout_width="0dp"
                         android:gravity="center"
                         android:layout_weight="0.4"
